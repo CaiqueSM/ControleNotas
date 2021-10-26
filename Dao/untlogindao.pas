@@ -32,10 +32,11 @@ begin
   try
     query.ParamByName('usuario').AsString := AUsuario;
     query.ParamByName('senha').AsString := ASenha;
+
+    Result := TUsuarioModel.Create();
     try
       query.Open;
 
-      Result := TUsuarioModel.Create();
       Result.Id := query.FieldByName('id').AsInteger;
       Result.Nome := query.FieldByName('nome').AsString;
       Result.Senha := query.FieldByName('senha').AsString;

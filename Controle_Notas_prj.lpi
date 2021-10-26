@@ -11,7 +11,6 @@
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
-        <DpiAware Value="True"/>
         <TextDesc Value="Sistema para o controle de notas fiscais"/>
       </XPManifest>
       <Icon Value="0"/>
@@ -116,7 +115,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="Controle_Notas_prj"/>
+      <Filename Value="bin\Controle_Notas_prj"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
