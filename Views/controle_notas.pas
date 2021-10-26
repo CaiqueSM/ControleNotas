@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, MaskEdit,
-  MySQL4, RegExpr, sha1, UntLoginController;
+  UntLoginController;
 
 type
 
@@ -15,7 +15,6 @@ type
   TfrmLogin = class(TForm)
     btacessar: TButton;
     btsair: TButton;
-    cbcadastrar: TCheckBox;
     gbautenticacao: TGroupBox;
     lbsenha: TLabel;
     lbusuario: TLabel;
@@ -56,7 +55,8 @@ begin
 
   if not FController.ValidarUsuario(AUsuario) then
   begin
-    ShowMessage('Nome usuário inválido. Use apenas números e letras!');
+    ShowMessage('Nome usuário inválido!');
+
     if txtusuario.CanFocus then
       txtusuario.SetFocus;
     exit();
@@ -64,7 +64,8 @@ begin
 
   if not FController.ValidarSenha(ASenha) then
   begin
-    ShowMessage('A senha deve ter no mínimo 4 digitos!');
+    ShowMessage('Senha inválida!');
+
     if txtsenha.CanFocus then
       txtsenha.SetFocus;
     exit();
@@ -74,64 +75,9 @@ begin
 end;
 
 procedure TfrmLogin.btacessarClick(Sender: TObject);
-//var
-//  criptoTexto: TSHA1Digest;
-//  resultado: integer;
-//  shaTexto, query: string;
-//  buffer: pmysql_res;
 begin
   if not ValidarLogin(txtusuario.Text, txtsenha.Text) then
     Exit();
-
-  //begin
-  //  criptoTexto := SHA1String(txtsenha.Text);
-  //  shaTexto := SHA1print(criptoTexto);
-  //end;
-
-  //if mysqlsock <> nil then
-  //  mysql_close(mysqlsock);
-
-  //mySQLsock := mysql_real_connect(mysql_init(pmysql(@mysqlq)),
-  //  PChar('localhost'), PChar('root'), '', PChar('nota_fiscal'), 0, nil, 0);
-
-  //if mySQLSock = nil then
-  //begin
-  //  ShowMessage('Conexão ao servidor falhou.');
-  //  ShowMessage('O erro foi:' + strPas(mysql_error(@mysqlq)));
-  //end;// else showmessage('Conetado ao servidor.');
-
-  //if cbcadastrar.Checked then
-  //begin
-  //  query := 'insert into usuario(nome_usuario, senha) values(' +
-  //    '"' + txtusuario.Text + '"' + ',' + '"' + shaTexto + '"' + ')';
-  //  resultado := mysql_query(mySQlsock, PChar(query));
-  //  if resultado = 0 then
-  //    ShowMessage('Usuário cadastrado com sucesso!')
-  //  else
-  //    ShowMessage('Não é possível cadastrar usuário, este nome já está em uso!');
-  //end;
-
-  //query := 'select nome_usuario, senha from usuario where nome_usuario = ' +
-  //  '"' + txtusuario.Text + '"';
-  //resultado := mysql_query(mySQLsock, PChar(query));
-  //if resultado <> 0 then
-  //begin
-  //  ShowMessage('Query Falhou' + strpas(mysql_error(mySQLsock)));
-  //  raise(Exception.Create('Query falhou.'));
-  //end
-  //else
-  //begin
-  //  buffer := mysql_Store_result(mysqlsock);
-  //  if buffer <> nil then
-  //  begin
-  //    //querybuffer:= mysql_fetch_fields(buffer)[0];
-  //    //if Autenticar(txtusuario.text,mysql_fetch_field(buffer),
-  //    //shaTexto, ''{mysql_fetch_field(buffer)[]})then
-  //    //frmNotas := TfrmNotas.Create(nil);
-  //    //frmNotas.Show;
-  //    //frmLogin.Visible := False;
-  //  end;
-  //end;
 end;
 
 procedure TfrmLogin.btsairClick(Sender: TObject);
