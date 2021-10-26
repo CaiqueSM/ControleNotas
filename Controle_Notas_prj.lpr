@@ -17,6 +17,7 @@ uses
 
 begin
   RequireDerivedFormResource:=True;
+  Application.Title:='Controle de notas fiscais';
   Application.Scaled:=True;
   Application.Initialize;
   Application.CreateForm(TfrmMenu, frmMenu);

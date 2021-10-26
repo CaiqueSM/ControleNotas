@@ -30,10 +30,12 @@
         <ComponentName Value="frmLogin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="4"/>
-        <CursorPos Y="48"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="37"/>
+        <CursorPos X="69" Y="53"/>
         <UsageCount Value="34"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="Views\untmenu.pas"/>
@@ -42,6 +44,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UntMenu"/>
+        <TopLine Value="45"/>
         <CursorPos X="11" Y="9"/>
         <UsageCount Value="34"/>
         <Bookmarks Count="1">
@@ -72,30 +75,25 @@
         <Filename Value="Dao\untlogindao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntLoginDao"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="42" Y="13"/>
         <UsageCount Value="31"/>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="Dao\untbasedao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntBaseDao"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="49" Y="8"/>
         <UsageCount Value="31"/>
-        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="Dao\untconexao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntConexao"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="22"/>
-        <CursorPos X="40" Y="36"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="39" Y="46"/>
         <UsageCount Value="31"/>
-        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
@@ -284,63 +282,19 @@
         <UsageCount Value="10"/>
       </Unit32>
     </Units>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="3" HistoryIndex="2">
       <Position1>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="16" Column="59" TopLine="4"/>
+        <Filename Value="Views\untmenu.pas"/>
+        <Caret Line="43" Column="3" TopLine="30"/>
       </Position1>
       <Position2>
         <Filename Value="Views\untmenu.pas"/>
-        <Caret Line="43" Column="3" TopLine="30"/>
+        <Caret Line="22" Column="18" TopLine="10"/>
       </Position2>
       <Position3>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="46" Column="60" TopLine="52"/>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="69" Column="49" TopLine="62"/>
       </Position3>
-      <Position4>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="40" Column="36" TopLine="28"/>
-      </Position4>
-      <Position5>
-        <Filename Value="Views\untmenu.pas"/>
-        <Caret Line="17" Column="32" TopLine="22"/>
-      </Position5>
-      <Position6>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="36" Column="46" TopLine="19"/>
-      </Position6>
-      <Position7>
-        <Filename Value="Views\untmenu.pas"/>
-        <Caret Line="17" Column="32" TopLine="22"/>
-      </Position7>
-      <Position8>
-        <Filename Value="Views\untmenu.pas"/>
-        <Caret Line="22" Column="18" TopLine="10"/>
-      </Position8>
-      <Position9>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="34" Column="44" TopLine="19"/>
-      </Position9>
-      <Position10>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="20" Column="54" TopLine="20"/>
-      </Position10>
-      <Position11>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="38" Column="27" TopLine="31"/>
-      </Position11>
-      <Position12>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="8" Column="49"/>
-      </Position12>
-      <Position13>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="36" Column="49" TopLine="19"/>
-      </Position13>
-      <Position14>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="34" Column="46" TopLine="19"/>
-      </Position14>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
