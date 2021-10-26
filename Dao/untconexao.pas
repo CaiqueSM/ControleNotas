@@ -5,7 +5,7 @@ unit UntConexao;
 interface
 
 uses
-  Classes, SysUtils, mysql57conn, sqldb;
+  Classes, SysUtils, mysql40conn, sqldb;
 
 type
 
@@ -13,16 +13,16 @@ type
 
   TConexao = class
   private
-    FDatabase: TMySQL57Connection;
+    FDatabase: TMySQL40Connection;
     FTransaction: TSQLTransaction;
 
-    function CreateDatabase(): TMySQL57Connection;
-    function CreateTransaction(ADatabase: TMySQL57Connection): TSQLTransaction;
+    function CreateDatabase(): TMySQL40Connection;
+    function CreateTransaction(ADatabase: TMySQL40Connection): TSQLTransaction;
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    property Database: TMySQL57Connection read FDatabase;
+    property Database: TMySQL40Connection read FDatabase;
     property Transaction: TSQLTransaction read FTransaction;
   end;
 
@@ -30,9 +30,9 @@ implementation
 
 { TConexao }
 
-function TConexao.CreateDatabase(): TMySQL57Connection;
+function TConexao.CreateDatabase(): TMySQL40Connection;
 begin
-  Result := TMySQL57Connection.Create(nil);
+  Result := TMySQL40Connection.Create(nil);
 
   Result.HostName := 'localhost';
   Result.UserName := 'root';
@@ -43,7 +43,7 @@ begin
   Result.LoginPrompt := False;
 end;
 
-function TConexao.CreateTransaction(ADatabase: TMySQL57Connection): TSQLTransaction;
+function TConexao.CreateTransaction(ADatabase: TMySQL40Connection): TSQLTransaction;
 begin
   Result := TSQLTransaction.Create(nil);
 

@@ -1,4 +1,4 @@
-create DATABASE if not EXISTS nota_fiscal;
+create DATABASE if not EXISTS notaFiscal;
 
 use notaFiscal;
 
@@ -14,19 +14,19 @@ chave_acesso VARCHAR(44) NOT NULL,
 codigo INTEGER NOT NULL,
 descricao VARCHAR(140) NOT NULL,
 valor DECIMAL,
-id INTEGER REFERENCES usuario 
+idUsuario INTEGER REFERENCES usuario 
 );
 
 create table if not EXISTS fornecedor(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
 CNPJ_CPF VARCHAR(14) NOT NULL,
-nome_fornecedor VARCHAR(80)
+nomeFornecedor VARCHAR(80)
 );
 
 create table if not EXISTS cliente(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
-CNPJ_CPF VARCHAR(14) NOT NULL PRIMARY KEY,
-nome_cliente VARCHAR(80)
+CNPJ_CPF VARCHAR(14) NOT NULL,
+nomeCliente VARCHAR(80)
 );
 
 create table if not EXISTS contato(
@@ -42,11 +42,11 @@ complemento VARCHAR(64)
 create table if not EXISTS email(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
 enderecoEmail VARCHAR(64) NOT NULL,
-id integer NULL REFERENCES contato
+idContato integer NULL REFERENCES contato
 );
 
 create table if not EXISTS telefone(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
 numerotelefone VARCHAR(11) NOT NULL,
-id integer NOT NULL REFERENCES contato
+idContato integer NOT NULL REFERENCES contato
 );
