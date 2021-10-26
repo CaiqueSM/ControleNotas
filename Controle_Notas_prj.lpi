@@ -39,6 +39,7 @@
         <Filename Value="Views\consulta_notas.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmNotas"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
       <Unit2>
@@ -51,7 +52,7 @@
       <Unit3>
         <Filename Value="Views\untmenu.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="FrmMenu"/>
+        <ComponentName Value="frmMenu"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UntMenu"/>

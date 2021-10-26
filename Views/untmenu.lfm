@@ -1,4 +1,4 @@
-object FrmMenu: TFrmMenu
+object frmMenu: TfrmMenu
   Left = 230
   Height = 527
   Top = 106
@@ -19,6 +19,7 @@ object FrmMenu: TFrmMenu
       Caption = 'Consultas'
       object itemConsultaNotas: TMenuItem
         Caption = 'Notas'
+        OnClick = itemConsultaNotasClick
       end
     end
   end

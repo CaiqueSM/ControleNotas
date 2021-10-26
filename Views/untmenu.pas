@@ -9,14 +9,15 @@ uses
 
 type
 
-  { TFrmMenu }
+  { TfrmMenu }
 
-  TFrmMenu = class(TForm)
+  TfrmMenu = class(TForm)
     mainMenu: TMainMenu;
     itemConsulta: TMenuItem;
     itemConsultaNotas: TMenuItem;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure itemConsultaNotasClick(Sender: TObject);
   private
     FController: TMenuController;
   public
@@ -24,20 +25,28 @@ type
   end;
 
 var
-  FrmMenu: TFrmMenu;
+  frmMenu: TfrmMenu;
 
 implementation
 
+uses
+  consulta_notas;
+
 {$R *.lfm}
 
-{ TFrmMenu }
+{ TfrmMenu }
 
-procedure TFrmMenu.FormCreate(Sender: TObject);
+procedure TfrmMenu.FormCreate(Sender: TObject);
 begin
   FController := TMenuController.Create();
 end;
 
-procedure TFrmMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TfrmMenu.itemConsultaNotasClick(Sender: TObject);
+begin
+  FController.AbrirTelaFilha(Self, TfrmNotas, frmNotas);
+end;
+
+procedure TfrmMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   FController.Free;
   CloseAction := caFree;

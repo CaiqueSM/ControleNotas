@@ -19,7 +19,7 @@ begin
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
-  Application.CreateForm(TFrmMenu, FrmMenu);
+  Application.CreateForm(TfrmMenu, frmMenu);
   Application.Run;
 end.
 

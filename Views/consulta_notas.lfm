@@ -1,12 +1,13 @@
 object frmNotas: TfrmNotas
-  Left = 60
-  Height = 351
-  Top = 179
+  Left = 270
+  Height = 162
+  Top = 197
   Width = 675
-  Caption = 'Controle Notas'
-  ClientHeight = 351
+  BorderStyle = bsSingle
+  Caption = 'Consultar notas ficais'
+  ClientHeight = 162
   ClientWidth = 675
-  LCLVersion = '2.0.4.0'
+  LCLVersion = '2.0.12.0'
   object GroupBox1: TGroupBox
     Left = 16
     Height = 136
@@ -24,12 +25,12 @@ object frmNotas: TfrmNotas
       TabOrder = 0
     end
     object Button1: TButton
-      Left = 8
+      Left = 552
       Height = 25
       Top = 80
       Width = 75
       Caption = 'Consultar'
-      TabOrder = 1
+      TabOrder = 2
     end
     object Label1: TLabel
       Left = 8
@@ -40,12 +41,12 @@ object frmNotas: TfrmNotas
       ParentColor = False
     end
     object Button2: TButton
-      Left = 557
+      Left = 472
       Height = 25
       Top = 80
       Width = 75
       Caption = 'Cancelar'
-      TabOrder = 2
+      TabOrder = 1
     end
   end
 end
