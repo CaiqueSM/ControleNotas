@@ -30,7 +30,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="7">
+    <Units Count="10">
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -72,6 +72,21 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntLoginDao"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="Dao\untbasedao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntBaseDao"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="Dao\untconexao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntConexao"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntValidarLogin"/>
+      </Unit9>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -82,7 +97,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Views;Controller;Dao"/>
+      <OtherUnitFiles Value="Views;Controller;Dao;Controller\Validacao"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

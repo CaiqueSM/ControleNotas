@@ -5,7 +5,8 @@ unit UntLoginController;
 interface
 
 uses
-  Classes, SysUtils, RegExpr, sha1, UntLoginDao;
+  Classes, SysUtils, RegExpr, sha1, UntLoginDao, UntValidarLogin,
+  UntConexao;
 
 type
 
@@ -13,10 +14,15 @@ type
 
   TLoginController = class
   private
+    FConexao: TConexao;
     FDao: TLoginDao;
+    FValidar: TValidarLogin;
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
+
+    function ValidarUsuario(AUsuario: String): boolean;
+    function ValidarSenha(ASenha: String): boolean;
 
     function Autenticar(nomeLocal, nomeVisitante: string;
       senhaLocal, senhaVisitante: string): boolean;
@@ -28,13 +34,26 @@ implementation
 
 constructor TLoginController.Create();
 begin
-  FDao := TLoginDao.Create();
+  FConexao := TConexao.Create();
+  FDao := TLoginDao.Create(FConexao);
+  FValidar := TValidarLogin.Create();
 end;
 
 destructor TLoginController.Destroy();
 begin
   FDao.Free;
+  FValidar.Free;
   inherited Destroy();
+end;
+
+function TLoginController.ValidarUsuario(AUsuario: String): boolean;
+begin
+  result := FValidar.ValidarUsuario(AUsuario);
+end;
+
+function TLoginController.ValidarSenha(ASenha: String): boolean;
+begin
+  result := FValidar.ValidarSenhaUsuario(ASenha);
 end;
 
 function TLoginController.Autenticar(nomeLocal, nomeVisitante: string;

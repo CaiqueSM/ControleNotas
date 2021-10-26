@@ -27,23 +27,51 @@ type
     procedure FormCreate(Sender: TObject);
   private
     FController: TLoginController;
+    function ValidarLogin(AUsuario, ASenha: String): boolean;
   end;
 
 var
   frmLogin: TfrmLogin;
   mySQLSock: pmysql;
   mysqlq: tmysql;
-  Padrao: TRegExpr;
-
-const
-  email = '/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i';
-  nome = '\s?[a-zA-Z_]{1,80}[\w]{0,79}';
 
 implementation
 
 {$R *.lfm}
 
 { TfrmLogin }
+
+procedure TfrmLogin.FormCreate(Sender: TObject);
+begin
+  FController := TLoginController.Create();
+end;
+
+procedure TfrmLogin.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  FController.Free;
+  CloseAction := caFree;
+end;
+
+function TfrmLogin.ValidarLogin(AUsuario, ASenha: String): boolean;
+begin
+  Result := False;
+
+  if not FController.ValidarUsuario(AUsuario) then
+    begin
+      ShowMessage('Nome usuário inválido. Use apenas números e letras!');
+      if txtusuario.CanFocus Then txtusuario.SetFocus;
+      exit();
+    end;
+
+  if not FController.ValidarSenha(ASenha) then
+  begin
+    ShowMessage('A senha deve ter no mínimo 4 digitos!');
+    if txtsenha.CanFocus Then txtsenha.SetFocus;
+    exit();
+  end;
+
+  Result := True;
+end;
 
 procedure TfrmLogin.btacessarClick(Sender: TObject);
 var
@@ -52,22 +80,8 @@ var
   shaTexto, query: string;
   buffer: pmysql_res;
 begin
+  if not ValidarLogin(txtusuario.Text, txtsenha.Text) then Exit();
 
-  //verifica se nome e senha são validos.
-  Padrao := TRegExpr.Create;
-  Padrao.Expression := nome;
-  if not Padrao.Exec(txtusuario.Text) then
-  begin
-    ShowMessage('Nome usuário inválido. Use apenas números e letras!');
-    exit();
-  end;
-
-  if length(txtsenha.Text) < 4 then
-  begin
-    ShowMessage('A senha deve ter no mínimo 4 digitos!');
-    exit();
-  end
-  else
   begin
     criptoTexto := SHA1String(txtsenha.Text);
     shaTexto := SHA1print(criptoTexto);
@@ -87,8 +101,8 @@ begin
 
   if cbcadastrar.Checked then
   begin
-    query := 'insert into usuario(nome_usuario, senha) values(' + '"' + txtusuario.Text +
-      '"' + ',' + '"' + shaTexto + '"' + ')';
+    query := 'insert into usuario(nome_usuario, senha) values(' +
+      '"' + txtusuario.Text + '"' + ',' + '"' + shaTexto + '"' + ')';
     resultado := mysql_query(mySQlsock, PChar(query));
     if resultado = 0 then
       ShowMessage('Usuário cadastrado com sucesso!')
@@ -112,9 +126,9 @@ begin
       //querybuffer:= mysql_fetch_fields(buffer)[0];
       //if Autenticar(txtusuario.text,mysql_fetch_field(buffer),
       //shaTexto, ''{mysql_fetch_field(buffer)[]})then
-      frmNotas := TfrmNotas.Create(nil);
-      frmNotas.Show;
-      frmLogin.Visible := False;
+      //frmNotas := TfrmNotas.Create(nil);
+      //frmNotas.Show;
+      //frmLogin.Visible := False;
     end;
   end;
 end;
@@ -123,17 +137,6 @@ procedure TfrmLogin.btsairClick(Sender: TObject);
 begin
   mysql_close(mysqlsock);
   Close();
-end;
-
-procedure TfrmLogin.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  FController.Free;
-  CloseAction := caFree;
-end;
-
-procedure TfrmLogin.FormCreate(Sender: TObject);
-begin
-  FController := TLoginController.Create();
 end;
 
 end.
