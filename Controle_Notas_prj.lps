@@ -113,9 +113,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UntMenu"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="18"/>
-        <CursorPos X="18" Y="33"/>
+        <CursorPos X="30" Y="34"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit12>
@@ -123,9 +122,11 @@
         <Filename Value="Controller\untmenucontroller.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntMenuController"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
+        <TopLine Value="51"/>
         <CursorPos X="29" Y="6"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>

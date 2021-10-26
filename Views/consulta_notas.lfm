@@ -8,8 +8,10 @@ object frmNotas: TfrmNotas
   Caption = 'Consultar notas ficais'
   ClientHeight = 162
   ClientWidth = 675
+  FormStyle = fsMDIChild
   OnClose = FormClose
   LCLVersion = '2.0.12.0'
+  Visible = True
   object GroupBox1: TGroupBox
     Left = 16
     Height = 136
