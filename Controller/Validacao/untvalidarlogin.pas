@@ -14,8 +14,8 @@ type
   TValidarLogin = class
   public
     function ValidarUsuario(AUsuario: string): boolean;
-    function ValidarEmail(AEmail: String): boolean;
-    function ValidarSenhaUsuario(ASenha: String): boolean;
+    function ValidarEmail(AEmail: string): boolean;
+    function ValidarSenhaUsuario(ASenha: string): boolean;
   end;
 
 implementation
@@ -31,13 +31,13 @@ begin
   regex := TRegExpr.Create();
   try
     regex.Expression := padraoRegexNome;
-    result := regex.Exec(AUsuario);
+    Result := regex.Exec(AUsuario);
   finally
     regex.Free;
   end;
 end;
 
-function TValidarLogin.ValidarEmail(AEmail: String): boolean;
+function TValidarLogin.ValidarEmail(AEmail: string): boolean;
 var
   regex: TRegExpr;
   padraoRegexEmail: string;
@@ -46,17 +46,18 @@ begin
   regex := TRegExpr.Create();
   try
     regex.Expression := padraoRegexEmail;
-    result := regex.Exec(AEmail);
+    Result := regex.Exec(AEmail);
   finally
     regex.Free;
   end;
 end;
 
-function TValidarLogin.ValidarSenhaUsuario(ASenha: String): boolean;
+function TValidarLogin.ValidarSenhaUsuario(ASenha: string): boolean;
 var
-  tamanhoSenha: Integer;
+  tamanhoSenha: integer;
 begin
-  result := (length(ASenha) >= tamanhoSenha)
+  tamanhoSenha := 4;
+  Result := (length(ASenha) >= tamanhoSenha);
 end;
 
 end.
