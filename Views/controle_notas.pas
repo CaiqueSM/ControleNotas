@@ -74,11 +74,11 @@ begin
 end;
 
 procedure TfrmLogin.btacessarClick(Sender: TObject);
-var
-  criptoTexto: TSHA1Digest;
-  resultado: integer;
-  shaTexto, query: string;
-  buffer: pmysql_res;
+//var
+//  criptoTexto: TSHA1Digest;
+//  resultado: integer;
+//  shaTexto, query: string;
+//  buffer: pmysql_res;
 begin
   if not ValidarLogin(txtusuario.Text, txtsenha.Text) then
     Exit();
