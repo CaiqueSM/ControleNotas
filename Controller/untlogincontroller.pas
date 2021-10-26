@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, RegExpr, sha1, UntLoginDao, UntValidarLogin,
-  UntBaseController, UntUsuarioModel;
+  UntBaseController, UntUsuarioModel, UntEnvironment;
 
 type
 
@@ -63,6 +63,7 @@ var
 begin
   usuario := FDao.GetUsuario(AUsuario, ASenha);
   try
+    Global.Usuario := usuario.Nome;
     Result := not usuario.Nome.Trim.IsEmpty;
   finally
     usuario.Free;
