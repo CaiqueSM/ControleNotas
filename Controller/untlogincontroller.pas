@@ -18,7 +18,8 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Autenticar(nomeLocal, nomeVisitante: string; senhaLocal, senhaVisitante: string): boolean;
+    function Autenticar(nomeLocal, nomeVisitante: string;
+      senhaLocal, senhaVisitante: string): boolean;
   end;
 
 implementation
@@ -42,17 +43,17 @@ var
   ANomeLocal, ANomeVisitante: TRegExpr;
   AsenhaLocal, AsenhaVisitante: TSHA1Digest;
 begin
-  ANomeLocal:= TRegExpr.Create;
-  ANomeVisitante:= TRegExpr.Create;
+  ANomeLocal := TRegExpr.Create;
+  ANomeVisitante := TRegExpr.Create;
 
-  ANomeLocal.Expression:= nomeLocal;
-  ANomeVisitante.Expression:= nomeVisitante;
+  ANomeLocal.Expression := nomeLocal;
+  ANomeVisitante.Expression := nomeVisitante;
 
-  AsenhaLocal:= SHA1String(senhaLocal);
-  AsenhaVisitante:= SHA1String(senhaVisitante);
+  AsenhaLocal := SHA1String(senhaLocal);
+  AsenhaVisitante := SHA1String(senhaVisitante);
 
-  Result:= (ANomeLocal.Equals(ANomeVIsitante) and SHA1Match(AsenhaLocal, AsenhaVisitante));
+  Result := (ANomeLocal.Equals(ANomeVIsitante) and
+    SHA1Match(AsenhaLocal, AsenhaVisitante));
 end;
 
 end.
-

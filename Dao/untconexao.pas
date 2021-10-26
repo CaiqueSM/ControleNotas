@@ -1,14 +1,14 @@
-unit UntLoginDao;
+unit UntConexao;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, UntBaseDao;
+  Classes, SysUtils;
 
 type
-  TLoginDao = class(TBaseDao)
+  TConexao = class
   public
   end;
 
