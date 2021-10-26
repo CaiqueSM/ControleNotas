@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/lazarus
-# Edit at https://www.toptal.com/developers/gitignore?templates=lazarus
-
 ### Lazarus ###
 # Lazarus compiler-generated binaries (safe to delete)
 *.exe
@@ -33,4 +30,7 @@ lib/
 # Application bundle for Mac OS
 *.app/
 
-# End of https://www.toptal.com/developers/gitignore/api/lazarus
+####################################################################
+#Whitelist
+
+!bin/*.dll
