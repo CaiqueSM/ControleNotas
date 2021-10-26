@@ -82,10 +82,10 @@ var
 begin
   if not ValidarLogin(txtusuario.Text, txtsenha.Text) then Exit();
 
-  begin
-    criptoTexto := SHA1String(txtsenha.Text);
-    shaTexto := SHA1print(criptoTexto);
-  end;
+  //begin
+  //  criptoTexto := SHA1String(txtsenha.Text);
+  //  shaTexto := SHA1print(criptoTexto);
+  //end;
 
   if mysqlsock <> nil then
     mysql_close(mysqlsock);
@@ -93,7 +93,7 @@ begin
   mySQLsock := mysql_real_connect(mysql_init(pmysql(@mysqlq)),
     PChar('localhost'), PChar('root'), '', PChar('nota_fiscal'), 0, nil, 0);
 
-  if mysqlsock = nil then
+  if mySQLSock = nil then
   begin
     ShowMessage('Conexão ao servidor falhou.');
     ShowMessage('O erro foi:' + strPas(mysql_error(@mysqlq)));
