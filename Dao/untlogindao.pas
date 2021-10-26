@@ -35,7 +35,7 @@ begin
       query.Open;
 
       Result := TUsuarioModel.Create();
-      Result.Id := query.FieldByName('id').AsString;
+      Result.Id := query.FieldByName('id').AsInteger;
       Result.Nome := query.FieldByName('nome').AsString;
       Result.Senha := query.FieldByName('senha').AsString;
     except

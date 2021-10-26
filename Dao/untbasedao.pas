@@ -17,8 +17,6 @@ type
   public
     constructor Create(AConexao: TConexao); reintroduce;
     function CreateQuery(ASQL: string): TSQLQuery;
-
-    property Conexao: TConexao read FConexao;
   end;
 
 implementation
@@ -33,6 +31,8 @@ end;
 function TBaseDao.CreateQuery(ASQL: string): TSQLQuery;
 begin
   Result := TSQLQuery.Create(nil);
+  Result.DataBase := FConexao.Database;
+  Result.SQL.Text := ASQL.Trim;
 end;
 
 end.
