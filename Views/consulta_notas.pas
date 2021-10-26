@@ -17,6 +17,7 @@ type
     Edit1: TEdit;
     GroupBox1: TGroupBox;
     Label1: TLabel;
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
 
   public
@@ -29,6 +30,13 @@ var
 implementation
 
 {$R *.lfm}
+
+{ TfrmNotas }
+
+procedure TfrmNotas.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  CloseAction := caFree;
+end;
 
 end.
 

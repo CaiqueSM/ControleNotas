@@ -3,9 +3,9 @@ object frmMenu: TfrmMenu
   Height = 527
   Top = 106
   Width = 1087
+  BorderStyle = bsSingle
   Caption = 'Controle de notas'
-  DefaultMonitor = dmDesktop
-  FormStyle = fsMDIForm
+  DefaultMonitor = dmMainForm
   Menu = mainMenu
   OnClose = FormClose
   OnCreate = FormCreate
