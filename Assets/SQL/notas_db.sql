@@ -4,7 +4,7 @@ use notaFiscal;
 
 create table if not EXISTS usuario(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
-nome  VARCHAR(80) NOT NULL UNIQUE,
+nome  VARCHAR(80) NOT NULL,
 senha VARCHAR(256) NOT NULL
 );
 
@@ -13,7 +13,7 @@ id INTEGER PRIMARY KEY AUTO_INCREMENT,
 chaveAcesso VARCHAR(44) NOT NULL,
 codigo INTEGER NOT NULL,
 descricao VARCHAR(140) NOT NULL,
-valor DECIMAL,
+valor DECIMAL NOT NULL,
 idUsuario INTEGER REFERENCES usuario 
 );
 
