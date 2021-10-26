@@ -31,12 +31,4 @@ object frmMenu: TfrmMenu
       end
     end
   end
-  object MySQL57Connection1: TMySQL57Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    SkipLibraryVersionCheck = False
-    Left = 448
-    Top = 151
-  end
 end

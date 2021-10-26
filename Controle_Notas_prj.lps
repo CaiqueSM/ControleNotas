@@ -8,12 +8,10 @@
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="4"/>
-        <CursorPos X="60" Y="16"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="5"/>
+        <CursorPos X="36" Y="14"/>
         <UsageCount Value="55"/>
-        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="Views\consulta_notas.pas"/>
@@ -33,6 +31,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="1"/>
+        <TopLine Value="113"/>
         <CursorPos X="36" Y="14"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
@@ -115,7 +114,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UntMenu"/>
-        <CursorPos X="33" Y="9"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="41" Y="13"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -149,7 +149,7 @@
         <Filename Value="Dao\untlogindao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntLoginDao"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="10" Y="12"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -158,8 +158,8 @@
         <Filename Value="Dao\untbasedao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntBaseDao"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="12"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="10"/>
         <CursorPos X="47" Y="30"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -168,7 +168,7 @@
         <Filename Value="Dao\untconexao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntConexao"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="23"/>
         <CursorPos X="33" Y="35"/>
         <UsageCount Value="23"/>
@@ -215,7 +215,7 @@
         <Loaded Value="True"/>
       </Unit23>
     </Units>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="26" HistoryIndex="25">
       <Position1>
         <Filename Value="Views\controle_notas.pas"/>
         <Caret Line="66" Column="3" TopLine="55"/>
@@ -315,6 +315,10 @@
         <Filename Value="Controller\untbasecontroller.pas"/>
         <Caret Line="21" Column="31" TopLine="9"/>
       </Position25>
+      <Position26>
+        <Filename Value="Views\untmenu.pas"/>
+        <Caret Line="13" Column="41"/>
+      </Position26>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

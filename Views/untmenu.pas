@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus,
-  untmenucontroller, mysql57conn;
+  untmenucontroller;
 
 type
 
@@ -18,7 +18,6 @@ type
     itemConsultaNotas: TMenuItem;
     itemArquivo: TMenuItem;
     itemUsuario: TMenuItem;
-    MySQL57Connection1: TMySQL57Connection;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure itemConsultaNotasClick(Sender: TObject);
