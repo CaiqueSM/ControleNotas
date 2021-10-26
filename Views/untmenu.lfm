@@ -3,8 +3,10 @@ object frmMenu: TfrmMenu
   Height = 527
   Top = 106
   Width = 1087
+  HorzScrollBar.Page = 1
+  VertScrollBar.Page = 1
+  AutoScroll = True
   Caption = 'Controle de notas'
-  DefaultMonitor = dmMainForm
   FormStyle = fsMDIForm
   Menu = mainMenu
   OnClose = FormClose
