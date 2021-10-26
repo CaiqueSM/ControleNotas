@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, RegExpr, sha1, UntLoginDao, UntValidarLogin,
-  UntBaseController;
+  UntBaseController, UntUsuarioModel;
 
 type
 
@@ -20,8 +20,10 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function ValidarUsuario(AUsuario: String): boolean;
-    function ValidarSenha(ASenha: String): boolean;
+    function ValidarUsuario(AUsuario: string): boolean;
+    function ValidarSenha(ASenha: string): boolean;
+
+    function Logar(AUsuario, ASenha: string): boolean;
 
     function Autenticar(nomeLocal, nomeVisitante: string;
       senhaLocal, senhaVisitante: string): boolean;
@@ -45,14 +47,26 @@ begin
   inherited Destroy();
 end;
 
-function TLoginController.ValidarUsuario(AUsuario: String): boolean;
+function TLoginController.ValidarUsuario(AUsuario: string): boolean;
 begin
-  result := FValidar.ValidarUsuario(AUsuario);
+  Result := FValidar.ValidarUsuario(AUsuario);
 end;
 
-function TLoginController.ValidarSenha(ASenha: String): boolean;
+function TLoginController.ValidarSenha(ASenha: string): boolean;
 begin
-  result := FValidar.ValidarSenhaUsuario(ASenha);
+  Result := FValidar.ValidarSenhaUsuario(ASenha);
+end;
+
+function TLoginController.Logar(AUsuario, ASenha: string): boolean;
+var
+  usuario: TUsuarioModel;
+begin
+  usuario := FDao.GetUsuario(AUsuario, ASenha);
+  try
+    Result := not usuario.Nome.Trim.IsEmpty;
+  finally
+    usuario.Free;
+  end;
 end;
 
 function TLoginController.Autenticar(nomeLocal, nomeVisitante: string;

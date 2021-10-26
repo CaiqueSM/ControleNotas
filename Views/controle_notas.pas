@@ -78,6 +78,9 @@ procedure TfrmLogin.btacessarClick(Sender: TObject);
 begin
   if not ValidarLogin(txtusuario.Text, txtsenha.Text) then
     Exit();
+
+  if not FController.Logar(txtusuario.Text, txtsenha.Text) then
+    ShowMessage('Usuário ou senha incorreta!');
 end;
 
 procedure TfrmLogin.btsairClick(Sender: TObject);

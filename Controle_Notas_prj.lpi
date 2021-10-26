@@ -33,7 +33,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="11">
+    <Units Count="12">
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -95,6 +95,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntBaseController"/>
       </Unit10>
+      <Unit11>
+        <Filename Value="Model\untusuariomodel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntUsuarioModel"/>
+      </Unit11>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -105,7 +110,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Views;Controller;Dao;Controller\Validacao"/>
+      <OtherUnitFiles Value="Views;Controller;Dao;Controller\Validacao;Model"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
