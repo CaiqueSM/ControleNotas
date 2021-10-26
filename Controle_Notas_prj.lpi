@@ -13,7 +13,6 @@
       <XPManifest>
         <DpiAware Value="True"/>
       </XPManifest>
-      <Icon Value="0"/>
     </General>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -37,17 +36,15 @@
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="controle_notas.pas"/>
+        <Filename Value="Views\consulta_notas.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmLogin"/>
-        <HasResources Value="True"/>
+        <ComponentName Value="frmNotas"/>
         <ResourceBaseClass Value="Form"/>
       </Unit1>
       <Unit2>
-        <Filename Value="consulta_notas.pas"/>
+        <Filename Value="Views\controle_notas.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmNotas"/>
-        <HasResources Value="True"/>
+        <ComponentName Value="frmLogin"/>
         <ResourceBaseClass Value="Form"/>
       </Unit2>
     </Units>
@@ -60,6 +57,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="Views"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

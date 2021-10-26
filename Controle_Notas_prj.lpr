@@ -7,8 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, controle_notas, consulta_notas
-  { you can add units after this };
+  Forms,
+  controle_notas,
+  consulta_notas;
 
 {$R *.res}
 
@@ -16,8 +17,6 @@ begin
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
-  Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TfrmNotas, frmNotas);
   Application.Run;
 end.
 
