@@ -35,7 +35,7 @@ begin
   Result.Password := 'root';
   Result.Database := 'notafiscal';
 
-  Result.Protocol:= 'mysql';
+  Result.Protocol := 'mysql';
   Result.LoginPrompt := False;
   Result.AutoCommit := False;
   Result.SQLHourGlass := True;
