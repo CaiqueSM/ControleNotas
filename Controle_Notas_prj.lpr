@@ -9,7 +9,9 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms,
   controle_notas,
-  consulta_notas;
+  consulta_notas,
+  UntMenu,
+  UntMenuController;
 
 {$R *.res}
 
@@ -17,6 +19,7 @@ begin
   RequireDerivedFormResource:=True;
   Application.Scaled:=True;
   Application.Initialize;
+  Application.CreateForm(TFrmMenu, FrmMenu);
   Application.Run;
 end.
 
