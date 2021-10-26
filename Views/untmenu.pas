@@ -15,6 +15,8 @@ type
     mainMenu: TMainMenu;
     itemConsulta: TMenuItem;
     itemConsultaNotas: TMenuItem;
+    itemArquivo: TMenuItem;
+    itemUsuario: TMenuItem;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure itemConsultaNotasClick(Sender: TObject);

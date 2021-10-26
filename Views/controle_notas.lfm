@@ -58,11 +58,11 @@ object frmLogin: TfrmLogin
       TabOrder = 2
     end
     object btsair: TButton
-      Left = 8
+      Left = 128
       Height = 25
       Top = 176
       Width = 75
-      Caption = 'Sair'
+      Caption = 'Cancelar'
       OnClick = btsairClick
       TabOrder = 3
     end

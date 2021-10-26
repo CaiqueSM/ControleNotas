@@ -17,6 +17,12 @@ object frmMenu: TfrmMenu
   object mainMenu: TMainMenu
     Left = 40
     Top = 16
+    object itemArquivo: TMenuItem
+      Caption = 'Arquivo'
+      object itemUsuario: TMenuItem
+        Caption = 'Usuários'
+      end
+    end
     object itemConsulta: TMenuItem
       Caption = 'Consultas'
       object itemConsultaNotas: TMenuItem
