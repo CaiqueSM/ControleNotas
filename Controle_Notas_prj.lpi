@@ -13,7 +13,6 @@
       <XPManifest>
         <DpiAware Value="True"/>
       </XPManifest>
-      <Icon Value="0"/>
     </General>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -26,30 +25,86 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <RequiredPackages Count="1">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="13">
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="controle_notas.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmLogin"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="consulta_notas.pas"/>
+        <Filename Value="Views\consulta_notas.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmNotas"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="Views\controle_notas.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmLogin"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="Views\untmenu.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmMenu"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="UntMenu"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="Controller\untmenucontroller.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntMenuController"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntLoginController"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="Dao\untlogindao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntLoginDao"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="Dao\untbasedao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntBaseDao"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="Dao\untconexao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntConexao"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntValidarLogin"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="Controller\untbasecontroller.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntBaseController"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="Model\untusuariomodel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntUsuarioModel"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="untenvironment.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntEnvironment"/>
+      </Unit12>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -60,6 +115,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="Views;Controller;Dao;Controller\Validacao;Model"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
