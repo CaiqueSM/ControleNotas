@@ -54,7 +54,6 @@ object frmLogin: TfrmLogin
       Top = 120
       Width = 113
       Caption = 'Cadastrar Usuário'
-      OnClick = cbcadastrarClick
       TabOrder = 2
     end
     object btsair: TButton

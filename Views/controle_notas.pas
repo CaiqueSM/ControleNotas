@@ -23,7 +23,6 @@ type
     txtusuario: TEdit;
     procedure btacessarClick(Sender: TObject);
     procedure btsairClick(Sender: TObject);
-    procedure cbcadastrarClick(Sender: TObject);
   private
 
   public
@@ -64,7 +63,7 @@ procedure TfrmLogin.btacessarClick(Sender: TObject);
 var
   criptoTexto: TSHA1Digest;
   resultado: integer;
-  shaTexto, query, querybuffer: string;
+  shaTexto, query: string;
   buffer:pmysql_res;
 begin
 
@@ -137,11 +136,6 @@ procedure TfrmLogin.btsairClick(Sender: TObject);
 begin
   mysql_close(mysqlsock);
   close();
-end;
-
-procedure TfrmLogin.cbcadastrarClick(Sender: TObject);
-begin
-
 end;
 
 end.
