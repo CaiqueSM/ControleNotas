@@ -18,7 +18,7 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    property Conexao: FConexao read FConexao;
+    property Conexao: TConexao read FConexao;
   end;
 
 implementation

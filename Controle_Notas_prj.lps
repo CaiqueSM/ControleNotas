@@ -4,14 +4,16 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="21">
+    <Units Count="24">
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="4"/>
-        <CursorPos X="33" Y="14"/>
+        <CursorPos X="60" Y="16"/>
         <UsageCount Value="55"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="Views\consulta_notas.pas"/>
@@ -31,8 +33,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="68"/>
-        <CursorPos X="3" Y="78"/>
+        <CursorPos X="36" Y="14"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -126,7 +127,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <CursorPos X="36" Y="67"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\win\sysutils.pp"/>
@@ -139,7 +140,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntLoginController"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="24"/>
+        <TopLine Value="30"/>
         <CursorPos X="41" Y="38"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -148,7 +149,7 @@
         <Filename Value="Dao\untlogindao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntLoginDao"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <CursorPos X="10" Y="12"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -157,32 +158,29 @@
         <Filename Value="Dao\untbasedao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntBaseDao"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="12"/>
-        <CursorPos X="53" Y="21"/>
-        <UsageCount Value="22"/>
+        <CursorPos X="47" Y="30"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="Dao\untconexao.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntConexao"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="18"/>
-        <CursorPos X="20" Y="38"/>
-        <UsageCount Value="22"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="23"/>
+        <CursorPos X="33" Y="35"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
         <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntValidarLogin"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="43"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="47" Y="57"/>
-        <UsageCount Value="22"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="23"/>
       </Unit19>
       <Unit20>
         <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\inc\objpash.inc"/>
@@ -191,128 +189,132 @@
         <CursorPos X="23" Y="206"/>
         <UsageCount Value="10"/>
       </Unit20>
+      <Unit21>
+        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\fcl-db\src\sqldb\mysql\mysqlconn.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="97"/>
+        <CursorPos X="32" Y="107"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="C:\lazarus\fpc\3.2.0\source\packages\fcl-db\src\sqldb\sqldb.pp"/>
+        <UnitName Value="SQLDB"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="174"/>
+        <CursorPos X="3" Y="184"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="Controller\untbasecontroller.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntBaseController"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="9"/>
+        <CursorPos X="31" Y="21"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit23>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
-        <Filename Value="Dao\untlogindao.pas"/>
-        <Caret Line="8" Column="32"/>
-      </Position1>
-      <Position2>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="16" Column="58"/>
-      </Position2>
-      <Position3>
-        <Filename Value="Dao\untbasedao.pas"/>
-        <Caret Line="20" Column="46" TopLine="9"/>
-      </Position3>
-      <Position4>
-        <Filename Value="Views\controle_notas.pas"/>
-        <Caret Line="30" Column="26" TopLine="17"/>
-      </Position4>
-      <Position5>
-        <Filename Value="Controller\untlogincontroller.pas"/>
-        <Caret Line="24" Column="63" TopLine="16"/>
-      </Position5>
-      <Position6>
-        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
-        <Caret Line="16" Column="56"/>
-      </Position6>
-      <Position7>
-        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
-        <Caret Line="8" Column="41" TopLine="19"/>
-      </Position7>
-      <Position8>
         <Filename Value="Views\controle_notas.pas"/>
         <Caret Line="66" Column="3" TopLine="55"/>
+      </Position1>
+      <Position2>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="22" Column="45" TopLine="9"/>
+      </Position2>
+      <Position3>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="47" Column="25" TopLine="37"/>
+      </Position3>
+      <Position4>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="23" Column="41" TopLine="13"/>
+      </Position4>
+      <Position5>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="88" Column="43" TopLine="71"/>
+      </Position5>
+      <Position6>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="73" Column="3" TopLine="63"/>
+      </Position6>
+      <Position7>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="71" Column="16" TopLine="83"/>
+      </Position7>
+      <Position8>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="17" Column="32" TopLine="7"/>
       </Position8>
       <Position9>
         <Filename Value="Controller\untlogincontroller.pas"/>
-        <Caret Line="22" Column="45" TopLine="9"/>
+        <Caret Line="38" Column="41" TopLine="24"/>
       </Position9>
       <Position10>
-        <Filename Value="Controller\untlogincontroller.pas"/>
-        <Caret Line="47" Column="25" TopLine="37"/>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="131" Column="9" TopLine="119"/>
       </Position10>
       <Position11>
-        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
-        <Caret Line="17" Column="41" TopLine="4"/>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="87" Column="42" TopLine="80"/>
       </Position11>
       <Position12>
-        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
-        <Caret Line="18" Column="48" TopLine="11"/>
+        <Filename Value="Views\untmenu.pas"/>
+        <Caret Line="56" Column="31" TopLine="25"/>
       </Position12>
       <Position13>
-        <Filename Value="Controller\untlogincontroller.pas"/>
-        <Caret Line="23" Column="41" TopLine="13"/>
+        <Filename Value="Dao\untconexao.pas"/>
+        <Caret Line="19" Column="62"/>
       </Position13>
       <Position14>
-        <Filename Value="Views\controle_notas.pas"/>
-        <Caret Line="88" Column="43" TopLine="71"/>
+        <Filename Value="Dao\untconexao.pas"/>
+        <Caret Line="21" Column="61" TopLine="4"/>
       </Position14>
       <Position15>
-        <Filename Value="Views\controle_notas.pas"/>
-        <Caret Line="73" Column="3" TopLine="63"/>
+        <Filename Value="Dao\untconexao.pas"/>
+        <Caret Line="20" Column="36" TopLine="7"/>
       </Position15>
       <Position16>
-        <Filename Value="Views\controle_notas.pas"/>
-        <Caret Line="71" Column="16" TopLine="83"/>
+        <Filename Value="Dao\untconexao.pas"/>
+        <Caret Line="37" Column="18" TopLine="22"/>
       </Position16>
       <Position17>
-        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
-        <Caret Line="30" Column="58" TopLine="20"/>
+        <Filename Value="Dao\untconexao.pas"/>
+        <Caret Line="8" Column="40" TopLine="4"/>
       </Position17>
       <Position18>
-        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
-        <Caret Line="45" Column="21" TopLine="42"/>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="105" Column="49" TopLine="96"/>
       </Position18>
       <Position19>
-        <Filename Value="Controller\untlogincontroller.pas"/>
-        <Caret Line="17" Column="32" TopLine="7"/>
+        <Filename Value="Dao\untconexao.pas"/>
+        <Caret Line="17" Column="38" TopLine="5"/>
       </Position19>
       <Position20>
-        <Filename Value="Controller\Validacao\untvalidarlogin.pas"/>
-        <Caret Line="57" Column="47" TopLine="43"/>
+        <Filename Value="Controller\untbasecontroller.pas"/>
+        <Caret Line="17" Column="36"/>
       </Position20>
       <Position21>
-        <Filename Value="Controller\untlogincontroller.pas"/>
-        <Caret Line="38" Column="41" TopLine="24"/>
+        <Filename Value="Controller\untbasecontroller.pas"/>
+        <Caret Line="33" Column="15" TopLine="16"/>
       </Position21>
       <Position22>
         <Filename Value="Views\controle_notas.pas"/>
-        <Caret Line="131" Column="9" TopLine="119"/>
+        <Caret Line="113" TopLine="113"/>
       </Position22>
       <Position23>
         <Filename Value="Views\controle_notas.pas"/>
-        <Caret Line="87" Column="42" TopLine="80"/>
       </Position23>
       <Position24>
-        <Filename Value="Views\untmenu.pas"/>
-        <Caret Line="56" Column="31" TopLine="25"/>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="14" Column="36"/>
       </Position24>
       <Position25>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="19" Column="62"/>
+        <Filename Value="Controller\untbasecontroller.pas"/>
+        <Caret Line="21" Column="31" TopLine="9"/>
       </Position25>
-      <Position26>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="21" Column="61" TopLine="4"/>
-      </Position26>
-      <Position27>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="20" Column="36" TopLine="7"/>
-      </Position27>
-      <Position28>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="37" Column="18" TopLine="22"/>
-      </Position28>
-      <Position29>
-        <Filename Value="Dao\untconexao.pas"/>
-        <Caret Line="8" Column="40" TopLine="4"/>
-      </Position29>
-      <Position30>
-        <Filename Value="Views\controle_notas.pas"/>
-        <Caret Line="105" Column="49" TopLine="96"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
