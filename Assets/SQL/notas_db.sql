@@ -35,7 +35,7 @@ CEP CHAR(8) NOT NULL,
 nomeRua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
 cidade VARCHAR(32),
-numero VARCHAR(9) NOT NULL
+numero VARCHAR(9) NOT NULL,
 complemento VARCHAR(64)
 );
 
