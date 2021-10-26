@@ -5,7 +5,8 @@ unit UntLoginDao;
 interface
 
 uses
-  Classes, SysUtils, UntBaseDao, UntUsuarioModel, sqldb, Dialogs;
+  Classes, SysUtils, UntBaseDao, UntUsuarioModel, sqldb, Dialogs,
+  ZDataset;
 
 type
 
@@ -22,7 +23,7 @@ implementation
 
 function TLoginDao.GetUsuario(AUsuario, ASenha: string): TUsuarioModel;
 var
-  query: TSQLQuery;
+  query: TZQuery;
   sql: string;
 begin
   sql := 'select * from usuario where nome = :usuario and senha = :senha';

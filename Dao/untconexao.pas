@@ -5,7 +5,7 @@ unit UntConexao;
 interface
 
 uses
-  Classes, SysUtils, mysql57conn, sqldb;
+  Classes, SysUtils, ZConnection, sqldb;
 
 type
 
@@ -13,59 +13,42 @@ type
 
   TConexao = class
   private
-    FDatabase: TMySQL57Connection;
-    FTransaction: TSQLTransaction;
-
-    function CreateDatabase(): TMySQL57Connection;
-    function CreateTransaction(ADatabase: TMySQL57Connection): TSQLTransaction;
+    FDatabase: TZConnection;
+    function CreateDatabase(): TZConnection;
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    property Database: TMySQL57Connection read FDatabase;
-    property Transaction: TSQLTransaction read FTransaction;
+    property Database: TZConnection read FDatabase;
   end;
 
 implementation
 
 { TConexao }
 
-function TConexao.CreateDatabase(): TMySQL57Connection;
+function TConexao.CreateDatabase(): TZConnection;
 begin
-  Result := TMySQL57Connection.Create(nil);
+  Result := TZConnection.Create(nil);
 
   Result.HostName := 'localhost';
-  Result.UserName := 'root';
-  Result.Password := '';
-  Result.DatabaseName := 'nota_fiscal';
+  Result.User := 'root';
+  Result.Password := 'root';
+  Result.Database := 'notafiscal';
 
-  Result.CharSet := 'WIN1252';
+  Result.Protocol:= 'mysql';
   Result.LoginPrompt := False;
-end;
-
-function TConexao.CreateTransaction(ADatabase: TMySQL57Connection): TSQLTransaction;
-begin
-  Result := TSQLTransaction.Create(nil);
-
-  Result.Params.Add('read_committed');
-  Result.Params.Add('rec_version');
-  Result.Params.Add('wait');
-
-  Result.DataBase := ADatabase;
+  Result.AutoCommit := False;
+  Result.SQLHourGlass := True;
 end;
 
 constructor TConexao.Create();
 begin
   FDatabase := CreateDatabase();
-  FTransaction := CreateTransaction(FDatabase);
-
-  FDatabase.Transaction := FTransaction;
 end;
 
 destructor TConexao.Destroy();
 begin
   FDatabase.Free;
-  FTransaction.Free;
   inherited Destroy();
 end;
 

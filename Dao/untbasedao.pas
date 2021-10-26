@@ -5,7 +5,7 @@ unit UntBaseDao;
 interface
 
 uses
-  Classes, SysUtils, UntConexao, sqldb;
+  Classes, SysUtils, UntConexao, sqldb, ZDataset;
 
 type
 
@@ -16,7 +16,7 @@ type
     FConexao: TConexao;
   public
     constructor Create(AConexao: TConexao); reintroduce;
-    function CreateQuery(ASQL: string): TSQLQuery;
+    function CreateQuery(ASQL: string): TZQuery;
   end;
 
 implementation
@@ -28,10 +28,10 @@ begin
   FConexao := AConexao;
 end;
 
-function TBaseDao.CreateQuery(ASQL: string): TSQLQuery;
+function TBaseDao.CreateQuery(ASQL: string): TZQuery;
 begin
-  Result := TSQLQuery.Create(nil);
-  Result.DataBase := FConexao.Database;
+  Result := TZQuery.Create(nil);
+  Result.Connection := FConexao.Database;
   Result.SQL.Text := ASQL.Trim;
 end;
 
