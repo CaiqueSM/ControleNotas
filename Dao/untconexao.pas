@@ -19,7 +19,7 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    property Connection: TMySQL57Connection read FConnection;
+    property Database: TMySQL57Connection read FConnection;
     property Transaction: TSQLTransaction read FTransaction;
   end;
 

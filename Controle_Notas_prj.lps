@@ -30,8 +30,9 @@
         <ComponentName Value="frmLogin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="113"/>
+        <TopLine Value="11"/>
         <CursorPos X="36" Y="14"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
@@ -114,11 +115,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UntMenu"/>
-        <IsVisibleTab Value="True"/>
-        <CursorPos X="41" Y="13"/>
+        <TopLine Value="37"/>
+        <CursorPos X="20" Y="9"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="Controller\untmenucontroller.pas"/>
@@ -140,7 +140,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntLoginController"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="30"/>
+        <TopLine Value="21"/>
         <CursorPos X="41" Y="38"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
