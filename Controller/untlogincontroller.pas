@@ -6,15 +6,14 @@ interface
 
 uses
   Classes, SysUtils, RegExpr, sha1, UntLoginDao, UntValidarLogin,
-  UntConexao;
+  UntBaseController;
 
 type
 
   { TLoginController }
 
-  TLoginController = class
+  TLoginController = class(TBaseController)
   private
-    FConexao: TConexao;
     FDao: TLoginDao;
     FValidar: TValidarLogin;
   public
@@ -34,8 +33,8 @@ implementation
 
 constructor TLoginController.Create();
 begin
-  FConexao := TConexao.Create();
-  FDao := TLoginDao.Create(FConexao);
+  inherited Create();
+  FDao := TLoginDao.Create(Conexao);
   FValidar := TValidarLogin.Create();
 end;
 
