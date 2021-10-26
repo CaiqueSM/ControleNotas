@@ -80,7 +80,10 @@ begin
     Exit();
 
   if not FController.Logar(txtusuario.Text, txtsenha.Text) then
+  begin
     ShowMessage('Usuário ou senha incorreta!');
+    Exit();
+  end;
 
   Close();
 end;
