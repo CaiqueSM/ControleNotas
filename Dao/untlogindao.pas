@@ -40,7 +40,8 @@ begin
       Result.Senha := query.FieldByName('senha').AsString;
     except
       on e: Exception do
-        ShowMessage(Format('Erro ao pegar usuário! Mensagem: %s', [e.Message]));
+        ShowMessage(Format('Erro ao pegar usuário!' + #13#10 + #13#10 +
+          'Mensagem: %s', [e.Message]));
     end;
   finally
     query.Free;
@@ -48,7 +49,6 @@ begin
 end;
 
 end.
-
 
 
 

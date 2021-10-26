@@ -81,7 +81,6 @@ function TMenuController.Logar(): boolean;
 var
   telaLogin: TfrmLogin;
 begin
-  Global.Usuario := string.Empty;
   telaLogin := TfrmLogin.Create(nil);
   try
     telaLogin.ShowModal();

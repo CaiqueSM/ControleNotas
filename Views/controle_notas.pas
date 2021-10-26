@@ -81,6 +81,8 @@ begin
 
   if not FController.Logar(txtusuario.Text, txtsenha.Text) then
     ShowMessage('Usuário ou senha incorreta!');
+
+  Close();
 end;
 
 procedure TfrmLogin.btsairClick(Sender: TObject);
