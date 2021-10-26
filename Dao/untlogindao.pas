@@ -26,14 +26,13 @@ var
   query: TZQuery;
   sql: string;
 begin
-  sql := 'select * from usuario where nome = :usuario and senha = :senha';
+  Result := TUsuarioModel.Create();
 
+  sql := 'select * from usuario where nome = :usuario and senha = :senha';
   query := CreateQuery(sql);
   try
     query.ParamByName('usuario').AsString := AUsuario;
     query.ParamByName('senha').AsString := ASenha;
-
-    Result := TUsuarioModel.Create();
     try
       query.Open;
 
