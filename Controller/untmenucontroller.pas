@@ -63,7 +63,8 @@ begin
       Screen.Cursor:= crDefault;
     end
   else
-    with TForm(Reference) do begin
+    with TForm(Reference) do
+    begin
       if WindowState = wsMinimized then WindowState:= wsNormal;
       BringToFront;
       Screen.Cursor:= crDefault;
