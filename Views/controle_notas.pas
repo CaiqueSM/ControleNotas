@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, MaskEdit,
-  MySQL4, RegExpr, sha1, consulta_notas;
+  MySQL4, RegExpr, sha1, UntLoginController;
 
 type
 
@@ -23,8 +23,10 @@ type
     txtusuario: TEdit;
     procedure btacessarClick(Sender: TObject);
     procedure btsairClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCreate(Sender: TObject);
   private
-
+    FController: TLoginController;
   public
 
   end;
@@ -43,21 +45,6 @@ implementation
 {$R *.lfm}
 
 { TfrmLogin }
-
-function Autenticar(nomeLocal, nomeVisitante: string; senhaLocal, senhaVisitante: string): boolean;
-var
-  ANomeLocal, ANomeVisitante: TRegExpr;
-  AsenhaLocal, AsenhaVisitante: TSHA1Digest;
-begin
-  ANomeLocal:= TRegExpr.Create;
-  ANomeVisitante:= TRegExpr.Create;
-  ANomeLocal.Expression:= nomeLocal;
-  ANomeVisitante.Expression:= nomeVisitante;
-  AsenhaLocal:= SHA1String(senhaLocal);
-  AsenhaVisitante:= SHA1String(senhaVisitante);
-  Result:= (ANomeLocal.Equals(ANomeVIsitante) and SHA1Match(AsenhaLocal, AsenhaVisitante));
-end;
-
 
 procedure TfrmLogin.btacessarClick(Sender: TObject);
 var
@@ -136,6 +123,17 @@ procedure TfrmLogin.btsairClick(Sender: TObject);
 begin
   mysql_close(mysqlsock);
   close();
+end;
+
+procedure TfrmLogin.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  FController.Free;
+  CloseAction := caFree;
+end;
+
+procedure TfrmLogin.FormCreate(Sender: TObject);
+begin
+  FController := TLoginController.Create();
 end;
 
 end.

@@ -11,7 +11,7 @@ uses
   controle_notas,
   consulta_notas,
   UntMenu,
-  UntMenuController;
+  UntMenuController, UntLoginDao;
 
 {$R *.res}
 

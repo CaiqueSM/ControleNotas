@@ -30,7 +30,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="7">
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -62,6 +62,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntMenuController"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntLoginController"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="Dao\untlogindao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntLoginDao"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -72,7 +82,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="Views;Controller"/>
+      <OtherUnitFiles Value="Views;Controller;Dao"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

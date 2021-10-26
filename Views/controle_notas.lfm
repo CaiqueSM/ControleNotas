@@ -1,11 +1,13 @@
 object frmLogin: TfrmLogin
-  Left = 728
+  Left = 436
   Height = 255
-  Top = 206
+  Top = 203
   Width = 333
   Caption = 'Login'
   ClientHeight = 255
   ClientWidth = 333
+  OnClose = FormClose
+  OnCreate = FormCreate
   LCLVersion = '2.0.12.0'
   object gbautenticacao: TGroupBox
     Left = 16

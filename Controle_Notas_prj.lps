@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="15">
+    <Units Count="17">
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -29,10 +29,8 @@
         <ComponentName Value="frmLogin"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="58"/>
-        <CursorPos X="31" Y="66"/>
+        <CursorPos X="24" Y="9"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -127,7 +125,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <CursorPos X="36" Y="67"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
       </Unit13>
       <Unit14>
         <Filename Value="C:\lazarus\fpc\3.2.0\source\rtl\win\sysutils.pp"/>
@@ -135,8 +133,28 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
       </Unit14>
+      <Unit15>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntLoginController"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="34"/>
+        <CursorPos X="55" Y="44"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="Dao\untlogindao.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntLoginDao"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="20" Y="8"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit16>
     </Units>
-    <JumpHistory Count="21" HistoryIndex="20">
+    <JumpHistory Count="28" HistoryIndex="27">
       <Position1>
         <Filename Value="Views\untmenu.pas"/>
         <Caret Line="23" Column="33"/>
@@ -221,6 +239,34 @@
         <Filename Value="Views\controle_notas.pas"/>
         <Caret Line="25" Column="44" TopLine="20"/>
       </Position21>
+      <Position22>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="52" Column="44" TopLine="17"/>
+      </Position22>
+      <Position23>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="29" Column="23" TopLine="29"/>
+      </Position23>
+      <Position24>
+        <Filename Value="Views\controle_notas.pas"/>
+        <Caret Line="150" Column="46" TopLine="130"/>
+      </Position24>
+      <Position25>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="16" Column="15"/>
+      </Position25>
+      <Position26>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="19" Column="5" TopLine="10"/>
+      </Position26>
+      <Position27>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="18" Column="38" TopLine="8"/>
+      </Position27>
+      <Position28>
+        <Filename Value="Controller\untlogincontroller.pas"/>
+        <Caret Line="19" Column="36" TopLine="10"/>
+      </Position28>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
