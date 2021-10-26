@@ -33,7 +33,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="12">
+    <Units Count="13">
       <Unit0>
         <Filename Value="Controle_Notas_prj.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -100,6 +100,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="UntUsuarioModel"/>
       </Unit11>
+      <Unit12>
+        <Filename Value="untenvironment.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="UntEnvironment"/>
+      </Unit12>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

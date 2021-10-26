@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus,
-  untmenucontroller;
+  untmenucontroller, UntEnvironment;
 
 type
 
@@ -23,8 +23,7 @@ type
     procedure itemConsultaNotasClick(Sender: TObject);
   private
     FController: TMenuController;
-  public
-
+    procedure Logar();
   end;
 
 var
@@ -42,6 +41,13 @@ uses
 procedure TfrmMenu.FormCreate(Sender: TObject);
 begin
   FController := TMenuController.Create();
+  Logar();
+end;
+
+procedure TfrmMenu.Logar();
+begin
+  if not FController.Logar() then
+    Application.Terminate;
 end;
 
 procedure TfrmMenu.itemConsultaNotasClick(Sender: TObject);

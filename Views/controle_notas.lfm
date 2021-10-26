@@ -3,11 +3,14 @@ object frmLogin: TfrmLogin
   Height = 182
   Top = 203
   Width = 324
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Login'
   ClientHeight = 182
   ClientWidth = 324
   OnClose = FormClose
   OnCreate = FormCreate
+  Position = poScreenCenter
   LCLVersion = '2.0.12.0'
   object gbautenticacao: TGroupBox
     Left = 8

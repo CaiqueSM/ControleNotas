@@ -5,7 +5,8 @@ unit UntMenuController;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Windows;
+  Classes, SysUtils, Forms, Controls, Windows, UntEnvironment,
+  controle_notas;
 
 type
 
@@ -13,18 +14,19 @@ type
 
   TMenuController = class
   private
-    function IsChildFormExist(InstanceClass: TFormClass): Boolean;
+    function IsChildFormExist(InstanceClass: TFormClass): boolean;
   public
-    procedure AbrirTelaFilha(MainForm : TForm; InstanceClass: TFormClass; var Reference);
+    procedure AbrirTelaFilha(MainForm: TForm; InstanceClass: TFormClass; var Reference);
+    function Logar(): boolean;
   end;
 
 implementation
 
 { TMenuController }
 
-function TMenuController.IsChildFormExist(InstanceClass: TFormClass): Boolean;
+function TMenuController.IsChildFormExist(InstanceClass: TFormClass): boolean;
 var
-  I: Integer;
+  I: integer;
 begin
   with (Application.MainForm) do
     for I := 0 to MDIChildCount - 1 do
@@ -33,7 +35,7 @@ begin
         Result := True;
         Exit;
       end;
-  Result:= False;
+  Result := False;
 end;
 
 procedure TMenuController.AbrirTelaFilha(MainForm: TForm;
@@ -41,12 +43,12 @@ procedure TMenuController.AbrirTelaFilha(MainForm: TForm;
 var
   Instance: TForm;
 begin
-  Screen.Cursor:= crHourglass;
+  Screen.Cursor := crHourglass;
   LockWindowUpdate(MainForm.Handle);
   if not IsChildFormExist(InstanceClass) then
     try
-      Instance:= TForm(InstanceClass.NewInstance);
-      TForm(Reference):= Instance;
+      Instance := TForm(InstanceClass.NewInstance);
+      TForm(Reference) := Instance;
       try
         Instance.Create(MainForm);
         if (Instance as TForm).FormStyle = fsNormal then
@@ -55,24 +57,38 @@ begin
           (Instance as TForm).Visible := True;
         end;
       except
-        TForm(Reference):= nil;
+        TForm(Reference) := nil;
         Instance.Free;
         raise;
       end;
     finally
-      Screen.Cursor:= crDefault;
+      Screen.Cursor := crDefault;
     end
   else
     with TForm(Reference) do
     begin
-      if WindowState = wsMinimized then WindowState:= wsNormal;
+      if WindowState = wsMinimized then
+        WindowState := wsNormal;
       BringToFront;
-      Screen.Cursor:= crDefault;
+      Screen.Cursor := crDefault;
       SetFocus;
     end;
 
   LockWindowUpdate(0);
 end;
 
-end.
+function TMenuController.Logar(): boolean;
+var
+  telaLogin: TfrmLogin;
+begin
+  Global.Usuario := string.Empty;
+  telaLogin := TfrmLogin.Create(nil);
+  try
+    telaLogin.ShowModal();
+    Result := not Global.Usuario.IsEmpty;
+  finally
+    telaLogin.Free;
+  end;
+end;
 
+end.
