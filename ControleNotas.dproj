@@ -86,10 +86,21 @@
         <DCCReference Include="Dao\untbasedao.pas"/>
         <DCCReference Include="Dao\untconexao.pas"/>
         <DCCReference Include="Dao\untlogindao.pas"/>
-        <DCCReference Include="Model\untusuariomodel.pas"/>
-        <DCCReference Include="Views\consulta_notas.pas"/>
-        <DCCReference Include="Views\controle_notas.pas"/>
-        <DCCReference Include="Views\untmenu.pas"/>
+        <DCCReference Include="Model\untusuariomodel.pas">
+            <Form>$R *.res</Form>
+        </DCCReference>
+        <DCCReference Include="Views\consulta_notas.pas">
+            <Form>frmNotas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Views\controle_notas.pas">
+            <Form>frmLogin</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Views\untmenu.pas">
+            <Form>frmMenu</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
