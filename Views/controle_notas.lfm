@@ -50,7 +50,7 @@ object frmLogin: TfrmLogin
       Top = 80
       Width = 278
       EchoMode = emPassword
-      PasswordChar = '#'
+      PasswordChar = '*'
       TabOrder = 1
     end
     object btsair: TButton
