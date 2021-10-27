@@ -1,7 +1,5 @@
 unit consulta_notas;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses
@@ -29,7 +27,7 @@ var
 
 implementation
 
-{$R *.lfm}
+{$R *.dfm}
 
 { TfrmNotas }
 

@@ -1,7 +1,5 @@
 unit UntConexao;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

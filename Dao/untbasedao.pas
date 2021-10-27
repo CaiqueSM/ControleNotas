@@ -1,7 +1,5 @@
 unit UntBaseDao;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

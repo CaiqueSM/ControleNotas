@@ -1,7 +1,5 @@
 unit UntLoginController;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

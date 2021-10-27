@@ -1,6 +1,4 @@
-unit controle_notas;
-
-{$mode objfpc}{$H+}
+﻿unit controle_notas;
 
 interface
 
@@ -34,7 +32,7 @@ var
 
 implementation
 
-{$R *.lfm}
+{$R *.dfm}
 
 { TfrmLogin }
 

@@ -1,7 +1,5 @@
 unit UntValidarLogin;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

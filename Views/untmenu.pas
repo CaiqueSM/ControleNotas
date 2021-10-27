@@ -32,7 +32,7 @@ implementation
 uses
   consulta_notas;
 
-{$R *.lfm}
+{$R *.dfm}
 
 { TfrmMenu }
 

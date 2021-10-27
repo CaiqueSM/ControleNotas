@@ -1,7 +1,5 @@
 unit UntBaseController;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

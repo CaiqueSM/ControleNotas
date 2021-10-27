@@ -1,6 +1,4 @@
-unit UntLoginDao;
-
-{$mode objfpc}{$H+}
+﻿unit UntLoginDao;
 
 interface
 

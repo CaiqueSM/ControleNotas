@@ -1,26 +1,32 @@
 object frmMenu: TfrmMenu
   Left = 230
-  Height = 527
   Top = 106
   Width = 1087
-  HorzScrollBar.Page = 1
-  VertScrollBar.Page = 1
+  Height = 527
   AutoScroll = True
   Caption = 'Controle de notas'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
   FormStyle = fsMDIForm
   Menu = mainMenu
+  OldCreateOrder = True
+  Position = poScreenCenter
+  WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
-  Position = poScreenCenter
-  LCLVersion = '2.0.12.0'
-  WindowState = wsMaximized
+  PixelsPerInch = 96
+  TextHeight = 13
   object mainMenu: TMainMenu
     Left = 40
     Top = 16
     object itemArquivo: TMenuItem
       Caption = 'Arquivo'
       object itemUsuario: TMenuItem
-        Caption = 'Usuários'
+        Caption = 'Usu'#195#161'rios'
       end
     end
     object itemConsulta: TMenuItem
