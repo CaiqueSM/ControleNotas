@@ -86,9 +86,7 @@
         <DCCReference Include="Dao\untbasedao.pas"/>
         <DCCReference Include="Dao\untconexao.pas"/>
         <DCCReference Include="Dao\untlogindao.pas"/>
-        <DCCReference Include="Model\untusuariomodel.pas">
-            <Form>$R *.res</Form>
-        </DCCReference>
+        <DCCReference Include="Model\untusuariomodel.pas"/>
         <DCCReference Include="Views\consulta_notas.pas">
             <Form>frmNotas</Form>
             <FormType>dfm</FormType>
