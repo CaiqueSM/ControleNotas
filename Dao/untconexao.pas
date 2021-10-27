@@ -32,7 +32,7 @@ begin
 
   Result.HostName := 'localhost';
   Result.User := 'root';
-  Result.Password := 'root';
+  Result.Password := 'ROOT1234g@';
   Result.Database := 'notafiscal';
 
   Result.Protocol := 'mysql';
