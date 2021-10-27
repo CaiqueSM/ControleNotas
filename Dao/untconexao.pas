@@ -3,7 +3,7 @@ unit UntConexao;
 interface
 
 uses
-  Classes, SysUtils, ZConnection, sqldb;
+  Classes, SysUtils, ZAbstractConnection, ZConnection;
 
 type
 

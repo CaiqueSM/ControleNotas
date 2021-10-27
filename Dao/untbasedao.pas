@@ -3,7 +3,7 @@ unit UntBaseDao;
 interface
 
 uses
-  Classes, SysUtils, UntConexao, sqldb, ZDataset;
+  Classes, SysUtils, UntConexao, ZDataset;
 
 type
 

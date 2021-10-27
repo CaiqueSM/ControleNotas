@@ -3,7 +3,7 @@
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, MaskEdit,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
   UntLoginController;
 
 type
