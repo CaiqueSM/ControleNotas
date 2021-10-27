@@ -17,6 +17,8 @@ type
   public
     constructor Create(AConexao: TConexao); reintroduce;
     function CreateQuery(ASQL: string): TZQuery;
+
+    property Conexao: TConexao read FConexao;
   end;
 
 implementation
