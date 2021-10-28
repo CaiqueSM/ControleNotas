@@ -1,7 +1,5 @@
 unit UntMenuController;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

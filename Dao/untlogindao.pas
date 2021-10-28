@@ -1,11 +1,9 @@
-unit UntLoginDao;
-
-{$mode objfpc}{$H+}
+﻿unit UntLoginDao;
 
 interface
 
 uses
-  Classes, SysUtils, UntBaseDao, UntUsuarioModel, sqldb, Dialogs,
+  Classes, SysUtils, UntBaseDao, UntUsuarioModel, Dialogs,
   ZDataset;
 
 type

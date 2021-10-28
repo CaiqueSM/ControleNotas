@@ -1,7 +1,5 @@
 unit UntEnvironment;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

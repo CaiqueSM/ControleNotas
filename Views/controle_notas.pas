@@ -1,11 +1,9 @@
-unit controle_notas;
-
-{$mode objfpc}{$H+}
+﻿unit controle_notas;
 
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, MaskEdit,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
   UntLoginController;
 
 type
@@ -34,7 +32,7 @@ var
 
 implementation
 
-{$R *.lfm}
+{$R *.dfm}
 
 { TfrmLogin }
 

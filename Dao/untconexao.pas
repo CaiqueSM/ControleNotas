@@ -1,11 +1,9 @@
 unit UntConexao;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses
-  Classes, SysUtils, ZConnection, sqldb;
+  Classes, SysUtils, ZAbstractConnection, ZConnection;
 
 type
 

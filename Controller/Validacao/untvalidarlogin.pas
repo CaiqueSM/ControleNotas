@@ -1,11 +1,9 @@
 unit UntValidarLogin;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses
-  Classes, SysUtils, RegExpr;
+  Classes, SysUtils, System.RegularExpressions;
 
 type
 
@@ -24,32 +22,22 @@ implementation
 
 function TValidarLogin.ValidarUsuario(AUsuario: string): boolean;
 var
-  regex: TRegExpr;
+  regex: TRegEx;
   padraoRegexNome: string;
 begin
   padraoRegexNome := '\s?[a-zA-Z_]{1,80}[\w]{0,79}';
-  regex := TRegExpr.Create();
-  try
-    regex.Expression := padraoRegexNome;
-    Result := regex.Exec(AUsuario);
-  finally
-    regex.Free;
-  end;
+  regex := TRegEx.Create(padraoRegexNome);
+  Result := regex.IsMatch(AUsuario);
 end;
 
 function TValidarLogin.ValidarEmail(AEmail: string): boolean;
 var
-  regex: TRegExpr;
+  regex: TRegEx;
   padraoRegexEmail: string;
 begin
   padraoRegexEmail := '/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i';
-  regex := TRegExpr.Create();
-  try
-    regex.Expression := padraoRegexEmail;
-    Result := regex.Exec(AEmail);
-  finally
-    regex.Free;
-  end;
+  regex := TRegEx.Create(padraoRegexEmail);
+  Result := regex.IsMatch(AEmail);
 end;
 
 function TValidarLogin.ValidarSenhaUsuario(ASenha: string): boolean;

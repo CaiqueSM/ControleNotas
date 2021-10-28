@@ -1,7 +1,5 @@
 unit UntUsuarioModel;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses

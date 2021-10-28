@@ -1,7 +1,5 @@
 unit UntMenu;
 
-{$mode objfpc}{$H+}
-
 interface
 
 uses
@@ -34,7 +32,7 @@ implementation
 uses
   consulta_notas;
 
-{$R *.lfm}
+{$R *.dfm}
 
 { TfrmMenu }
 
