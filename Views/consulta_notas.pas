@@ -10,16 +10,15 @@ type
   { TfrmNotas }
 
   TfrmNotas = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
-    Edit1: TEdit;
+    btnConsultar: TButton;
+    btnCancelar: TButton;
+    txtChaveAcesso: TEdit;
     GroupBox1: TGroupBox;
     Label1: TLabel;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure btnCancelarClick(Sender: TObject);
   private
-
-  public
-
+    procedure limparCampos();
   end;
 
 var
@@ -31,9 +30,19 @@ implementation
 
 { TfrmNotas }
 
+procedure TfrmNotas.btnCancelarClick(Sender: TObject);
+begin
+  limparCampos();
+end;
+
 procedure TfrmNotas.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   CloseAction := caFree;
+end;
+
+procedure TfrmNotas.limparCampos;
+begin
+  txtChaveAcesso.Clear;
 end;
 
 end.
