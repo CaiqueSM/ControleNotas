@@ -11,19 +11,19 @@ type
   { TfrmLogin }
 
   TfrmLogin = class(TForm)
-    btacessar: TButton;
-    btsair: TButton;
-    gbautenticacao: TGroupBox;
-    lbsenha: TLabel;
     lbusuario: TLabel;
-    txtsenha: TEdit;
-    txtusuario: TEdit;
-    procedure btacessarClick(Sender: TObject);
-    procedure btsairClick(Sender: TObject);
+    txtUsuario: TEdit;
+    txtSenha: TEdit;
+    lbsenha: TLabel;
+    btnAcessar: TButton;
+    btnSair: TButton;
+    procedure btnAcessarClick(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
   private
     FController: TLoginController;
+    procedure limparCampos();
     function ValidarLogin(AUsuario, ASenha: string): boolean;
   end;
 
@@ -45,6 +45,12 @@ procedure TfrmLogin.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   FController.Free;
   CloseAction := caFree;
+end;
+
+procedure TfrmLogin.limparCampos;
+begin
+  txtUsuario.Clear;
+  txtSenha.Clear;
 end;
 
 function TfrmLogin.ValidarLogin(AUsuario, ASenha: string): boolean;
@@ -72,7 +78,7 @@ begin
   Result := True;
 end;
 
-procedure TfrmLogin.btacessarClick(Sender: TObject);
+procedure TfrmLogin.btnAcessarClick(Sender: TObject);
 begin
   if not ValidarLogin(txtusuario.Text, txtsenha.Text) then
     Exit();
@@ -86,9 +92,9 @@ begin
   Close();
 end;
 
-procedure TfrmLogin.btsairClick(Sender: TObject);
+procedure TfrmLogin.btnSairClick(Sender: TObject);
 begin
-  Application.Terminate;
+  limparCampos();
 end;
 
 end.

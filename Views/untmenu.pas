@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus,
-  untmenucontroller, UntEnvironment;
+  untmenucontroller, UntEnvironment, Vcl.ExtCtrls;
 
 type
 
@@ -16,9 +16,11 @@ type
     itemConsultaNotas: TMenuItem;
     itemArquivo: TMenuItem;
     itemUsuario: TMenuItem;
+    pnlTopo: TPanel;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure itemConsultaNotasClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FController: TMenuController;
     procedure Logar();
@@ -40,6 +42,11 @@ procedure TfrmMenu.FormCreate(Sender: TObject);
 begin
   FController := TMenuController.Create();
   Logar();
+end;
+
+procedure TfrmMenu.FormShow(Sender: TObject);
+begin
+   pnlTopo.Width := Screen.Width;
 end;
 
 procedure TfrmMenu.Logar();

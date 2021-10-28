@@ -8,8 +8,8 @@ object frmMenu: TfrmMenu
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
   Font.Style = []
   FormStyle = fsMDIForm
   Menu = mainMenu
@@ -18,15 +18,25 @@ object frmMenu: TfrmMenu
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 15
+  object pnlTopo: TPanel
+    Left = 0
+    Top = 0
+    Width = 297
+    Height = 2
+    BevelOuter = bvNone
+    ParentBackground = False
+    TabOrder = 0
+  end
   object mainMenu: TMainMenu
     Left = 40
     Top = 16
     object itemArquivo: TMenuItem
       Caption = 'Arquivo'
       object itemUsuario: TMenuItem
-        Caption = 'Usu'#195#161'rios'
+        Caption = 'Usu'#225'rios'
       end
     end
     object itemConsulta: TMenuItem

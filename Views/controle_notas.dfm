@@ -4,8 +4,8 @@ object frmLogin: TfrmLogin
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Login'
-  ClientHeight = 182
-  ClientWidth = 324
+  ClientHeight = 167
+  ClientWidth = 227
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,63 +18,93 @@ object frmLogin: TfrmLogin
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object gbautenticacao: TGroupBox
-    Left = 8
-    Top = 8
-    Width = 304
-    Height = 168
-    Caption = 'Autentica'#195#167#195#163'o'
+  object lbusuario: TLabel
+    Left = 16
+    Top = 17
+    Width = 43
+    Height = 15
+    Caption = 'Usu'#225'rio:'
+    Color = clBtnFace
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+  end
+  object lbsenha: TLabel
+    Left = 16
+    Top = 70
+    Width = 35
+    Height = 15
+    Caption = 'Senha:'
+    Color = clBtnFace
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentColor = False
+    ParentFont = False
+  end
+  object txtUsuario: TEdit
+    Left = 16
+    Top = 33
+    Width = 195
+    Height = 23
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    MaxLength = 80
+    ParentFont = False
     TabOrder = 0
-    object lbusuario: TLabel
-      Left = 8
-      Top = 8
-      Width = 75
-      Height = 13
-      Caption = 'Nome Usu'#195#161'rio:'
-      Color = clBtnFace
-      ParentColor = False
-    end
-    object lbsenha: TLabel
-      Left = 8
-      Top = 64
-      Width = 34
-      Height = 13
-      Caption = 'Senha:'
-      Color = clBtnFace
-      ParentColor = False
-    end
-    object txtusuario: TEdit
-      Left = 8
-      Top = 24
-      Width = 278
-      Height = 21
-      TabOrder = 0
-    end
-    object txtsenha: TEdit
-      Left = 8
-      Top = 80
-      Width = 278
-      Height = 21
-      PasswordChar = '*'
-      TabOrder = 1
-    end
-    object btsair: TButton
-      Left = 128
-      Top = 112
-      Width = 75
-      Height = 25
-      Caption = 'Cancelar'
-      TabOrder = 2
-      OnClick = btsairClick
-    end
-    object btacessar: TButton
-      Left = 211
-      Top = 112
-      Width = 75
-      Height = 25
-      Caption = 'Acessar'
-      TabOrder = 3
-      OnClick = btacessarClick
-    end
+  end
+  object txtSenha: TEdit
+    Left = 16
+    Top = 89
+    Width = 195
+    Height = 23
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI Black'
+    Font.Style = []
+    MaxLength = 256
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 1
+  end
+  object btnAcessar: TButton
+    Left = 114
+    Top = 124
+    Width = 97
+    Height = 25
+    Caption = 'Acessar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnClick = btnAcessarClick
+  end
+  object btnSair: TButton
+    Left = 16
+    Top = 124
+    Width = 97
+    Height = 25
+    Caption = 'Cancelar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    OnClick = btnSairClick
   end
 end
