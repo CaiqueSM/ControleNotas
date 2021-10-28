@@ -67,4 +67,9 @@ __recovery/
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
 
+####################################################################
+#Whitelist
+
+!bin/*.dll
+
 # End of https://www.toptal.com/developers/gitignore/api/delphi
