@@ -62,7 +62,7 @@ object frmNotas: TfrmNotas
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 1
+    TabOrder = 2
     OnClick = btnCancelarClick
   end
   object btnConsultar: TButton
@@ -71,7 +71,7 @@ object frmNotas: TfrmNotas
     Width = 75
     Height = 25
     Caption = 'Consultar'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = btnConsultarClick
   end
 end
