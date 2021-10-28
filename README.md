@@ -8,4 +8,4 @@ Sistema de gerenciamento de notas fiscais
 - Zeos
 
 ### Fontes
-- Segoe ui
+- Segoe Ui
