@@ -4,7 +4,7 @@ object frmNotas: TfrmNotas
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Consultar notas ficais'
-  ClientHeight = 117
+  ClientHeight = 115
   ClientWidth = 443
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,11 +18,11 @@ object frmNotas: TfrmNotas
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
-  object GroupBox1: TGroupBox
+  object grpConsulta: TGroupBox
     Left = 4
     Top = 8
     Width = 434
-    Height = 105
+    Height = 73
     Caption = ' Consultar '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -55,22 +55,23 @@ object frmNotas: TfrmNotas
       NumbersOnly = True
       TabOrder = 0
     end
-    object btnConsultar: TButton
-      Left = 350
-      Top = 70
-      Width = 75
-      Height = 25
-      Caption = 'Consultar'
-      TabOrder = 1
-    end
-    object btnCancelar: TButton
-      Left = 270
-      Top = 70
-      Width = 75
-      Height = 25
-      Caption = 'Cancelar'
-      TabOrder = 2
-      OnClick = btnCancelarClick
-    end
+  end
+  object btnCancelar: TButton
+    Left = 284
+    Top = 85
+    Width = 75
+    Height = 25
+    Caption = 'Cancelar'
+    TabOrder = 1
+    OnClick = btnCancelarClick
+  end
+  object btnConsultar: TButton
+    Left = 363
+    Top = 85
+    Width = 75
+    Height = 25
+    Caption = 'Consultar'
+    TabOrder = 2
+    OnClick = btnConsultarClick
   end
 end
