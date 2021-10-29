@@ -33,10 +33,15 @@ object frmMenu: TfrmMenu
   object mainMenu: TMainMenu
     Left = 40
     Top = 16
-    object itemArquivo: TMenuItem
-      Caption = 'Arquivo'
+    object itemCadastro: TMenuItem
+      Caption = 'Cadastrar'
       object itemUsuario: TMenuItem
         Caption = 'Usu'#225'rios'
+        OnClick = itemUsuarioClick
+      end
+      object itemNotaFiscal: TMenuItem
+        Caption = 'Notas Fiscais'
+        OnClick = itemNotaFiscalClick
       end
     end
     object itemConsulta: TMenuItem
@@ -44,6 +49,13 @@ object frmMenu: TfrmMenu
       object itemConsultaNotas: TMenuItem
         Caption = 'Notas'
         OnClick = itemConsultaNotasClick
+      end
+    end
+    object itemRelatorio: TMenuItem
+      Caption = 'Relat'#243'rios'
+      object itemGerarRelatorio: TMenuItem
+        Caption = 'Gerar Relat'#243'rio'
+        OnClick = itemGerarRelatorioClick
       end
     end
   end

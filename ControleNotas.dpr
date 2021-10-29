@@ -12,7 +12,10 @@ uses
   untusuariomodel in 'Model\untusuariomodel.pas',
   consulta_notas in 'Views\consulta_notas.pas' {frmNotas},
   controle_notas in 'Views\controle_notas.pas' {frmLogin},
-  untmenu in 'Views\untmenu.pas' {frmMenu};
+  untmenu in 'Views\untmenu.pas' {frmMenu},
+  untCadastrarUsuario in 'untCadastrarUsuario.pas' {frmCadUsuario},
+  untCadastrarClienteNota in 'untCadastrarClienteNota.pas' {frmClienteNotaFiscal},
+  untGerarRelatorio in 'untGerarRelatorio.pas' {frmGerarRelatorio};
 
 {$R *.res}
 
@@ -20,5 +23,8 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TfrmCadUsuario, frmCadUsuario);
+  Application.CreateForm(TfrmClienteNotaFiscal, frmClienteNotaFiscal);
+  Application.CreateForm(TfrmGerarRelatorio, frmGerarRelatorio);
   Application.Run;
 end.
