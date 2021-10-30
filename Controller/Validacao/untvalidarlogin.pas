@@ -15,12 +15,16 @@ type
     function ValidarSenhaUsuario(ASenha: string): boolean;
   end;
 
-  TValidarCliente = class
+  { TValidarCadastro }
+
+  TValidarCadastro = class
     function ValidarCNPJCPF(ACNPJCPF: string): boolean;
     function ValidarEmail(AEmail: string): boolean;
     function ValidarCEP(ACEP: string): boolean;
     function ValidarTelefone(ATelefone: string): boolean;
   end;
+
+
 
 implementation
 
@@ -44,9 +48,9 @@ begin
   Result := (length(ASenha) >= tamanhoSenha);
 end;
 
-{ TValidarCliente }
+{ TValidarCadastro }
 
-function TValidarCliente.ValidarCEP(ACEP: string): boolean;
+function TValidarCadastro.ValidarCEP(ACEP: string): boolean;
 var
  regex: TRegEx;
  padraoRegExCEP: string;
@@ -56,7 +60,7 @@ begin
   Result:= regex.IsMatch(ACEP);
 end;
 
-function TValidarCliente.ValidarCNPJCPF(ACNPJCPF: string): boolean;
+function TValidarCadastro.ValidarCNPJCPF(ACNPJCPF: string): boolean;
 var
   regex: TRegEx;
   padraoRegexCNPJCPF: string;
@@ -66,7 +70,7 @@ begin
   Result := regex.IsMatch(ACNPJCPF);
 end;
 
-function TValidarCliente.ValidarEmail(AEmail: string): boolean;
+function TValidarCadastro.ValidarEmail(AEmail: string): boolean;
 var
   regex: TRegEx;
   padraoRegexEmail: string;
@@ -76,7 +80,7 @@ begin
   Result := regex.IsMatch(AEmail);
 end;
 
-function TValidarCliente.ValidarTelefone(ATelefone: string): boolean;
+function TValidarCadastro.ValidarTelefone(ATelefone: string): boolean;
 var
 regex: TRegEx;
   padraoRegExTelefone: string;
