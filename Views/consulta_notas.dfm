@@ -34,9 +34,9 @@ object frmNotas: TfrmNotas
     object Label1: TLabel
       Left = 11
       Top = 23
-      Width = 76
+      Width = 92
       Height = 15
-      Caption = 'Chave Acesso:'
+      Caption = 'Chave de Acesso:'
       Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -51,8 +51,11 @@ object frmNotas: TfrmNotas
       Top = 41
       Width = 414
       Height = 23
+      Hint = 'Chave de acesso'
       MaxLength = 44
       NumbersOnly = True
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
     end
   end

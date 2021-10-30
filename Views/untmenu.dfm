@@ -1,7 +1,6 @@
 object frmMenu: TfrmMenu
   Left = 230
   Top = 106
-  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Controle de notas'
   ClientHeight = 478
