@@ -12,8 +12,14 @@ type
   TValidarLogin = class
   public
     function ValidarUsuario(AUsuario: string): boolean;
-    function ValidarEmail(AEmail: string): boolean;
     function ValidarSenhaUsuario(ASenha: string): boolean;
+  end;
+
+  TValidarCliente = class
+    function ValidarCNPJCPF(ACNPJCPF: string): boolean;
+    function ValidarEmail(AEmail: string): boolean;
+    function ValidarCEP(ACEP: string): boolean;
+    function ValidarTelefone(ATelefone: string): boolean;
   end;
 
 implementation
@@ -30,7 +36,37 @@ begin
   Result := regex.IsMatch(AUsuario);
 end;
 
-function TValidarLogin.ValidarEmail(AEmail: string): boolean;
+function TValidarLogin.ValidarSenhaUsuario(ASenha: string): boolean;
+var
+  tamanhoSenha: integer;
+begin
+  tamanhoSenha := 4;
+  Result := (length(ASenha) >= tamanhoSenha);
+end;
+
+{ TValidarCliente }
+
+function TValidarCliente.ValidarCEP(ACEP: string): boolean;
+var
+ regex: TRegEx;
+ padraoRegExCEP: string;
+begin
+  padraoRegExCEP:= '^\d{5}-\d{3}$';
+  regex:= TRegEx.Create(padraoRegExCEP);
+  Result:= regex.IsMatch(ACEP);
+end;
+
+function TValidarCliente.ValidarCNPJCPF(ACNPJCPF: string): boolean;
+var
+  regex: TRegEx;
+  padraoRegexCNPJCPF: string;
+begin
+  padraoRegexCNPJCPF := '/^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})$/';
+  regex := TRegEx.Create(padraoRegExCNPJCPF);
+  Result := regex.IsMatch(ACNPJCPF);
+end;
+
+function TValidarCliente.ValidarEmail(AEmail: string): boolean;
 var
   regex: TRegEx;
   padraoRegexEmail: string;
@@ -40,13 +76,14 @@ begin
   Result := regex.IsMatch(AEmail);
 end;
 
-function TValidarLogin.ValidarSenhaUsuario(ASenha: string): boolean;
+function TValidarCliente.ValidarTelefone(ATelefone: string): boolean;
 var
-  tamanhoSenha: integer;
+regex: TRegEx;
+  padraoRegExTelefone: string;
 begin
-  tamanhoSenha := 4;
-  Result := (length(ASenha) >= tamanhoSenha);
+  padraoRegExTelefone:='^[0-9]{2}-[0-9]{5}-[0-9]{4}$';
+  regex:= TRegEx.Create(padraoRegExTelefone);
+  Result:= regex.IsMatch(ATelefone);
 end;
 
 end.
-
