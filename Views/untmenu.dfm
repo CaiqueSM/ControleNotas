@@ -1,10 +1,11 @@
 object frmMenu: TfrmMenu
   Left = 230
   Top = 106
-  Width = 1087
-  Height = 527
-  AutoScroll = True
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Controle de notas'
+  ClientHeight = 478
+  ClientWidth = 1081
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -34,14 +35,25 @@ object frmMenu: TfrmMenu
     Left = 40
     Top = 16
     object itemCadastro: TMenuItem
-      Caption = 'Cadastrar'
+      Caption = 'Cadastros'
       object itemUsuario: TMenuItem
         Caption = 'Usu'#225'rios'
         OnClick = itemUsuarioClick
       end
       object itemNotaFiscal: TMenuItem
         Caption = 'Notas Fiscais'
-        OnClick = itemNotaFiscalClick
+        object subItemNota: TMenuItem
+          Caption = 'Cadastro notas'
+          OnClick = subItemNotaClick
+        end
+        object subItemCliente: TMenuItem
+          Caption = 'Cadastro cliente'
+          OnClick = subItemClienteClick
+        end
+        object subItemFornercedor: TMenuItem
+          Caption = 'Cadastro fornecedor'
+          OnClick = subItemFornercedorClick
+        end
       end
     end
     object itemConsulta: TMenuItem

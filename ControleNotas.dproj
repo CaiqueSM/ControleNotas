@@ -138,15 +138,23 @@
             <Form>frmMenu</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="untCadastrarUsuario.pas">
-            <Form>frmCadUsuario</Form>
+        <DCCReference Include="Views\untCadastrarNota.pas">
+            <Form>frmCadastrarNota</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="untCadastrarClienteNota.pas">
+        <DCCReference Include="Views\untCadastrarClienteNota.pas">
             <Form>frmClienteNotaFiscal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="untGerarRelatorio.pas">
+        <DCCReference Include="Views\untCadastrarFornecedorNota.pas">
+            <Form>frmFornecedorNotaFiscal</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Views\untCadastrarUsuario.pas">
+            <Form>frmCadUsuario</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Views\untGerarRelatorio.pas">
             <Form>frmGerarRelatorio</Form>
             <FormType>dfm</FormType>
         </DCCReference>

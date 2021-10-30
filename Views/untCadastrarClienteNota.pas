@@ -27,7 +27,7 @@ type
     lbNumero: TLabel;
     lbTelefone: TLabel;
     bntCancelar: TButton;
-    bntProximo: TButton;
+    bntGravar: TButton;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     { Private declarations }

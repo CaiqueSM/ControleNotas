@@ -20,13 +20,18 @@ type
     itemNotaFiscal: TMenuItem;
     itemRelatorio: TMenuItem;
     itemGerarRelatorio: TMenuItem;
+    subItemNota: TMenuItem;
+    subItemCliente: TMenuItem;
+    subItemFornercedor: TMenuItem;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure itemConsultaNotasClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure itemGerarRelatorioClick(Sender: TObject);
-    procedure itemNotaFiscalClick(Sender: TObject);
     procedure itemUsuarioClick(Sender: TObject);
+    procedure subItemNotaClick(Sender: TObject);
+    procedure subItemClienteClick(Sender: TObject);
+    procedure subItemFornercedorClick(Sender: TObject);
   private
     FController: TMenuController;
     procedure Logar();
@@ -38,10 +43,11 @@ var
 implementation
 
 uses
-  consulta_notas, untCadastrarUsuario, untCadastrarClienteNota, untGerarRelatorio;
+  consulta_notas, untCadastrarUsuario, untCadastrarClienteNota,
+  untGerarRelatorio,
+  untCadastrarFornecedorNota, untCadastrarNota;
 
 {$R *.dfm}
-
 { TfrmMenu }
 
 procedure TfrmMenu.FormCreate(Sender: TObject);
@@ -52,7 +58,7 @@ end;
 
 procedure TfrmMenu.FormShow(Sender: TObject);
 begin
-   pnlTopo.Width := Screen.Width;
+  pnlTopo.Width := Screen.Width;
 end;
 
 procedure TfrmMenu.Logar();
@@ -61,19 +67,31 @@ begin
     Application.Terminate;
 end;
 
+procedure TfrmMenu.subItemClienteClick(Sender: TObject);
+begin
+  FController.AbrirTelaFilha(Self, TfrmClienteNotaFiscal, frmClienteNotaFiscal);
+end;
+
+procedure TfrmMenu.subItemFornercedorClick(Sender: TObject);
+begin
+  FController.AbrirTelaFilha(Self, TfrmFornecedorNotaFiscal,
+    frmFornecedorNotaFiscal);
+end;
+
+procedure TfrmMenu.subItemNotaClick(Sender: TObject);
+begin
+  FController.AbrirTelaFilha(Self, TfrmCadastrarNota, frmCadastrarNota);
+end;
+
 procedure TfrmMenu.itemConsultaNotasClick(Sender: TObject);
 begin
+
   FController.AbrirTelaFilha(Self, TfrmNotas, frmNotas);
 end;
 
 procedure TfrmMenu.itemGerarRelatorioClick(Sender: TObject);
 begin
- FController.AbrirTelaFilha(Self, TfrmGerarRelatorio, frmGerarRelatorio);
-end;
-
-procedure TfrmMenu.itemNotaFiscalClick(Sender: TObject);
-begin
- FController.AbrirTelaFilha(Self, TfrmClienteNotaFiscal, frmClienteNotaFiscal);
+  FController.AbrirTelaFilha(Self, TfrmGerarRelatorio, frmGerarRelatorio);
 end;
 
 procedure TfrmMenu.itemUsuarioClick(Sender: TObject);
@@ -88,4 +106,3 @@ begin
 end;
 
 end.
-
