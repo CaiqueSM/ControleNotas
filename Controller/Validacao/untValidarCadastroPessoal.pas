@@ -16,8 +16,8 @@ type
     function ValidarCEP(ACEP: string): boolean;
     function ValidarTelefone(ATelefone: string): boolean;
   private
-    function ValidarCNPJ(ACNPJCPF: string): boolean;
-    function ValidarCPF(ACNPJCPF: string): boolean;
+    function ValidarCNPJ(ACNPJ: string): boolean;
+    function ValidarCPF(ACPF: string): boolean;
   end;
 
 implementation
@@ -34,18 +34,18 @@ begin
   Result := regex.IsMatch(ACEP);
 end;
 
-function TValidarCadastro.ValidarCPF(ACNPJCPF: string): boolean;
+function TValidarCadastro.ValidarCPF(ACPF: string): boolean;
 var
   tamanhoCPF, numeroSoma, resto, indiceCPF: integer;
   digitoVerificador: array [0 .. 1] of integer;
 begin
   tamanhoCPF := 11;
-  Trim(ACNPJCPF);
+  Trim(ACPF);
   numeroSoma:= 0;
 
   for indiceCPF := 1 to tamanhoCPF do
   begin
-    numeroSoma := numeroSoma + strTOint(ACNPJCPF[indiceCPF]) * tamanhoCPF - 1;
+    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * tamanhoCPF - 1;
   end;
 
   resto := tamanhoCPF - (numeroSoma mod tamanhoCPF);
@@ -59,7 +59,7 @@ begin
 
   for indiceCPF := 1 to tamanhoCPF - 1 do
   begin
-    numeroSoma := numeroSoma + strTOint(ACNPJCPF[indiceCPF]) * tamanhoCPF;
+    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * tamanhoCPF;
   end;
 
   resto := tamanhoCPF - (numeroSoma mod tamanhoCPF);
@@ -69,11 +69,11 @@ begin
   else
     digitoVerificador[1] := resto;
 
-  Result := (digitoVerificador[0] = strTOint(ACNPJCPF[9])) and
-    (digitoVerificador[1] = strTOint(ACNPJCPF[10]));
+  Result := (digitoVerificador[0] = strTOint(ACPF[9])) and
+    (digitoVerificador[1] = strTOint(ACPF[10]));
 end;
 
-function TValidarCadastro.ValidarCNPJ(ACNPJCPF: string): boolean;
+function TValidarCadastro.ValidarCNPJ(ACNPJ: string): boolean;
 var
   pesoCNPJ: array of integer;
   digitoVerificador: array [0 .. 1] of integer;
@@ -86,7 +86,7 @@ begin
 
   for indiceCNPJ := 1 to tamanhoCNPJ do
   begin
-    numeroSoma := numeroSoma + strTOint(ACNPJCPF[indiceCNPJ]) *
+    numeroSoma := numeroSoma + strTOint(ACNPJ[indiceCNPJ]) *
       pesoCNPJ[indiceCNPJ];
   end;
 
@@ -102,7 +102,7 @@ begin
 
   for indiceCNPJ := 1 to tamanhoCNPJ + 1 do
   begin
-    numeroSoma := numeroSoma + strTOint(ACNPJCPF[indiceCNPJ]) *
+    numeroSoma := numeroSoma + strTOint(ACNPJ[indiceCNPJ]) *
       pesoCNPJ[indiceCNPJ];
   end;
 
@@ -113,8 +113,8 @@ begin
   else
     digitoVerificador[1] := (tamanhoCNPJ - 1) - resto;
 
-  Result := (digitoVerificador[0] = strTOint(ACNPJCPF[9])) and
-    (digitoVerificador[1] = strTOint(ACNPJCPF[10]));
+  Result := (digitoVerificador[0] = strTOint(ACNPJ[9])) and
+    (digitoVerificador[1] = strTOint(ACNPJ[10]));
 end;
 
 function TValidarCadastro.ValidarCadastroPessoal(ACNPJCPF: string): boolean;

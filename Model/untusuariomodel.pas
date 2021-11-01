@@ -14,7 +14,7 @@ type
     FId: integer;
     FNome: string;
     FSenha: string;
-    FNotas: TObjectList<TNotas>;
+    FNotas: TObjectList<TNotasModel>;
     procedure SetNome(AValue: string);
     procedure SetSenha(AValue: string);
   public
@@ -24,7 +24,7 @@ type
     property Id: integer read FId write FId;
     property Nome: string read FNome write SetNome;
     property Senha: string read FSenha write SetSenha;
-    property Notas: TObjectList<TNotas> read FNotas write FNotas;
+    property Notas: TObjectList<TNotasModel> read FNotas write FNotas;
   end;
 
 implementation
@@ -33,7 +33,7 @@ implementation
 
 constructor TUsuarioModel.Create;
 begin
-   FNotas := TObjectList<TNotas>.Create();
+   FNotas := TObjectList<TNotasModel>.Create();
 end;
 
 destructor TUsuarioModel.Destroy;

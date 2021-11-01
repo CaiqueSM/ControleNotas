@@ -16,8 +16,8 @@ type
     FBairro: string;
     FNumero: string;
     FComplemento: string;
-    FEmails: TObjectList<TEmail>;
-    FTelefones: TObjectList<TTelefone>;
+    FEmails: TObjectList<TEmailModel>;
+    FTelefones: TObjectList<TTelefoneModel>;
     procedure SetCEP(AValue: string);
     procedure SetRua(AValue: string);
     procedure SetBairro(AValue: string);
@@ -32,28 +32,28 @@ type
     property Rua: string read FNomeRua write FNomeRua;
     property Bairro: string read FBairro write FBairro;
     property Complemento: string read FComplemento write FComplemento;
-    property Emails: TObjectList<TEmail> read FEmails write FEmails;
-    property Telefones: TObjectList<TTelefone> read FTelefones write FTelefones;
+    property Emails: TObjectList<TEmailModel> read FEmails write FEmails;
+    property Telefones: TObjectList<TTelefoneModel> read FTelefones write FTelefones;
   end;
 
 implementation
 
 { TContato }
 
-constructor TContato.Create;
+constructor TContatoModel.Create;
 begin
-  FEmails := TObjectList<TEmail>.Create();
-  FTelefones := TObjectList<TTelefone>.Create();
+  FEmails := TObjectList<TEmailModel>.Create();
+  FTelefones := TObjectList<TTelefoneModel>.Create();
 end;
 
-destructor TContato.Destroy;
+destructor TContatoModel.Destroy;
 begin
   FEmails.Free;
   FTelefones.Free;
   inherited;
 end;
 
-procedure TContato.SetBairro(AValue: string);
+procedure TContatoModel.SetBairro(AValue: string);
 begin
   FBairro := Trim(AValue);
 end;
