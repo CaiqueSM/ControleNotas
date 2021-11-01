@@ -26,14 +26,6 @@ type
     property Contato: TContato read FContato write SetContato;
   end;
 
-  TCliente = class(TPessoaModel)
-
-  end;
-
-  TFornecedor = class(TPessoaModel)
-
-  end;
-
 implementation
 
 { TPessoaModel }

@@ -19,10 +19,14 @@ uses
   untConsultarNotas in 'Views\untConsultarNotas.pas' {frmConsultarNotas},
   untValidarCadastroPessoal in 'Controller\Validacao\untValidarCadastroPessoal.pas',
   untCadastroPessoalController in 'Controller\untCadastroPessoalController.pas',
-  untContatoModel in 'Model\untContatoModel.pas',
   untPessoaModel in 'Model\untPessoaModel.pas',
   untNotasModel in 'Model\untNotasModel.pas',
-  untusuariomodel in 'Model\untusuariomodel.pas';
+  untusuariomodel in 'Model\untusuariomodel.pas',
+  UntClienteModel in 'Model\UntClienteModel.pas',
+  UntFornecedorModel in 'UntFornecedorModel.pas',
+  UntEmailModel in 'Model\UntEmailModel.pas',
+  UntTelefoneModel in 'Model\UntTelefoneModel.pas',
+  untContatoModel in 'Model\untContatoModel.pas';
 
 {$R *.res}
 

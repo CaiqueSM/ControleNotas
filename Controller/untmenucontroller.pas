@@ -74,6 +74,7 @@ begin
     end;
 
   LockWindowUpdate(0);
+  TForm(Reference) := nil;
 end;
 
 function TMenuController.Logar(): boolean;

@@ -3,29 +3,9 @@ unit untContatoModel;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, UntTelefoneModel, UntEmailModel;
 
 type
-
-  TEmail = class
-  private
-    FId: integer;
-    FEnderecoEmail: string;
-    procedure SetEmail(AValue: string);
-  public
-    property Id: integer read FId write FId;
-    property Email: string read FEnderecoEmail write SetEmail;
-  end;
-
-  TTelefone = class
-  private
-    FId: integer;
-    FNumeroTelefone: string;
-    procedure SetTelefone(AValue: string);
-  public
-    property Id: integer read FId write FId;
-    property Telefone: string read FNumeroTelefone write SetTelefone;
-  end;
 
   TContato = class
   public
@@ -79,20 +59,6 @@ end;
 procedure TContato.SetRua(AValue: string);
 begin
   FNomeRua := Trim(AValue);
-end;
-
-{ TEmail }
-
-procedure TEmail.SetEmail(AValue: string);
-begin
-  FEnderecoEmail := Trim(AValue);
-end;
-
-{ TTelefone }
-
-procedure TTelefone.SetTelefone(AValue: string);
-begin
-  FNumeroTelefone := Trim(AValue);
 end;
 
 end.

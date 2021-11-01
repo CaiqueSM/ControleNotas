@@ -3,7 +3,7 @@ unit untNotasModel;
 interface
 
 uses
-  Classes, SysUtils, untPessoaModel;
+  Classes, SysUtils, UntClienteModel, UntFornecedorModel;
 
 type
 
