@@ -23,6 +23,8 @@ type
     procedure SetCliente(AValue: TClienteModel);
     procedure SetFornecedor(AValue: TFornecedorModel);
   public
+    destructor Destroy(); override;
+
     property Id: integer read FId write FId;
     property Chave: string read FChaveAcesso write SetChaveAcesso;
     property Descicao: string read FDescricao write SetDescricao;
@@ -35,6 +37,17 @@ type
 implementation
 
 { TNotas }
+
+destructor TNotas.Destroy;
+begin
+  If (FCliente <> nil) Then
+    FCliente.Free;
+
+  If (FFornecedor <> nil) Then
+    FFornecedor.Free;
+
+  inherited;
+end;
 
 procedure TNotas.SetChaveAcesso(AValue: string);
 begin
