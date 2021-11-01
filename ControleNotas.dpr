@@ -9,7 +9,6 @@ uses
   untbasedao in 'Dao\untbasedao.pas',
   untconexao in 'Dao\untconexao.pas',
   untlogindao in 'Dao\untlogindao.pas',
-  untusuariomodel in 'Model\untusuariomodel.pas',
   untmenu in 'Views\untmenu.pas' {frmMenu},
   untCadastrarNota in 'Views\untCadastrarNota.pas' {frmCadastrarNota},
   untCadastrarClienteNota in 'Views\untCadastrarClienteNota.pas' {frmClienteNotaFiscal},
@@ -22,7 +21,8 @@ uses
   untCadastroPessoalController in 'Controller\untCadastroPessoalController.pas',
   untContatoModel in 'Model\untContatoModel.pas',
   untPessoaModel in 'Model\untPessoaModel.pas',
-  untNotasModel in 'Model\untNotasModel.pas';
+  untNotasModel in 'Model\untNotasModel.pas',
+  untusuariomodel in 'Model\untusuariomodel.pas';
 
 {$R *.res}
 

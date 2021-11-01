@@ -42,6 +42,14 @@ type
     procedure SetBairro(AValue: string);
     procedure SetNumero(AValue: string);
     procedure SetComplemento(AValue: string);
+  public
+    property Id: integer read FId write FId;
+    property CEP: string read FCEP write FCEP;
+    property Rua: string read FNomeRua write FNomeRua;
+    property Bairro: string read FBairro write FBairro;
+    property Complemento: string read FComplemento write FComplemento;
+    property Email: TEmail read FEmail write FEmail;
+    property Telefone: TTelefone read FTelefone write FTelefone;
   end;
 
 implementation

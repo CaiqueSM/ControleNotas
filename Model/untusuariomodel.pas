@@ -3,7 +3,7 @@ unit UntUsuarioModel;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, untNotasModel;
 
 type
 
@@ -14,12 +14,15 @@ type
     FId: integer;
     FNome: string;
     FSenha: string;
+    FNotas: array of TNotas;
     procedure SetNome(AValue: string);
     procedure SetSenha(AValue: string);
+    procedure SetNotas(AValue: TNotas);
   public
     property Id: integer read FId write FId;
     property Nome: string read FNome write SetNome;
     property Senha: string read FSenha write SetSenha;
+    //property Notas:
   end;
 
 implementation
