@@ -3,7 +3,8 @@ unit UntContatoModel;
 interface
 
 uses
-  Classes, SysUtils, UntTelefoneModel, UntEmailModel;
+  Classes, SysUtils, UntTelefoneModel, UntEmailModel,
+  System.Generics.Collections;
 
 type
 
@@ -15,26 +16,42 @@ type
     FBairro: string;
     FNumero: string;
     FComplemento: string;
-    FEmail: TEmailModel;
-    FTelefone: TTelefoneModel;
+    FEmails: TObjectList<TEmailModel>;
+    FTelefones: TObjectList<TTelefoneModel>;
     procedure SetCEP(AValue: string);
     procedure SetRua(AValue: string);
     procedure SetBairro(AValue: string);
     procedure SetNumero(AValue: string);
     procedure SetComplemento(AValue: string);
   public
+    constructor Create(); reintroduce;
+    destructor Destroy(); override;
+
     property Id: integer read FId write FId;
     property CEP: string read FCEP write FCEP;
     property Rua: string read FNomeRua write FNomeRua;
     property Bairro: string read FBairro write FBairro;
     property Complemento: string read FComplemento write FComplemento;
-    property Email: TEmailModel read FEmail write FEmail;
-    property Telefone: TTelefoneModel read FTelefone write FTelefone;
+    property Emails: TObjectList<TEmailModel> read FEmails write FEmails;
+    property Telefones: TObjectList<TTelefoneModel> read FTelefones write FTelefones;
   end;
 
 implementation
 
 { TContato }
+
+constructor TContatoModel.Create;
+begin
+  FEmails := TObjectList<TEmailModel>.Create();
+  FTelefones := TObjectList<TTelefoneModel>.Create();
+end;
+
+destructor TContatoModel.Destroy;
+begin
+  FEmails.Free;
+  FTelefones.Free;
+  inherited;
+end;
 
 procedure TContatoModel.SetBairro(AValue: string);
 begin
