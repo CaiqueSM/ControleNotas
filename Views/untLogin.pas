@@ -85,6 +85,7 @@ begin
   if not FController.Logar(txtUsuario.Text, txtSenha.Text) then
   begin
     ShowMessage('Usuário ou senha incorreta!');
+    if txtUsuario.CanFocus then txtUsuario.SetFocus;    
     exit();
   end;
 
