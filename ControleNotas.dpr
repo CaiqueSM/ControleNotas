@@ -23,10 +23,10 @@ uses
   untNotasModel in 'Model\untNotasModel.pas',
   untusuariomodel in 'Model\untusuariomodel.pas',
   UntClienteModel in 'Model\UntClienteModel.pas',
-  UntFornecedorModel in 'UntFornecedorModel.pas',
   UntEmailModel in 'Model\UntEmailModel.pas',
   UntTelefoneModel in 'Model\UntTelefoneModel.pas',
-  untContatoModel in 'Model\untContatoModel.pas';
+  untContatoModel in 'Model\untContatoModel.pas',
+  UntFornecedorModel in 'Model\UntFornecedorModel.pas';
 
 {$R *.res}
 
