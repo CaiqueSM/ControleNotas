@@ -125,10 +125,10 @@
         <DCCReference Include="Model\untNotasModel.pas"/>
         <DCCReference Include="Model\untusuariomodel.pas"/>
         <DCCReference Include="Model\UntClienteModel.pas"/>
-        <DCCReference Include="UntFornecedorModel.pas"/>
         <DCCReference Include="Model\UntEmailModel.pas"/>
         <DCCReference Include="Model\UntTelefoneModel.pas"/>
         <DCCReference Include="Model\untContatoModel.pas"/>
+        <DCCReference Include="Model\UntFornecedorModel.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

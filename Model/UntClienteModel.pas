@@ -7,7 +7,7 @@ uses
 
 type
 
-  TCliente = class(TPessoaModel)
+  TClienteModel = class(TPessoaModel)
   end;
 
 implementation
