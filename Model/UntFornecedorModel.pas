@@ -7,7 +7,7 @@ uses
 
 type
 
-  TFornecedor = class(TPessoaModel)
+  TFornecedorModel = class(TPessoaModel)
   end;
 
 implementation
