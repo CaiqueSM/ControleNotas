@@ -57,12 +57,12 @@ end;
 
 procedure TNotas.SetFornecedor(AValue: TPessoaModel);
 begin
-
+  FFornecedor:= AValue;
 end;
 
 procedure TNotas.SetValor(AValue: real);
 begin
-
+  FValor:= AValue;
 end;
 
 end.
