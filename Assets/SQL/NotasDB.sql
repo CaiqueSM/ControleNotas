@@ -52,3 +52,6 @@ id INTEGER PRIMARY KEY AUTO_INCREMENT,
 numerotelefone VARCHAR(11) NOT NULL,
 idcontato integer NOT NULL REFERENCES contato
 );
+
+use notafiscal;
+insert into usuario(nome, senha) values('root', 'root'); 

@@ -14,21 +14,22 @@ type
     FCodigo: integer;
     FDescricao: string;
     FValor: real;
-    FCliente: TPessoaModel;
-    FFornecedor: TPessoaModel;
+    FCliente: TCliente;
+    FFornecedor: TFornecedor;
     procedure SetChaveAcesso(AValue: string);
     procedure SetDescricao(AValue: string);
     procedure SetCodigo(AValue: integer);
     procedure SetValor(AValue: real);
-    procedure SetCliente(AValue: TPessoaModel);
-    procedure SetFornecedor(AValue: TPessoaModel);
+    procedure SetCliente(AValue: TCliente);
+    procedure SetFornecedor(AValue: TFornecedor);
   public
     property Id: integer read FId write FId;
-    property Chave: string read FChaveAcesso write FChaveAcesso;
-    property Descicao: string read FDescricao write FDescricao;
-    property Valor: real read FValor write FValor;
-    property Cliente: TPessoaModel read FCliente write FCliente;
-    property Fornecedor: TPessoaModel read FFornecedor write FFornecedor;
+    property Chave: string read FChaveAcesso write SetChaveAcesso;
+    property Descicao: string read FDescricao write SetDescricao;
+    property Codigo: integer read FCodigo write SetCodigo;
+    property Valor: real read FValor write SetValor;
+    property Cliente: TCliente read FCliente write SetCliente;
+    property Fornecedor: TFornecedor read FFornecedor write SetFornecedor;
   end;
 
 implementation
@@ -40,7 +41,7 @@ begin
   FChaveAcesso := Trim(AValue);
 end;
 
-procedure TNotas.SetCliente(AValue: TPessoaModel);
+procedure TNotas.SetCliente(AValue: TCliente);
 begin
   FCliente := AValue;
 end;
@@ -55,7 +56,7 @@ begin
   FDescricao := AValue;
 end;
 
-procedure TNotas.SetFornecedor(AValue: TPessoaModel);
+procedure TNotas.SetFornecedor(AValue: TFornecedor);
 begin
   FFornecedor:= AValue;
 end;
