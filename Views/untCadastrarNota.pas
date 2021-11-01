@@ -3,7 +3,8 @@ unit untCadastrarNota;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
@@ -20,6 +21,7 @@ type
     btnGravar: TButton;
     btnCancelar: TButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    // procedure formatField(Sender: TObject);
   private
     { Private declarations }
   public
@@ -32,11 +34,20 @@ var
 implementation
 
 {$R *.dfm}
+{ procedure TfrmCadastrarNota.formatField(Sender: TObject);
+  var
+  parteInteira, parteDecimal, valor: string;
+
+  begin
+  valor:= Trim(txtValor.text);
+  parteDecimal:= valor[length(valor)-2]+valor[length(valor)-1];
+
+  end; }
 
 procedure TfrmCadastrarNota.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
- Action:= caFree;
+  Action := caFree;
 end;
 
 end.

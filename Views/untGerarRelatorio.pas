@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask;
 
 type
   TfrmGerarRelatorio = class(TForm)
@@ -14,16 +14,10 @@ type
     gbPeriodo: TGroupBox;
     lbDataInicio: TLabel;
     lbDataTermino: TLabel;
-    txtDataTermino: TEdit;
-    txtDataInicio: TEdit;
-    gbOrdenar: TGroupBox;
-    cboFrequencia: TCheckBox;
-    cboValores: TCheckBox;
     rgRelatorio: TRadioGroup;
-    rboAmbos: TRadioButton;
-    rboCliente: TRadioButton;
-    rboFornecedor: TRadioButton;
-    cboAlfabetica: TCheckBox;
+    rgOrdenar: TRadioGroup;
+    MaskEdit1: TMaskEdit;
+    MaskEdit2: TMaskEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }

@@ -3,11 +3,12 @@ unit untCadastrarUsuario;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin;
 
 type
-  TfrmCadUsuario = class(TForm)
+  TfrmCadastrarUsuario = class(TForm)
     txtNomeUsuario: TEdit;
     txtInfoSenha: TEdit;
     lbNomeUsuario: TLabel;
@@ -18,19 +19,18 @@ type
     lbConfirmSenha: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
-    { Private declarations }
-  public
-    { Public declarations }
+    //FController:
   end;
 
 var
-  frmCadUsuario: TfrmCadUsuario;
+  frmCadastrarUsuario: TfrmCadastrarUsuario;
 
 implementation
 
 {$R *.dfm}
 
-procedure TfrmCadUsuario.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmCadastrarUsuario.FormClose(Sender: TObject;
+  var Action: TCloseAction);
 begin
   Action := caFree;
 end;

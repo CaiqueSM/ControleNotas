@@ -3,7 +3,7 @@ object frmGerarRelatorio: TfrmGerarRelatorio
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Gerar Relat'#243'rio'
+  Caption = 'Gerar relat'#243'rio'
   ClientHeight = 198
   ClientWidth = 446
   Color = clBtnFace
@@ -22,7 +22,7 @@ object frmGerarRelatorio: TfrmGerarRelatorio
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 4
+    TabOrder = 3
   end
   object txtGerar: TButton
     Left = 364
@@ -30,7 +30,7 @@ object frmGerarRelatorio: TfrmGerarRelatorio
     Width = 75
     Height = 25
     Caption = 'Gerar'
-    TabOrder = 3
+    TabOrder = 2
   end
   object gbPeriodo: TGroupBox
     Left = 8
@@ -38,7 +38,7 @@ object frmGerarRelatorio: TfrmGerarRelatorio
     Width = 431
     Height = 56
     Caption = ' Periodo '
-    TabOrder = 2
+    TabOrder = 1
     object lbDataInicio: TLabel
       Left = 8
       Top = 28
@@ -53,85 +53,54 @@ object frmGerarRelatorio: TfrmGerarRelatorio
       Height = 15
       Caption = 'Data T'#233'rmino:'
     end
-    object txtDataTermino: TEdit
-      Left = 307
-      Top = 23
-      Width = 121
-      Height = 23
-      TabOrder = 1
-    end
-    object txtDataInicio: TEdit
+    object MaskEdit1: TMaskEdit
       Left = 73
       Top = 23
-      Width = 121
+      Width = 120
       Height = 23
+      Hint = 'DD/MM/AAAA'
+      EditMask = '!99/99/0000;1;_'
+      MaxLength = 10
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
+      Text = '  /  /    '
     end
-  end
-  object gbOrdenar: TGroupBox
-    Left = 229
-    Top = 8
-    Width = 210
-    Height = 92
-    Caption = ' Ordenar por '
-    TabOrder = 1
-    object cboFrequencia: TCheckBox
-      Left = 3
-      Top = 17
-      Width = 97
-      Height = 17
-      Caption = 'Frequ'#234'ncia'
-      TabOrder = 0
-    end
-    object cboValores: TCheckBox
-      Left = 3
-      Top = 40
-      Width = 97
-      Height = 17
-      Caption = 'Valores'
+    object MaskEdit2: TMaskEdit
+      Left = 307
+      Top = 23
+      Width = 120
+      Height = 23
+      EditMask = '!99/99/0000;1;_'
+      MaxLength = 10
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 1
-    end
-    object cboAlfabetica: TCheckBox
-      Left = 3
-      Top = 63
-      Width = 97
-      Height = 17
-      Caption = 'Alfab'#233'tica'
-      TabOrder = 2
+      Text = '  /  /    '
     end
   end
   object rgRelatorio: TRadioGroup
-    Left = 8
-    Top = 8
+    Left = 5
+    Top = 0
     Width = 210
     Height = 92
     Caption = ' Relat'#243'rio de '
+    Items.Strings = (
+      'Ambos'
+      'Cliente'
+      'Fornecedores')
     TabOrder = 0
   end
-  object rboAmbos: TRadioButton
-    Left = 15
-    Top = 25
-    Width = 130
-    Height = 17
-    Caption = 'Ambos'
-    Checked = True
-    TabOrder = 5
-    TabStop = True
-  end
-  object rboCliente: TRadioButton
-    Left = 15
-    Top = 48
-    Width = 130
-    Height = 17
-    Caption = 'Cliente'
-    TabOrder = 6
-  end
-  object rboFornecedor: TRadioButton
-    Left = 15
-    Top = 71
-    Width = 146
-    Height = 17
-    Caption = 'Fornecedores'
-    TabOrder = 7
+  object rgOrdenar: TRadioGroup
+    Left = 224
+    Top = 0
+    Width = 210
+    Height = 92
+    Caption = ' Ordenar por '
+    Items.Strings = (
+      'Alfab'#233'tica'
+      'Frequ'#234'ncia'
+      'Valores')
+    TabOrder = 4
   end
 end

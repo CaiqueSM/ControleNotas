@@ -3,8 +3,9 @@ unit untCadastrarClienteNota;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask;
 
 type
   TfrmClienteNotaFiscal = class(TForm)
@@ -19,7 +20,6 @@ type
     txtEmail: TEdit;
     txtBairro: TEdit;
     txtNumero: TEdit;
-    txtTelefone: TEdit;
     lbCEP: TLabel;
     lbRua: TLabel;
     lbEmail: TLabel;
@@ -28,6 +28,9 @@ type
     lbTelefone: TLabel;
     bntCancelar: TButton;
     bntGravar: TButton;
+    txtComplemento: TEdit;
+    lbComplemento: TLabel;
+    txtTelefone: TMaskEdit;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     { Private declarations }
@@ -41,9 +44,11 @@ var
 implementation
 
 {$R *.dfm}
-procedure TfrmClienteNotaFiscal.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-   CloseAction := caFree;
-end;
-end.
 
+procedure TfrmClienteNotaFiscal.FormClose(Sender: TObject;
+  var CloseAction: TCloseAction);
+begin
+  CloseAction := caFree;
+end;
+
+end.

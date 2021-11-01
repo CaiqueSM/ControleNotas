@@ -1,4 +1,4 @@
-﻿unit controle_notas;
+﻿unit untLogin;
 
 interface
 
@@ -33,7 +33,6 @@ var
 implementation
 
 {$R *.dfm}
-
 { TfrmLogin }
 
 procedure TfrmLogin.FormCreate(Sender: TObject);
@@ -61,8 +60,8 @@ begin
   begin
     ShowMessage('Nome usuário inválido!');
 
-    if txtusuario.CanFocus then
-      txtusuario.SetFocus;
+    if txtUsuario.CanFocus then
+      txtUsuario.SetFocus;
     exit();
   end;
 
@@ -70,8 +69,8 @@ begin
   begin
     ShowMessage('Senha inválida!');
 
-    if txtsenha.CanFocus then
-      txtsenha.SetFocus;
+    if txtSenha.CanFocus then
+      txtSenha.SetFocus;
     exit();
   end;
 
@@ -80,13 +79,13 @@ end;
 
 procedure TfrmLogin.btnAcessarClick(Sender: TObject);
 begin
-  if not ValidarLogin(txtusuario.Text, txtsenha.Text) then
-    Exit();
+  if not ValidarLogin(txtUsuario.Text, txtSenha.Text) then
+    exit();
 
-  if not FController.Logar(txtusuario.Text, txtsenha.Text) then
+  if not FController.Logar(txtUsuario.Text, txtSenha.Text) then
   begin
     ShowMessage('Usuário ou senha incorreta!');
-    Exit();
+    exit();
   end;
 
   Close();

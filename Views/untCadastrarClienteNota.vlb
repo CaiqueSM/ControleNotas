@@ -4,9 +4,6 @@ Coordinates=208,146,83,58
 [txtNumero]
 Coordinates=360,146,74,58
 
-[txtTelefone]
-Coordinates=234,78,78,58
-
 [txtBairro]
 Coordinates=81,78,63,58
 
@@ -56,7 +53,7 @@ Coordinates=111,146,87,58
 Coordinates=280,10,51,58
 
 []
-Coordinates=447,232,91,36
+Coordinates=234,78,78,58
 
 [bntGravar]
 Coordinates=190,10,80,58

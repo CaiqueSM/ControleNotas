@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Windows, UntEnvironment,
-  controle_notas;
+  untLogin;
 
 type
 
@@ -14,7 +14,8 @@ type
   private
     function IsChildFormExist(InstanceClass: TFormClass): boolean;
   public
-    procedure AbrirTelaFilha(MainForm: TForm; InstanceClass: TFormClass; var Reference);
+    procedure AbrirTelaFilha(MainForm: TForm; InstanceClass: TFormClass;
+      var Reference);
     function Logar(): boolean;
   end;
 
@@ -28,7 +29,7 @@ var
 begin
   with (Application.MainForm) do
     for I := 0 to MDIChildCount - 1 do
-      if (MDIChildren[i] is InstanceClass) then
+      if (MDIChildren[I] is InstanceClass) then
       begin
         Result := True;
         Exit;

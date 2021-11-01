@@ -3,8 +3,9 @@ unit untCadastrarFornecedorNota;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask;
 
 type
   TfrmFornecedorNotaFiscal = class(TForm)
@@ -19,7 +20,6 @@ type
     txtEmail: TEdit;
     txtBairro: TEdit;
     txtNumero: TEdit;
-    txtTelefone: TEdit;
     lbCEP: TLabel;
     lbRua: TLabel;
     lbEmail: TLabel;
@@ -28,6 +28,9 @@ type
     lbTelefone: TLabel;
     btnGravar: TButton;
     btnCancelar: TButton;
+    txtTelefone: TEdit;
+    lbComplemento: TLabel;
+    MaskEdit1: TMaskEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
@@ -45,7 +48,7 @@ implementation
 procedure TfrmFornecedorNotaFiscal.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
- Action:= caFree;
+  Action := caFree;
 end;
 
 end.

@@ -1,11 +1,11 @@
-object frmNotas: TfrmNotas
+object frmConsultarNotas: TfrmConsultarNotas
   Left = 270
   Top = 197
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Consultar notas ficais'
-  ClientHeight = 115
-  ClientWidth = 443
+  Caption = 'Consultar as notas ficais'
+  ClientHeight = 91
+  ClientWidth = 304
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,11 +19,11 @@ object frmNotas: TfrmNotas
   PixelsPerInch = 96
   TextHeight = 13
   object grpConsulta: TGroupBox
-    Left = 4
-    Top = 8
-    Width = 434
-    Height = 73
-    Caption = ' Consultar '
+    Left = 5
+    Top = 0
+    Width = 290
+    Height = 50
+    Caption = ' Chave de acesso  '
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -31,25 +31,10 @@ object frmNotas: TfrmNotas
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    object Label1: TLabel
-      Left = 11
-      Top = 23
-      Width = 92
-      Height = 15
-      Caption = 'Chave de Acesso:'
-      Color = clBtnFace
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentColor = False
-      ParentFont = False
-    end
     object txtChaveAcesso: TEdit
-      Left = 11
-      Top = 41
-      Width = 414
+      Left = 5
+      Top = 17
+      Width = 280
       Height = 23
       Hint = 'Chave de acesso'
       MaxLength = 44
@@ -57,11 +42,12 @@ object frmNotas: TfrmNotas
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      TextHint = 'Digite a chave de acesso'
     end
   end
   object btnCancelar: TButton
-    Left = 284
-    Top = 85
+    Left = 140
+    Top = 56
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -69,8 +55,8 @@ object frmNotas: TfrmNotas
     OnClick = btnCancelarClick
   end
   object btnConsultar: TButton
-    Left = 363
-    Top = 85
+    Left = 221
+    Top = 56
     Width = 75
     Height = 25
     Caption = 'Consultar'

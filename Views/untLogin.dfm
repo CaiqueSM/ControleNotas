@@ -4,8 +4,8 @@ object frmLogin: TfrmLogin
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Login'
-  ClientHeight = 167
-  ClientWidth = 227
+  ClientHeight = 125
+  ClientWidth = 210
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,8 +19,8 @@ object frmLogin: TfrmLogin
   PixelsPerInch = 96
   TextHeight = 13
   object lbusuario: TLabel
-    Left = 16
-    Top = 17
+    Left = 5
+    Top = 5
     Width = 43
     Height = 15
     Caption = 'Usu'#225'rio:'
@@ -34,8 +34,8 @@ object frmLogin: TfrmLogin
     ParentFont = False
   end
   object lbsenha: TLabel
-    Left = 16
-    Top = 70
+    Left = 5
+    Top = 50
     Width = 35
     Height = 15
     Caption = 'Senha:'
@@ -49,9 +49,9 @@ object frmLogin: TfrmLogin
     ParentFont = False
   end
   object txtUsuario: TEdit
-    Left = 16
-    Top = 33
-    Width = 195
+    Left = 5
+    Top = 20
+    Width = 200
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -60,26 +60,32 @@ object frmLogin: TfrmLogin
     Font.Style = []
     MaxLength = 80
     ParentFont = False
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
+    TextHint = 'Nome'
   end
   object txtSenha: TEdit
-    Left = 16
-    Top = 89
-    Width = 195
+    Left = 5
+    Top = 65
+    Width = 200
     Height = 23
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
-    Font.Name = 'Segoe UI Black'
+    Font.Name = 'Segoe UI'
     Font.Style = []
-    MaxLength = 256
+    MaxLength = 16
     ParentFont = False
+    ParentShowHint = False
     PasswordChar = '*'
+    ShowHint = True
     TabOrder = 1
+    TextHint = 'Senha'
   end
   object btnAcessar: TButton
-    Left = 114
-    Top = 124
+    Left = 110
+    Top = 95
     Width = 97
     Height = 25
     Caption = 'Acessar'
@@ -93,8 +99,8 @@ object frmLogin: TfrmLogin
     OnClick = btnAcessarClick
   end
   object btnSair: TButton
-    Left = 16
-    Top = 124
+    Left = 5
+    Top = 95
     Width = 97
     Height = 25
     Caption = 'Cancelar'

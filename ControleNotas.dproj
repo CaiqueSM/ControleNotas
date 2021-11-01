@@ -99,6 +99,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <BT_BuildType>Debug</BT_BuildType>
+        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -119,45 +120,43 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Controller\untbasecontroller.pas"/>
-        <DCCReference Include="Controller\untlogincontroller.pas"/>
+        <DCCReference Include="Controller\untLoginController.pas"/>
         <DCCReference Include="Controller\untmenucontroller.pas"/>
         <DCCReference Include="Controller\Validacao\untvalidarlogin.pas"/>
         <DCCReference Include="Dao\untbasedao.pas"/>
         <DCCReference Include="Dao\untconexao.pas"/>
         <DCCReference Include="Dao\untlogindao.pas"/>
         <DCCReference Include="Model\untusuariomodel.pas"/>
-        <DCCReference Include="Views\consulta_notas.pas">
-            <Form>frmNotas</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Views\controle_notas.pas">
-            <Form>frmLogin</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="Views\untmenu.pas">
             <Form>frmMenu</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Views\untCadastrarNota.pas">
             <Form>frmCadastrarNota</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Views\untCadastrarClienteNota.pas">
             <Form>frmClienteNotaFiscal</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Views\untCadastrarFornecedorNota.pas">
             <Form>frmFornecedorNotaFiscal</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Views\untCadastrarUsuario.pas">
-            <Form>frmCadUsuario</Form>
-            <FormType>dfm</FormType>
+            <Form>frmCadastrarUsuario</Form>
         </DCCReference>
         <DCCReference Include="Views\untGerarRelatorio.pas">
             <Form>frmGerarRelatorio</Form>
+        </DCCReference>
+        <DCCReference Include="Views\untLogin.pas">
+            <Form>frmLogin</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Views\untConsultarNotas.pas">
+            <Form>frmConsultarNotas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Model\untPessoaModel.pas"/>
+        <DCCReference Include="Controller\Validacao\untValidarCadastroPessoal.pas"/>
+        <DCCReference Include="Controller\untCadastroPessoalController.pas"/>
+        <DCCReference Include="Model\untContatoModel.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -179,10 +178,8 @@
                     <Source Name="MainSource">ControleNotas.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="C:\Px\Componentes\ACBr\Lib\Delphi\LibD21\ACBr_Integrador.bpl">ACBr - Integrador - (http://www.projetoacbr.com.br/)</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclfmxstd210.bpl">Embarcadero FMX Standard Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k210.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp210.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k270.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp270.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">

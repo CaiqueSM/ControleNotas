@@ -22,13 +22,25 @@ object frmMenu: TfrmMenu
   PixelsPerInch = 96
   TextHeight = 15
   object pnlTopo: TPanel
-    Left = 0
-    Top = 0
-    Width = 297
-    Height = 2
-    BevelOuter = bvNone
-    ParentBackground = False
+    Left = 5
+    Top = -1
+    Width = 729
+    Height = 7
+    Caption = #39#39
     TabOrder = 0
+    Visible = False
+  end
+  object stbControleNotas: TStatusBar
+    Left = 0
+    Top = 459
+    Width = 1081
+    Height = 19
+    AutoHint = True
+    Panels = <>
+    SimpleText = 'Bem vindo!'
+    ExplicitLeft = 160
+    ExplicitTop = 392
+    ExplicitWidth = 0
   end
   object mainMenu: TMainMenu
     Left = 40
@@ -39,20 +51,17 @@ object frmMenu: TfrmMenu
         Caption = 'Usu'#225'rios'
         OnClick = itemUsuarioClick
       end
-      object itemNotaFiscal: TMenuItem
-        Caption = 'Notas Fiscais'
-        object subItemNota: TMenuItem
-          Caption = 'Cadastro notas'
-          OnClick = subItemNotaClick
-        end
-        object subItemCliente: TMenuItem
-          Caption = 'Cadastro cliente'
-          OnClick = subItemClienteClick
-        end
-        object subItemFornercedor: TMenuItem
-          Caption = 'Cadastro fornecedor'
-          OnClick = subItemFornercedorClick
-        end
+      object itemNota: TMenuItem
+        Caption = 'Notas'
+        OnClick = itemNotaClick
+      end
+      object itemCliente: TMenuItem
+        Caption = 'Cliente'
+        OnClick = itemClienteClick
+      end
+      object itemFornecedor: TMenuItem
+        Caption = 'Fornecedor'
+        OnClick = itemFornercedorClick
       end
     end
     object itemConsulta: TMenuItem
@@ -64,9 +73,12 @@ object frmMenu: TfrmMenu
     end
     object itemRelatorio: TMenuItem
       Caption = 'Relat'#243'rios'
-      object itemGerarRelatorio: TMenuItem
-        Caption = 'Gerar Relat'#243'rio'
-        OnClick = itemGerarRelatorioClick
+      object itemRelatorioMensal: TMenuItem
+        Caption = 'Mensal'
+        OnClick = itemRelatorioMensalClick
+      end
+      object itemRelatorioPeriodo: TMenuItem
+        Caption = 'Escolher per'#237'odo'
       end
     end
   end

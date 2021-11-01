@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus,
-  untmenucontroller, UntEnvironment, Vcl.ExtCtrls;
+  untmenucontroller, UntEnvironment, Vcl.ExtCtrls, Vcl.ToolWin, Vcl.ComCtrls;
 
 type
 
@@ -16,22 +16,23 @@ type
     itemConsultaNotas: TMenuItem;
     itemCadastro: TMenuItem;
     itemUsuario: TMenuItem;
-    pnlTopo: TPanel;
-    itemNotaFiscal: TMenuItem;
     itemRelatorio: TMenuItem;
-    itemGerarRelatorio: TMenuItem;
-    subItemNota: TMenuItem;
-    subItemCliente: TMenuItem;
-    subItemFornercedor: TMenuItem;
+    itemRelatorioMensal: TMenuItem;
+    itemNota: TMenuItem;
+    itemRelatorioPeriodo: TMenuItem;
+    itemCliente: TMenuItem;
+    itemFornecedor: TMenuItem;
+    pnlTopo: TPanel;
+    stbControleNotas: TStatusBar;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure itemConsultaNotasClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure itemGerarRelatorioClick(Sender: TObject);
+    procedure itemRelatorioMensalClick(Sender: TObject);
     procedure itemUsuarioClick(Sender: TObject);
-    procedure subItemNotaClick(Sender: TObject);
-    procedure subItemClienteClick(Sender: TObject);
-    procedure subItemFornercedorClick(Sender: TObject);
+    procedure itemNotaClick(Sender: TObject);
+    procedure itemClienteClick(Sender: TObject);
+    procedure itemFornercedorClick(Sender: TObject);
   private
     FController: TMenuController;
     procedure Logar();
@@ -43,7 +44,7 @@ var
 implementation
 
 uses
-  consulta_notas, untCadastrarUsuario, untCadastrarClienteNota,
+  untConsultarNotas, untCadastrarUsuario, untCadastrarClienteNota,
   untGerarRelatorio,
   untCadastrarFornecedorNota, untCadastrarNota;
 
@@ -54,6 +55,8 @@ procedure TfrmMenu.FormCreate(Sender: TObject);
 begin
   FController := TMenuController.Create();
   Logar();
+  stbControleNotas.SimpleText:= 'Bem vindo!'+FormatDateTime('hh:mm:ss',now);
+  stbControleNotas.Width:= Screen.Width;
 end;
 
 procedure TfrmMenu.FormShow(Sender: TObject);
@@ -67,36 +70,35 @@ begin
     Application.Terminate;
 end;
 
-procedure TfrmMenu.subItemClienteClick(Sender: TObject);
+procedure TfrmMenu.itemClienteClick(Sender: TObject);
 begin
   FController.AbrirTelaFilha(Self, TfrmClienteNotaFiscal, frmClienteNotaFiscal);
 end;
 
-procedure TfrmMenu.subItemFornercedorClick(Sender: TObject);
+procedure TfrmMenu.itemFornercedorClick(Sender: TObject);
 begin
   FController.AbrirTelaFilha(Self, TfrmFornecedorNotaFiscal,
     frmFornecedorNotaFiscal);
 end;
 
-procedure TfrmMenu.subItemNotaClick(Sender: TObject);
+procedure TfrmMenu.itemNotaClick(Sender: TObject);
 begin
   FController.AbrirTelaFilha(Self, TfrmCadastrarNota, frmCadastrarNota);
 end;
 
 procedure TfrmMenu.itemConsultaNotasClick(Sender: TObject);
 begin
-
-  FController.AbrirTelaFilha(Self, TfrmNotas, frmNotas);
+  FController.AbrirTelaFilha(Self, TfrmConsultarNotas, frmConsultarNotas);
 end;
 
-procedure TfrmMenu.itemGerarRelatorioClick(Sender: TObject);
+procedure TfrmMenu.itemRelatorioMensalClick(Sender: TObject);
 begin
   FController.AbrirTelaFilha(Self, TfrmGerarRelatorio, frmGerarRelatorio);
 end;
 
 procedure TfrmMenu.itemUsuarioClick(Sender: TObject);
 begin
-  FController.AbrirTelaFilha(Self, TfrmCadUsuario, frmCadUsuario);
+  FController.AbrirTelaFilha(Self, TfrmCadastrarUsuario, frmCadastrarUsuario);
 end;
 
 procedure TfrmMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
