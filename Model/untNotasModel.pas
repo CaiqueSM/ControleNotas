@@ -7,7 +7,7 @@ uses
 
 type
 
-  TNotas = class
+  TNotasModel = class
   private
     FId: integer;
     FChaveAcesso: string;
@@ -36,32 +36,32 @@ implementation
 
 { TNotas }
 
-procedure TNotas.SetChaveAcesso(AValue: string);
+procedure TNotasModel.SetChaveAcesso(AValue: string);
 begin
   FChaveAcesso := Trim(AValue);
 end;
 
-procedure TNotas.SetCliente(AValue: TClienteModel);
+procedure TNotasModel.SetCliente(AValue: TClienteModel);
 begin
   FCliente := AValue;
 end;
 
-procedure TNotas.SetCodigo(AValue: integer);
+procedure TNotasModel.SetCodigo(AValue: integer);
 begin
   FCodigo:= AValue;
 end;
 
-procedure TNotas.SetDescricao(AValue: string);
+procedure TNotasModel.SetDescricao(AValue: string);
 begin
   FDescricao := AValue;
 end;
 
-procedure TNotas.SetFornecedor(AValue: TFornecedorModel);
+procedure TNotasModel.SetFornecedor(AValue: TFornecedorModel);
 begin
   FFornecedor:= AValue;
 end;
 
-procedure TNotas.SetValor(AValue: real);
+procedure TNotasModel.SetValor(AValue: real);
 begin
   FValor:= AValue;
 end;

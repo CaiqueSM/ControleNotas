@@ -7,23 +7,23 @@ uses
 
 type
 
-  TEmail = class
+  TEmailModel = class
   private
     FId: integer;
-    FEnderecoEmail: string;
+    FEmail: string;
     procedure SetEmail(AValue: string);
   public
     property Id: integer read FId write FId;
-    property Email: string read FEnderecoEmail write SetEmail;
+    property Email: string read FEmail write SetEmail;
   end;
 
 implementation
 
 { TEmail }
 
-procedure TEmail.SetEmail(AValue: string);
+procedure TEmailModel.SetEmail(AValue: string);
 begin
-  FEnderecoEmail := Trim(AValue);
+  FEmail := Trim(AValue);
 end;
 
 end.

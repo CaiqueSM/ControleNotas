@@ -7,7 +7,7 @@ uses
 
 type
 
-  TContato = class
+  TContatoModel = class
   public
     FId: integer;
     FCEP: string;
@@ -15,8 +15,8 @@ type
     FBairro: string;
     FNumero: string;
     FComplemento: string;
-    FEmail: TEmail;
-    FTelefone: TTelefone;
+    FEmail: TEmailModel;
+    FTelefone: TTelefoneModel;
     procedure SetCEP(AValue: string);
     procedure SetRua(AValue: string);
     procedure SetBairro(AValue: string);
@@ -28,35 +28,35 @@ type
     property Rua: string read FNomeRua write FNomeRua;
     property Bairro: string read FBairro write FBairro;
     property Complemento: string read FComplemento write FComplemento;
-    property Email: TEmail read FEmail write FEmail;
-    property Telefone: TTelefone read FTelefone write FTelefone;
+    property Email: TEmailModel read FEmail write FEmail;
+    property Telefone: TTelefoneModel read FTelefone write FTelefone;
   end;
 
 implementation
 
 { TContato }
 
-procedure TContato.SetBairro(AValue: string);
+procedure TContatoModel.SetBairro(AValue: string);
 begin
   FBairro := Trim(AValue);
 end;
 
-procedure TContato.SetCEP(AValue: string);
+procedure TContatoModel.SetCEP(AValue: string);
 begin
   FCEP := Trim(AValue);
 end;
 
-procedure TContato.SetComplemento(AValue: string);
+procedure TContatoModel.SetComplemento(AValue: string);
 begin
   FComplemento := Trim(AValue);
 end;
 
-procedure TContato.SetNumero(AValue: string);
+procedure TContatoModel.SetNumero(AValue: string);
 begin
   FNumero := Trim(AValue);
 end;
 
-procedure TContato.SetRua(AValue: string);
+procedure TContatoModel.SetRua(AValue: string);
 begin
   FNomeRua := Trim(AValue);
 end;

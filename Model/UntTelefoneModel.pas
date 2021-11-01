@@ -7,23 +7,23 @@ uses
 
 type
 
-  TTelefone = class
+  TTelefoneModel = class
   private
     FId: integer;
-    FNumeroTelefone: string;
+    FTelefone: string;
     procedure SetTelefone(AValue: string);
   public
     property Id: integer read FId write FId;
-    property Telefone: string read FNumeroTelefone write SetTelefone;
+    property Telefone: string read FTelefone write SetTelefone;
   end;
 
 implementation
 
 { TTelefone }
 
-procedure TTelefone.SetTelefone(AValue: string);
+procedure TTelefoneModel.SetTelefone(AValue: string);
 begin
-  FNumeroTelefone := Trim(AValue);
+  FTelefone := Trim(AValue);
 end;
 
 end.

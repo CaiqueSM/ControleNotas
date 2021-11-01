@@ -39,9 +39,9 @@ var
   tamanhoCPF, numeroSoma, resto, indiceCPF: integer;
   digitoVerificador: array [0 .. 1] of integer;
 begin
-  Result := false;
   tamanhoCPF := 11;
   Trim(ACNPJCPF);
+  numeroSoma:= 0;
 
   for indiceCPF := 1 to tamanhoCPF do
   begin
@@ -80,7 +80,6 @@ var
   tamanhoCNPJ, numeroSoma, resto, indiceCNPJ: integer;
 
 begin
-  Result := false;
   pesoCNPJ := [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
   tamanhoCNPJ := 12;
   numeroSoma := 0;

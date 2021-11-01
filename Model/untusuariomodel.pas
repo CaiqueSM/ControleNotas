@@ -14,15 +14,15 @@ type
     FId: integer;
     FNome: string;
     FSenha: string;
-    FNotas: TNotas;
+    FNotas: TNotasModel;
     procedure SetNome(AValue: string);
     procedure SetSenha(AValue: string);
-    procedure SetNotas(AValue: TNotas);
+    procedure SetNotas(AValue: TNotasModel);
   public
     property Id: integer read FId write FId;
     property Nome: string read FNome write SetNome;
     property Senha: string read FSenha write SetSenha;
-    property Notas: TNotas read FNotas write SetNotas;
+    property Notas: TNotasModel read FNotas write SetNotas;
   end;
 
 implementation
@@ -34,7 +34,7 @@ begin
   FNome := Trim(AValue);
 end;
 
-procedure TUsuarioModel.SetNotas(AValue: TNotas);
+procedure TUsuarioModel.SetNotas(AValue: TNotasModel);
 begin
   FNotas := AValue;
 end;
