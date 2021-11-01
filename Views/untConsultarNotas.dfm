@@ -5,7 +5,7 @@ object frmConsultarNotas: TfrmConsultarNotas
   BorderStyle = bsSingle
   Caption = 'Consultar as notas ficais'
   ClientHeight = 91
-  ClientWidth = 304
+  ClientWidth = 299
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object frmConsultarNotas: TfrmConsultarNotas
   TextHeight = 13
   object grpConsulta: TGroupBox
     Left = 5
-    Top = 0
+    Top = 5
     Width = 290
     Height = 50
     Caption = ' Chave de acesso  '
@@ -46,7 +46,7 @@ object frmConsultarNotas: TfrmConsultarNotas
   end
   object btnCancelar: TButton
     Left = 140
-    Top = 56
+    Top = 60
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -55,7 +55,7 @@ object frmConsultarNotas: TfrmConsultarNotas
   end
   object btnConsultar: TButton
     Left = 221
-    Top = 56
+    Top = 60
     Width = 75
     Height = 25
     Caption = 'Consultar'

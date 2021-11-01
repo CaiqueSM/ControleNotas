@@ -44,11 +44,11 @@ object frmMenu: TfrmMenu
     object itemCadastro: TMenuItem
       Caption = 'Cadastros'
       object itemUsuario: TMenuItem
-        Caption = 'Usu'#225'rios'
+        Caption = 'Usu'#225'rio'
         OnClick = itemUsuarioClick
       end
       object itemNota: TMenuItem
-        Caption = 'Notas'
+        Caption = 'Nota'
         OnClick = itemNotaClick
       end
       object itemCliente: TMenuItem
@@ -74,7 +74,7 @@ object frmMenu: TfrmMenu
         OnClick = itemRelatorioMensalClick
       end
       object itemRelatorioPeriodo: TMenuItem
-        Caption = 'Escolher per'#237'odo'
+        Caption = 'Por per'#237'odo'
       end
     end
   end
