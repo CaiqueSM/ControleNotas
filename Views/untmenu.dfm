@@ -22,13 +22,12 @@ object frmMenu: TfrmMenu
   PixelsPerInch = 96
   TextHeight = 15
   object pnlTopo: TPanel
-    Left = 5
-    Top = -1
-    Width = 729
-    Height = 7
-    Caption = #39#39
+    Left = 0
+    Top = 0
+    Width = 1000
+    Height = 2
+    BevelOuter = bvNone
     TabOrder = 0
-    Visible = False
   end
   object stbControleNotas: TStatusBar
     Left = 0
@@ -38,9 +37,6 @@ object frmMenu: TfrmMenu
     AutoHint = True
     Panels = <>
     SimpleText = 'Bem vindo!'
-    ExplicitLeft = 160
-    ExplicitTop = 392
-    ExplicitWidth = 0
   end
   object mainMenu: TMainMenu
     Left = 40
