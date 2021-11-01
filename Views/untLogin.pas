@@ -59,18 +59,14 @@ begin
   if not FController.ValidarUsuario(AUsuario) then
   begin
     ShowMessage('Nome usuário inválido!');
-
-    if txtUsuario.CanFocus then
-      txtUsuario.SetFocus;
+    if txtUsuario.CanFocus then txtUsuario.SetFocus;
     exit();
   end;
 
   if not FController.ValidarSenha(ASenha) then
   begin
     ShowMessage('Senha inválida!');
-
-    if txtSenha.CanFocus then
-      txtSenha.SetFocus;
+    if txtSenha.CanFocus then txtSenha.SetFocus;
     exit();
   end;
 
@@ -95,6 +91,7 @@ end;
 procedure TfrmLogin.btnSairClick(Sender: TObject);
 begin
   limparCampos();
+  if txtUsuario.CanFocus then txtUsuario.SetFocus;
 end;
 
 end.
