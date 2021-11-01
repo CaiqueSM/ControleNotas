@@ -67,7 +67,10 @@ end;
 procedure TfrmMenu.Logar();
 begin
   if not FController.Logar() then
-    Application.Terminate;
+    Begin
+       Close();
+       Application.Terminate;
+    End;
 end;
 
 procedure TfrmMenu.itemClienteClick(Sender: TObject);
