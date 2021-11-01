@@ -36,13 +36,12 @@ object frmConsultarNotas: TfrmConsultarNotas
       Top = 17
       Width = 280
       Height = 23
-      Hint = 'Chave de acesso'
+      Hint = 'Digite a chave de acesso'
       MaxLength = 44
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      TextHint = 'Digite a chave de acesso'
     end
   end
   object btnCancelar: TButton

@@ -18,10 +18,11 @@ uses
   untGerarRelatorio in 'Views\untGerarRelatorio.pas' {frmGerarRelatorio},
   untLogin in 'Views\untLogin.pas' {frmLogin},
   untConsultarNotas in 'Views\untConsultarNotas.pas' {frmConsultarNotas},
-  untPessoaModel in 'Model\untPessoaModel.pas',
   untValidarCadastroPessoal in 'Controller\Validacao\untValidarCadastroPessoal.pas',
   untCadastroPessoalController in 'Controller\untCadastroPessoalController.pas',
-  untContatoModel in 'Model\untContatoModel.pas';
+  untContatoModel in 'Model\untContatoModel.pas',
+  untPessoaModel in 'Model\untPessoaModel.pas',
+  untNotasModel in 'Model\untNotasModel.pas';
 
 {$R *.res}
 
@@ -31,7 +32,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
-  Application.CreateForm(TfrmLogin, frmLogin);
   Application.Run;
 
 end.

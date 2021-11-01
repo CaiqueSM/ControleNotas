@@ -53,6 +53,7 @@ object frmLogin: TfrmLogin
     Top = 20
     Width = 200
     Height = 23
+    Hint = 'Nome'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -63,13 +64,13 @@ object frmLogin: TfrmLogin
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    TextHint = 'Nome'
   end
   object txtSenha: TEdit
     Left = 5
     Top = 65
     Width = 200
     Height = 23
+    Hint = 'Senha'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -81,7 +82,6 @@ object frmLogin: TfrmLogin
     PasswordChar = '*'
     ShowHint = True
     TabOrder = 1
-    TextHint = 'Senha'
   end
   object btnAcessar: TButton
     Left = 110

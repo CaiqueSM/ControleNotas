@@ -15,7 +15,6 @@ type
     lbNomeCliente: TLabel;
     txtNomeCliente: TEdit;
     gbContatoCliente: TGroupBox;
-    txtCEP: TEdit;
     txtRua: TEdit;
     txtEmail: TEdit;
     txtBairro: TEdit;
@@ -31,6 +30,7 @@ type
     txtComplemento: TEdit;
     lbComplemento: TLabel;
     txtTelefone: TMaskEdit;
+    mskCEP: TMaskEdit;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     { Private declarations }

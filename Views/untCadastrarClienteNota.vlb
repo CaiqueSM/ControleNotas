@@ -22,9 +22,6 @@ Coordinates=341,10,99,58
 [gbContatoCliente]
 Coordinates=450,10,114,58
 
-[txtCEP]
-Coordinates=476,78,54,58
-
 [txtRua]
 Coordinates=444,146,52,58
 
@@ -53,7 +50,7 @@ Coordinates=111,146,87,58
 Coordinates=280,10,51,58
 
 []
-Coordinates=234,78,78,58
+Coordinates=476,78,54,58
 
 [bntGravar]
 Coordinates=190,10,80,58

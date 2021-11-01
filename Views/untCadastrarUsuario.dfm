@@ -46,7 +46,6 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    TextHint = 'Nome'
   end
   object txtInfoSenha: TEdit
     Left = 5
@@ -56,7 +55,6 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     MaxLength = 16
     PasswordChar = '*'
     TabOrder = 1
-    TextHint = 'Senha'
   end
   object btnCadastar: TButton
     Left = 130
@@ -79,9 +77,9 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Top = 110
     Width = 200
     Height = 23
+    Hint = 'Confirmar senha'
     MaxLength = 16
     PasswordChar = '*'
     TabOrder = 2
-    TextHint = 'Confirmar senha'
   end
 end

@@ -15,7 +15,6 @@ type
     lbCNPJCPF: TLabel;
     lbNomeFornecedor: TLabel;
     gbContatoFornecedor: TGroupBox;
-    txtCEP: TEdit;
     txtRua: TEdit;
     txtEmail: TEdit;
     txtBairro: TEdit;
@@ -28,9 +27,10 @@ type
     lbTelefone: TLabel;
     btnGravar: TButton;
     btnCancelar: TButton;
-    txtTelefone: TEdit;
+    txtComplemento: TEdit;
     lbComplemento: TLabel;
-    MaskEdit1: TMaskEdit;
+    mskTelefone: TMaskEdit;
+    mskCEP: TMaskEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }

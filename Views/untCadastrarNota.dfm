@@ -54,7 +54,6 @@ object frmCadastrarNota: TfrmCadastrarNota
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      TextHint = 'Digite a chave acesso'
     end
     object txtCodigo: TEdit
       Left = 5
@@ -65,7 +64,6 @@ object frmCadastrarNota: TfrmCadastrarNota
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
-      TextHint = 'C'#243'digo/Controle'
     end
     object txtValor: TEdit
       Left = 164
@@ -78,7 +76,6 @@ object frmCadastrarNota: TfrmCadastrarNota
       ParentShowHint = False
       ShowHint = True
       TabOrder = 2
-      TextHint = '0,00'
     end
   end
   object gbDescricao: TGroupBox

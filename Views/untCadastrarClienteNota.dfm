@@ -42,23 +42,23 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       Top = 40
       Width = 280
       Height = 23
+      Hint = 'Digite os n'#250'meros do CNPJ/CPF'
       MaxLength = 14
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      TextHint = 'Digite os n'#250'meros do CNPJ/CPF'
     end
     object txtNomeCliente: TEdit
       Left = 334
       Top = 40
       Width = 280
       Height = 23
+      Hint = 'Nome completo'
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
-      TextHint = 'Nome completo'
     end
   end
   object gbContatoCliente: TGroupBox
@@ -117,37 +117,25 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       Height = 15
       Caption = 'Complemento:'
     end
-    object txtCEP: TEdit
-      Left = 5
-      Top = 40
-      Width = 280
-      Height = 23
-      MaxLength = 8
-      NumbersOnly = True
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 0
-      TextHint = '__ ___ - ___'
-    end
     object txtRua: TEdit
       Left = 5
       Top = 86
       Width = 280
       Height = 23
+      Hint = 'Logradouro'
       MaxLength = 32
-      TabOrder = 2
-      TextHint = 'Logradouro'
+      TabOrder = 1
     end
     object txtEmail: TEdit
       Left = 5
       Top = 132
       Width = 280
       Height = 23
+      Hint = 'Email'
       MaxLength = 64
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
-      TextHint = 'exemplo@email.com'
+      TabOrder = 3
     end
     object txtBairro: TEdit
       Left = 334
@@ -155,8 +143,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       Width = 280
       Height = 23
       MaxLength = 32
-      TabOrder = 1
-      TextHint = 'Nome do bairro'
+      TabOrder = 0
     end
     object txtNumero: TEdit
       Left = 334
@@ -167,8 +154,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
-      TextHint = '1234'
+      TabOrder = 2
     end
     object txtComplemento: TEdit
       Left = 400
@@ -178,8 +164,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 5
-      TextHint = 'Bloco, apto, casa'
+      TabOrder = 4
     end
     object txtTelefone: TMaskEdit
       Left = 334
@@ -188,8 +173,21 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       Height = 23
       EditMask = '!\(99\)0-0000-0000;1;_'
       MaxLength = 15
-      TabOrder = 6
+      TabOrder = 5
       Text = '(  ) -    -    '
+    end
+    object mskCEP: TMaskEdit
+      Left = 5
+      Top = 40
+      Width = 279
+      Height = 23
+      Hint = 'CEP'
+      EditMask = '00000\-9999;1;_'
+      MaxLength = 10
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 6
+      Text = '     -    '
     end
   end
   object bntCancelar: TButton
