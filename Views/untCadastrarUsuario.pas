@@ -10,20 +10,25 @@ uses
 
 type
   TfrmCadastrarUsuario = class(TForm)
-    txtInfoSenha: TEdit;
+    txtNovaSenha: TEdit;
     lbNomeUsuario: TLabel;
     lbSenha: TLabel;
     btnCadastar: TButton;
     btnCancelar: TButton;
-    txtConfirmSenha: TEdit;
+    txtConfirmacaoNovaSenha: TEdit;
     lbConfirmSenha: TLabel;
     CmbNomesUsuarios: TComboBox;
+    Label1: TLabel;
+    txtSenhaAtual: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnCadastarClick(Sender: TObject);
   private
     FController: TCadastrarUsuarioController;
     procedure habilitarCampos(AHabilitar: Boolean);
+    procedure limparCampos();
     procedure listarUsuarios(ACombo: TComboBox);
   end;
 
@@ -36,6 +41,18 @@ uses
   System.Generics.Collections, UntUsuarioModel;
 
 {$R *.dfm}
+
+procedure TfrmCadastrarUsuario.btnCadastarClick(Sender: TObject);
+begin
+   btnCancelarClick(Sender);
+end;
+
+procedure TfrmCadastrarUsuario.btnCancelarClick(Sender: TObject);
+begin
+   limparCampos();
+   listarUsuarios(CmbNomesUsuarios);
+   If CmbNomesUsuarios.CanFocus Then CmbNomesUsuarios.SetFocus;
+end;
 
 procedure TfrmCadastrarUsuario.FormClose(Sender: TObject;
   var Action: TCloseAction);
@@ -59,10 +76,19 @@ procedure TfrmCadastrarUsuario.habilitarCampos(AHabilitar: Boolean);
 begin
    CmbNomesUsuarios.Enabled := Not AHabilitar;
 
-   txtInfoSenha.Enabled := AHabilitar;
-   txtConfirmSenha.Enabled := AHabilitar;
+   txtSenhaAtual.Enabled := AHabilitar;
+   txtNovaSenha.Enabled := AHabilitar;
+   txtConfirmacaoNovaSenha.Enabled := AHabilitar;
    btnCadastar.Enabled := AHabilitar;
    btnCancelar.Enabled := AHabilitar;
+end;
+
+procedure TfrmCadastrarUsuario.limparCampos;
+begin
+   CmbNomesUsuarios.Items.Clear;
+   txtSenhaAtual.Clear;
+   txtNovaSenha.Clear;
+   txtConfirmacaoNovaSenha.Clear;
 end;
 
 procedure TfrmCadastrarUsuario.listarUsuarios(ACombo: TComboBox);
