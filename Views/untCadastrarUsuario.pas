@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, UntCadastrarUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin,
-  Vcl.Buttons;
+  Vcl.Buttons, Vcl.ToolWin, Vcl.ComCtrls;
 
 type
   TfrmCadastrarUsuario = class(TForm)
@@ -20,6 +20,9 @@ type
     Label1: TLabel;
     txtSenhaAtual: TEdit;
     TxtNomesUsuarios: TEdit;
+    tobTop: TToolBar;
+    tbuPesquisar: TToolButton;
+    tbuExcluir: TToolButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
