@@ -13,7 +13,7 @@ type
     FCNPJ: string;
     FCPF: string;
     FNome: string;
-    FContatos: TObjectList<TContato>;
+    FContatos: TObjectList<TContatoModel>;
     procedure SetNome(AValue: string);
     procedure SetCNPJ(AValue: string);
     procedure SetCPF(AValue: string);
@@ -25,7 +25,7 @@ type
     property CNPJ: string read FCNPJ write SetCNPJ;
     property CPF: string read FCPF write SetCPF;
     property Nome: String read FNome write SetNome;
-    property Contatos: TObjectList<TContato> read FContatos write FContatos;
+    property Contatos: TObjectList<TContatoModel> read FContatos write FContatos;
   end;
 
 implementation
@@ -34,7 +34,7 @@ implementation
 
 constructor TPessoaModel.Create;
 begin
-  FContatos := TObjectList<TContato>.Create();
+  FContatos := TObjectList<TContatoModel>.Create();
 end;
 
 destructor TPessoaModel.Destroy;

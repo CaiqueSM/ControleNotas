@@ -38,8 +38,7 @@ implementation
 
 { TNotas }
 
-procedure TNotasModel.SetChaveAcesso(AValue: string);
-destructor TNotas.Destroy;
+destructor TNotasModel.Destroy;
 begin
   If (FCliente <> nil) Then
     FCliente.Free;
@@ -50,7 +49,7 @@ begin
   inherited;
 end;
 
-procedure TNotas.SetChaveAcesso(AValue: string);
+procedure TNotasModel.SetChaveAcesso(AValue: string);
 begin
   FChaveAcesso := Trim(AValue);
 end;

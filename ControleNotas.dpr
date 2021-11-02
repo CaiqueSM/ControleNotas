@@ -20,12 +20,12 @@ uses
   untValidarCadastroPessoal in 'Controller\Validacao\untValidarCadastroPessoal.pas',
   untCadastroPessoalController in 'Controller\untCadastroPessoalController.pas',
   UntClienteModel in 'Model\UntClienteModel.pas',
-  UntEmailModel in 'Model\UntEmailModel.pas',
-  UntTelefoneModel in 'Model\UntTelefoneModel.pas',
-  UntFornecedorModel in 'Model\UntFornecedorModel.pas',
   UntContatoModel in 'Model\UntContatoModel.pas',
+  UntEmailModel in 'Model\UntEmailModel.pas',
+  UntFornecedorModel in 'Model\UntFornecedorModel.pas',
   UntNotasModel in 'Model\UntNotasModel.pas',
   UntPessoaModel in 'Model\UntPessoaModel.pas',
+  UntTelefoneModel in 'Model\UntTelefoneModel.pas',
   UntUsuarioModel in 'Model\UntUsuarioModel.pas';
 
 {$R *.res}
