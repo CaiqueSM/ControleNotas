@@ -15,19 +15,31 @@ object FrmConsultaUsuarios: TFrmConsultaUsuarios
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object DbgUsuarios: TDBGrid
+  object gridUsuarios: TStringGrid
     Left = 0
     Top = 0
     Width = 193
     Height = 256
     Align = alClient
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    ColCount = 1
+    FixedCols = 0
+    RowCount = 1
+    FixedRows = 0
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    ScrollBars = ssVertical
     TabOrder = 0
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -11
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
+    OnDblClick = gridUsuariosDblClick
+    OnKeyPress = gridUsuariosKeyPress
   end
 end

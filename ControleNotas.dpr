@@ -29,12 +29,13 @@ uses
   UntUsuarioModel in 'Model\UntUsuarioModel.pas',
   UntCadastrarUsuarioController in 'Controller\UntCadastrarUsuarioController.pas',
   UntCadastrarUsuarioDao in 'Dao\UntCadastrarUsuarioDao.pas',
-  UntEnvironment in 'UntEnvironment.pas',
+  untenvironment in 'untenvironment.pas',
   UntCrudEnum in 'Model\Enum\UntCrudEnum.pas',
   UntFormHelper in 'Helper\UntFormHelper.pas',
   UntMensagemUtil in 'Util\UntMensagemUtil.pas',
   UntConsultaUsuarios in 'Views\Consultas\UntConsultaUsuarios.pas' {FrmConsultaUsuarios},
-  UntConsulta in 'Controller\Consulta\UntConsulta.pas';
+  UntConsulta in 'Controller\Consulta\UntConsulta.pas',
+  UntConsultaUsuarioController in 'Controller\Consulta\UntConsultaUsuarioController.pas';
 
 {$R *.res}
 

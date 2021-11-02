@@ -129,7 +129,7 @@
         <DCCReference Include="Model\UntUsuarioModel.pas"/>
         <DCCReference Include="Controller\UntCadastrarUsuarioController.pas"/>
         <DCCReference Include="Dao\UntCadastrarUsuarioDao.pas"/>
-        <DCCReference Include="UntEnvironment.pas"/>
+        <DCCReference Include="untenvironment.pas"/>
         <DCCReference Include="Model\Enum\UntCrudEnum.pas"/>
         <DCCReference Include="Helper\UntFormHelper.pas"/>
         <DCCReference Include="Util\UntMensagemUtil.pas"/>
@@ -138,6 +138,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Controller\Consulta\UntConsulta.pas"/>
+        <DCCReference Include="Controller\Consulta\UntConsultaUsuarioController.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
