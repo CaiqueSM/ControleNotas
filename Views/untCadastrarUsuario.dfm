@@ -53,7 +53,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Height = 23
     MaxLength = 16
     PasswordChar = '*'
-    TabOrder = 2
+    TabOrder = 1
   end
   object btnCadastar: TButton
     Left = 130
@@ -61,7 +61,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = btnCadastarClick
   end
   object btnCancelar: TButton
@@ -70,7 +70,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 5
+    TabOrder = 4
     OnClick = btnCancelarClick
   end
   object txtConfirmacaoNovaSenha: TEdit
@@ -81,14 +81,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Hint = 'Confirmar senha'
     MaxLength = 16
     PasswordChar = '*'
-    TabOrder = 3
-  end
-  object CmbNomesUsuarios: TComboBox
-    Left = 5
-    Top = 21
-    Width = 200
-    Height = 23
-    TabOrder = 0
+    TabOrder = 2
   end
   object txtSenhaAtual: TEdit
     Left = 5
@@ -97,6 +90,16 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Height = 23
     MaxLength = 16
     PasswordChar = '*'
-    TabOrder = 1
+    TabOrder = 0
+  end
+  object TxtNomesUsuarios: TEdit
+    Left = 5
+    Top = 20
+    Width = 200
+    Height = 23
+    Hint = 'Nome do usu'#225'rio'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 5
   end
 end
