@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, UntCadastrarUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin,
   Vcl.Buttons, Vcl.ToolWin, Vcl.ComCtrls, UntEnvironment, UntCrudEnum,
-  UntFormHelper, UntMensagemUtil;
+  UntFormHelper, UntMensagemUtil, UntMenu;
 
 type
   TfrmCadastrarUsuario = class(TForm)

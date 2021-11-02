@@ -4,7 +4,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastrar usu'#225'rio'
-  ClientHeight = 247
+  ClientHeight = 252
   ClientWidth = 210
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -20,35 +20,35 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   TextHeight = 15
   object lbNomeUsuario: TLabel
     Left = 5
-    Top = 29
+    Top = 37
     Width = 36
     Height = 15
     Caption = 'Nome:'
   end
   object lbSenha: TLabel
     Left = 5
-    Top = 125
+    Top = 133
     Width = 65
     Height = 15
     Caption = 'Nova senha:'
   end
   object lbConfirmSenha: TLabel
     Left = 5
-    Top = 170
+    Top = 178
     Width = 125
     Height = 15
     Caption = 'Confirme a nova senha:'
   end
   object Label1: TLabel
     Left = 5
-    Top = 80
+    Top = 88
     Width = 64
     Height = 15
     Caption = 'Senha atual:'
   end
   object txtNovaSenha: TEdit
     Left = 5
-    Top = 140
+    Top = 148
     Width = 200
     Height = 23
     Hint = 'Informe a nova senha'
@@ -61,7 +61,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   end
   object btnCadastar: TButton
     Left = 130
-    Top = 215
+    Top = 223
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
@@ -70,7 +70,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   end
   object btnCancelar: TButton
     Left = 49
-    Top = 214
+    Top = 222
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -79,7 +79,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   end
   object txtConfirmacaoNovaSenha: TEdit
     Left = 5
-    Top = 185
+    Top = 193
     Width = 200
     Height = 23
     Hint = 'Confirme a nova senha'
@@ -92,7 +92,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   end
   object txtSenhaAtual: TEdit
     Left = 5
-    Top = 96
+    Top = 104
     Width = 200
     Height = 23
     Hint = 'Informe a senha atual'
@@ -105,7 +105,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   end
   object txtNomeUsuario: TEdit
     Left = 5
-    Top = 44
+    Top = 52
     Width = 200
     Height = 23
     Hint = 'Nome do usu'#225'rio'
@@ -119,6 +119,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Top = 0
     Width = 210
     Height = 22
+    Images = frmMenu.ListaImagens
     TabOrder = 6
     object tbuPesquisar: TToolButton
       Left = 0

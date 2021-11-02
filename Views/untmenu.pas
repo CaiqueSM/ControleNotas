@@ -4,7 +4,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus,
-  untmenucontroller, UntEnvironment, Vcl.ExtCtrls, Vcl.ToolWin, Vcl.ComCtrls;
+  untmenucontroller, UntEnvironment, Vcl.ExtCtrls, Vcl.ToolWin, Vcl.ComCtrls,
+  Vcl.ImgList;
 
 type
 
@@ -24,6 +25,7 @@ type
     itemFornecedor: TMenuItem;
     pnlTopo: TPanel;
     stbControleNotas: TStatusBar;
+    ListaImagens: TImageList;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure itemConsultaNotasClick(Sender: TObject);
