@@ -16,6 +16,7 @@ type
     function Consultar(ANome: String): TUsuarioModel;
     procedure Criar(AUsuario: TUsuarioModel);
     procedure Alterar(AUsuario: TUsuarioModel);
+    procedure Excluir(AIdUsuario: Integer);
 
     function VerificarSenhaUsuarioEstaCorreta(AUsuario, ASenhaAtual: String): Boolean;
   end;
@@ -34,6 +35,11 @@ destructor TCadastrarUsuarioController.Destroy;
 begin
   FDao.Free;
   inherited;
+end;
+
+procedure TCadastrarUsuarioController.Excluir(AIdUsuario: Integer);
+begin
+   FDao.Excluir(AIdUsuario);
 end;
 
 procedure TCadastrarUsuarioController.Criar(AUsuario: TUsuarioModel);

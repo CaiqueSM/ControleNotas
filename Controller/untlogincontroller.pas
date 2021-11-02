@@ -59,6 +59,8 @@ begin
   usuario := FDao.GetUsuario(AUsuario, ASenha);
   try
     Global.usuario := usuario.Nome;
+    Global.IdUsuario := usuario.Id;
+
     Result := not usuario.Nome.Trim.IsEmpty;
   finally
     usuario.Free;

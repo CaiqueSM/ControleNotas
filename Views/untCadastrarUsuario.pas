@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, UntCadastrarUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin,
   Vcl.Buttons, Vcl.ToolWin, Vcl.ComCtrls, UntEnvironment, UntCrudEnum,
-  UntFormHelper;
+  UntFormHelper, UntMensagemUtil;
 
 type
   TfrmCadastrarUsuario = class(TForm)
@@ -31,6 +31,7 @@ type
     procedure btnCadastarClick(Sender: TObject);
     procedure txtNomeUsuarioKeyPress(Sender: TObject; var Key: Char);
     procedure txtSenhaAtualKeyPress(Sender: TObject; var Key: Char);
+    procedure tbuExcluirClick(Sender: TObject);
   private
     FController: TCadastrarUsuarioController;
     FUsuarioExistente: Boolean;
@@ -86,7 +87,7 @@ begin
 
           actExcluir:
              Begin
-
+                FController.Excluir(FIdUsuarioExistente);
              End;
        End;
    Finally
@@ -154,6 +155,19 @@ begin
    txtSenhaAtual.Clear;
    txtNovaSenha.Clear;
    txtConfirmacaoNovaSenha.Clear;
+end;
+
+procedure TfrmCadastrarUsuario.tbuExcluirClick(Sender: TObject);
+begin
+   If Global.IdUsuario = FIdUsuarioExistente Then
+      Begin
+         ShowMessage('Não é possível excluir o usuário que está logado no sistema!');
+         Exit;
+      End;
+
+   If ShowConfirm('Tem certeza que deseja excluir este usuário?') Then
+      If atualizarDados(actExcluir) Then
+         btnCancelarClick(Sender);
 end;
 
 procedure TfrmCadastrarUsuario.txtNomeUsuarioKeyPress(Sender: TObject;

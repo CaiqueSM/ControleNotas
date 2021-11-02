@@ -31,7 +31,8 @@ uses
   UntCadastrarUsuarioDao in 'Dao\UntCadastrarUsuarioDao.pas',
   untenvironment in 'untenvironment.pas',
   UntCrudEnum in 'Model\Enum\UntCrudEnum.pas',
-  UntFormHelper in 'Helper\UntFormHelper.pas';
+  UntFormHelper in 'Helper\UntFormHelper.pas',
+  UntMensagemUtil in 'Util\UntMensagemUtil.pas';
 
 {$R *.res}
 

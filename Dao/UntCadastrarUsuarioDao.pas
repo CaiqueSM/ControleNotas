@@ -11,6 +11,7 @@ type
     function Consultar(ANome: String): TUsuarioModel;
     procedure Criar(AUsuario: TUsuarioModel);
     procedure Alterar(AUsuario: TUsuarioModel);
+    procedure Excluir(AIdUsuario: Integer);
   end;
 
 implementation
@@ -126,6 +127,32 @@ begin
             Begin
                Conexao.Database.Rollback;
                Showmessage('Não foi possível salvar o usuários');
+            End;
+      End;
+   Finally
+      query.Free;
+   End;
+end;
+
+procedure TCadastrarUsuarioDao.Excluir(AIdUsuario: Integer);
+var
+  query: TZQuery;
+  sql: String;
+begin
+   sql := 'delete from usuario ' +
+          ' where id = :id' ;
+
+   query := CreateQuery(sql);
+   Try
+      query.ParamByName('id').AsInteger := AIdUsuario;
+      Try
+         query.ExecSQL();
+         Conexao.Database.Commit;
+      Except
+         on E: Exception do
+            Begin
+               Conexao.Database.Rollback;
+               Showmessage('Não foi possível excluir o usuários');
             End;
       End;
    Finally

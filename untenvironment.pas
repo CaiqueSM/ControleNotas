@@ -8,6 +8,7 @@ uses
 type
   TVariaveisGlobais = record
     Usuario: string;
+    IdUsuario: Integer;
   end;
 
 var
