@@ -90,6 +90,10 @@ object frmMenu: TfrmMenu
         Caption = 'Por per'#237'odo'
       end
     end
+    object itemSair: TMenuItem
+      Caption = 'Sair'
+      OnClick = itemSairClick
+    end
   end
   object ListaImagens: TImageList
     Left = 40

@@ -26,6 +26,7 @@ type
     pnlTopo: TPanel;
     stbControleNotas: TStatusBar;
     ListaImagens: TImageList;
+    itemSair: TMenuItem;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure itemConsultaNotasClick(Sender: TObject);
@@ -35,6 +36,7 @@ type
     procedure itemNotaClick(Sender: TObject);
     procedure itemClienteClick(Sender: TObject);
     procedure itemFornercedorClick(Sender: TObject);
+    procedure itemSairClick(Sender: TObject);
   private
     FController: TMenuController;
     procedure Logar();
@@ -100,6 +102,11 @@ end;
 procedure TfrmMenu.itemRelatorioMensalClick(Sender: TObject);
 begin
   FController.AbrirTelaFilha(Self, TfrmGerarRelatorio, frmGerarRelatorio);
+end;
+
+procedure TfrmMenu.itemSairClick(Sender: TObject);
+begin
+   Close();
 end;
 
 procedure TfrmMenu.itemUsuarioClick(Sender: TObject);
