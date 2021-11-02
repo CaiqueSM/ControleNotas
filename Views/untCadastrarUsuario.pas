@@ -54,7 +54,6 @@ var
   usuario: TUsuarioModel;
 begin
    Result := False;
-   usuario := TUsuarioModel.Create();
    Try
        Case AOperacao Of
           actConsultar:
@@ -79,7 +78,7 @@ begin
              End;
        End;
    Finally
-      usuario.Free;
+      If Assigned(usuario) Then usuario.Free;
    End;
    Result := True;
 end;
@@ -155,8 +154,7 @@ end;
 function TfrmCadastrarUsuario.validarCampos(ACampo: TObject): Boolean;
 var
   quantidadeMinimaCaracterParaNomeUsuario,
-  quantidadeMinimaCaracterParaSenhaUsuario
-  : Integer;
+  quantidadeMinimaCaracterParaSenhaUsuario: Integer;
 begin
    Result := False;
    quantidadeMinimaCaracterParaNomeUsuario := 4;
@@ -186,6 +184,15 @@ begin
                If (Trim(txtSenhaAtual.Text) = EmptyStr) Then
                   Begin
                      ShowMessage('O campo da senha atual deve ser preenchido!');
+                     If txtSenhaAtual.CanFocus Then txtSenhaAtual.SetFocus;
+                     Exit;
+                  End;
+
+               If (Not FController.VerificarSenhaUsuarioEstaCorreta(
+                  txtNomeUsuario.Text,
+                  txtSenhaAtual.Text)) Then
+                  Begin
+                     ShowMessage('A senha atual está incorreta!');
                      If txtSenhaAtual.CanFocus Then txtSenhaAtual.SetFocus;
                      Exit;
                   End;

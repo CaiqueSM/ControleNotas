@@ -36,6 +36,7 @@ begin
 
          Result.Id := query.FieldByName('id').AsInteger;
          Result.Nome := Trim(query.FieldByName('nome').AsString);
+         Result.Senha := Trim(query.FieldByName('senha').AsString);
       Except
          on E: Exception do
             Showmessage('Não foi possível carregar o usuário');
