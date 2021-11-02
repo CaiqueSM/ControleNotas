@@ -30,7 +30,8 @@ uses
   UntCadastrarUsuarioController in 'Controller\UntCadastrarUsuarioController.pas',
   UntCadastrarUsuarioDao in 'Dao\UntCadastrarUsuarioDao.pas',
   untenvironment in 'untenvironment.pas',
-  UntCrudEnum in 'Model\Enum\UntCrudEnum.pas';
+  UntCrudEnum in 'Model\Enum\UntCrudEnum.pas',
+  UntFormHelper in 'Helper\UntFormHelper.pas';
 
 {$R *.res}
 

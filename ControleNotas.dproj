@@ -133,6 +133,7 @@
         <DCCReference Include="Dao\UntCadastrarUsuarioDao.pas"/>
         <DCCReference Include="untenvironment.pas"/>
         <DCCReference Include="Model\Enum\UntCrudEnum.pas"/>
+        <DCCReference Include="Helper\UntFormHelper.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

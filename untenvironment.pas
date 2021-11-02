@@ -13,6 +13,10 @@ type
 var
   Global: TVariaveisGlobais;
 
+Const
+  ValidarTodosCampos = nil;
+  BotaoEnter = #13;
+
 implementation
 
 end.

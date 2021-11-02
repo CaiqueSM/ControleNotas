@@ -28,9 +28,9 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   object lbSenha: TLabel
     Left = 5
     Top = 125
-    Width = 117
+    Width = 65
     Height = 15
-    Caption = 'Informe a nova senha:'
+    Caption = 'Nova senha:'
   end
   object lbConfirmSenha: TLabel
     Left = 5
@@ -42,9 +42,9 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   object Label1: TLabel
     Left = 5
     Top = 80
-    Width = 117
+    Width = 64
     Height = 15
-    Caption = 'Informe a senha atual:'
+    Caption = 'Senha atual:'
   end
   object txtNovaSenha: TEdit
     Left = 5
@@ -100,7 +100,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     ShowHint = True
     TabOrder = 0
   end
-  object TxtNomesUsuarios: TEdit
+  object txtNomeUsuario: TEdit
     Left = 5
     Top = 44
     Width = 200
@@ -109,6 +109,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     ParentShowHint = False
     ShowHint = True
     TabOrder = 5
+    OnKeyPress = txtNomeUsuarioKeyPress
   end
   object tobTop: TToolBar
     Left = 0
