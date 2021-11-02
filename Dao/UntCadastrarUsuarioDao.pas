@@ -7,7 +7,7 @@ uses untbasedao, System.Generics.Collections, UntUsuarioModel, System.Classes;
 type
   TCadastrarUsuarioDao = class(TBaseDao)
   public
-    function ListarNomesUsuarios(): TStringList;
+    function ListarUsuarios(): TObjectList<TUsuarioModel>;
   end;
 
 implementation
@@ -17,12 +17,13 @@ uses
 
 { TCadastrarUsuarioDao }
 
-function TCadastrarUsuarioDao.ListarNomesUsuarios(): TStringList;
+function TCadastrarUsuarioDao.ListarUsuarios(): TObjectList<TUsuarioModel>;
 var
   query: TZQuery;
+  usuario: TUsuarioModel;
   sql: String;
 begin
-   Result := TStringList.Create();
+   Result := TObjectList<TUsuarioModel>.Create();
 
    sql := 'select nome from usuario ' +
           ' order by nome asc ' ;
@@ -33,7 +34,11 @@ begin
          query.Open();
          while Not query.Eof do
             Begin
-               Result.Add(Trim(query.FieldByName('nome').AsString));
+               usuario := TUsuarioModel.Create();
+               usuario.Id := query.FieldByName('id').AsInteger;
+               usuario.Nome := Trim(query.FieldByName('nome').AsString);
+
+               Result.Add(usuario);
                query.Next;
             End;
       Except

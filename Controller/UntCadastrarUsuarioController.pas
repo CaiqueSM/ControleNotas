@@ -12,8 +12,6 @@ type
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
-
-    function ListarNomesUsuarios(): TStringList;
   end;
 
 implementation
@@ -30,11 +28,6 @@ destructor TCadastrarUsuarioController.Destroy;
 begin
   FDao.Free;
   inherited;
-end;
-
-function TCadastrarUsuarioController.ListarNomesUsuarios(): TStringList;
-begin
-   Result := FDao.ListarNomesUsuarios();
 end;
 
 end.
