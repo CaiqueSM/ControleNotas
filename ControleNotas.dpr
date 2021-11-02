@@ -26,7 +26,8 @@ uses
   UntNotasModel in 'Model\UntNotasModel.pas',
   UntPessoaModel in 'Model\UntPessoaModel.pas',
   UntTelefoneModel in 'Model\UntTelefoneModel.pas',
-  UntUsuarioModel in 'Model\UntUsuarioModel.pas';
+  UntUsuarioModel in 'Model\UntUsuarioModel.pas',
+  UntCadastrarUsuarioController in 'Controller\UntCadastrarUsuarioController.pas';
 
 {$R *.res}
 

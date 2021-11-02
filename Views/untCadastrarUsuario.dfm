@@ -14,6 +14,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   Font.Style = []
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 15
   object lbNomeUsuario: TLabel
@@ -65,8 +66,8 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     TabOrder = 3
   end
   object btnCancelar: TButton
-    Left = 5
-    Top = 140
+    Left = 49
+    Top = 139
     Width = 75
     Height = 25
     Caption = 'Cancelar'

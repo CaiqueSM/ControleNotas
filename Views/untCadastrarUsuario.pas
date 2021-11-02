@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
+  System.Classes, Vcl.Graphics, UntCadastrarUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin;
 
 type
@@ -18,8 +18,9 @@ type
     txtConfirmSenha: TEdit;
     lbConfirmSenha: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
   private
-    //FController:
+    FController: TCadastrarUsuarioController;
   end;
 
 var
@@ -32,7 +33,13 @@ implementation
 procedure TfrmCadastrarUsuario.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  FController.Free;
   Action := caFree;
+end;
+
+procedure TfrmCadastrarUsuario.FormCreate(Sender: TObject);
+begin
+  FController := TCadastrarUsuarioController.Create(Nil);
 end;
 
 end.
