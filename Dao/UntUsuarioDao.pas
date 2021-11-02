@@ -29,11 +29,11 @@ begin
    Result := TUsuarioModel.Create();
 
    sql := 'select * from usuario ' +
-          ' where upper((nome)) = upper(trim(:nome)) ' ;
+          ' where upper(trim(nome)) = upper(trim(:nome)) ' ;
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName('nome').AsString := ANome;
+      query.ParamByName('nome').AsString := ANome.Trim;
       Try
          query.Open();
 
@@ -90,8 +90,8 @@ begin
    sql := 'Insert Into usuario (nome, senha) Values (:nome, :senha)';
    query := CreateQuery(sql);
    Try
-      query.ParamByName('nome').AsString := AUsuario.Nome;
-      query.ParamByName('senha').AsString := AUsuario.Senha;
+      query.ParamByName('nome').AsString := AUsuario.Nome.Trim;
+      query.ParamByName('senha').AsString := AUsuario.Senha.Trim;
       Try
          query.ExecSQL();
          Conexao.Database.Commit;
