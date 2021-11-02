@@ -33,7 +33,6 @@ implementation
 procedure TFrmConsultaUsuarios.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-   FResultado := EmptyStr;
    FController.Free;
    Action := caFree;
 end;
@@ -54,6 +53,7 @@ var
 begin
    linha := gridUsuarios.Row;
    FResultado := gridUsuarios.Rows[linha].Text;
+   Close();
 end;
 
 procedure TFrmConsultaUsuarios.gridUsuariosKeyPress(Sender: TObject;
