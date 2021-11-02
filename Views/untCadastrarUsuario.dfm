@@ -57,6 +57,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     PasswordChar = '*'
     ShowHint = True
     TabOrder = 1
+    OnKeyPress = txtSenhaAtualKeyPress
   end
   object btnCadastar: TButton
     Left = 130
@@ -87,6 +88,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     PasswordChar = '*'
     ShowHint = True
     TabOrder = 2
+    OnKeyPress = txtSenhaAtualKeyPress
   end
   object txtSenhaAtual: TEdit
     Left = 5
@@ -99,6 +101,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     PasswordChar = '*'
     ShowHint = True
     TabOrder = 0
+    OnKeyPress = txtSenhaAtualKeyPress
   end
   object txtNomeUsuario: TEdit
     Left = 5

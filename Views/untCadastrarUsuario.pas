@@ -30,6 +30,7 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure btnCadastarClick(Sender: TObject);
     procedure txtNomeUsuarioKeyPress(Sender: TObject; var Key: Char);
+    procedure txtSenhaAtualKeyPress(Sender: TObject; var Key: Char);
   private
     FController: TCadastrarUsuarioController;
     FUsuarioExistente: Boolean;
@@ -149,6 +150,14 @@ begin
                txtSenhaAtual.Enabled := FUsuarioExistente;
                Self.TabOrderNext();
             End;
+end;
+
+procedure TfrmCadastrarUsuario.txtSenhaAtualKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+   If Key = BotaoEnter Then
+      If validarCampos(Sender) Then
+         Self.TabOrderNext();
 end;
 
 function TfrmCadastrarUsuario.validarCampos(ACampo: TObject): Boolean;
