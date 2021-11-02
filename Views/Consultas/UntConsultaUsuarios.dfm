@@ -41,5 +41,6 @@ object FrmConsultaUsuarios: TFrmConsultaUsuarios
     TabOrder = 0
     OnDblClick = gridUsuariosDblClick
     OnKeyPress = gridUsuariosKeyPress
+    ExplicitWidth = 500
   end
 end
