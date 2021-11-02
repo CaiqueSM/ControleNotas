@@ -14,7 +14,7 @@ var
   Global: TVariaveisGlobais;
 
 Const
-  ValidarTodosCampos = nil;
+  todosCampos = nil;
   BotaoEnter = #13;
 
 implementation

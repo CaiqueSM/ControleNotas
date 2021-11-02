@@ -8,6 +8,7 @@ type
   TCadastrarUsuarioDao = class(TBaseDao)
   public
     function ListarUsuarios(): TObjectList<TUsuarioModel>;
+    function Consultar(ANome: String): TUsuarioModel;
   end;
 
 implementation
@@ -16,6 +17,33 @@ uses
   ZDataset, System.SysUtils, Vcl.Dialogs;
 
 { TCadastrarUsuarioDao }
+
+function TCadastrarUsuarioDao.Consultar(ANome: String): TUsuarioModel;
+var
+  query: TZQuery;
+  sql: String;
+begin
+   Result := TUsuarioModel.Create();
+
+   sql := 'select * from usuario ' +
+          ' where upper((nome)) = upper(trim(:nome)) ' ;
+
+   query := CreateQuery(sql);
+   Try
+      query.ParamByName('nome').AsString := ANome;
+      Try
+         query.Open();
+
+         Result.Id := query.FieldByName('id').AsInteger;
+         Result.Nome := Trim(query.FieldByName('nome').AsString);
+      Except
+         on E: Exception do
+            Showmessage('Não foi possível carregar o usuário');
+      End;
+   Finally
+      query.Free;
+   End;
+end;
 
 function TCadastrarUsuarioDao.ListarUsuarios(): TObjectList<TUsuarioModel>;
 var

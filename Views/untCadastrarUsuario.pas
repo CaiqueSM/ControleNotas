@@ -50,16 +50,46 @@ uses
 {$R *.dfm}
 
 function TfrmCadastrarUsuario.atualizarDados(AOperacao: TEnumCRUD): Boolean;
+var
+  usuario: TUsuarioModel;
 begin
    Result := False;
+   usuario := TUsuarioModel.Create();
+   Try
+       Case AOperacao Of
+          actConsultar:
+             Begin
+                usuario := FController.Consultar(txtNomeUsuario.Text);
+                FUsuarioExistente := Not usuario.Nome.IsEmpty;
+             End;
 
+          actCriar:
+             Begin
 
+             End;
+
+          actAlterar:
+             Begin
+
+             End;
+
+          actExcluir:
+             Begin
+
+             End;
+       End;
+   Finally
+      usuario.Free;
+   End;
    Result := True;
 end;
 
 procedure TfrmCadastrarUsuario.btnCadastarClick(Sender: TObject);
 begin
-   btnCancelarClick(Sender);
+   If validarCampos(todosCampos) Then
+      Begin
+         btnCancelarClick(Sender);
+      End;
 end;
 
 procedure TfrmCadastrarUsuario.btnCancelarClick(Sender: TObject);
@@ -117,18 +147,22 @@ begin
          If atualizarDados(actConsultar) Then
             Begin
                habilitarCampos(True);
+               txtSenhaAtual.Enabled := FUsuarioExistente;
                Self.TabOrderNext();
             End;
 end;
 
 function TfrmCadastrarUsuario.validarCampos(ACampo: TObject): Boolean;
 var
-  quantidadeMinimaCaracterParaNomeUsuario: Integer;
+  quantidadeMinimaCaracterParaNomeUsuario,
+  quantidadeMinimaCaracterParaSenhaUsuario
+  : Integer;
 begin
    Result := False;
    quantidadeMinimaCaracterParaNomeUsuario := 4;
+   quantidadeMinimaCaracterParaSenhaUsuario := 4;
 
-   If (ACampo = txtNomeUsuario) Then
+   If (ACampo = txtNomeUsuario) Or (ACampo = todosCampos) Then
       Begin
          If (Trim(txtNomeUsuario.Text) = EmptyStr) Then
             Begin
@@ -141,6 +175,60 @@ begin
             Begin
                ShowMessage('O campo nome de usuário deve ter pelo menos 4 dígitos!');
                If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
+               Exit;
+            End;
+      End;
+
+   If (ACampo = txtSenhaAtual) Or (ACampo = todosCampos) Then
+      Begin
+         If FUsuarioExistente Then
+            Begin
+               If (Trim(txtSenhaAtual.Text) = EmptyStr) Then
+                  Begin
+                     ShowMessage('O campo da senha atual deve ser preenchido!');
+                     If txtSenhaAtual.CanFocus Then txtSenhaAtual.SetFocus;
+                     Exit;
+                  End;
+            End;
+      End;
+
+   If (ACampo = txtNovaSenha) Or (ACampo = todosCampos) Then
+      Begin
+         If (Trim(txtNovaSenha.Text) = EmptyStr) Then
+            Begin
+               ShowMessage('O campo nova senha deve ser preenchido!');
+               If txtNovaSenha.CanFocus Then txtNovaSenha.SetFocus;
+               Exit;
+            End;
+
+         If (Length(Trim(txtNovaSenha.Text)) < quantidadeMinimaCaracterParaSenhaUsuario) Then
+            Begin
+               ShowMessage('O campo nova senha deve ter pelo menos 4 dígitos!');
+               If txtNovaSenha.CanFocus Then txtNovaSenha.SetFocus;
+               Exit;
+            End;
+      End;
+
+   If (ACampo = txtConfirmacaoNovaSenha) Or (ACampo = todosCampos) Then
+      Begin
+         If (Trim(txtConfirmacaoNovaSenha.Text) = EmptyStr) Then
+            Begin
+               ShowMessage('O campo confirmação da nova senha deve ser preenchido!');
+               If txtConfirmacaoNovaSenha.CanFocus Then txtConfirmacaoNovaSenha.SetFocus;
+               Exit;
+            End;
+
+         If (Length(Trim(txtConfirmacaoNovaSenha.Text)) < quantidadeMinimaCaracterParaSenhaUsuario) Then
+            Begin
+               ShowMessage('O campo confirmação da nova senha deve ter pelo menos 4 dígitos!');
+               If txtConfirmacaoNovaSenha.CanFocus Then txtConfirmacaoNovaSenha.SetFocus;
+               Exit;
+            End;
+
+         If (Trim(txtNovaSenha.Text) <> Trim(txtConfirmacaoNovaSenha.Text)) Then
+            Begin
+               ShowMessage('O campo nova senha e confirmação da nova senha devem ser iguais!');
+               If txtConfirmacaoNovaSenha.CanFocus Then txtConfirmacaoNovaSenha.SetFocus;
                Exit;
             End;
       End;

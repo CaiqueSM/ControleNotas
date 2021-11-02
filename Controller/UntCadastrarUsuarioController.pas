@@ -12,11 +12,18 @@ type
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
+
+    function Consultar(ANome: String): TUsuarioModel;
   end;
 
 implementation
 
 { TCadastrarUsuarioController }
+
+function TCadastrarUsuarioController.Consultar(ANome: String): TUsuarioModel;
+begin
+   Result := FDao.Consultar(ANome);
+end;
 
 constructor TCadastrarUsuarioController.Create;
 begin
