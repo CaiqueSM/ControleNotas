@@ -4,7 +4,7 @@ object FrmConsultaUsuarios: TFrmConsultaUsuarios
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Usu'#225'rios'
-  ClientHeight = 256
+  ClientHeight = 221
   ClientWidth = 193
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -23,11 +23,13 @@ object FrmConsultaUsuarios: TFrmConsultaUsuarios
     Left = 0
     Top = 0
     Width = 193
-    Height = 256
+    Height = 221
     Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
     ColCount = 1
+    DefaultColWidth = 171
+    DefaultRowHeight = 20
     FixedCols = 0
     RowCount = 1
     FixedRows = 0
@@ -42,5 +44,6 @@ object FrmConsultaUsuarios: TFrmConsultaUsuarios
     OnDblClick = gridUsuariosDblClick
     OnKeyPress = gridUsuariosKeyPress
     ExplicitWidth = 500
+    ExplicitHeight = 256
   end
 end
