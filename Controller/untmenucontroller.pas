@@ -12,10 +12,9 @@ type
 
   TMenuController = class
   private
-    function IsChildFormExist(InstanceClass: TFormClass): boolean;
+    function FormExiste(InstanceClass: TFormClass): boolean;
   public
-    procedure AbrirTelaFilha(MainForm: TForm; InstanceClass: TFormClass;
-      var Reference);
+    procedure AbrirTelaFilha(MainForm: TForm; ClassRef: TFormClass; var Form);
     function Logar(): boolean;
   end;
 
@@ -23,7 +22,7 @@ implementation
 
 { TMenuController }
 
-function TMenuController.IsChildFormExist(InstanceClass: TFormClass): boolean;
+function TMenuController.FormExiste(InstanceClass: TFormClass): boolean;
 var
   I: integer;
 begin
@@ -38,43 +37,23 @@ begin
 end;
 
 procedure TMenuController.AbrirTelaFilha(MainForm: TForm;
-  InstanceClass: TFormClass; var Reference);
-var
-  Instance: TForm;
+  ClassRef: TFormClass; var Form);
 begin
-  Screen.Cursor := crHourglass;
-  LockWindowUpdate(MainForm.Handle);
-  if not IsChildFormExist(InstanceClass) then
-    try
-      Instance := TForm(InstanceClass.NewInstance);
-      TForm(Reference) := Instance;
-      try
-        Instance.Create(MainForm);
-        if (Instance as TForm).FormStyle = fsNormal then
-        begin
-          (Instance as TForm).FormStyle := fsMdiChild;
-          (Instance as TForm).Visible := True;
-        end;
-      except
-        TForm(Reference) := nil;
-        Instance.Free;
-        raise;
-      end;
-    finally
-      Screen.Cursor := crDefault;
-    end
-  else
-    with TForm(Reference) do
-    begin
-      if WindowState = wsMinimized then
-        WindowState := wsNormal;
-      BringToFront;
-      Screen.Cursor := crDefault;
-      SetFocus;
-    end;
-
-  LockWindowUpdate(0);
-  TForm(Reference) := nil;
+   If FormExiste(ClassRef) Then
+      Begin
+         TForm(Form).Show;
+         TForm(Form).WindowState := wsNormal;
+      End
+   Else
+      Begin
+         TForm(Form) := TFormClass(ClassRef).Create(MainForm);
+         With TForm(Form) Do
+            Begin
+               FormStyle := fsMDIChild;
+               Left := 0;
+               Top  := 0;
+            End;
+      End;
 end;
 
 function TMenuController.Logar(): boolean;
