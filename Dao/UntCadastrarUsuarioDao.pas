@@ -9,6 +9,8 @@ type
   public
     function ListarUsuarios(): TObjectList<TUsuarioModel>;
     function Consultar(ANome: String): TUsuarioModel;
+    procedure Criar(AUsuario: TUsuarioModel);
+    procedure Alterar(AUsuario: TUsuarioModel);
   end;
 
 implementation
@@ -73,6 +75,58 @@ begin
       Except
          on E: Exception do
             Showmessage('Não foi possível carregar a lista de usuários');
+      End;
+   Finally
+      query.Free;
+   End;
+end;
+
+procedure TCadastrarUsuarioDao.Criar(AUsuario: TUsuarioModel);
+var
+  query: TZQuery;
+  sql: String;
+begin
+   sql := 'Insert Into usuario (nome, senha) Values (:nome, :senha)';
+   query := CreateQuery(sql);
+   Try
+      query.ParamByName('nome').AsString := AUsuario.Nome;
+      query.ParamByName('senha').AsString := AUsuario.Senha;
+      Try
+         query.ExecSQL();
+         Conexao.Database.Commit;
+      Except
+         on E: Exception do
+            Begin
+               Conexao.Database.Rollback;
+               Showmessage('Não foi possível salvar o usuários');
+            End;
+      End;
+   Finally
+      query.Free;
+   End;
+end;
+
+procedure TCadastrarUsuarioDao.Alterar(AUsuario: TUsuarioModel);
+var
+  query: TZQuery;
+  sql: String;
+begin
+   sql := 'Update usuario Set senha = :senha ' +
+          ' Where id = :id';
+
+   query := CreateQuery(sql);
+   Try
+      query.ParamByName('id').AsInteger := AUsuario.Id;
+      query.ParamByName('senha').AsString := AUsuario.Senha;
+      Try
+         query.ExecSQL();
+         Conexao.Database.Commit;
+      Except
+         on E: Exception do
+            Begin
+               Conexao.Database.Rollback;
+               Showmessage('Não foi possível salvar o usuários');
+            End;
       End;
    Finally
       query.Free;

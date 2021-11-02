@@ -34,6 +34,7 @@ type
   private
     FController: TCadastrarUsuarioController;
     FUsuarioExistente: Boolean;
+    FIdUsuarioExistente: Integer;
     procedure habilitarCampos(AHabilitar: Boolean);
     procedure limparCampos();
     function validarCampos(ACampo: TObject): Boolean;
@@ -61,16 +62,26 @@ begin
              Begin
                 usuario := FController.Consultar(txtNomeUsuario.Text);
                 FUsuarioExistente := Not usuario.Nome.IsEmpty;
+                FIdUsuarioExistente := usuario.Id;
              End;
 
           actCriar:
              Begin
+                usuario := TUsuarioModel.Create();
+                usuario.Nome := txtNomeUsuario.Text;
+                usuario.Senha := Trim(txtConfirmacaoNovaSenha.Text);
 
+                FController.Criar(usuario);
              End;
 
           actAlterar:
              Begin
+                usuario := TUsuarioModel.Create();
+                usuario.Id := FIdUsuarioExistente;
+                usuario.Nome := txtNomeUsuario.Text;
+                usuario.Senha := Trim(txtConfirmacaoNovaSenha.Text);
 
+                FController.Alterar(usuario);
              End;
 
           actExcluir:
@@ -88,6 +99,11 @@ procedure TfrmCadastrarUsuario.btnCadastarClick(Sender: TObject);
 begin
    If validarCampos(todosCampos) Then
       Begin
+         If FUsuarioExistente Then
+            atualizarDados(actAlterar)
+         Else
+            atualizarDados(actCriar);
+
          btnCancelarClick(Sender);
       End;
 end;
@@ -97,6 +113,7 @@ begin
    limparCampos();
    habilitarCampos(False);
    FUsuarioExistente := False;
+   FIdUsuarioExistente := 0;
    If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
 end;
 

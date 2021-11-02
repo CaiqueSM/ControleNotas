@@ -14,6 +14,9 @@ type
     destructor Destroy(); override;
 
     function Consultar(ANome: String): TUsuarioModel;
+    procedure Criar(AUsuario: TUsuarioModel);
+    procedure Alterar(AUsuario: TUsuarioModel);
+
     function VerificarSenhaUsuarioEstaCorreta(AUsuario, ASenhaAtual: String): Boolean;
   end;
 
@@ -31,6 +34,16 @@ destructor TCadastrarUsuarioController.Destroy;
 begin
   FDao.Free;
   inherited;
+end;
+
+procedure TCadastrarUsuarioController.Criar(AUsuario: TUsuarioModel);
+begin
+   FDao.Criar(AUsuario);
+end;
+
+procedure TCadastrarUsuarioController.Alterar(AUsuario: TUsuarioModel);
+begin
+   FDao.Alterar(AUsuario);
 end;
 
 function TCadastrarUsuarioController.Consultar(ANome: String): TUsuarioModel;
