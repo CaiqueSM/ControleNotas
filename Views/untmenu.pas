@@ -38,6 +38,7 @@ type
   private
     FController: TMenuController;
     procedure Logar();
+    procedure configurarStatusBar();
   end;
 
 var
@@ -57,13 +58,12 @@ procedure TfrmMenu.FormCreate(Sender: TObject);
 begin
   FController := TMenuController.Create();
   Logar();
-  stbControleNotas.SimpleText:= 'Bem vindo!'+FormatDateTime('hh:mm:ss',now);
-  stbControleNotas.Width:= Screen.Width;
 end;
 
 procedure TfrmMenu.FormShow(Sender: TObject);
 begin
   pnlTopo.Width := Screen.Width;
+  configurarStatusBar();
 end;
 
 procedure TfrmMenu.Logar();
@@ -104,6 +104,14 @@ end;
 procedure TfrmMenu.itemUsuarioClick(Sender: TObject);
 begin
   FController.AbrirTelaFilha(Self, TfrmUsuario, frmUsuario);
+end;
+
+procedure TfrmMenu.configurarStatusBar;
+var
+  usuario: Integer;
+begin
+   usuario := 0;
+   stbControleNotas.Panels[usuario].Text := Format(' Usuário: %s ', [Global.Usuario]);
 end;
 
 procedure TfrmMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);

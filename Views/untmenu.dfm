@@ -34,9 +34,22 @@ object frmMenu: TfrmMenu
     Top = 459
     Width = 1081
     Height = 19
-    AutoHint = True
-    Panels = <>
-    SimpleText = 'Bem vindo!'
+    Color = clWhite
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Panels = <
+      item
+        Bevel = pbRaised
+        Text = 'Usu'#225'rio:'
+        Width = 150
+      end
+      item
+        Width = 50
+      end>
+    UseSystemFont = False
   end
   object mainMenu: TMainMenu
     Left = 40
