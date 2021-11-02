@@ -28,7 +28,8 @@ uses
   UntTelefoneModel in 'Model\UntTelefoneModel.pas',
   UntUsuarioModel in 'Model\UntUsuarioModel.pas',
   UntCadastrarUsuarioController in 'Controller\UntCadastrarUsuarioController.pas',
-  UntCadastrarUsuarioDao in 'Dao\UntCadastrarUsuarioDao.pas';
+  UntCadastrarUsuarioDao in 'Dao\UntCadastrarUsuarioDao.pas',
+  untenvironment in 'untenvironment.pas';
 
 {$R *.res}
 
