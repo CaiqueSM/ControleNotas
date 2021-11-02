@@ -25,8 +25,8 @@ var
 begin
    Result := TObjectList<TUsuarioModel>.Create();
 
-   sql := 'select nome from usuario ' +
-          ' order by nome asc ' ;
+   sql := 'select * from usuario ' +
+          ' order by id asc ' ;
 
    query := CreateQuery(sql);
    Try
