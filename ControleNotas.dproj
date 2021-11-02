@@ -105,8 +105,8 @@
         <DCCReference Include="Views\UntCadastrarFornecedorNota.pas">
             <Form>frmFornecedorNotaFiscal</Form>
         </DCCReference>
-        <DCCReference Include="Views\UntCadastrarUsuario.pas">
-            <Form>frmCadastrarUsuario</Form>
+        <DCCReference Include="Views\UntUsuario.pas">
+            <Form>frmUsuario</Form>
         </DCCReference>
         <DCCReference Include="Views\UntGerarRelatorio.pas">
             <Form>frmGerarRelatorio</Form>
@@ -127,8 +127,8 @@
         <DCCReference Include="Model\UntPessoaModel.pas"/>
         <DCCReference Include="Model\UntTelefoneModel.pas"/>
         <DCCReference Include="Model\UntUsuarioModel.pas"/>
-        <DCCReference Include="Controller\UntCadastrarUsuarioController.pas"/>
-        <DCCReference Include="Dao\UntCadastrarUsuarioDao.pas"/>
+        <DCCReference Include="Controller\UntUsuarioController.pas"/>
+        <DCCReference Include="Dao\UntUsuarioDao.pas"/>
         <DCCReference Include="untenvironment.pas"/>
         <DCCReference Include="Model\Enum\UntCrudEnum.pas"/>
         <DCCReference Include="Helper\UntFormHelper.pas"/>

@@ -1,14 +1,14 @@
-unit UntCadastrarUsuarioController;
+unit UntUsuarioController;
 
 interface
 
-uses untbasecontroller, UntCadastrarUsuarioDao, System.Generics.Collections,
+uses untbasecontroller, UntUsuarioDao, System.Generics.Collections,
   UntUsuarioModel, System.Classes;
 
 type
-  TCadastrarUsuarioController = class(TBaseController)
+  TUsuarioController = class(TBaseController)
   private
-    FDao: TCadastrarUsuarioDao;
+    FDao: TUsuarioDao;
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
@@ -23,41 +23,41 @@ type
 
 implementation
 
-{ TCadastrarUsuarioController }
+{ TUsuarioController }
 
-constructor TCadastrarUsuarioController.Create;
+constructor TUsuarioController.Create;
 begin
   inherited;
-  FDao := TCadastrarUsuarioDao.Create(Conexao);
+  FDao := TUsuarioDao.Create(Conexao);
 end;
 
-destructor TCadastrarUsuarioController.Destroy;
+destructor TUsuarioController.Destroy;
 begin
   FDao.Free;
   inherited;
 end;
 
-procedure TCadastrarUsuarioController.Excluir(AIdUsuario: Integer);
+procedure TUsuarioController.Excluir(AIdUsuario: Integer);
 begin
    FDao.Excluir(AIdUsuario);
 end;
 
-procedure TCadastrarUsuarioController.Criar(AUsuario: TUsuarioModel);
+procedure TUsuarioController.Criar(AUsuario: TUsuarioModel);
 begin
    FDao.Criar(AUsuario);
 end;
 
-procedure TCadastrarUsuarioController.Alterar(AUsuario: TUsuarioModel);
+procedure TUsuarioController.Alterar(AUsuario: TUsuarioModel);
 begin
    FDao.Alterar(AUsuario);
 end;
 
-function TCadastrarUsuarioController.Consultar(ANome: String): TUsuarioModel;
+function TUsuarioController.Consultar(ANome: String): TUsuarioModel;
 begin
    Result := FDao.Consultar(ANome);
 end;
 
-function TCadastrarUsuarioController.VerificarSenhaUsuarioEstaCorreta(AUsuario,
+function TUsuarioController.VerificarSenhaUsuarioEstaCorreta(AUsuario,
   ASenhaAtual: String): Boolean;
 var
   usuario: TUsuarioModel;

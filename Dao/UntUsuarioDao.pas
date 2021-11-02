@@ -1,11 +1,11 @@
-unit UntCadastrarUsuarioDao;
+unit UntUsuarioDao;
 
 interface
 
 uses untbasedao, System.Generics.Collections, UntUsuarioModel, System.Classes;
 
 type
-  TCadastrarUsuarioDao = class(TBaseDao)
+  TUsuarioDao = class(TBaseDao)
   public
     function ListarUsuarios(): TObjectList<TUsuarioModel>;
     function Consultar(ANome: String): TUsuarioModel;
@@ -19,9 +19,9 @@ implementation
 uses
   ZDataset, System.SysUtils, Vcl.Dialogs;
 
-{ TCadastrarUsuarioDao }
+{ TUsuarioDao }
 
-function TCadastrarUsuarioDao.Consultar(ANome: String): TUsuarioModel;
+function TUsuarioDao.Consultar(ANome: String): TUsuarioModel;
 var
   query: TZQuery;
   sql: String;
@@ -49,7 +49,7 @@ begin
    End;
 end;
 
-function TCadastrarUsuarioDao.ListarUsuarios(): TObjectList<TUsuarioModel>;
+function TUsuarioDao.ListarUsuarios(): TObjectList<TUsuarioModel>;
 var
   query: TZQuery;
   usuario: TUsuarioModel;
@@ -82,7 +82,7 @@ begin
    End;
 end;
 
-procedure TCadastrarUsuarioDao.Criar(AUsuario: TUsuarioModel);
+procedure TUsuarioDao.Criar(AUsuario: TUsuarioModel);
 var
   query: TZQuery;
   sql: String;
@@ -107,7 +107,7 @@ begin
    End;
 end;
 
-procedure TCadastrarUsuarioDao.Alterar(AUsuario: TUsuarioModel);
+procedure TUsuarioDao.Alterar(AUsuario: TUsuarioModel);
 var
   query: TZQuery;
   sql: String;
@@ -134,7 +134,7 @@ begin
    End;
 end;
 
-procedure TCadastrarUsuarioDao.Excluir(AIdUsuario: Integer);
+procedure TUsuarioDao.Excluir(AIdUsuario: Integer);
 var
   query: TZQuery;
   sql: String;

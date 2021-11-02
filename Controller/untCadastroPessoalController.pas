@@ -8,7 +8,7 @@ uses
 
 type
 
-  TCadastrarUsuarioController = class(TBaseController)
+  TUsuarioController = class(TBaseController)
   private
 
   public

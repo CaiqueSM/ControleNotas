@@ -3,12 +3,12 @@ unit UntConsultaUsuarioController;
 interface
 
 uses UntBaseController, System.Generics.Collections, UntUsuarioModel,
-  UntCadastrarUsuarioDao, System.Classes;
+  UntUsuarioDao, System.Classes;
 
 type
   TConsultaUsuarioController = class(TBaseController)
   private
-    FDao: TCadastrarUsuarioDao;
+    FDao: TUsuarioDao;
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
@@ -23,7 +23,7 @@ implementation
 constructor TConsultaUsuarioController.Create;
 begin
   inherited Create();
-  FDao := TCadastrarUsuarioDao.Create(Conexao);
+  FDao := TUsuarioDao.Create(Conexao);
 end;
 
 destructor TConsultaUsuarioController.Destroy;

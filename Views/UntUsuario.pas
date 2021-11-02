@@ -1,16 +1,16 @@
-unit untCadastrarUsuario;
+unit UntUsuario;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, UntCadastrarUsuarioController,
+  System.Classes, Vcl.Graphics, UntUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin,
   Vcl.Buttons, Vcl.ToolWin, Vcl.ComCtrls, UntEnvironment, UntCrudEnum,
   UntFormHelper, UntMensagemUtil, UntMenu, UntConsulta;
 
 type
-  TfrmCadastrarUsuario = class(TForm)
+  TfrmUsuario = class(TForm)
     txtNovaSenha: TEdit;
     lbNomeUsuario: TLabel;
     lbSenha: TLabel;
@@ -34,7 +34,7 @@ type
     procedure tbuExcluirClick(Sender: TObject);
     procedure tbuPesquisarClick(Sender: TObject);
   private
-    FController: TCadastrarUsuarioController;
+    FController: TUsuarioController;
     FUsuarioExistente: Boolean;
     FIdUsuarioExistente: Integer;
     procedure habilitarCampos(AHabilitar: Boolean);
@@ -45,7 +45,7 @@ type
   end;
 
 var
-  frmCadastrarUsuario: TfrmCadastrarUsuario;
+  frmUsuario: TfrmUsuario;
 
 implementation
 
@@ -54,7 +54,7 @@ uses
 
 {$R *.dfm}
 
-function TfrmCadastrarUsuario.atualizarDados(AOperacao: TEnumCRUD): Boolean;
+function TfrmUsuario.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   usuario: TUsuarioModel;
 begin
@@ -98,7 +98,7 @@ begin
    Result := True;
 end;
 
-procedure TfrmCadastrarUsuario.btnCadastarClick(Sender: TObject);
+procedure TfrmUsuario.btnCadastarClick(Sender: TObject);
 begin
    If validarCampos(todosCampos) Then
       Begin
@@ -111,7 +111,7 @@ begin
       End;
 end;
 
-procedure TfrmCadastrarUsuario.btnCancelarClick(Sender: TObject);
+procedure TfrmUsuario.btnCancelarClick(Sender: TObject);
 begin
    limparCampos();
    habilitarCampos(False);
@@ -120,25 +120,25 @@ begin
    If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
 end;
 
-procedure TfrmCadastrarUsuario.FormClose(Sender: TObject;
+procedure TfrmUsuario.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   FController.Free;
   Action := caFree;
 end;
 
-procedure TfrmCadastrarUsuario.FormCreate(Sender: TObject);
+procedure TfrmUsuario.FormCreate(Sender: TObject);
 begin
-  FController := TCadastrarUsuarioController.Create();
+  FController := TUsuarioController.Create();
   FUsuarioExistente := False;
 end;
 
-procedure TfrmCadastrarUsuario.FormShow(Sender: TObject);
+procedure TfrmUsuario.FormShow(Sender: TObject);
 begin
    habilitarCampos(False);
 end;
 
-procedure TfrmCadastrarUsuario.habilitarCampos(AHabilitar: Boolean);
+procedure TfrmUsuario.habilitarCampos(AHabilitar: Boolean);
 begin
    txtNomeUsuario.Enabled := Not AHabilitar;
    tbuPesquisar.Enabled := Not AHabilitar;
@@ -151,7 +151,7 @@ begin
    btnCancelar.Enabled := AHabilitar;
 end;
 
-procedure TfrmCadastrarUsuario.limparCampos;
+procedure TfrmUsuario.limparCampos;
 begin
    txtNomeUsuario.Clear;
    txtSenhaAtual.Clear;
@@ -159,7 +159,7 @@ begin
    txtConfirmacaoNovaSenha.Clear;
 end;
 
-procedure TfrmCadastrarUsuario.selecionarUsuario(Sender: TObject);
+procedure TfrmUsuario.selecionarUsuario(Sender: TObject);
 begin
    If validarCampos(Sender) Then
       If atualizarDados(actConsultar) Then
@@ -170,7 +170,7 @@ begin
          End;
 end;
 
-procedure TfrmCadastrarUsuario.tbuExcluirClick(Sender: TObject);
+procedure TfrmUsuario.tbuExcluirClick(Sender: TObject);
 begin
    If Global.IdUsuario = FIdUsuarioExistente Then
       Begin
@@ -183,7 +183,7 @@ begin
          btnCancelarClick(Sender);
 end;
 
-procedure TfrmCadastrarUsuario.tbuPesquisarClick(Sender: TObject);
+procedure TfrmUsuario.tbuPesquisarClick(Sender: TObject);
 var
   usuario: String;
 begin
@@ -197,14 +197,14 @@ begin
       If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
 end;
 
-procedure TfrmCadastrarUsuario.txtNomeUsuarioKeyPress(Sender: TObject;
+procedure TfrmUsuario.txtNomeUsuarioKeyPress(Sender: TObject;
   var Key: Char);
 begin
    If Key = BotaoEnter Then
       selecionarUsuario(Sender);
 end;
 
-procedure TfrmCadastrarUsuario.txtSenhaAtualKeyPress(Sender: TObject;
+procedure TfrmUsuario.txtSenhaAtualKeyPress(Sender: TObject;
   var Key: Char);
 begin
    If Key = BotaoEnter Then
@@ -212,7 +212,7 @@ begin
          Self.TabOrderNext();
 end;
 
-function TfrmCadastrarUsuario.validarCampos(ACampo: TObject): Boolean;
+function TfrmUsuario.validarCampos(ACampo: TObject): Boolean;
 var
   quantidadeMinimaCaracterParaNomeUsuario,
   quantidadeMinimaCaracterParaSenhaUsuario: Integer;

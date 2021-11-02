@@ -46,7 +46,7 @@ var
 implementation
 
 uses
-  untConsultarNotas, untCadastrarUsuario, untCadastrarClienteNota,
+  untConsultarNotas, UntUsuario, untCadastrarClienteNota,
   untGerarRelatorio,
   untCadastrarFornecedorNota, untCadastrarNota;
 
@@ -103,7 +103,7 @@ end;
 
 procedure TfrmMenu.itemUsuarioClick(Sender: TObject);
 begin
-  FController.AbrirTelaFilha(Self, TfrmCadastrarUsuario, frmCadastrarUsuario);
+  FController.AbrirTelaFilha(Self, TfrmUsuario, frmUsuario);
 end;
 
 procedure TfrmMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
