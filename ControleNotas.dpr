@@ -9,7 +9,7 @@ uses
   UntBaseDao in 'Dao\UntBaseDao.pas',
   UntConexao in 'Dao\UntConexao.pas',
   UntLoginDao in 'Dao\UntLoginDao.pas',
-  UntMenu in 'Views\UntMenu.pas' {frmMenu},
+  untmenu in 'Views\untmenu.pas' {frmMenu},
   UntCadastrarNota in 'Views\UntCadastrarNota.pas' {frmCadastrarNota},
   UntCadastrarClienteNota in 'Views\UntCadastrarClienteNota.pas' {frmClienteNotaFiscal},
   UntCadastrarFornecedorNota in 'Views\UntCadastrarFornecedorNota.pas' {frmFornecedorNotaFiscal},
@@ -32,7 +32,9 @@ uses
   UntEnvironment in 'UntEnvironment.pas',
   UntCrudEnum in 'Model\Enum\UntCrudEnum.pas',
   UntFormHelper in 'Helper\UntFormHelper.pas',
-  UntMensagemUtil in 'Util\UntMensagemUtil.pas';
+  UntMensagemUtil in 'Util\UntMensagemUtil.pas',
+  UntConsultaUsuarios in 'Views\Consultas\UntConsultaUsuarios.pas' {FrmConsultaUsuarios},
+  UntConsulta in 'Controller\Consulta\UntConsulta.pas';
 
 {$R *.res}
 
@@ -42,6 +44,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TFrmConsultaUsuarios, FrmConsultaUsuarios);
   Application.Run;
 
 end.

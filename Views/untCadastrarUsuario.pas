@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, UntCadastrarUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin,
   Vcl.Buttons, Vcl.ToolWin, Vcl.ComCtrls, UntEnvironment, UntCrudEnum,
-  UntFormHelper, UntMensagemUtil, UntMenu;
+  UntFormHelper, UntMensagemUtil, UntMenu, UntConsulta;
 
 type
   TfrmCadastrarUsuario = class(TForm)
@@ -32,6 +32,7 @@ type
     procedure txtNomeUsuarioKeyPress(Sender: TObject; var Key: Char);
     procedure txtSenhaAtualKeyPress(Sender: TObject; var Key: Char);
     procedure tbuExcluirClick(Sender: TObject);
+    procedure tbuPesquisarClick(Sender: TObject);
   private
     FController: TCadastrarUsuarioController;
     FUsuarioExistente: Boolean;
@@ -40,6 +41,7 @@ type
     procedure limparCampos();
     function validarCampos(ACampo: TObject): Boolean;
     function atualizarDados(AOperacao: TEnumCRUD): Boolean;
+    procedure selecionarUsuario(Sender: TObject);
   end;
 
 var
@@ -157,6 +159,17 @@ begin
    txtConfirmacaoNovaSenha.Clear;
 end;
 
+procedure TfrmCadastrarUsuario.selecionarUsuario(Sender: TObject);
+begin
+   If validarCampos(Sender) Then
+      If atualizarDados(actConsultar) Then
+         Begin
+            habilitarCampos(True);
+            txtSenhaAtual.Enabled := FUsuarioExistente;
+            Self.TabOrderNext();
+         End;
+end;
+
 procedure TfrmCadastrarUsuario.tbuExcluirClick(Sender: TObject);
 begin
    If Global.IdUsuario = FIdUsuarioExistente Then
@@ -170,17 +183,25 @@ begin
          btnCancelarClick(Sender);
 end;
 
+procedure TfrmCadastrarUsuario.tbuPesquisarClick(Sender: TObject);
+var
+  usuario: String;
+begin
+   usuario := TConsulta.ConsultarUsuarios();
+   If (Not usuario.IsEmpty) Then
+      Begin
+         txtNomeUsuario.Text := usuario;
+         selecionarUsuario(txtNomeUsuario);
+      End
+   Else
+      If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
+end;
+
 procedure TfrmCadastrarUsuario.txtNomeUsuarioKeyPress(Sender: TObject;
   var Key: Char);
 begin
    If Key = BotaoEnter Then
-      If validarCampos(Sender) Then
-         If atualizarDados(actConsultar) Then
-            Begin
-               habilitarCampos(True);
-               txtSenhaAtual.Enabled := FUsuarioExistente;
-               Self.TabOrderNext();
-            End;
+      selecionarUsuario(Sender);
 end;
 
 procedure TfrmCadastrarUsuario.txtSenhaAtualKeyPress(Sender: TObject;
