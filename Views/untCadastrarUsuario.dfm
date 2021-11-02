@@ -4,8 +4,8 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastrar usu'#225'rio'
-  ClientHeight = 171
-  ClientWidth = 210
+  ClientHeight = 499
+  ClientWidth = 712
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -15,6 +15,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
   OldCreateOrder = False
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
   object lbNomeUsuario: TLabel
@@ -38,16 +39,6 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Height = 15
     Caption = 'Confirme a senha:'
   end
-  object txtNomeUsuario: TEdit
-    Left = 5
-    Top = 20
-    Width = 200
-    Height = 23
-    MaxLength = 80
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 0
-  end
   object txtInfoSenha: TEdit
     Left = 5
     Top = 65
@@ -55,7 +46,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Height = 23
     MaxLength = 16
     PasswordChar = '*'
-    TabOrder = 1
+    TabOrder = 0
   end
   object btnCadastar: TButton
     Left = 130
@@ -63,7 +54,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
-    TabOrder = 3
+    TabOrder = 2
   end
   object btnCancelar: TButton
     Left = 49
@@ -71,7 +62,7 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 4
+    TabOrder = 3
   end
   object txtConfirmSenha: TEdit
     Left = 5
@@ -81,6 +72,14 @@ object frmCadastrarUsuario: TfrmCadastrarUsuario
     Hint = 'Confirmar senha'
     MaxLength = 16
     PasswordChar = '*'
-    TabOrder = 2
+    TabOrder = 1
+  end
+  object CmbNomesUsuarios: TComboBox
+    Left = 5
+    Top = 21
+    Width = 200
+    Height = 22
+    Style = csOwnerDrawFixed
+    TabOrder = 4
   end
 end

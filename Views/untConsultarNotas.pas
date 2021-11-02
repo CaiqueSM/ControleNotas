@@ -21,7 +21,7 @@ type
   private
     function validar(): Boolean;
     procedure limparCampos();
-    procedure habilitar(AHabilitar: Boolean);
+    procedure habilitarCampos(AHabilitar: Boolean);
   end;
 
 var
@@ -41,7 +41,7 @@ procedure TfrmConsultarNotas.btnConsultarClick(Sender: TObject);
 begin
   if validar() then
   begin
-    habilitar(false);
+    habilitarCampos(false);
   end;
 end;
 
@@ -51,7 +51,7 @@ begin
   CloseAction := caFree;
 end;
 
-procedure TfrmConsultarNotas.habilitar(AHabilitar: Boolean);
+procedure TfrmConsultarNotas.habilitarCampos(AHabilitar: Boolean);
 begin
   grpConsulta.Enabled := AHabilitar;
   btnCancelar.Enabled := AHabilitar;
