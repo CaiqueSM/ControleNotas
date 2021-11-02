@@ -3,7 +3,7 @@ unit UntNotasModel;
 interface
 
 uses
-  Classes, SysUtils, UntClienteModel, UntFornecedorModel;
+  Classes, SysUtils, UntClienteModel, UntFornecedorModel, UntUsuarioModel;
 
 type
 
@@ -16,6 +16,7 @@ type
     FValor: real;
     FCliente: TClienteModel;
     FFornecedor: TFornecedorModel;
+    FUsuario: TUsuarioModel;
     procedure SetChaveAcesso(AValue: string);
     procedure SetDescricao(AValue: string);
     procedure SetCodigo(AValue: integer);
@@ -30,6 +31,7 @@ type
     property Descicao: string read FDescricao write SetDescricao;
     property Codigo: integer read FCodigo write SetCodigo;
     property Valor: real read FValor write SetValor;
+    property Usuario: TUsuarioModel read FUsuario write FUsuario;
     property Cliente: TClienteModel read FCliente write SetCliente;
     property Fornecedor: TFornecedorModel read FFornecedor write SetFornecedor;
   end;
@@ -40,6 +42,9 @@ implementation
 
 destructor TNotasModel.Destroy;
 begin
+  If (FUsuario <> nil) Then
+     FUsuario.Free;
+
   If (FCliente <> nil) Then
     FCliente.Free;
 
