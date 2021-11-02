@@ -39,6 +39,7 @@ type
     FController: TMenuController;
     procedure Logar();
     procedure configurarStatusBar();
+    function GetTamanhoPanel(AIndexPanel: Integer): Integer;
   end;
 
 var
@@ -112,6 +113,19 @@ var
 begin
    usuario := 0;
    stbControleNotas.Panels[usuario].Text := Format(' Usuário: %s ', [Global.Usuario]);
+   stbControleNotas.Panels[usuario].Width := GetTamanhoPanel(usuario);
+end;
+
+function TfrmMenu.GetTamanhoPanel(AIndexPanel: Integer): Integer;
+var
+  texto: String;
+  offset: Integer;
+begin
+   stbControleNotas.Canvas.Font := stbControleNotas.Font;
+   texto := stbControleNotas.Panels[AIndexPanel].Text;
+   offset := 10;
+
+   Result := stbControleNotas.Canvas.TextWidth(texto) + offset;
 end;
 
 procedure TfrmMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);
