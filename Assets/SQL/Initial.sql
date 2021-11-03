@@ -9,7 +9,7 @@ senha VARCHAR(256) NOT NULL
 );
 
 create table if not EXISTS notas(
-id INTEGER PRIMARY KEY AUTO_INCREMENT,
+id INTEGER NOT NULL PRIMARY KEY,
 chaveacesso VARCHAR(44) NOT NULL,
 codigo INTEGER NOT NULL,
 descricao VARCHAR(140) NOT NULL,
@@ -18,21 +18,21 @@ idusuario INTEGER REFERENCES usuario
 );
 
 create table if not EXISTS fornecedor(
-id INTEGER PRIMARY KEY AUTO_INCREMENT,
+id INTEGER NOT NULL PRIMARY KEY,
 CNPJ VARCHAR(14),
 CPF VARCHAR(11),
-nome VARCHAR(80)
+nome VARCHAR(80) NOT NULL
 );
 
 create table if not EXISTS cliente(
-id INTEGER PRIMARY KEY AUTO_INCREMENT,
+id INTEGER NOT NULL PRIMARY KEY,
 CNPJ VARCHAR(14),
 CPF VARCHAR(11),
-nome VARCHAR(80)
+nome VARCHAR(80) NOT NULL
 );
 
 create table if not EXISTS contato(
-id integer NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id integer NOT NULL  PRIMARY KEY,
 CEP VARCHAR(8) NOT NULL,
 nomeRua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
@@ -42,13 +42,13 @@ complemento VARCHAR(64)
 );
 
 create table if not EXISTS email(
-id INTEGER PRIMARY KEY AUTO_INCREMENT,
+id INTEGER NOT NULL PRIMARY KEY,
 email VARCHAR(64) NOT NULL,
 idcontato integer NULL REFERENCES contato
 );
 
 create table if not EXISTS telefone(
-id INTEGER PRIMARY KEY AUTO_INCREMENT,
+id INTEGER NOT NULL PRIMARY KEY,
 telefone VARCHAR(11) NOT NULL,
 idcontato integer NOT NULL REFERENCES contato
 );
