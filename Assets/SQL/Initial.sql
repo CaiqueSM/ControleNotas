@@ -21,14 +21,14 @@ create table if not EXISTS fornecedor(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
 CNPJ VARCHAR(14),
 CPF VARCHAR(11),
-nomefornecedor VARCHAR(80)
+nome VARCHAR(80)
 );
 
 create table if not EXISTS cliente(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
 CNPJ VARCHAR(14),
 CPF VARCHAR(11),
-nomecliente VARCHAR(80)
+nome VARCHAR(80)
 );
 
 create table if not EXISTS contato(
@@ -43,13 +43,13 @@ complemento VARCHAR(64)
 
 create table if not EXISTS email(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
-enderecoemail VARCHAR(64) NOT NULL,
+email VARCHAR(64) NOT NULL,
 idcontato integer NULL REFERENCES contato
 );
 
 create table if not EXISTS telefone(
 id INTEGER PRIMARY KEY AUTO_INCREMENT,
-numerotelefone VARCHAR(11) NOT NULL,
+telefone VARCHAR(11) NOT NULL,
 idcontato integer NOT NULL REFERENCES contato
 );
 
