@@ -38,19 +38,21 @@ function TValidarCadastro.ValidarCPF(ACPF: string): boolean;
 var
   tamanhoCPF, numeroSoma, resto, indiceCPF: integer;
   digitoVerificador: array [0 .. 1] of integer;
+  regraDigitoVerificador: integer;
 begin
   tamanhoCPF := 11;
   Trim(ACPF);
   numeroSoma:= 0;
+  regraDigitoVerificador:= 9;
 
-  for indiceCPF := 1 to tamanhoCPF do
+  for indiceCPF := 1 to tamanhoCPF-2 do
   begin
-    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * tamanhoCPF - 1;
+    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * (tamanhoCPF - indiceCPF);
   end;
 
   resto := tamanhoCPF - (numeroSoma mod tamanhoCPF);
 
-  if (tamanhoCPF - resto) > 9 then
+  if (tamanhoCPF - resto) > regraDigitoVerificador then
     digitoVerificador[0] := 0
   else
     digitoVerificador[0] := resto;
@@ -59,18 +61,18 @@ begin
 
   for indiceCPF := 1 to tamanhoCPF - 1 do
   begin
-    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * tamanhoCPF;
+    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * ((tamanhoCPF+1) -indiceCPF);
   end;
 
   resto := tamanhoCPF - (numeroSoma mod tamanhoCPF);
 
-  if (tamanhoCPF - resto) > 9 then
+  if (tamanhoCPF - resto) > regraDigitoVerificador then
     digitoVerificador[1] := 0
   else
     digitoVerificador[1] := resto;
 
-  Result := (digitoVerificador[0] = strTOint(ACPF[9])) and
-    (digitoVerificador[1] = strTOint(ACPF[10]));
+  Result := (digitoVerificador[0] = strTOint(ACPF[10])) and
+    (digitoVerificador[1] = strTOint(ACPF[11]));
 end;
 
 function TValidarCadastro.ValidarCNPJ(ACNPJ: string): boolean;
@@ -78,21 +80,23 @@ var
   pesoCNPJ: array of integer;
   digitoVerificador: array [0 .. 1] of integer;
   tamanhoCNPJ, numeroSoma, resto, indiceCNPJ: integer;
+  regraDigitoVerificador: integer;
 
 begin
   pesoCNPJ := [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
   tamanhoCNPJ := 12;
   numeroSoma := 0;
+  regraDigitoVerificador:= 2;
 
   for indiceCNPJ := 1 to tamanhoCNPJ do
   begin
     numeroSoma := numeroSoma + strTOint(ACNPJ[indiceCNPJ]) *
-      pesoCNPJ[indiceCNPJ];
+      pesoCNPJ[indiceCNPJ-1];
   end;
 
-  resto := tamanhoCNPJ - (numeroSoma mod tamanhoCNPJ - 1);
+  resto := (numeroSoma mod (tamanhoCNPJ - 1));
 
-  if resto < 2 then
+  if resto < regraDigitoVerificador then
     digitoVerificador[0] := 0
   else
     digitoVerificador[0] := (tamanhoCNPJ - 1) - resto;
@@ -103,18 +107,18 @@ begin
   for indiceCNPJ := 1 to tamanhoCNPJ + 1 do
   begin
     numeroSoma := numeroSoma + strTOint(ACNPJ[indiceCNPJ]) *
-      pesoCNPJ[indiceCNPJ];
+      pesoCNPJ[indiceCNPJ-1];
   end;
 
-  resto := tamanhoCNPJ - (numeroSoma mod tamanhoCNPJ - 1);
+  resto := (numeroSoma mod (tamanhoCNPJ - 1));
 
-  if resto < 2 then
+  if resto < regraDigitoVerificador then
     digitoVerificador[1] := 0
   else
     digitoVerificador[1] := (tamanhoCNPJ - 1) - resto;
 
-  Result := (digitoVerificador[0] = strTOint(ACNPJ[9])) and
-    (digitoVerificador[1] = strTOint(ACNPJ[10]));
+  Result := (digitoVerificador[0] = strTOint(ACNPJ[13])) and
+    (digitoVerificador[1] = strTOint(ACNPJ[14]));
 end;
 
 function TValidarCadastro.ValidarCadastroPessoal(ACNPJCPF: string): boolean;
