@@ -99,10 +99,10 @@ object frmLogin: TfrmLogin
   object mskUsuario: TMaskEdit
     Left = 5
     Top = 20
-    Width = 195
+    Width = 193
     Height = 23
     Hint = 'Nome'
-    EditMask = 'llllllllllllllllllll;1;_'
+    EditMask = 'llllllllllllllllllll;1; '
     MaxLength = 20
     ParentShowHint = False
     ShowHint = True
