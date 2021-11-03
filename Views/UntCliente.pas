@@ -1,4 +1,4 @@
-unit untCadastrarClienteNota;
+unit UntCliente;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask;
 
 type
-  TfrmClienteNotaFiscal = class(TForm)
+  TfrmCliente = class(TForm)
     gbInfoCliente: TGroupBox;
     lbCNPJCPF: TLabel;
     txtCNPJCPF: TEdit;
@@ -39,13 +39,13 @@ type
   end;
 
 var
-  frmClienteNotaFiscal: TfrmClienteNotaFiscal;
+  frmCliente: TfrmCliente;
 
 implementation
 
 {$R *.dfm}
 
-procedure TfrmClienteNotaFiscal.FormClose(Sender: TObject;
+procedure TfrmCliente.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
   CloseAction := caFree;

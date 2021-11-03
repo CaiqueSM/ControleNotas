@@ -11,7 +11,6 @@ uses
   UntLoginDao in 'Dao\UntLoginDao.pas',
   untmenu in 'Views\untmenu.pas' {frmMenu},
   UntCadastrarNota in 'Views\UntCadastrarNota.pas' {frmCadastrarNota},
-  UntCadastrarClienteNota in 'Views\UntCadastrarClienteNota.pas' {frmClienteNotaFiscal},
   UntCadastrarFornecedorNota in 'Views\UntCadastrarFornecedorNota.pas' {frmFornecedorNotaFiscal},
   UntUsuario in 'Views\UntUsuario.pas' {frmUsuario},
   UntGerarRelatorio in 'Views\UntGerarRelatorio.pas' {frmGerarRelatorio},
@@ -35,7 +34,9 @@ uses
   UntMensagemUtil in 'Util\UntMensagemUtil.pas',
   UntConsultaUsuarios in 'Views\Consultas\UntConsultaUsuarios.pas' {FrmConsultaUsuarios},
   UntConsulta in 'Controller\Consulta\UntConsulta.pas',
-  UntConsultaUsuarioController in 'Controller\Consulta\UntConsultaUsuarioController.pas';
+  UntConsultaUsuarioController in 'Controller\Consulta\UntConsultaUsuarioController.pas',
+  UntClienteDao in 'Dao\UntClienteDao.pas',
+  UntCliente in 'Views\UntCliente.pas' {frmCliente};
 
 {$R *.res}
 
@@ -45,6 +46,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TfrmCliente, frmCliente);
   Application.Run;
 
 end.

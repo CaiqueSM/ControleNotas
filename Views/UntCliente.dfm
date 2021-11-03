@@ -1,4 +1,4 @@
-object frmClienteNotaFiscal: TfrmClienteNotaFiscal
+object frmCliente: TfrmCliente
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
@@ -50,7 +50,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       TabOrder = 0
     end
     object txtNomeCliente: TEdit
-      Left = 334
+      Left = 310
       Top = 40
       Width = 280
       Height = 23
@@ -138,7 +138,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       TabOrder = 3
     end
     object txtBairro: TEdit
-      Left = 334
+      Left = 310
       Top = 40
       Width = 280
       Height = 23
@@ -146,7 +146,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       TabOrder = 0
     end
     object txtNumero: TEdit
-      Left = 334
+      Left = 310
       Top = 86
       Width = 47
       Height = 23
@@ -157,8 +157,8 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       TabOrder = 2
     end
     object txtComplemento: TEdit
-      Left = 400
-      Top = 86
+      Left = 376
+      Top = 87
       Width = 214
       Height = 23
       MaxLength = 80
@@ -167,7 +167,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       TabOrder = 4
     end
     object txtTelefone: TMaskEdit
-      Left = 334
+      Left = 310
       Top = 132
       Width = 280
       Height = 23
@@ -199,7 +199,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
     TabOrder = 3
   end
   object bntGravar: TButton
-    Left = 544
+    Left = 551
     Top = 260
     Width = 75
     Height = 25

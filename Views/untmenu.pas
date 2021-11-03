@@ -5,7 +5,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus,
   untmenucontroller, UntEnvironment, Vcl.ExtCtrls, Vcl.ToolWin, Vcl.ComCtrls,
-  Vcl.ImgList;
+  Vcl.ImgList, System.ImageList;
 
 type
 
@@ -50,7 +50,7 @@ var
 implementation
 
 uses
-  untConsultarNotas, UntUsuario, untCadastrarClienteNota,
+  untConsultarNotas, UntUsuario, UntCliente,
   untGerarRelatorio,
   untCadastrarFornecedorNota, untCadastrarNota;
 
@@ -80,7 +80,7 @@ end;
 
 procedure TfrmMenu.itemClienteClick(Sender: TObject);
 begin
-  FController.AbrirTelaFilha(Self, TfrmClienteNotaFiscal, frmClienteNotaFiscal);
+  FController.AbrirTelaFilha(Self, TfrmCliente, frmCliente);
 end;
 
 procedure TfrmMenu.itemFornercedorClick(Sender: TObject);
