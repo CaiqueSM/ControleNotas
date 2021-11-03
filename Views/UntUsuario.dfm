@@ -4,7 +4,7 @@ object frmUsuario: TfrmUsuario
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastrar usu'#225'rio'
-  ClientHeight = 246
+  ClientHeight = 251
   ClientWidth = 210
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -20,35 +20,42 @@ object frmUsuario: TfrmUsuario
   TextHeight = 15
   object lbNomeUsuario: TLabel
     Left = 5
-    Top = 31
+    Top = 27
     Width = 36
     Height = 15
     Caption = 'Nome:'
   end
   object lbSenha: TLabel
     Left = 5
-    Top = 127
+    Top = 131
     Width = 65
     Height = 15
     Caption = 'Nova senha:'
   end
   object lbConfirmSenha: TLabel
     Left = 5
-    Top = 172
+    Top = 176
     Width = 125
     Height = 15
     Caption = 'Confirme a nova senha:'
   end
   object Label1: TLabel
     Left = 5
-    Top = 82
+    Top = 86
     Width = 64
     Height = 15
     Caption = 'Senha atual:'
   end
+  object Shape1: TShape
+    Left = 5
+    Top = 73
+    Width = 200
+    Height = 1
+    Pen.Color = clSilver
+  end
   object txtNovaSenha: TEdit
     Left = 5
-    Top = 142
+    Top = 146
     Width = 200
     Height = 23
     Hint = 'Informe a nova senha'
@@ -61,7 +68,7 @@ object frmUsuario: TfrmUsuario
   end
   object btnCadastar: TButton
     Left = 130
-    Top = 216
+    Top = 220
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
@@ -70,7 +77,7 @@ object frmUsuario: TfrmUsuario
   end
   object btnCancelar: TButton
     Left = 49
-    Top = 216
+    Top = 220
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -79,7 +86,7 @@ object frmUsuario: TfrmUsuario
   end
   object txtConfirmacaoNovaSenha: TEdit
     Left = 5
-    Top = 187
+    Top = 191
     Width = 200
     Height = 23
     Hint = 'Confirme a nova senha'
@@ -92,7 +99,7 @@ object frmUsuario: TfrmUsuario
   end
   object txtSenhaAtual: TEdit
     Left = 5
-    Top = 98
+    Top = 102
     Width = 200
     Height = 23
     Hint = 'Informe a senha atual'
@@ -105,7 +112,7 @@ object frmUsuario: TfrmUsuario
   end
   object txtNomeUsuario: TEdit
     Left = 5
-    Top = 46
+    Top = 42
     Width = 200
     Height = 23
     Hint = 'Nome do usu'#225'rio'

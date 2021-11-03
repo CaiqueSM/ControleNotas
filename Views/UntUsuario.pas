@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, UntUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin,
   Vcl.Buttons, Vcl.ToolWin, Vcl.ComCtrls, UntEnvironment, UntCrudEnum,
-  UntFormHelper, UntMensagemUtil, UntMenu, UntConsulta;
+  UntFormHelper, UntMensagemUtil, UntMenu, UntConsulta, Vcl.ExtCtrls;
 
 type
   TfrmUsuario = class(TForm)
@@ -24,6 +24,7 @@ type
     tobTop: TToolBar;
     tbuPesquisar: TToolButton;
     tbuExcluir: TToolButton;
+    Shape1: TShape;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
