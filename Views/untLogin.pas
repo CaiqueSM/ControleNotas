@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  UntLoginController;
+  UntLoginController, Vcl.Mask;
 
 type
 
@@ -12,11 +12,11 @@ type
 
   TfrmLogin = class(TForm)
     lbusuario: TLabel;
-    txtUsuario: TEdit;
     txtSenha: TEdit;
     lbsenha: TLabel;
     btnAcessar: TButton;
     btnSair: TButton;
+    mskUsuario: TMaskEdit;
     procedure btnAcessarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -48,7 +48,7 @@ end;
 
 procedure TfrmLogin.limparCampos;
 begin
-  txtUsuario.Clear;
+  mskUsuario.Clear;
   txtSenha.Clear;
 end;
 
@@ -59,7 +59,7 @@ begin
   if not FController.ValidarUsuario(AUsuario) then
   begin
     ShowMessage('Nome usuário inválido!');
-    if txtUsuario.CanFocus then txtUsuario.SetFocus;
+    if mskUsuario.CanFocus then mskUsuario.SetFocus;
     exit();
   end;
 
@@ -75,13 +75,13 @@ end;
 
 procedure TfrmLogin.btnAcessarClick(Sender: TObject);
 begin
-  if not ValidarLogin(txtUsuario.Text, txtSenha.Text) then
+  if not ValidarLogin(mskUsuario.Text, txtSenha.Text) then
     exit();
 
-  if not FController.Logar(txtUsuario.Text, txtSenha.Text) then
+  if not FController.Logar(mskUsuario.Text, txtSenha.Text) then
   begin
     ShowMessage('Usuário ou senha incorreta!');
-    if txtUsuario.CanFocus then txtUsuario.SetFocus;    
+    if mskUsuario.CanFocus then mskUsuario.SetFocus;
     exit();
   end;
 
@@ -91,7 +91,7 @@ end;
 procedure TfrmLogin.btnSairClick(Sender: TObject);
 begin
   limparCampos();
-  if txtUsuario.CanFocus then txtUsuario.SetFocus;
+  if mskUsuario.CanFocus then mskUsuario.SetFocus;
 end;
 
 end.

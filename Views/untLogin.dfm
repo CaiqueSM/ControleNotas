@@ -48,23 +48,6 @@ object frmLogin: TfrmLogin
     ParentColor = False
     ParentFont = False
   end
-  object txtUsuario: TEdit
-    Left = 5
-    Top = 20
-    Width = 200
-    Height = 23
-    Hint = 'Nome'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    MaxLength = 80
-    ParentFont = False
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 0
-  end
   object txtSenha: TEdit
     Left = 5
     Top = 65
@@ -112,5 +95,18 @@ object frmLogin: TfrmLogin
     ParentFont = False
     TabOrder = 3
     OnClick = btnSairClick
+  end
+  object mskUsuario: TMaskEdit
+    Left = 5
+    Top = 20
+    Width = 195
+    Height = 23
+    Hint = 'Nome'
+    EditMask = 'llllllllllllllllllll;1;_'
+    MaxLength = 20
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 0
+    Text = '                    '
   end
 end
