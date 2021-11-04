@@ -59,7 +59,7 @@ begin
    Result := TClienteModel.Create();
 
    sql := 'select * from cliente ' +
-          ' where upper(trim(nome)) = upper(trim(:nome)) ' ;
+          ' where upper(trim(nome)) = upper(:nome) ' ;
 
    query := CreateQuery(sql);
    Try
