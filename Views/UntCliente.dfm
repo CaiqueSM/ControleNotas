@@ -5,7 +5,7 @@ object frmCliente: TfrmCliente
   BorderStyle = bsSingle
   Caption = 'Cadastrar cliente da nota fiscal'
   ClientHeight = 291
-  ClientWidth = 635
+  ClientWidth = 609
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -19,7 +19,7 @@ object frmCliente: TfrmCliente
   object gbInfoCliente: TGroupBox
     Left = 5
     Top = 0
-    Width = 621
+    Width = 598
     Height = 85
     Caption = ' Informa'#231#245'es do cliente '
     TabOrder = 0
@@ -64,7 +64,7 @@ object frmCliente: TfrmCliente
   object gbContatoCliente: TGroupBox
     Left = 5
     Top = 90
-    Width = 621
+    Width = 598
     Height = 169
     Caption = ' Contato do cliente '
     TabOrder = 1
@@ -191,7 +191,7 @@ object frmCliente: TfrmCliente
     end
   end
   object bntCancelar: TButton
-    Left = 463
+    Left = 437
     Top = 260
     Width = 75
     Height = 25
@@ -199,7 +199,7 @@ object frmCliente: TfrmCliente
     TabOrder = 3
   end
   object bntGravar: TButton
-    Left = 551
+    Left = 528
     Top = 260
     Width = 75
     Height = 25

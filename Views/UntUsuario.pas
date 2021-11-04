@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, UntUsuarioController,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, untValidarLogin,
   Vcl.Buttons, Vcl.ToolWin, Vcl.ComCtrls, UntEnvironment, UntCrudEnum,
-  UntFormHelper, UntMensagemUtil, UntMenu, UntConsulta, Vcl.ExtCtrls;
+  UntFormHelper, UntMensagemUtil, UntMenu, UntConsulta, Vcl.ExtCtrls, Vcl.Mask;
 
 type
   TfrmUsuario = class(TForm)
@@ -20,11 +20,11 @@ type
     lbConfirmSenha: TLabel;
     Label1: TLabel;
     txtSenhaAtual: TEdit;
-    txtNomeUsuario: TEdit;
     tobTop: TToolBar;
     tbuPesquisar: TToolButton;
     tbuExcluir: TToolButton;
     Shape1: TShape;
+    mskNomeUsuario: TMaskEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -64,7 +64,7 @@ begin
        Case AOperacao Of
           actConsultar:
              Begin
-                usuario := FController.Consultar(txtNomeUsuario.Text);
+                usuario := FController.Consultar(mskNomeUsuario.Text);
                 FUsuarioExistente := Not usuario.Nome.IsEmpty;
                 FIdUsuarioExistente := usuario.Id;
              End;
@@ -72,7 +72,7 @@ begin
           actCriar:
              Begin
                 usuario := TUsuarioModel.Create();
-                usuario.Nome := txtNomeUsuario.Text;
+                usuario.Nome := mskNomeUsuario.Text;
                 usuario.Senha := Trim(txtConfirmacaoNovaSenha.Text);
 
                 FController.Criar(usuario);
@@ -82,7 +82,7 @@ begin
              Begin
                 usuario := TUsuarioModel.Create();
                 usuario.Id := FIdUsuarioExistente;
-                usuario.Nome := txtNomeUsuario.Text;
+                usuario.Nome := mskNomeUsuario.Text;
                 usuario.Senha := Trim(txtConfirmacaoNovaSenha.Text);
 
                 FController.Alterar(usuario);
@@ -118,7 +118,7 @@ begin
    habilitarCampos(False);
    FUsuarioExistente := False;
    FIdUsuarioExistente := 0;
-   If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
+   If mskNomeUsuario.CanFocus Then mskNomeUsuario.SetFocus;
 end;
 
 procedure TfrmUsuario.FormClose(Sender: TObject;
@@ -141,7 +141,7 @@ end;
 
 procedure TfrmUsuario.habilitarCampos(AHabilitar: Boolean);
 begin
-   txtNomeUsuario.Enabled := Not AHabilitar;
+   mskNomeUsuario.Enabled := Not AHabilitar;
    tbuPesquisar.Enabled := Not AHabilitar;
    tbuExcluir.Enabled := AHabilitar;
 
@@ -154,7 +154,7 @@ end;
 
 procedure TfrmUsuario.limparCampos;
 begin
-   txtNomeUsuario.Clear;
+   mskNomeUsuario.Clear;
    txtSenhaAtual.Clear;
    txtNovaSenha.Clear;
    txtConfirmacaoNovaSenha.Clear;
@@ -191,11 +191,11 @@ begin
    usuario := TConsulta.ConsultarUsuarios();
    If (Not usuario.IsEmpty) Then
       Begin
-         txtNomeUsuario.Text := usuario;
-         selecionarUsuario(txtNomeUsuario);
+         mskNomeUsuario.Text := usuario;
+         selecionarUsuario(mskNomeUsuario);
       End
    Else
-      If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
+      If mskNomeUsuario.CanFocus Then mskNomeUsuario.SetFocus;
 end;
 
 procedure TfrmUsuario.txtNomeUsuarioKeyPress(Sender: TObject;
@@ -222,19 +222,19 @@ begin
    quantidadeMinimaCaracterParaNomeUsuario := 4;
    quantidadeMinimaCaracterParaSenhaUsuario := 4;
 
-   If (ACampo = txtNomeUsuario) Or (ACampo = todosCampos) Then
+   If (ACampo = mskNomeUsuario) Or (ACampo = todosCampos) Then
       Begin
-         If (Trim(txtNomeUsuario.Text) = EmptyStr) Then
+         If (Trim(mskNomeUsuario.Text) = EmptyStr) Then
             Begin
                ShowMessage('O campo nome de usuário deve ser preenchido!');
-               If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
+               If mskNomeUsuario.CanFocus Then mskNomeUsuario.SetFocus;
                Exit;
             End;
 
-         If (Length(Trim(txtNomeUsuario.Text)) < quantidadeMinimaCaracterParaNomeUsuario) Then
+         If (Length(Trim(mskNomeUsuario.Text)) < quantidadeMinimaCaracterParaNomeUsuario) Then
             Begin
                ShowMessage('O campo nome de usuário deve ter pelo menos 4 dígitos!');
-               If txtNomeUsuario.CanFocus Then txtNomeUsuario.SetFocus;
+               If mskNomeUsuario.CanFocus Then mskNomeUsuario.SetFocus;
                Exit;
             End;
       End;
@@ -251,7 +251,7 @@ begin
                   End;
 
                If (Not FController.VerificarSenhaUsuarioEstaCorreta(
-                  txtNomeUsuario.Text,
+                  mskNomeUsuario.Text,
                   txtSenhaAtual.Text)) Then
                   Begin
                      ShowMessage('A senha atual está incorreta!');

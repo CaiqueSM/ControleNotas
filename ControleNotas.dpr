@@ -5,7 +5,7 @@ uses
   UntBaseController in 'Controller\UntBaseController.pas',
   UntLoginController in 'Controller\UntLoginController.pas',
   UntMenuController in 'Controller\UntMenuController.pas',
-  UntValidarLogin in 'Controller\Validacao\UntValidarLogin.pas',
+  untvalidarlogin in 'Controller\Validacao\untvalidarlogin.pas',
   UntBaseDao in 'Dao\UntBaseDao.pas',
   UntConexao in 'Dao\UntConexao.pas',
   UntLoginDao in 'Dao\UntLoginDao.pas',
@@ -14,18 +14,17 @@ uses
   UntCadastrarFornecedorNota in 'Views\UntCadastrarFornecedorNota.pas' {frmFornecedorNotaFiscal},
   UntUsuario in 'Views\UntUsuario.pas' {frmUsuario},
   UntGerarRelatorio in 'Views\UntGerarRelatorio.pas' {frmGerarRelatorio},
-  UntLogin in 'Views\UntLogin.pas' {frmLogin},
+  untLogin in 'Views\untLogin.pas' {frmLogin},
   UntConsultarNotas in 'Views\UntConsultarNotas.pas' {frmConsultarNotas},
-  UntValidarCadastroPessoal in 'Controller\Validacao\UntValidarCadastroPessoal.pas',
   UntCadastroPessoalController in 'Controller\UntCadastroPessoalController.pas',
   UntClienteModel in 'Model\UntClienteModel.pas',
   UntContatoModel in 'Model\UntContatoModel.pas',
   UntEmailModel in 'Model\UntEmailModel.pas',
   UntFornecedorModel in 'Model\UntFornecedorModel.pas',
-  UntNotasModel in 'Model\UntNotasModel.pas',
+  untNotasModel in 'Model\untNotasModel.pas',
   UntPessoaModel in 'Model\UntPessoaModel.pas',
   UntTelefoneModel in 'Model\UntTelefoneModel.pas',
-  UntUsuarioModel in 'Model\UntUsuarioModel.pas',
+  untusuariomodel in 'Model\untusuariomodel.pas',
   UntUsuarioController in 'Controller\UntUsuarioController.pas',
   UntUsuarioDao in 'Dao\UntUsuarioDao.pas',
   untenvironment in 'untenvironment.pas',
@@ -36,7 +35,10 @@ uses
   UntConsulta in 'Controller\Consulta\UntConsulta.pas',
   UntConsultaUsuarioController in 'Controller\Consulta\UntConsultaUsuarioController.pas',
   UntClienteDao in 'Dao\UntClienteDao.pas',
-  UntCliente in 'Views\UntCliente.pas' {frmCliente};
+  UntCliente in 'Views\UntCliente.pas' {frmCliente},
+  UntClienteController in 'Controller\UntClienteController.pas',
+  UntValidarContato in 'Controller\Validacao\UntValidarContato.pas',
+  untValidarPessoa in 'Controller\Validacao\untValidarPessoa.pas';
 
 {$R *.res}
 
@@ -46,7 +48,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
-  Application.CreateForm(TfrmCliente, frmCliente);
   Application.Run;
 
 end.

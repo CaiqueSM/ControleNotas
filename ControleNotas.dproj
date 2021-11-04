@@ -122,7 +122,7 @@
         <DCCReference Include="Controller\UntBaseController.pas"/>
         <DCCReference Include="Controller\UntLoginController.pas"/>
         <DCCReference Include="Controller\UntMenuController.pas"/>
-        <DCCReference Include="Controller\Validacao\UntValidarLogin.pas"/>
+        <DCCReference Include="Controller\Validacao\untvalidarlogin.pas"/>
         <DCCReference Include="Dao\UntBaseDao.pas"/>
         <DCCReference Include="Dao\UntConexao.pas"/>
         <DCCReference Include="Dao\UntLoginDao.pas"/>
@@ -141,22 +141,21 @@
         <DCCReference Include="Views\UntGerarRelatorio.pas">
             <Form>frmGerarRelatorio</Form>
         </DCCReference>
-        <DCCReference Include="Views\UntLogin.pas">
+        <DCCReference Include="Views\untLogin.pas">
             <Form>frmLogin</Form>
         </DCCReference>
         <DCCReference Include="Views\UntConsultarNotas.pas">
             <Form>frmConsultarNotas</Form>
         </DCCReference>
-        <DCCReference Include="Controller\Validacao\UntValidarCadastroPessoal.pas"/>
         <DCCReference Include="Controller\UntCadastroPessoalController.pas"/>
         <DCCReference Include="Model\UntClienteModel.pas"/>
         <DCCReference Include="Model\UntContatoModel.pas"/>
         <DCCReference Include="Model\UntEmailModel.pas"/>
         <DCCReference Include="Model\UntFornecedorModel.pas"/>
-        <DCCReference Include="Model\UntNotasModel.pas"/>
+        <DCCReference Include="Model\untNotasModel.pas"/>
         <DCCReference Include="Model\UntPessoaModel.pas"/>
         <DCCReference Include="Model\UntTelefoneModel.pas"/>
-        <DCCReference Include="Model\UntUsuarioModel.pas"/>
+        <DCCReference Include="Model\untusuariomodel.pas"/>
         <DCCReference Include="Controller\UntUsuarioController.pas"/>
         <DCCReference Include="Dao\UntUsuarioDao.pas"/>
         <DCCReference Include="untenvironment.pas"/>
@@ -174,6 +173,9 @@
             <Form>frmCliente</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Controller\UntClienteController.pas"/>
+        <DCCReference Include="Controller\Validacao\UntValidarContato.pas"/>
+        <DCCReference Include="Controller\Validacao\untValidarPessoa.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
