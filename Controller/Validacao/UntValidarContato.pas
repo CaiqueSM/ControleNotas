@@ -33,9 +33,9 @@ var
   regex: TRegEx;
   padraoRegexEmail: string;
 begin
-  padraoRegexEmail := '/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i';
+  padraoRegexEmail := '/^[a-z0-9]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i';
   regex := TRegEx.Create(padraoRegexEmail);
-  Result := regex.IsMatch(AEmail);
+  Result := regex.IsMatch(trim(AEmail));
 end;
 
 function TValidarContato.ValidarNumero(ANumero: string): boolean;

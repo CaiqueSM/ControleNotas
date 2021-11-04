@@ -59,7 +59,6 @@ function TfrmUsuario.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   usuario: TUsuarioModel;
 begin
-   Result := False;
    Try
        Case AOperacao Of
           actConsultar:

@@ -71,21 +71,71 @@ procedure TfrmCliente.bntGravarClick(Sender: TObject);
 begin
   if not FValidarCliente.ValidarNome(txtNomeCliente.Text) then
   begin
-    showmessage('Nome invalido. Não é permitido o uso de caracteres especiais.');
-    if txtNomeCliente.CanFocus then txtNomeCliente.SetFocus;
+    showmessage
+      ('Nome invalido. Não é permitido o uso de caracteres especiais.');
+    if txtNomeCliente.CanFocus then
+      txtNomeCliente.SetFocus;
     exit();
   end;
 
   if not FValidarCliente.ValidarNumeroCadastroPessoal(txtCNPJCPF.Text) then
   begin
-    showmessage('CPF ou CNPJ incorreto!');
-    if txtCNPJCPF.CanFocus then txtCNPJCPF.SetFocus;
+    showmessage('CPF ou CNPJ incorreto.');
+    if txtCNPJCPF.CanFocus then
+      txtCNPJCPF.SetFocus;
     exit();
   end;
+
+  if not FValidarContato.ValidarCEP(mskCEP.Text) then
+  begin
+    showmessage('CEP incorreto!');
+    if mskCEP.CanFocus then
+      mskCEP.SetFocus;
+    exit();
+  end;
+
+  if not FValidarContato.ValidarEmail(txtEmail.Text) then
+  begin
+    showmessage('Formato de email incorreto!');
+    if txtEmail.CanFocus then
+      txtEmail.SetFocus;
+    exit();
+  end;
+
+  if not FValidarContato.ValidarNumero(txtNumero.Text) then
+  begin
+    showmessage('O número não pode estar vazio!');
+    if txtNumero.CanFocus then
+      txtNumero.SetFocus;
+    exit();
+  end;
+
+  if not FValidarContato.ValidarTelefone(mskTelefone.Text) then
+  begin
+    showmessage('Digite um número de telefone válido!');
+    if CanFocus then
+      SetFocus;
+    exit();
+  end;
+
+  with FCliente do
+  begin
+    Id := strTOint(txtcodigo.Text);
+    CNPJ := txtCNPJCPF.Text;
+    CPF := txtCNPJCPF.Text;
+    Nome := txtNomeCliente.Text;
+  end;
+
+  FController.Criar(FCliente);
+
 end;
 
 procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+  FCliente.Free;
+  FController.Free;
+  FValidarCliente.Free;
+  FValidarContato.Free;
   CloseAction := caFree;
 end;
 
@@ -94,12 +144,12 @@ begin
   FController := TClienteController.Create();
   FCliente := TClienteModel.Create();
   FValidarCliente := TValidarPessoa.Create();
-  FValidarContato:= TValidarContato.Create();
+  FValidarContato := TValidarContato.Create();
 end;
 
 procedure TfrmCliente.FormShow(Sender: TObject);
 begin
-null
+  null
 end;
 
 end.
