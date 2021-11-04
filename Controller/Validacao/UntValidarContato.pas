@@ -12,6 +12,7 @@ type
   public
     function ValidarCEP(ACEP: string): boolean;
     function ValidarEmail(AEmail: string): boolean;
+    function ValidarNumero(ANumero: string): boolean;
     function ValidarTelefone(ATelefone: string): boolean;
   end;
 
@@ -35,6 +36,11 @@ begin
   padraoRegexEmail := '/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i';
   regex := TRegEx.Create(padraoRegexEmail);
   Result := regex.IsMatch(AEmail);
+end;
+
+function TValidarContato.ValidarNumero(ANumero: string): boolean;
+begin
+  result:= not(ANumero.IsNullOrEmpty(ANumero));
 end;
 
 function TValidarContato.ValidarTelefone(ATelefone: string): boolean;

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
-  UntClienteController, UntValidarPessoa, UntClienteModel;
+  UntClienteController, UntValidarPessoa, UntValidarContato, UntClienteModel;
 
 type
   TfrmCliente = class(TForm)
@@ -43,6 +43,7 @@ type
     FController: TClienteController;
     FCliente: TClienteModel;
     FValidarCliente: TValidarPessoa;
+    FValidarContato: TValidarContato;
   end;
 
 var
@@ -77,7 +78,9 @@ begin
 
   if not FValidarCliente.ValidarNumeroCadastroPessoal(txtCNPJCPF.Text) then
   begin
-
+    showmessage('CPF ou CNPJ incorreto!');
+    if txtCNPJCPF.CanFocus then txtCNPJCPF.SetFocus;
+    exit();
   end;
 end;
 
@@ -91,6 +94,7 @@ begin
   FController := TClienteController.Create();
   FCliente := TClienteModel.Create();
   FValidarCliente := TValidarPessoa.Create();
+  FValidarContato:= TValidarContato.Create();
 end;
 
 procedure TfrmCliente.FormShow(Sender: TObject);
