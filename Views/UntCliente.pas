@@ -35,9 +35,9 @@ type
     lblcodigo: TLabel;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
-    { Private declarations }
+
   public
-    { Public declarations }
+
   end;
 
 var
@@ -47,8 +47,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmCliente.FormClose(Sender: TObject;
-  var CloseAction: TCloseAction);
+procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   CloseAction := caFree;
 end;
