@@ -110,13 +110,24 @@ object frmUsuario: TfrmUsuario
     TabOrder = 0
     OnKeyPress = txtSenhaAtualKeyPress
   end
+  object txtNomeUsuario: TEdit
+    Left = 5
+    Top = 42
+    Width = 200
+    Height = 23
+    Hint = 'Nome do usu'#225'rio'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 5
+    OnKeyPress = txtNomeUsuarioKeyPress
+  end
   object tobTop: TToolBar
     Left = 0
     Top = 0
     Width = 210
     Height = 22
     Images = frmMenu.ListaImagens
-    TabOrder = 5
+    TabOrder = 6
     object tbuPesquisar: TToolButton
       Left = 0
       Top = 0
@@ -135,18 +146,5 @@ object frmUsuario: TfrmUsuario
       ShowHint = True
       OnClick = tbuExcluirClick
     end
-  end
-  object mskNomeUsuario: TMaskEdit
-    Left = 5
-    Top = 42
-    Width = 200
-    Height = 23
-    Hint = 'Usu'#225'rio'
-    EditMask = 'llllllllllllllllllll;1;_'
-    MaxLength = 20
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 6
-    Text = '                    '
   end
 end
