@@ -33,7 +33,7 @@ end;
 
 function TClienteController.Consultar(ANome: String): TClienteModel;
 begin
-  FDao.Consultar(ANome);
+  Result:= FDao.Consultar(ANome);
 end;
 
 constructor TClienteController.Create;

@@ -14,6 +14,8 @@ object frmCliente: TfrmCliente
   Font.Style = []
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
   object gbInfoCliente: TGroupBox
@@ -74,6 +76,7 @@ object frmCliente: TfrmCliente
       Height = 23
       Hint = 'C'#243'digo'
       MaxLength = 6
+      NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
@@ -184,7 +187,7 @@ object frmCliente: TfrmCliente
       ShowHint = True
       TabOrder = 4
     end
-    object txtTelefone: TMaskEdit
+    object mskTelefone: TMaskEdit
       Left = 310
       Top = 132
       Width = 280
@@ -197,15 +200,15 @@ object frmCliente: TfrmCliente
     object mskCEP: TMaskEdit
       Left = 5
       Top = 40
-      Width = 279
+      Width = 275
       Height = 23
       Hint = 'CEP'
-      EditMask = '00000\-9999;1;_'
-      MaxLength = 10
+      EditMask = '00999-999;1;_'
+      MaxLength = 9
       ParentShowHint = False
       ShowHint = True
       TabOrder = 6
-      Text = '     -    '
+      Text = '     -   '
     end
   end
   object bntCancelar: TButton
@@ -215,6 +218,7 @@ object frmCliente: TfrmCliente
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 3
+    OnClick = bntCancelarClick
   end
   object bntGravar: TButton
     Left = 528
@@ -223,5 +227,6 @@ object frmCliente: TfrmCliente
     Height = 25
     Caption = 'Gravar'
     TabOrder = 2
+    OnClick = bntGravarClick
   end
 end
