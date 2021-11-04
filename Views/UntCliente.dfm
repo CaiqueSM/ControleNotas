@@ -24,30 +24,37 @@ object frmCliente: TfrmCliente
     Caption = ' Informa'#231#245'es do cliente '
     TabOrder = 0
     object lbCNPJCPF: TLabel
-      Left = 8
+      Left = 70
       Top = 26
       Width = 56
       Height = 15
       Caption = 'CNPJ/CPF:'
     end
     object lbNomeCliente: TLabel
-      Left = 334
+      Left = 310
       Top = 26
       Width = 91
       Height = 15
       Caption = 'Nome do cliente:'
     end
-    object txtCNPJCPF: TEdit
+    object lblcodigo: TLabel
       Left = 5
+      Top = 26
+      Width = 42
+      Height = 15
+      Caption = 'C'#243'digo:'
+    end
+    object txtCNPJCPF: TEdit
+      Left = 70
       Top = 40
-      Width = 280
+      Width = 215
       Height = 23
       Hint = 'Digite os n'#250'meros do CNPJ/CPF'
       MaxLength = 14
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 0
+      TabOrder = 1
     end
     object txtNomeCliente: TEdit
       Left = 310
@@ -58,7 +65,18 @@ object frmCliente: TfrmCliente
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 1
+      TabOrder = 2
+    end
+    object txtcodigo: TEdit
+      Left = 5
+      Top = 40
+      Width = 50
+      Height = 23
+      Hint = 'C'#243'digo'
+      MaxLength = 6
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
     end
   end
   object gbContatoCliente: TGroupBox
@@ -90,29 +108,29 @@ object frmCliente: TfrmCliente
       Caption = 'Email:'
     end
     object lbBairro: TLabel
-      Left = 334
+      Left = 310
       Top = 24
       Width = 34
       Height = 15
       Caption = 'Bairro:'
     end
     object lbNumero: TLabel
-      Left = 334
-      Top = 70
+      Left = 310
+      Top = 69
       Width = 47
       Height = 15
       Caption = 'N'#250'mero:'
     end
     object lbTelefone: TLabel
-      Left = 334
-      Top = 116
+      Left = 310
+      Top = 115
       Width = 47
       Height = 15
       Caption = 'Telefone:'
     end
     object lbComplemento: TLabel
-      Left = 400
-      Top = 70
+      Left = 376
+      Top = 69
       Width = 80
       Height = 15
       Caption = 'Complemento:'

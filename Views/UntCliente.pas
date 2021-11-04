@@ -31,6 +31,8 @@ type
     lbComplemento: TLabel;
     txtTelefone: TMaskEdit;
     mskCEP: TMaskEdit;
+    txtcodigo: TEdit;
+    lblcodigo: TLabel;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
     { Private declarations }
