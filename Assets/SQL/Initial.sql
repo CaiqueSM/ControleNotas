@@ -36,7 +36,7 @@ idfornecedor INTEGER NOT NULL REFERENCES fornecedor ON DELETE cascade
 create table if not EXISTS contato(
 id integer PRIMARY KEY AUTO_INCREMENT,
 CEP VARCHAR(9) NOT NULL,
-nomeRua VARCHAR(80) NOT NULL,
+rua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
 cidade VARCHAR(32),
 numero VARCHAR(9) NOT NULL,
