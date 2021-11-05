@@ -28,9 +28,9 @@ chaveacesso VARCHAR(44) NOT NULL,
 codigo INTEGER NOT NULL,
 descricao VARCHAR(140) NOT NULL,
 valor DECIMAL,
-idusuario INTEGER REFERENCES usuario ON DELETE cascade,
-idcliente INTEGER REFERENCES cliente ON DELETE cascade,
-idfornecedor INTEGER REFERENCES fornecedor ON DELETE cascade
+idusuario INTEGER NOT NULL REFERENCES usuario ON DELETE cascade,
+idcliente INTEGER NOT NULL REFERENCES cliente ON DELETE cascade,
+idfornecedor INTEGER NOT NULL REFERENCES fornecedor ON DELETE cascade
 );
 
 create table if not EXISTS contato(
