@@ -44,6 +44,7 @@ type
     FCliente: TClienteModel;
     FValidarCliente: TValidarPessoa;
     FValidarContato: TValidarContato;
+    procedure LimparCampos();
   end;
 
 var
@@ -53,7 +54,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmCliente.bntCancelarClick(Sender: TObject);
+procedure TfrmCliente.LimparCampos();
 begin
   txtBairro.Clear;
   mskCEP.Clear;
@@ -65,6 +66,11 @@ begin
   txtNumero.Clear;
   txtRua.Clear;
   mskTelefone.Clear;
+end;
+
+procedure TfrmCliente.bntCancelarClick(Sender: TObject);
+begin
+  LimparCampos();
 end;
 
 procedure TfrmCliente.bntGravarClick(Sender: TObject);
@@ -128,6 +134,8 @@ begin
   end;
 
   FController.Criar(FCliente);
+  ShowMessage('Cadastrado com sucesso!');
+  LimparCampos();
 
 end;
 
