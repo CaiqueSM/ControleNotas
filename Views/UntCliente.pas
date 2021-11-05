@@ -69,6 +69,7 @@ end;
 
 procedure TfrmCliente.bntGravarClick(Sender: TObject);
 begin
+
   if not FValidarCliente.ValidarNome(txtNomeCliente.Text) then
   begin
     showmessage

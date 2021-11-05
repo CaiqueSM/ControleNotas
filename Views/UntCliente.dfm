@@ -190,12 +190,12 @@ object frmCliente: TfrmCliente
     object mskTelefone: TMaskEdit
       Left = 310
       Top = 132
-      Width = 280
+      Width = 276
       Height = 23
-      EditMask = '!\(99\)0-0000-0000;1;_'
-      MaxLength = 15
+      EditMask = '!\(99\)00000-0000;1;_'
+      MaxLength = 14
       TabOrder = 5
-      Text = '(  ) -    -    '
+      Text = '(  )     -    '
     end
     object mskCEP: TMaskEdit
       Left = 5

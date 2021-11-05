@@ -33,9 +33,9 @@ var
   regex: TRegEx;
   padraoRegexEmail: string;
 begin
-  padraoRegexEmail := '/^[a-z0-9]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i';
+  padraoRegexEmail := '\w*@[a-zA-Z]{1,15}\.[a-zA-Z]{3}(\.[a-zA-Z]{2,3})?';
   regex := TRegEx.Create(padraoRegexEmail);
-  Result := regex.IsMatch(trim(AEmail));
+  Result := regex.IsMatch(AEmail);
 end;
 
 function TValidarContato.ValidarNumero(ANumero: string): boolean;
@@ -48,7 +48,7 @@ var
   regex: TRegEx;
   padraoRegExTelefone: string;
 begin
-  padraoRegExTelefone := '^[0-9]{2}-[0-9]{5}-[0-9]{4}$';
+  padraoRegExTelefone := '^\([0-9]{2}\)9[0-9]{4}-[0-9]{4}$';
   regex := TRegEx.Create(padraoRegExTelefone);
   Result := regex.IsMatch(ATelefone);
 end;

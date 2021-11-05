@@ -30,11 +30,11 @@ var
   regraDigitoVerificador: integer;
 begin
   tamanhoCPF := 11;
-  Trim(ACPF);
   numeroSoma:= 0;
   regraDigitoVerificador:= 9;
+  Trim(ACPF);
 
-  for indiceCPF := 1 to tamanhoCPF-2 do
+  for indiceCPF := 1 to tamanhoCPF - 2 do
   begin
     numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * (tamanhoCPF - indiceCPF);
   end;
@@ -130,18 +130,18 @@ begin
   padraoRegexCNPJ := '^\d{3}.?\d{3}.?\d{3}/?\d{3}-?\d{2}$';
   regex := TRegEx.Create(padraoRegexCNPJ);
 
-  if regex.IsMatch(Trim(ANumero)) then
+  if regex.IsMatch(ANumero) then
   begin
-    Result := ValidarCNPJ(Trim(ANumero));
+    Result := ValidarCNPJ(ANumero);
     exit();
   end;
 
-  padraoRegExCPF := '^\d{3}\x2E\d{3}\x2E\d{3}\x2D\d{2}$';
+  padraoRegExCPF := '[0-9]{11}';
   regex := TRegEx.Create(padraoRegExCPF);
 
-  if regex.IsMatch(Trim(ANumero)) then
+  if regex.IsMatch(ANumero) then
   begin
-    Result := ValidarCPF(Trim(ANumero));
+    Result := ValidarCPF(ANumero);
     exit();
   end;
 end;
