@@ -12,7 +12,7 @@ type
   public
     FId: integer;
     FCEP: string;
-    FNomeRua: string;
+    FRua: string;
     FBairro: string;
     FNumero: string;
     FComplemento: string;
@@ -28,10 +28,11 @@ type
     destructor Destroy(); override;
 
     property Id: integer read FId write FId;
-    property CEP: string read FCEP write FCEP;
-    property Rua: string read FNomeRua write FNomeRua;
-    property Bairro: string read FBairro write FBairro;
-    property Complemento: string read FComplemento write FComplemento;
+    property CEP: string read FCEP write SetCEP;
+    property Rua: string read FRua write SetRua;
+    property Numero: string read FNumero write SetNumero;
+    property Bairro: string read FBairro write SetBairro;
+    property Complemento: string read FComplemento write SetComplemento;
     property Emails: TObjectList<TEmailModel> read FEmails write FEmails;
     property Telefones: TObjectList<TTelefoneModel> read FTelefones write FTelefones;
   end;
@@ -75,7 +76,7 @@ end;
 
 procedure TContatoModel.SetRua(AValue: string);
 begin
-  FNomeRua := Trim(AValue);
+  FRua := Trim(AValue);
 end;
 
 end.
