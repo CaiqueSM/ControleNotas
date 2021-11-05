@@ -32,8 +32,8 @@ nome VARCHAR(80) NOT NULL
 );
 
 create table if not EXISTS contato(
-id integer NOT NULL  PRIMARY KEY,
-CEP VARCHAR(8) NOT NULL,
+id integer PRIMARY KEY AUTO_INCREMENT,
+CEP VARCHAR(9) NOT NULL,
 nomeRua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
 cidade VARCHAR(32),
@@ -42,14 +42,14 @@ complemento VARCHAR(64)
 );
 
 create table if not EXISTS email(
-id INTEGER NOT NULL PRIMARY KEY,
+id INTEGER PRIMARY KEY AUTO_INCREMENT,
 email VARCHAR(64) NOT NULL,
 idcontato integer NULL REFERENCES contato
 );
 
 create table if not EXISTS telefone(
-id INTEGER NOT NULL PRIMARY KEY,
-telefone VARCHAR(11) NOT NULL,
+id INTEGER PRIMARY KEY AUTO_INCREMENT,
+telefone VARCHAR(14) NOT NULL,
 idcontato integer NOT NULL REFERENCES contato
 );
 
