@@ -37,6 +37,7 @@ begin
   Try
     with query do
     begin
+      ParamByName('id').AsInteger := AContato.Id;
       ParamByName('bairro').AsString := AContato.Bairro;
       ParamByName('CEP').AsString := AContato.CEP;
       ParamByName('complemento').AsString := AContato.Complemento;

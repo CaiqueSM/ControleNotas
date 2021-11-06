@@ -10,7 +10,7 @@ type
   TTelefoneModel = class
   private
     FId: integer;
-    IdContato: integer;
+    FIdContato: integer;
     FTelefone: string;
     procedure SetTelefone(AValue: string);
   public
