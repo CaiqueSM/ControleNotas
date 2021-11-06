@@ -11,6 +11,8 @@ type
   TContatoModel = class
   public
     FId: integer;
+    FidCliente: integer;
+    FidFornecedor: integer;
     FCEP: string;
     FRua: string;
     FBairro: string;
@@ -28,6 +30,8 @@ type
     destructor Destroy(); override;
 
     property Id: integer read FId write FId;
+    property IdCliente: integer read FIdCliente write FIdCliente;
+    property IdFornecedor: integer read FIdFornecedor write FIdFornecedor;
     property CEP: string read FCEP write SetCEP;
     property Rua: string read FRua write SetRua;
     property Numero: string read FNumero write SetNumero;

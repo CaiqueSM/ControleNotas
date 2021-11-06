@@ -38,7 +38,9 @@ uses
   UntCliente in 'Views\UntCliente.pas' {frmCliente},
   UntClienteController in 'Controller\UntClienteController.pas',
   UntValidarContato in 'Controller\Validacao\UntValidarContato.pas',
-  untValidarPessoa in 'Controller\Validacao\untValidarPessoa.pas';
+  untValidarPessoa in 'Controller\Validacao\untValidarPessoa.pas',
+  UntEnumDao in 'Dao\Enum\UntEnumDao.pas',
+  UntContatoDao in 'Dao\UntContatoDao.pas';
 
 {$R *.res}
 
