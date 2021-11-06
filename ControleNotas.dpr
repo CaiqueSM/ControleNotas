@@ -40,7 +40,9 @@ uses
   UntValidarContato in 'Controller\Validacao\UntValidarContato.pas',
   untValidarPessoa in 'Controller\Validacao\untValidarPessoa.pas',
   UntEnumContatoDao in 'Dao\Enum\UntEnumContatoDao.pas',
-  UntContatoDao in 'Dao\UntContatoDao.pas';
+  UntContatoDao in 'Dao\UntContatoDao.pas',
+  UntEmailDao in 'Dao\UntEmailDao.pas',
+  UntTelefoneDao in 'Dao\UntTelefoneDao.pas';
 
 {$R *.res}
 

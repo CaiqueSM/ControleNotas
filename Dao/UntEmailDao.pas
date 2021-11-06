@@ -28,7 +28,7 @@ var
   query: TZQuery;
   sql: String;
 begin
-  sql := 'Update email Set email = :email where id = :id';
+  sql := 'Update email Set email = :email where idcontato = :id';
   query := CreateQuery(sql);
 
   Try
@@ -60,7 +60,7 @@ begin
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('contato').AsInteger := ACodigo;
+    query.ParamByName('codigo').AsInteger := ACodigo;
     Try
       query.Open();
 
@@ -88,7 +88,7 @@ begin
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AEmail.Id;
-    query.ParamByName('idcontato').AsInteger := AEmail.Id;
+    query.ParamByName('idcontato').AsInteger := AEmail.IdContato;
     query.ParamByName('email').AsString := AEmail.Email;
 
     Try
@@ -124,7 +124,7 @@ begin
          on E: Exception do
             Begin
                Conexao.Database.Rollback;
-               Showmessage('Não foi possível excluir o cliente');
+               Showmessage('Não foi possível excluir o email');
             End;
       End;
    Finally
@@ -151,7 +151,7 @@ begin
             Begin
                Email := TEmailModel.Create();
                Email.Id := query.FieldByName('id').AsInteger;
-               Email.Idcontato := query.FieldByName('idcliente').AsInteger;
+               Email.Idcontato := query.FieldByName('idcontato').AsInteger;
                Email.Email := Trim(query.FieldByName('email').AsString);
                Result.Add(Email);
                query.Next;
