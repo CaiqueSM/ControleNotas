@@ -145,7 +145,7 @@ object frmCliente: TfrmCliente
       Height = 23
       Hint = 'Logradouro'
       MaxLength = 32
-      TabOrder = 1
+      TabOrder = 2
     end
     object txtEmail: TEdit
       Left = 5
@@ -156,7 +156,7 @@ object frmCliente: TfrmCliente
       MaxLength = 64
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 5
     end
     object txtBairro: TEdit
       Left = 310
@@ -164,7 +164,7 @@ object frmCliente: TfrmCliente
       Width = 280
       Height = 23
       MaxLength = 32
-      TabOrder = 0
+      TabOrder = 1
     end
     object txtNumero: TEdit
       Left = 310
@@ -175,7 +175,7 @@ object frmCliente: TfrmCliente
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 2
+      TabOrder = 3
     end
     object txtComplemento: TEdit
       Left = 376
@@ -194,7 +194,7 @@ object frmCliente: TfrmCliente
       Height = 23
       EditMask = '!\(99\)00000-0000;1;_'
       MaxLength = 14
-      TabOrder = 5
+      TabOrder = 6
       Text = '(  )     -    '
     end
     object mskCEP: TMaskEdit
@@ -207,7 +207,7 @@ object frmCliente: TfrmCliente
       MaxLength = 9
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 6
+      TabOrder = 0
       Text = '     -   '
     end
   end

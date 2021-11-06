@@ -76,20 +76,20 @@ end;
 procedure TfrmCliente.bntGravarClick(Sender: TObject);
 begin
 
+  if not FValidarCliente.ValidarNumeroCadastroPessoal(txtCNPJCPF.Text) then
+  begin
+    showmessage('CPF ou CNPJ incorreto.');
+    if txtCNPJCPF.CanFocus then
+      txtCNPJCPF.SetFocus;
+    exit();
+  end;
+
   if not FValidarCliente.ValidarNome(txtNomeCliente.Text) then
   begin
     showmessage
       ('Nome invalido. Não é permitido o uso de caracteres especiais.');
     if txtNomeCliente.CanFocus then
       txtNomeCliente.SetFocus;
-    exit();
-  end;
-
-  if not FValidarCliente.ValidarNumeroCadastroPessoal(txtCNPJCPF.Text) then
-  begin
-    showmessage('CPF ou CNPJ incorreto.');
-    if txtCNPJCPF.CanFocus then
-      txtCNPJCPF.SetFocus;
     exit();
   end;
 
@@ -101,19 +101,19 @@ begin
     exit();
   end;
 
-  if not FValidarContato.ValidarEmail(txtEmail.Text) then
-  begin
-    showmessage('Formato de email incorreto!');
-    if txtEmail.CanFocus then
-      txtEmail.SetFocus;
-    exit();
-  end;
-
   if not FValidarContato.ValidarNumero(txtNumero.Text) then
   begin
     showmessage('O número não pode estar vazio!');
     if txtNumero.CanFocus then
       txtNumero.SetFocus;
+    exit();
+  end;
+
+  if not FValidarContato.ValidarEmail(txtEmail.Text) then
+  begin
+    showmessage('Formato de email incorreto!');
+    if txtEmail.CanFocus then
+      txtEmail.SetFocus;
     exit();
   end;
 
@@ -134,7 +134,7 @@ begin
   end;
 
   FController.Criar(FCliente);
-  ShowMessage('Cadastrado com sucesso!');
+  showmessage('Cadastrado com sucesso!');
   LimparCampos();
 
 end;

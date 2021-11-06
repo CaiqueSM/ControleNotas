@@ -175,7 +175,7 @@
         <DCCReference Include="Controller\UntClienteController.pas"/>
         <DCCReference Include="Controller\Validacao\UntValidarContato.pas"/>
         <DCCReference Include="Controller\Validacao\untValidarPessoa.pas"/>
-        <DCCReference Include="Dao\Enum\UntEnumDao.pas"/>
+        <DCCReference Include="Dao\Enum\UntEnumContatoDao.pas"/>
         <DCCReference Include="Dao\UntContatoDao.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
