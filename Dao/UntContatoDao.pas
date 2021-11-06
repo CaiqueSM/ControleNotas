@@ -3,7 +3,6 @@ unit UntContatoDao;
 interface
 
 uses
-
   untBaseDao, System.Generics.Collections, UntContatoModel, System.Classes,
   UntEnumContatoDao;
 
