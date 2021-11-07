@@ -53,8 +53,8 @@ end;
 
 destructor TContatoModel.Destroy;
 begin
-  FEmails.Free;
   FTelefones.Free;
+  FEmails.Free;
   inherited;
 end;
 

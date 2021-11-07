@@ -41,7 +41,7 @@ begin
       on E: Exception do
       Begin
         Conexao.Database.Rollback;
-        Showmessage('Não foi possível gravar os dados.');
+        Showmessage('Não foi possível gravar os dados de email.');
       End;
     End;
   Finally
@@ -98,7 +98,7 @@ begin
       on E: Exception do
       Begin
         Conexao.Database.Rollback;
-        Showmessage('Não foi possível gravar os dados.');
+        Showmessage('Não foi possível gravar os dados de email.');
       End;
     End;
   Finally

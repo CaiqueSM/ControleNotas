@@ -3,7 +3,7 @@ unit UntEmailModel;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, System.Generics.Collections;
 
 type
 
@@ -14,6 +14,8 @@ type
     FEmail: string;
     procedure SetEmail(AValue: string);
   public
+    constructor Create(); reintroduce;
+    destructor Destroy(); override;
     property Id: integer read FId write FId;
     property IdContato: integer read FidContato write FidContato;
     property Email: string read FEmail write SetEmail;
@@ -22,6 +24,16 @@ type
 implementation
 
 { TEmail }
+
+constructor TEmailModel.Create;
+begin
+  inherited Create;
+end;
+
+destructor TEmailModel.Destroy;
+begin
+  inherited Destroy;
+end;
 
 procedure TEmailModel.SetEmail(AValue: string);
 begin

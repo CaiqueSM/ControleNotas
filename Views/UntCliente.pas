@@ -7,7 +7,8 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
   UntClienteController, UntClienteModel, UntContatoModel, UntContatoController,
-  UntEmailModel, UntTelefoneModel, UntEmailController, UntTelefoneController;
+  UntEmailModel, UntTelefoneModel, UntEmailController, UntTelefoneController,
+  UntEnumContatoDao;
 
 type
   TfrmCliente = class(TForm)
@@ -74,7 +75,7 @@ end;
 function TfrmCliente.ValidarCamposCliente(ACliente: TClienteController)
   : boolean;
 begin
-  Result:= False;
+  Result := False;
 
   if not ACliente.ValidarCadastroPessoal(txtCNPJCPF.Text) then
   begin
@@ -92,13 +93,13 @@ begin
       txtNomeCliente.SetFocus;
     exit();
   end;
-  Result:= True;
+  Result := True;
 end;
 
 function TfrmCliente.ValidarCamposContato(AContato: TContatoController)
   : boolean;
 begin
-  Result:= False;
+  Result := False;
 
   if not AContato.ValidarCEP(mskCEP.Text) then
   begin
@@ -131,7 +132,7 @@ begin
       SetFocus;
     exit();
   end;
-  Result:= True;
+  Result := True;
 end;
 
 procedure TfrmCliente.bntCancelarClick(Sender: TObject);
@@ -147,53 +148,70 @@ var
   FTelefone: TTelefoneModel;
 
 begin
-  ValidarCamposCliente(FClienteController);
-  ValidarCamposContato(FContatoController);
+
+  if not ValidarCamposCliente(FClienteController) then
+    exit();
+  if not ValidarCamposContato(FContatoController) then
+    exit();
+
   FCliente := TClienteModel.Create;
-  FContato:= TContatoModel.Create;
-  FEmail:= TEmailModel.Create;
-  FTelefone:= TTelefoneModel.Create;
+  FContato := TContatoModel.Create;
+  FEmail := TEmailModel.Create;
+  FTelefone := TTelefoneModel.Create;
+  try
+    with FCliente do
+    begin
+      Id := strTOint(txtcodigo.Text);
+      CNPJ := txtCNPJCPF.Text;
+      CPF := txtCNPJCPF.Text;
+      Nome := txtNomeCliente.Text;
+    end;
 
-  with FEmail do
-  begin
-    IdContato := FContato.Id;
-    Email := txtEmail.Text;
+    FClienteController.Criar(FCliente);
+
+    with FContato do
+    begin
+      IdCliente := strTOint(txtcodigo.Text);
+      IdFornecedor := 0;
+      CEP := mskCEP.Text;
+      Rua := txtRua.Text;
+      Bairro := txtBairro.Text;
+      Numero := txtNumero.Text;
+      Complemento := txtComplemento.Text;
+    end;
+
+    FContatoController.Criar(FContato);
+    FContato := FContatoController.Consultar(strTOint(txtcodigo.Text),
+      actCliente);
+
+    with FEmail do
+    begin
+      IdContato := FContato.Id;
+      Email := txtEmail.Text;
+    end;
+
+    FEmailController.Criar(FEmail);
+
+    with FTelefone do
+    begin
+      IdContato := FContato.Id;
+      Telefone := mskTelefone.Text;
+    end;
+
+    FTelefoneController.Criar(FTelefone);
+
+    FContato.Emails.add(FEmail);
+    FContato.Telefones.add(FTelefone);
+    FCliente.Contatos.add(FContato);
+
+    showmessage('Cadastrado com sucesso!');
+  Except
+    on E: Exception do
+    Begin
+      raise E.Create('Não foi possível gravar os dados.');
+    End;
   end;
-
-  with FTelefone do
-  begin
-    IdContato := FContato.Id;
-    Telefone := mskTelefone.Text;
-  end;
-
-  with FContato do
-  begin
-    IdCliente := strTOint(txtcodigo.Text);
-    CEP := mskCEP.Text;
-    Rua := txtRua.Text;
-    Bairro := txtBairro.Text;
-    Numero := txtNumero.Text;
-    Complemento := txtComplemento.Text;
-    Emails.add(FEmail);
-    Telefones.add(FTelefone);
-  end;
-
-  with FCliente do
-  begin
-    Id := strTOint(txtcodigo.Text);
-    CNPJ := txtCNPJCPF.Text;
-    CPF := txtCNPJCPF.Text;
-    Nome := txtNomeCliente.Text;
-    Contatos.Add(FContato);
-  end;
-
-  FEmailController.Criar(FEmail);
-  FTelefoneController.Criar(FTelefone);
-  FContatoController.Criar(FContato);
-  FClienteController.Criar(FCliente);
-  showmessage('Cadastrado com sucesso!');
   LimparCampos();
-
 end;
 
 procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -209,8 +227,8 @@ procedure TfrmCliente.FormCreate(Sender: TObject);
 begin
   FClienteController := TClienteController.Create();
   FContatoController := TContatoController.Create();
-  FEmailController:= TEmailController.Create;
-  FTelefoneController:= TTelefoneController.Create;
+  FEmailController := TEmailController.Create;
+  FTelefoneController := TTelefoneController.Create;
 end;
 
 procedure TfrmCliente.FormShow(Sender: TObject);

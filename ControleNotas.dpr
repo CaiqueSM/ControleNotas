@@ -43,7 +43,9 @@ uses
   UntEmailDao in 'Dao\UntEmailDao.pas',
   UntTelefoneDao in 'Dao\UntTelefoneDao.pas',
   UntContatoController in 'Controller\UntContatoController.pas',
-  UntCliente in 'Views\UntCliente.pas' {frmCliente};
+  UntCliente in 'Views\UntCliente.pas' {frmCliente},
+  UntEmailController in 'Controller\UntEmailController.pas',
+  UntTelefoneController in 'Controller\UntTelefoneController.pas';
 
 {$R *.res}
 

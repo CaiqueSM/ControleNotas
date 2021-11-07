@@ -52,7 +52,7 @@ begin
       on E: Exception do
       Begin
         Conexao.Database.Rollback;
-        Showmessage('Não foi possível atualizar os dados.');
+        Showmessage('Não foi possível atualizar os dados de contato.');
       End;
     End;
   Finally
@@ -112,16 +112,15 @@ var
   query: TZQuery;
   sql: String;
 begin
-  sql := 'Insert Into (id, idcliente, idforneceedor, bairro, CEP' +
+  sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP,' +
     'complemento, numero, rua)' +
-    'Values (:id, :idcliente, :idforneceedor, :bairro, :CEP' +
+    'Values (:idcliente, :idfornecedor, :bairro, :CEP,' +
     ':complemento, :numero, :rua)';
 
   query := CreateQuery(sql);
   Try
     with query do
     begin
-      ParamByName('id').AsInteger := AContato.Id;
       ParamByName('idcliente').AsInteger := AContato.IdCliente;
       ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
       ParamByName('bairro').AsString := AContato.Bairro;
@@ -138,7 +137,7 @@ begin
       on E: Exception do
       Begin
         Conexao.Database.Rollback;
-        Showmessage('Não foi possível gravar os dados.');
+        Showmessage('Não foi possível gravar os dados de contato.');
       End;
     End;
   Finally
