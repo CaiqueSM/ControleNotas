@@ -93,7 +93,7 @@ begin
     exit();
   end;
 
-  if not FValidarContato.ValidarCEP(mskCEP.Text) then
+  if not FController.ValidarCEP(mskCEP.text) then
   begin
     showmessage('CEP incorreto!');
     if mskCEP.CanFocus then
