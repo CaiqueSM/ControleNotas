@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
   UntClienteController, UntClienteModel, UntContatoModel, UntContatoController,
-  UntEmailModel, UntTelefoneModel;
+  UntEmailModel, UntTelefoneModel, UntEmailController, UntTelefoneController;
 
 type
   TfrmCliente = class(TForm)
@@ -43,6 +43,8 @@ type
   private
     FClienteController: TClienteController;
     FContatoController: TContatoController;
+    FEmailController: TEmailController;
+    FTelefoneController: TTelefoneController;
     procedure LimparCampos();
     function ValidarCamposCliente(ACliente: TClienteController): boolean;
     function ValidarCamposContato(AContato: TContatoController): boolean;
@@ -72,6 +74,8 @@ end;
 function TfrmCliente.ValidarCamposCliente(ACliente: TClienteController)
   : boolean;
 begin
+  Result:= False;
+
   if not ACliente.ValidarCadastroPessoal(txtCNPJCPF.Text) then
   begin
     showmessage('CPF ou CNPJ incorreto.');
@@ -88,11 +92,13 @@ begin
       txtNomeCliente.SetFocus;
     exit();
   end;
+  Result:= True;
 end;
 
 function TfrmCliente.ValidarCamposContato(AContato: TContatoController)
   : boolean;
 begin
+  Result:= False;
 
   if not AContato.ValidarCEP(mskCEP.Text) then
   begin
@@ -125,7 +131,7 @@ begin
       SetFocus;
     exit();
   end;
-
+  Result:= True;
 end;
 
 procedure TfrmCliente.bntCancelarClick(Sender: TObject);
@@ -139,10 +145,14 @@ var
   FContato: TContatoModel;
   FEmail: TEmailModel;
   FTelefone: TTelefoneModel;
+
 begin
   ValidarCamposCliente(FClienteController);
   ValidarCamposContato(FContatoController);
   FCliente := TClienteModel.Create;
+  FContato:= TContatoModel.Create;
+  FEmail:= TEmailModel.Create;
+  FTelefone:= TTelefoneModel.Create;
 
   with FEmail do
   begin
@@ -177,6 +187,9 @@ begin
     Contatos.Add(FContato);
   end;
 
+  FEmailController.Criar(FEmail);
+  FTelefoneController.Criar(FTelefone);
+  FContatoController.Criar(FContato);
   FClienteController.Criar(FCliente);
   showmessage('Cadastrado com sucesso!');
   LimparCampos();
@@ -187,6 +200,8 @@ procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   FClienteController.Free;
   FContatoController.Free;
+  FEmailController.Free;
+  FTelefoneController.Free;
   CloseAction := caFree;
 end;
 
@@ -194,6 +209,8 @@ procedure TfrmCliente.FormCreate(Sender: TObject);
 begin
   FClienteController := TClienteController.Create();
   FContatoController := TContatoController.Create();
+  FEmailController:= TEmailController.Create;
+  FTelefoneController:= TTelefoneController.Create;
 end;
 
 procedure TfrmCliente.FormShow(Sender: TObject);
