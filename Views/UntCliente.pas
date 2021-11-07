@@ -69,7 +69,8 @@ begin
   mskTelefone.Clear;
 end;
 
-function TfrmCliente.ValidarCamposCliente(ACliente: TClienteController): boolean;
+function TfrmCliente.ValidarCamposCliente(ACliente: TClienteController)
+  : boolean;
 begin
   if not ACliente.ValidarCadastroPessoal(txtCNPJCPF.Text) then
   begin
@@ -89,7 +90,8 @@ begin
   end;
 end;
 
-function TfrmCliente.ValidarCamposContato(AContato: TContatoController): boolean;
+function TfrmCliente.ValidarCamposContato(AContato: TContatoController)
+  : boolean;
 begin
 
   if not AContato.ValidarCEP(mskCEP.Text) then
@@ -100,7 +102,7 @@ begin
     exit();
   end;
 
-  if not AContato.ValidarNumero(txtNumero.text) then
+  if not AContato.ValidarNumero(txtNumero.Text) then
   begin
     showmessage('O número não pode estar vazio!');
     if txtNumero.CanFocus then
@@ -108,7 +110,7 @@ begin
     exit();
   end;
 
-  if not AContato.ValidarEmail(txtEmail.text) then
+  if not AContato.ValidarEmail(txtEmail.Text) then
   begin
     showmessage('Formato de email incorreto!');
     if txtEmail.CanFocus then
@@ -116,7 +118,7 @@ begin
     exit();
   end;
 
-  if not Acontato.ValidarTelefone(mskTelefone.Text) then
+  if not AContato.ValidarTelefone(mskTelefone.Text) then
   begin
     showmessage('Digite um número de telefone válido!');
     if CanFocus then
@@ -133,14 +135,38 @@ end;
 
 procedure TfrmCliente.bntGravarClick(Sender: TObject);
 var
-FCliente: TClienteModel;
-FContato: TContatoModel;
-FEmail: TEmailModel;
-FTelefone: TTelefoneModel;
+  FCliente: TClienteModel;
+  FContato: TContatoModel;
+  FEmail: TEmailModel;
+  FTelefone: TTelefoneModel;
 begin
   ValidarCamposCliente(FClienteController);
   ValidarCamposContato(FContatoController);
-  FCliente:= TClienteModel.Create;
+  FCliente := TClienteModel.Create;
+
+  with FEmail do
+  begin
+    IdContato := FContato.Id;
+    Email := txtEmail.Text;
+  end;
+
+  with FTelefone do
+  begin
+    IdContato := FContato.Id;
+    Telefone := mskTelefone.Text;
+  end;
+
+  with FContato do
+  begin
+    IdCliente := strTOint(txtcodigo.Text);
+    CEP := mskCEP.Text;
+    Rua := txtRua.Text;
+    Bairro := txtBairro.Text;
+    Numero := txtNumero.Text;
+    Complemento := txtComplemento.Text;
+    Emails.add(FEmail);
+    Telefones.add(FTelefone);
+  end;
 
   with FCliente do
   begin
@@ -148,6 +174,7 @@ begin
     CNPJ := txtCNPJCPF.Text;
     CPF := txtCNPJCPF.Text;
     Nome := txtNomeCliente.Text;
+    Contatos.Add(FContato);
   end;
 
   FClienteController.Criar(FCliente);

@@ -3,13 +3,14 @@ unit UntContatoController;
 interface
 
 uses
-System.Classes, System.Generics.Collections,SysUtils, UntValidarContato, UntContatoDao,
-UntContatoModel, UntEnumContatoDao, UntBaseController;
+  System.Classes, System.Generics.Collections, SysUtils, UntValidarContato,
+  UntContatoDao,
+  UntContatoModel, UntEnumContatoDao, UntBaseController;
 
 type
 
-TContatoController = class(TBaseController)
-private
+  TContatoController = class(TBaseController)
+  private
     FDao: TContatoDao;
     FValidarContato: TValidarContato;
   public
@@ -21,10 +22,10 @@ private
     function Consultar(ACodigo: integer; Enum: TEnumContatoDao): TContatoModel;
     procedure Excluir(ACodigo: integer; Enum: TEnumContatoDao);
     function ValidarCEP(ACEP: string): boolean;
-    function ValidarEmail(AEmail:string): boolean;
-    function ValidarNumero(ANumero:string): boolean;
-    function ValidarTelefone(ATelefone:string): boolean;
-end;
+    function ValidarEmail(AEmail: string): boolean;
+    function ValidarNumero(ANumero: string): boolean;
+    function ValidarTelefone(ATelefone: string): boolean;
+  end;
 
 implementation
 
@@ -35,17 +36,17 @@ begin
   FDao.Alterar(AContato);
 end;
 
-function TContatoController.Consultar(ACodigo: integer;
-  Enum: TEnumContatoDao): TContatoModel;
+function TContatoController.Consultar(ACodigo: integer; Enum: TEnumContatoDao)
+  : TContatoModel;
 begin
-  Result:= FDao.Consultar(ACodigo, Enum);
+  Result := FDao.Consultar(ACodigo, Enum);
 end;
 
 constructor TContatoController.Create;
 begin
   inherited;
-  FDao:= TContatoDao.Create(Conexao);
-  FValidarContato:= TValidarContato.Create;
+  FDao := TContatoDao.Create(Conexao);
+  FValidarContato := TValidarContato.Create;
 end;
 
 procedure TContatoController.Criar(AContato: TContatoModel);
@@ -67,22 +68,22 @@ end;
 
 function TContatoController.ValidarCEP(ACEP: string): boolean;
 begin
-  Result:= FValidarContato.ValidarCEP(ACEP);
+  Result := FValidarContato.ValidarCEP(ACEP);
 end;
 
 function TContatoController.ValidarEmail(AEmail: string): boolean;
 begin
-  Result:= FValidarContato.ValidarEmail(AEmail);
+  Result := FValidarContato.ValidarEmail(AEmail);
 end;
 
 function TContatoController.ValidarNumero(ANumero: string): boolean;
 begin
-  Result:= FValidarContato.ValidarNumero(ANumero);
+  Result := FValidarContato.ValidarNumero(ANumero);
 end;
 
 function TContatoController.ValidarTelefone(ATelefone: string): boolean;
 begin
-  Result:= FValidarContato.ValidarTelefone(ATelefone);
+  Result := FValidarContato.ValidarTelefone(ATelefone);
 end;
 
 end.
