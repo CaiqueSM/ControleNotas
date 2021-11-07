@@ -8,7 +8,7 @@ UntContatoModel, UntEnumContatoDao, UntBaseController;
 
 type
 
-TContatoControler = class(TBaseController)
+TContatoController = class(TBaseController)
 private
     FDao: TContatoDao;
     FValidarContato: TValidarContato;
@@ -30,57 +30,57 @@ implementation
 
 { TContatoControler }
 
-procedure TContatoControler.Alterar(AContato: TContatoModel);
+procedure TContatoController.Alterar(AContato: TContatoModel);
 begin
   FDao.Alterar(AContato);
 end;
 
-function TContatoControler.Consultar(ACodigo: integer;
+function TContatoController.Consultar(ACodigo: integer;
   Enum: TEnumContatoDao): TContatoModel;
 begin
   Result:= FDao.Consultar(ACodigo, Enum);
 end;
 
-constructor TContatoControler.Create;
+constructor TContatoController.Create;
 begin
   inherited;
   FDao:= TContatoDao.Create(Conexao);
   FValidarContato:= TValidarContato.Create;
 end;
 
-procedure TContatoControler.Criar(AContato: TContatoModel);
+procedure TContatoController.Criar(AContato: TContatoModel);
 begin
   FDao.Criar(AContato);
 end;
 
-destructor TContatoControler.Destroy;
+destructor TContatoController.Destroy;
 begin
   FDao.Free;
   FValidarContato.Free;
   inherited;
 end;
 
-procedure TContatoControler.Excluir(ACodigo: integer; Enum: TEnumContatoDao);
+procedure TContatoController.Excluir(ACodigo: integer; Enum: TEnumContatoDao);
 begin
   FDao.Excluir(ACodigo, Enum);
 end;
 
-function TContatoControler.ValidarCEP(ACEP: string): boolean;
+function TContatoController.ValidarCEP(ACEP: string): boolean;
 begin
   Result:= FValidarContato.ValidarCEP(ACEP);
 end;
 
-function TContatoControler.ValidarEmail(AEmail: string): boolean;
+function TContatoController.ValidarEmail(AEmail: string): boolean;
 begin
   Result:= FValidarContato.ValidarEmail(AEmail);
 end;
 
-function TContatoControler.ValidarNumero(ANumero: string): boolean;
+function TContatoController.ValidarNumero(ANumero: string): boolean;
 begin
   Result:= FValidarContato.ValidarNumero(ANumero);
 end;
 
-function TContatoControler.ValidarTelefone(ATelefone: string): boolean;
+function TContatoController.ValidarTelefone(ATelefone: string): boolean;
 begin
   Result:= FValidarContato.ValidarTelefone(ATelefone);
 end;

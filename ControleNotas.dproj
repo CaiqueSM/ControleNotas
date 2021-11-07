@@ -120,7 +120,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="Controller\UntBaseController.pas"/>
-        <DCCReference Include="Controller\UntLoginController.pas"/>
+        <DCCReference Include="Controller\untlogincontroller.pas"/>
         <DCCReference Include="Controller\UntMenuController.pas"/>
         <DCCReference Include="Controller\Validacao\untvalidarlogin.pas"/>
         <DCCReference Include="Dao\UntBaseDao.pas"/>
@@ -169,9 +169,6 @@
         <DCCReference Include="Controller\Consulta\UntConsulta.pas"/>
         <DCCReference Include="Controller\Consulta\UntConsultaUsuarioController.pas"/>
         <DCCReference Include="Dao\UntClienteDao.pas"/>
-        <DCCReference Include="Views\UntCliente.pas">
-            <Form>frmCliente</Form>
-        </DCCReference>
         <DCCReference Include="Controller\UntClienteController.pas"/>
         <DCCReference Include="Controller\Validacao\UntValidarContato.pas"/>
         <DCCReference Include="Controller\Validacao\untValidarPessoa.pas"/>
@@ -179,6 +176,11 @@
         <DCCReference Include="Dao\UntContatoDao.pas"/>
         <DCCReference Include="Dao\UntEmailDao.pas"/>
         <DCCReference Include="Dao\UntTelefoneDao.pas"/>
+        <DCCReference Include="Controller\UntContatoController.pas"/>
+        <DCCReference Include="Views\UntCliente.pas">
+            <Form>frmCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

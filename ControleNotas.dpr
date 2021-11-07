@@ -3,7 +3,7 @@ program ControleNotas;
 uses
   Vcl.Forms,
   UntBaseController in 'Controller\UntBaseController.pas',
-  UntLoginController in 'Controller\UntLoginController.pas',
+  untlogincontroller in 'Controller\untlogincontroller.pas',
   UntMenuController in 'Controller\UntMenuController.pas',
   untvalidarlogin in 'Controller\Validacao\untvalidarlogin.pas',
   UntBaseDao in 'Dao\UntBaseDao.pas',
@@ -35,14 +35,15 @@ uses
   UntConsulta in 'Controller\Consulta\UntConsulta.pas',
   UntConsultaUsuarioController in 'Controller\Consulta\UntConsultaUsuarioController.pas',
   UntClienteDao in 'Dao\UntClienteDao.pas',
-  UntCliente in 'Views\UntCliente.pas' {frmCliente},
   UntClienteController in 'Controller\UntClienteController.pas',
   UntValidarContato in 'Controller\Validacao\UntValidarContato.pas',
   untValidarPessoa in 'Controller\Validacao\untValidarPessoa.pas',
   UntEnumContatoDao in 'Dao\Enum\UntEnumContatoDao.pas',
   UntContatoDao in 'Dao\UntContatoDao.pas',
   UntEmailDao in 'Dao\UntEmailDao.pas',
-  UntTelefoneDao in 'Dao\UntTelefoneDao.pas';
+  UntTelefoneDao in 'Dao\UntTelefoneDao.pas',
+  UntContatoController in 'Controller\UntContatoController.pas',
+  UntCliente in 'Views\UntCliente.pas' {frmCliente};
 
 {$R *.res}
 
@@ -52,6 +53,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
+  Application.CreateForm(TfrmCliente, frmCliente);
   Application.Run;
 
 end.

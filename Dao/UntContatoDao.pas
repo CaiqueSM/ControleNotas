@@ -71,15 +71,15 @@ begin
   case Enum of
     actContato:
       begin
-        sql := 'select * from contato ' + 'where id = :codigo';
+        sql := 'select * from contato where id = :codigo';
       end;
     actCliente:
       begin
-        sql := 'select * from contato ' + 'where idcliente = :codigo';
+        sql := 'select * from contato where idcliente = :codigo';
       end;
     actFornecedor:
       begin
-        sql := 'select * from contato ' + 'where idfornecedor = :codigo';
+        sql := 'select * from contato where idfornecedor = :codigo';
       end;
   end;
 
@@ -155,15 +155,15 @@ begin
   case Enum of
     actContato:
       begin
-        sql := 'delete from cliente ' + ' where id = :id';
+        sql := 'delete from cliente where id = :id';
       end;
     actCliente:
       begin
-        sql := 'delete from cliente ' + ' where idcliente = :id';
+        sql := 'delete from cliente where idcliente = :id';
       end;
     actFornecedor:
       begin
-        sql := 'delete from cliente ' + ' where idfornecedor = :id';
+        sql := 'delete from cliente where idfornecedor = :id';
       end;
   end;
 
@@ -193,7 +193,7 @@ var
 begin
   Result := TObjectList<TContatoModel>.Create();
 
-  sql := 'select * from contato ' + ' order by id asc ';
+  sql := 'select * from contato order by id asc ';
 
   query := CreateQuery(sql);
   Try
