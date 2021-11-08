@@ -4,8 +4,8 @@ object frmCliente: TfrmCliente
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastrar cliente da nota fiscal'
-  ClientHeight = 291
-  ClientWidth = 609
+  ClientHeight = 372
+  ClientWidth = 610
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -20,13 +20,13 @@ object frmCliente: TfrmCliente
   TextHeight = 15
   object gbInfoCliente: TGroupBox
     Left = 5
-    Top = 0
+    Top = 80
     Width = 598
     Height = 85
     Caption = ' Informa'#231#245'es do cliente '
     TabOrder = 0
     object lbCNPJCPF: TLabel
-      Left = 70
+      Left = 5
       Top = 26
       Width = 56
       Height = 15
@@ -39,24 +39,17 @@ object frmCliente: TfrmCliente
       Height = 15
       Caption = 'Nome do cliente:'
     end
-    object lblcodigo: TLabel
-      Left = 5
-      Top = 26
-      Width = 42
-      Height = 15
-      Caption = 'C'#243'digo:'
-    end
     object txtCNPJCPF: TEdit
-      Left = 70
+      Left = 5
       Top = 40
-      Width = 215
+      Width = 280
       Height = 23
       Hint = 'Digite os n'#250'meros do CNPJ/CPF'
       MaxLength = 14
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 1
+      TabOrder = 0
     end
     object txtNomeCliente: TEdit
       Left = 310
@@ -67,24 +60,12 @@ object frmCliente: TfrmCliente
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 2
-    end
-    object txtcodigo: TEdit
-      Left = 5
-      Top = 40
-      Width = 50
-      Height = 23
-      Hint = 'C'#243'digo'
-      MaxLength = 6
-      NumbersOnly = True
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 0
+      TabOrder = 1
     end
   end
   object gbContatoCliente: TGroupBox
     Left = 5
-    Top = 90
+    Top = 164
     Width = 598
     Height = 169
     Caption = ' Contato do cliente '
@@ -138,6 +119,13 @@ object frmCliente: TfrmCliente
       Height = 15
       Caption = 'Complemento:'
     end
+    object lblCidade: TLabel
+      Left = 71
+      Top = 24
+      Width = 40
+      Height = 15
+      Caption = 'Cidade:'
+    end
     object txtRua: TEdit
       Left = 5
       Top = 86
@@ -169,7 +157,7 @@ object frmCliente: TfrmCliente
     object txtNumero: TEdit
       Left = 310
       Top = 86
-      Width = 47
+      Width = 55
       Height = 23
       MaxLength = 9
       NumbersOnly = True
@@ -179,7 +167,7 @@ object frmCliente: TfrmCliente
     end
     object txtComplemento: TEdit
       Left = 376
-      Top = 87
+      Top = 86
       Width = 214
       Height = 23
       MaxLength = 80
@@ -190,7 +178,7 @@ object frmCliente: TfrmCliente
     object mskTelefone: TMaskEdit
       Left = 310
       Top = 132
-      Width = 276
+      Width = 280
       Height = 23
       EditMask = '!\(99\)00000-0000;1;_'
       MaxLength = 14
@@ -200,7 +188,7 @@ object frmCliente: TfrmCliente
     object mskCEP: TMaskEdit
       Left = 5
       Top = 40
-      Width = 275
+      Width = 55
       Height = 23
       Hint = 'CEP'
       EditMask = '00999-999;1;_'
@@ -210,10 +198,21 @@ object frmCliente: TfrmCliente
       TabOrder = 0
       Text = '     -   '
     end
+    object txtCidade: TEdit
+      Left = 70
+      Top = 40
+      Width = 215
+      Height = 23
+      Hint = 'Cidade'
+      MaxLength = 80
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 7
+    end
   end
   object bntCancelar: TButton
-    Left = 437
-    Top = 260
+    Left = 447
+    Top = 339
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -222,11 +221,63 @@ object frmCliente: TfrmCliente
   end
   object bntGravar: TButton
     Left = 528
-    Top = 260
+    Top = 339
     Width = 75
     Height = 25
     Caption = 'Gravar'
     TabOrder = 2
     OnClick = bntGravarClick
+  end
+  object gbCodigoCliente: TGroupBox
+    Left = 5
+    Top = 24
+    Width = 598
+    Height = 50
+    TabOrder = 4
+    object lblcodigo: TLabel
+      Left = 5
+      Top = 15
+      Width = 50
+      Height = 15
+      Caption = 'C'#243'digo:'
+    end
+    object txtcodigo: TEdit
+      Left = 61
+      Top = 15
+      Width = 55
+      Height = 23
+      Hint = 'C'#243'digo'
+      MaxLength = 7
+      NumbersOnly = True
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+    end
+  end
+  object tobTop: TToolBar
+    Left = 0
+    Top = 0
+    Width = 610
+    Height = 22
+    Images = frmMenu.ListaImagens
+    TabOrder = 5
+    ExplicitLeft = 5
+    ExplicitWidth = 611
+    object tbuPesquisar: TToolButton
+      Left = 0
+      Top = 0
+      Hint = 'Pesquisar'
+      ImageIndex = 0
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object tbuExcluir: TToolButton
+      Left = 23
+      Top = 0
+      Hint = 'Excluir'
+      ImageIndex = 1
+      ParentShowHint = False
+      ShowHint = True
+    end
   end
 end

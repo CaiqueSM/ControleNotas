@@ -29,7 +29,7 @@ var
   query: TZQuery;
   sql: String;
 begin
-  sql := 'Update contato Set bairro = :bairro, CEP = :CEP' +
+  sql := 'Update contato Set bairro = :bairro, CEP = :CEP, cidade = :cidade,' +
     'complemento = :complemento, numero = :numero, rua = :rua' +
     ' Where id = :id';
 
@@ -40,6 +40,7 @@ begin
       ParamByName('id').AsInteger := AContato.Id;
       ParamByName('bairro').AsString := AContato.Bairro;
       ParamByName('CEP').AsString := AContato.CEP;
+	  ParamByName('cidade').AsString := AContato.Cidade;
       ParamByName('complemento').AsString := AContato.Complemento;
       ParamByName('numero').AsString := AContato.Numero;
       ParamByName('rua').AsString := AContato.Rua;
@@ -93,6 +94,8 @@ begin
       begin
         Id := query.FieldByName('id').AsInteger;
         CEP := Trim(query.FieldByName('CEP').AsString);
+		cidade:= Trim(query.FieldByName('cidade').AsString);
+		bairro:= Trim(query.FieldByName('bairro').AsString);
         Complemento := Trim(query.FieldByName('complemento').AsString);
         Numero := Trim(query.FieldByName('numero').AsString);
         Rua := Trim(query.FieldByName('rua').AsString);
@@ -112,9 +115,9 @@ var
   query: TZQuery;
   sql: String;
 begin
-  sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP,' +
+  sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP, cidade,' +
     'complemento, numero, rua)' +
-    'Values (:idcliente, :idfornecedor, :bairro, :CEP,' +
+    'Values (:idcliente, :idfornecedor, :bairro, :CEP, cidade,' +
     ':complemento, :numero, :rua)';
 
   query := CreateQuery(sql);
@@ -125,6 +128,7 @@ begin
       ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
       ParamByName('bairro').AsString := AContato.Bairro;
       ParamByName('CEP').AsString := AContato.CEP;
+	  ParamByName('cidade').AsString := AContato.cidade;
       ParamByName('complemento').AsString := AContato.Complemento;
       ParamByName('numero').AsString := AContato.Numero;
       ParamByName('rua').AsString := AContato.Rua;
@@ -210,6 +214,8 @@ begin
           Complemento := Trim(query.FieldByName('complemento').AsString);
           Numero := Trim(query.FieldByName('numero').AsString);
           Rua := Trim(query.FieldByName('rua').AsString);
+		  Bairro := Trim(query.FieldByName('Bairro').AsString);
+		  Cidade := Trim(query.FieldByName('cidade').AsString);
         end;
         Result.Add(contato);
         query.Next;

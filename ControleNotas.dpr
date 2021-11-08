@@ -55,7 +55,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
-  Application.CreateForm(TfrmCliente, frmCliente);
   Application.Run;
 
 end.

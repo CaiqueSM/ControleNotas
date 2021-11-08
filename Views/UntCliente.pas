@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
   UntClienteController, UntClienteModel, UntContatoModel, UntContatoController,
   UntEmailModel, UntTelefoneModel, UntEmailController, UntTelefoneController,
-  UntEnumContatoDao;
+  UntEnumContatoDao, Vcl.ComCtrls, Vcl.ToolWin;
 
 type
   TfrmCliente = class(TForm)
@@ -34,8 +34,14 @@ type
     lbComplemento: TLabel;
     mskTelefone: TMaskEdit;
     mskCEP: TMaskEdit;
+    txtCidade: TEdit;
+    lblCidade: TLabel;
+    gbCodigoCliente: TGroupBox;
     txtcodigo: TEdit;
     lblcodigo: TLabel;
+    tobTop: TToolBar;
+    tbuPesquisar: TToolButton;
+    tbuExcluir: TToolButton;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure bntCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -64,6 +70,7 @@ begin
   mskCEP.Clear;
   txtCNPJCPF.Clear;
   txtcodigo.Clear;
+  txtCidade.Clear;
   txtComplemento.Clear;
   txtEmail.Clear;
   txtNomeCliente.Clear;
@@ -174,6 +181,7 @@ begin
       IdCliente := strTOint(txtcodigo.Text);
       IdFornecedor := 0;
       CEP := mskCEP.Text;
+	    Cidade:= txtCidade.text;
       Rua := txtRua.Text;
       Bairro := txtBairro.Text;
       Numero := txtNumero.Text;

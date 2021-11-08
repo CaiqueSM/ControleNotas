@@ -9,7 +9,7 @@ type
 
   TClienteModel = class(TPessoaModel)
   public
-    constructor Create(); reintroduce;
+    constructor Create();
     destructor Destroy(); override;
   end;
 
