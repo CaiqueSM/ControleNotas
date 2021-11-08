@@ -252,6 +252,7 @@ object frmCliente: TfrmCliente
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      OnKeyPress = txtCodigoKeyPress
     end
   end
   object tobTop: TToolBar

@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
+  System.Classes, Vcl.Graphics, UntEnvironment,
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
   UntClienteController, UntClienteModel, UntContatoModel, UntContatoController,
   UntEmailModel, UntTelefoneModel, UntEmailController, UntTelefoneController,
@@ -47,6 +47,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure bntGravarClick(Sender: TObject);
+    procedure txtcodigoKeyPress(Sender: TObject; var Key: Char);
   private
     FClienteController: TClienteController;
     FContatoController: TContatoController;
@@ -55,6 +56,7 @@ type
     procedure LimparCampos();
     function ValidarCamposCliente(ACliente: TClienteController): boolean;
     function ValidarCamposContato(AContato: TContatoController): boolean;
+    procedure HabilitarCampos(AHabilitar: boolean);
   end;
 
 var
@@ -77,6 +79,11 @@ begin
   txtNumero.Clear;
   txtRua.Clear;
   mskTelefone.Clear;
+end;
+
+procedure TfrmCliente.txtcodigoKeyPress(Sender: TObject; var Key: Char);
+begin
+   If Key = BotaoEnter Then HabilitatrCampos(true);
 end;
 
 function TfrmCliente.ValidarCamposCliente(ACliente: TClienteController)
@@ -181,7 +188,7 @@ begin
       IdCliente := strTOint(txtcodigo.Text);
       IdFornecedor := 0;
       CEP := mskCEP.Text;
-	    Cidade:= txtCidade.text;
+      Cidade := txtCidade.Text;
       Rua := txtRua.Text;
       Bairro := txtBairro.Text;
       Numero := txtNumero.Text;
@@ -241,7 +248,25 @@ end;
 
 procedure TfrmCliente.FormShow(Sender: TObject);
 begin
-  null
+  HabilitarCampos(false);
+end;
+
+procedure TfrmCliente.HabilitarCampos(AHabilitar: boolean);
+begin
+  tbuPesquisar.Enabled := Not AHabilitar;
+  txtcodigo.Enabled := Not AHabilitar;
+  tbuExcluir.Enabled := AHabilitar;
+
+  txtBairro.Enabled := AHabilitar;
+  mskCEP.Enabled := AHabilitar;
+  txtCNPJCPF.Enabled := AHabilitar;
+  txtCidade.Enabled := AHabilitar;
+  txtComplemento.Enabled := AHabilitar;
+  txtEmail.Enabled := AHabilitar;
+  txtNomeCliente.Enabled := AHabilitar;
+  txtNumero.Enabled := AHabilitar;
+  txtRua.Enabled := AHabilitar;
+  mskTelefone.Enabled := AHabilitar;
 end;
 
 end.
