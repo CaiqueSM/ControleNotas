@@ -1,11 +1,11 @@
-object frmClienteNotaFiscal: TfrmClienteNotaFiscal
+object frmCliente: TfrmCliente
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastrar cliente da nota fiscal'
-  ClientHeight = 291
-  ClientWidth = 635
+  ClientHeight = 372
+  ClientWidth = 610
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -14,24 +14,26 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
   Font.Style = []
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
   object gbInfoCliente: TGroupBox
     Left = 5
-    Top = 0
-    Width = 621
+    Top = 80
+    Width = 598
     Height = 85
     Caption = ' Informa'#231#245'es do cliente '
     TabOrder = 0
     object lbCNPJCPF: TLabel
-      Left = 8
+      Left = 5
       Top = 26
       Width = 56
       Height = 15
       Caption = 'CNPJ/CPF:'
     end
     object lbNomeCliente: TLabel
-      Left = 334
+      Left = 310
       Top = 26
       Width = 91
       Height = 15
@@ -50,7 +52,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       TabOrder = 0
     end
     object txtNomeCliente: TEdit
-      Left = 334
+      Left = 310
       Top = 40
       Width = 280
       Height = 23
@@ -63,8 +65,8 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
   end
   object gbContatoCliente: TGroupBox
     Left = 5
-    Top = 90
-    Width = 621
+    Top = 164
+    Width = 598
     Height = 169
     Caption = ' Contato do cliente '
     TabOrder = 1
@@ -90,32 +92,39 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       Caption = 'Email:'
     end
     object lbBairro: TLabel
-      Left = 334
+      Left = 310
       Top = 24
       Width = 34
       Height = 15
       Caption = 'Bairro:'
     end
     object lbNumero: TLabel
-      Left = 334
-      Top = 70
+      Left = 310
+      Top = 69
       Width = 47
       Height = 15
       Caption = 'N'#250'mero:'
     end
     object lbTelefone: TLabel
-      Left = 334
-      Top = 116
+      Left = 310
+      Top = 115
       Width = 47
       Height = 15
       Caption = 'Telefone:'
     end
     object lbComplemento: TLabel
-      Left = 400
-      Top = 70
+      Left = 376
+      Top = 69
       Width = 80
       Height = 15
       Caption = 'Complemento:'
+    end
+    object lblCidade: TLabel
+      Left = 71
+      Top = 24
+      Width = 40
+      Height = 15
+      Caption = 'Cidade:'
     end
     object txtRua: TEdit
       Left = 5
@@ -124,7 +133,7 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       Height = 23
       Hint = 'Logradouro'
       MaxLength = 32
-      TabOrder = 1
+      TabOrder = 2
     end
     object txtEmail: TEdit
       Left = 5
@@ -135,29 +144,29 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       MaxLength = 64
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 5
     end
     object txtBairro: TEdit
-      Left = 334
+      Left = 310
       Top = 40
       Width = 280
       Height = 23
       MaxLength = 32
-      TabOrder = 0
+      TabOrder = 1
     end
     object txtNumero: TEdit
-      Left = 334
+      Left = 310
       Top = 86
-      Width = 47
+      Width = 55
       Height = 23
       MaxLength = 9
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 2
+      TabOrder = 3
     end
     object txtComplemento: TEdit
-      Left = 400
+      Left = 376
       Top = 86
       Width = 214
       Height = 23
@@ -166,44 +175,110 @@ object frmClienteNotaFiscal: TfrmClienteNotaFiscal
       ShowHint = True
       TabOrder = 4
     end
-    object txtTelefone: TMaskEdit
-      Left = 334
+    object mskTelefone: TMaskEdit
+      Left = 310
       Top = 132
       Width = 280
       Height = 23
-      EditMask = '!\(99\)0-0000-0000;1;_'
-      MaxLength = 15
-      TabOrder = 5
-      Text = '(  ) -    -    '
+      EditMask = '!\(99\)00000-0000;1;_'
+      MaxLength = 14
+      TabOrder = 6
+      Text = '(  )     -    '
     end
     object mskCEP: TMaskEdit
       Left = 5
       Top = 40
-      Width = 279
+      Width = 55
       Height = 23
       Hint = 'CEP'
-      EditMask = '00000\-9999;1;_'
-      MaxLength = 10
+      EditMask = '00999-999;1;_'
+      MaxLength = 9
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 6
-      Text = '     -    '
+      TabOrder = 0
+      Text = '     -   '
+    end
+    object txtCidade: TEdit
+      Left = 70
+      Top = 40
+      Width = 215
+      Height = 23
+      Hint = 'Cidade'
+      MaxLength = 80
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 7
     end
   end
   object bntCancelar: TButton
-    Left = 463
-    Top = 260
+    Left = 447
+    Top = 339
     Width = 75
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 3
+    OnClick = bntCancelarClick
   end
   object bntGravar: TButton
-    Left = 544
-    Top = 260
+    Left = 528
+    Top = 339
     Width = 75
     Height = 25
     Caption = 'Gravar'
     TabOrder = 2
+    OnClick = bntGravarClick
+  end
+  object gbCodigoCliente: TGroupBox
+    Left = 5
+    Top = 24
+    Width = 598
+    Height = 50
+    TabOrder = 4
+    object lblcodigo: TLabel
+      Left = 5
+      Top = 15
+      Width = 50
+      Height = 15
+      Caption = 'C'#243'digo:'
+    end
+    object txtcodigo: TEdit
+      Left = 61
+      Top = 15
+      Width = 55
+      Height = 23
+      Hint = 'C'#243'digo'
+      MaxLength = 7
+      NumbersOnly = True
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnKeyPress = txtCodigoKeyPress
+    end
+  end
+  object tobTop: TToolBar
+    Left = 0
+    Top = 0
+    Width = 610
+    Height = 22
+    Images = frmMenu.ListaImagens
+    TabOrder = 5
+    ExplicitLeft = 5
+    ExplicitWidth = 611
+    object tbuPesquisar: TToolButton
+      Left = 0
+      Top = 0
+      Hint = 'Pesquisar'
+      ImageIndex = 0
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object tbuExcluir: TToolButton
+      Left = 23
+      Top = 0
+      Hint = 'Excluir'
+      ImageIndex = 1
+      ParentShowHint = False
+      ShowHint = True
+    end
   end
 end

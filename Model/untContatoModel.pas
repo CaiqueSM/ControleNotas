@@ -11,10 +11,13 @@ type
   TContatoModel = class
   public
     FId: integer;
+    FidCliente: integer;
+    FidFornecedor: integer;
     FCEP: string;
-    FNomeRua: string;
+    FRua: string;
     FBairro: string;
     FNumero: string;
+	FCidade: string;
     FComplemento: string;
     FEmails: TObjectList<TEmailModel>;
     FTelefones: TObjectList<TTelefoneModel>;
@@ -22,16 +25,21 @@ type
     procedure SetRua(AValue: string);
     procedure SetBairro(AValue: string);
     procedure SetNumero(AValue: string);
+	procedure SetCidade(AValue: string);
     procedure SetComplemento(AValue: string);
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
     property Id: integer read FId write FId;
-    property CEP: string read FCEP write FCEP;
-    property Rua: string read FNomeRua write FNomeRua;
-    property Bairro: string read FBairro write FBairro;
-    property Complemento: string read FComplemento write FComplemento;
+    property IdCliente: integer read FIdCliente write FIdCliente;
+    property IdFornecedor: integer read FIdFornecedor write FIdFornecedor;
+    property CEP: string read FCEP write SetCEP;
+    property Rua: string read FRua write SetRua;
+  	property Cidade: string read FCidade write SetCidade;
+    property Numero: string read FNumero write SetNumero;
+    property Bairro: string read FBairro write SetBairro;
+    property Complemento: string read FComplemento write SetComplemento;
     property Emails: TObjectList<TEmailModel> read FEmails write FEmails;
     property Telefones: TObjectList<TTelefoneModel> read FTelefones write FTelefones;
   end;
@@ -48,8 +56,8 @@ end;
 
 destructor TContatoModel.Destroy;
 begin
-  FEmails.Free;
   FTelefones.Free;
+  FEmails.Free;
   inherited;
 end;
 
@@ -61,6 +69,11 @@ end;
 procedure TContatoModel.SetCEP(AValue: string);
 begin
   FCEP := Trim(AValue);
+end;
+
+procedure TContatoModel.SetCidade(AValue: string);
+begin
+	FCidade:= Trim(AValue);
 end;
 
 procedure TContatoModel.SetComplemento(AValue: string);
@@ -75,7 +88,7 @@ end;
 
 procedure TContatoModel.SetRua(AValue: string);
 begin
-  FNomeRua := Trim(AValue);
+  FRua := Trim(AValue);
 end;
 
 end.

@@ -59,7 +59,6 @@ function TfrmUsuario.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   usuario: TUsuarioModel;
 begin
-   Result := False;
    Try
        Case AOperacao Of
           actConsultar:
@@ -201,8 +200,13 @@ end;
 procedure TfrmUsuario.txtNomeUsuarioKeyPress(Sender: TObject;
   var Key: Char);
 begin
-   If Key = BotaoEnter Then
-      selecionarUsuario(Sender);
+   If Not CharInSet(Key, ['A'..'Z','a'..'z']) Then
+      Begin
+         If Key = BotaoEnter Then
+            selecionarUsuario(Sender)
+         Else
+            Key := #0;
+      End;
 end;
 
 procedure TfrmUsuario.txtSenhaAtualKeyPress(Sender: TObject;
