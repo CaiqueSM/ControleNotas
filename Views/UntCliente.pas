@@ -83,7 +83,7 @@ end;
 
 procedure TfrmCliente.txtcodigoKeyPress(Sender: TObject; var Key: Char);
 begin
-   If Key = BotaoEnter Then HabilitatrCampos(true);
+   If Key = BotaoEnter Then HabilitarCampos(true);
 end;
 
 function TfrmCliente.ValidarCamposCliente(ACliente: TClienteController)

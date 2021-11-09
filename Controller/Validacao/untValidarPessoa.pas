@@ -10,12 +10,12 @@ type
   { TValidarCadastro }
 
   TValidarPessoa = class
+   private
+    function ValidarCNPJ(ACNPJ: string): boolean;
+    function ValidarCPF(ACPF: string): boolean;
   public
     function ValidarNumeroCadastroPessoal(ANumero: string): boolean;
     function ValidarNome(ANome: string): boolean;
-  private
-    function ValidarCNPJ(ACNPJ: string): boolean;
-    function ValidarCPF(ACPF: string): boolean;
   end;
 
 implementation
