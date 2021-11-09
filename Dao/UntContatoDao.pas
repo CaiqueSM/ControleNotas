@@ -10,7 +10,12 @@ type
 
   TContatoDao = class(TBaseDao)
   public
-    function ListarContatos(): TObjectList<TContatoModel>;
+    function ConsultarPorCliente(AIdCliente: Integer): TObjectList<TContatoModel>;
+
+
+
+
+
     function Consultar(ACodigo: integer; Enum: TEnumContatoDao): TContatoModel;
     function Criar(AContato: TContatoModel): Boolean;
     function Alterar(AContato: TContatoModel): Boolean;
@@ -20,7 +25,8 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs;
+  ZDataset, System.SysUtils, Vcl.Dialogs, UntEmailModel, UntTelefoneModel,
+  UntEmailDao, UntTelefoneDao;
 
 { TContatoDao }
 
@@ -113,6 +119,55 @@ begin
   End;
 end;
 
+function TContatoDao.ConsultarPorCliente(
+  AIdCliente: Integer): TObjectList<TContatoModel>;
+var
+  query: TZQuery;
+  sql: String;
+  contato: TContatoModel;
+  emailDao: TEmailDao;
+  telefoneDao: TTelefoneDao;
+begin
+  Result := TObjectList<TContatoModel>.Create();
+
+  emailDao := TEmailDao.Create(Conexao);
+  telefoneDao := TTelefoneDao.Create(Conexao);
+
+  sql := 'select * from contato where idcliente = :codigo';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('codigo').AsInteger := AIdCliente;
+    Try
+      query.Open();
+      While Not query.Eof Do
+         Begin
+            contato := TContatoModel.Create();
+            contato.Id          := query.FieldByName('id').AsInteger;
+            contato.IdCliente   := query.FieldByName('IdCliente').AsInteger;
+            contato.CEP         := Trim(query.FieldByName('CEP').AsString);
+            contato.Rua         := Trim(query.FieldByName('rua').AsString);
+  	         contato.Cidade      := Trim(query.FieldByName('cidade').AsString);
+            contato.Numero      := Trim(query.FieldByName('numero').AsString);
+            contato.Bairro      := Trim(query.FieldByName('bairro').AsString);
+            contato.Complemento := Trim(query.FieldByName('complemento').AsString);
+
+            contato.Emails    := emailDao.Consultar(AIdCliente);
+            contato.Telefones := telefoneDao.Consultar(AIdCliente);
+
+            Result.Add(contato);
+            query.Next;
+         End;
+    Except
+      on E: Exception do
+        Showmessage('Não foi possível obter o contato.');
+    End;
+  Finally
+    query.Free;
+    emailDao.Free;
+    telefoneDao.Free;
+  End;
+end;
+
 function TContatoDao.Criar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
@@ -190,47 +245,6 @@ begin
         Conexao.Database.Rollback;
         Showmessage('Não foi possível excluir o contato');
       End;
-    End;
-  Finally
-    query.Free;
-  End;
-end;
-
-function TContatoDao.ListarContatos: TObjectList<TContatoModel>;
-var
-  query: TZQuery;
-  contato: TContatoModel;
-  sql: String;
-begin
-  Result := TObjectList<TContatoModel>.Create();
-
-  sql := 'select * from contato order by id asc ';
-
-  query := CreateQuery(sql);
-  Try
-    Try
-      query.Open();
-      while Not query.Eof do
-      Begin
-        contato := TContatoModel.Create();
-        with contato do
-        begin
-          Id := query.FieldByName('id').AsInteger;
-          IdCliente := query.FieldByName('idcliente').AsInteger;
-          IdFornecedor := query.FieldByName('idfornecedor').AsInteger;
-          CEP := Trim(query.FieldByName('CEP').AsString);
-          Complemento := Trim(query.FieldByName('complemento').AsString);
-          Numero := Trim(query.FieldByName('numero').AsString);
-          Rua := Trim(query.FieldByName('rua').AsString);
-		  Bairro := Trim(query.FieldByName('Bairro').AsString);
-		  Cidade := Trim(query.FieldByName('cidade').AsString);
-        end;
-        Result.Add(contato);
-        query.Next;
-      end;
-    Except
-      on E: Exception do
-        Showmessage('Não foi possível carregar a lista de contatos');
     End;
   Finally
     query.Free;

@@ -17,7 +17,7 @@ type
     FRua: string;
     FBairro: string;
     FNumero: string;
-	FCidade: string;
+	 FCidade: string;
     FComplemento: string;
     FEmails: TObjectList<TEmailModel>;
     FTelefones: TObjectList<TTelefoneModel>;
@@ -27,6 +27,9 @@ type
     procedure SetNumero(AValue: string);
 	procedure SetCidade(AValue: string);
     procedure SetComplemento(AValue: string);
+  private
+    procedure SetEmails(const Value: TObjectList<TEmailModel>);
+    procedure SetTelefones(const Value: TObjectList<TTelefoneModel>);
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
@@ -36,12 +39,12 @@ type
     property IdFornecedor: integer read FIdFornecedor write FIdFornecedor;
     property CEP: string read FCEP write SetCEP;
     property Rua: string read FRua write SetRua;
-  	property Cidade: string read FCidade write SetCidade;
+  	 property Cidade: string read FCidade write SetCidade;
     property Numero: string read FNumero write SetNumero;
     property Bairro: string read FBairro write SetBairro;
     property Complemento: string read FComplemento write SetComplemento;
-    property Emails: TObjectList<TEmailModel> read FEmails write FEmails;
-    property Telefones: TObjectList<TTelefoneModel> read FTelefones write FTelefones;
+    property Emails: TObjectList<TEmailModel> read FEmails write SetEmails;
+    property Telefones: TObjectList<TTelefoneModel> read FTelefones write SetTelefones;
   end;
 
 implementation
@@ -56,8 +59,8 @@ end;
 
 destructor TContatoModel.Destroy;
 begin
-  FTelefones.Free;
-  FEmails.Free;
+  If Assigned(FTelefones) Then FTelefones.Free;
+  If Assigned(FEmails) Then FEmails.Free;
   inherited;
 end;
 
@@ -81,6 +84,15 @@ begin
   FComplemento := Trim(AValue);
 end;
 
+procedure TContatoModel.SetEmails(const Value: TObjectList<TEmailModel>);
+begin
+  If (FEmails <> Value) and (Value <> Nil) then
+     Begin
+        FEmails.Free;
+        FEmails := Value;
+     End;
+end;
+
 procedure TContatoModel.SetNumero(AValue: string);
 begin
   FNumero := Trim(AValue);
@@ -89,6 +101,15 @@ end;
 procedure TContatoModel.SetRua(AValue: string);
 begin
   FRua := Trim(AValue);
+end;
+
+procedure TContatoModel.SetTelefones(const Value: TObjectList<TTelefoneModel>);
+begin
+  If (FTelefones <> Value) and (Value <> Nil) then
+     Begin
+        FTelefones.Free;
+        FTelefones := Value;
+     End;
 end;
 
 end.

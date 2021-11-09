@@ -17,7 +17,7 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs;
+  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoDao;
 
 { TClienteDao }
 
@@ -58,8 +58,10 @@ function TClienteDao.Consultar(ANome: String): TClienteModel;
 var
   query: TZQuery;
   sql: String;
+  contatoDao: TContatoDao;
 begin
    Result := TClienteModel.Create();
+   contatoDao := TContatoDao.Create(Conexao);
 
    sql := 'select * from cliente ' +
           ' where upper(trim(nome)) = upper(:nome) ' ;
@@ -75,11 +77,13 @@ begin
          Result.CPF := Trim(query.FieldByName('CPF').AsString);
          Result.CNPJ:= Trim(query.FieldByName('CNPJ').AsString);
 
+         Result.Contatos := contatoDao.ConsultarPorCliente(Result.Id);
       Except
          on E: Exception do
             Showmessage('Não foi possível obter o cliente.');
       End;
    Finally
+      contatoDao.Free;
       query.Free;
    End;
 end;

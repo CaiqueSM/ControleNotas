@@ -13,10 +13,6 @@ type
   TClienteController = class(TBaseController)
   private
     FClienteDao: TClienteDao;
-    FTelefoneDao: TTelefoneDao;
-    FEmailDao: TEmailDao;
-    FContatoDao: TContatoDao;
-
     FValidarCliente: TValidarPessoa;
     FValidarContato: TValidarContato;
   public
@@ -38,16 +34,15 @@ type
 
 implementation
 
+uses
+  UntContatoModel, UntEmailModel, UntTelefoneModel, UntEnumContatoDao;
+
 { TClienteController }
 
 constructor TClienteController.Create;
 begin
   inherited;
   FClienteDao := TClienteDao.Create(Conexao);
-  FTelefoneDao := TTelefoneDao.Create(Conexao);
-  FEmailDao := TEmailDao.Create(Conexao);
-  FContatoDao := TContatoDao.Create(Conexao);
-
   FValidarCliente := TValidarPessoa.Create;
   FValidarContato := TValidarContato.Create;
 End;
@@ -55,10 +50,6 @@ End;
 destructor TClienteController.Destroy;
 begin
   FClienteDao.Free;
-  FContatoDao.Free;
-  FTelefoneDao.Free;
-  FEmailDao.Free;
-
   FValidarCliente.Free;
   FValidarContato.Free;
   inherited;
