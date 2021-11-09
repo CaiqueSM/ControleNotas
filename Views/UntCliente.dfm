@@ -219,14 +219,14 @@ object frmCliente: TfrmCliente
     TabOrder = 3
     OnClick = btnCancelarClick
   end
-  object bntGravar: TButton
+  object btnGravar: TButton
     Left = 528
     Top = 339
     Width = 75
     Height = 25
     Caption = 'Gravar'
     TabOrder = 2
-    OnClick = bntGravarClick
+    OnClick = btnGravarClick
   end
   object gbCodigoCliente: TGroupBox
     Left = 5

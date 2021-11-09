@@ -29,7 +29,7 @@ type
     lbNumero: TLabel;
     lbTelefone: TLabel;
     btnCancelar: TButton;
-    bntGravar: TButton;
+    btnGravar: TButton;
     txtComplemento: TEdit;
     lbComplemento: TLabel;
     mskTelefone: TMaskEdit;
@@ -46,7 +46,7 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure bntGravarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
     procedure txtcodigoKeyPress(Sender: TObject; var Key: Char);
   private
     FClienteExistente: Boolean;
@@ -189,8 +189,12 @@ end;
 function TfrmCliente.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   cliente: TClienteModel;
+  primeiro,
+  nenhum: Integer;
 begin
    Result := True;
+   primeiro := 0;
+   nenhum := 0;
 
    Try
       Case AOperacao Of
@@ -199,6 +203,29 @@ begin
                Try
                   cliente := FController.Consultar(txtcodigo.Text);
                   FClienteExistente := Not cliente.Nome.IsEmpty;
+
+                  If Not cliente.CNPJ.IsEmpty Then
+                     txtCNPJCPF.Text := cliente.CNPJ
+                  Else
+                     txtCNPJCPF.Text := cliente.CPF;
+
+                  txtNomeCliente.Text := cliente.Nome;
+
+                  If (cliente.Contatos.Count > nenhum) Then
+                     Begin
+                        mskCEP.Text := cliente.Contatos[primeiro].CEP;
+                        txtCidade.Text := cliente.Contatos[primeiro].Cidade;
+                        txtBairro.Text := cliente.Contatos[primeiro].Bairro;
+                        txtRua.Text := cliente.Contatos[primeiro].Rua;
+                        txtNumero.Text := cliente.Contatos[primeiro].Numero;
+                        txtComplemento.Text := cliente.Contatos[primeiro].Complemento;
+
+                        If (cliente.Contatos[primeiro].Emails.Count > nenhum) Then
+                           txtEmail.Text := cliente.Contatos[primeiro].Emails[primeiro].Email;
+
+                        If (cliente.Contatos[primeiro].Telefones.Count > nenhum) Then
+                           mskTelefone.Text := cliente.Contatos[primeiro].Telefones[primeiro].Telefone;
+                     End;
                Except
                   Result := False;
                End;
@@ -239,7 +266,7 @@ begin
   If txtcodigo.CanFocus Then txtcodigo.SetFocus;
 end;
 
-procedure TfrmCliente.bntGravarClick(Sender: TObject);
+procedure TfrmCliente.btnGravarClick(Sender: TObject);
 begin
    If validarCampos(todosCampos) Then
       Begin
@@ -266,6 +293,8 @@ begin
   tbuPesquisar.Enabled := Not AHabilitar;
   txtcodigo.Enabled := Not AHabilitar;
   tbuExcluir.Enabled := AHabilitar;
+  btnCancelar.Enabled := AHabilitar;
+  btnGravar.Enabled := AHabilitar;
 
   txtBairro.Enabled := AHabilitar;
   mskCEP.Enabled := AHabilitar;
