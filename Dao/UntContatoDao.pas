@@ -16,8 +16,10 @@ type
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
 
-    function ConsultarPorCliente(AIdCliente: Integer): TObjectList<TContatoModel>;
     function Criar(AContato: TContatoModel): Boolean;
+    function ConsultarPorCliente(AIdCliente: Integer): TObjectList<TContatoModel>;
+    function ExcluirPorCliente(AIdCliente: Integer): Boolean;
+
 
 
 
@@ -222,6 +224,31 @@ begin
       Begin
         Result := False;
         Conexao.Database.Rollback;
+        Showmessage('Não foi possível excluir o contato');
+      End;
+    End;
+  Finally
+    query.Free;
+  End;
+end;
+
+function TContatoDao.ExcluirPorCliente(AIdCliente: Integer): Boolean;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := True;
+
+  sql := 'delete from contato where idcliente = :idcliente';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('idcliente').AsInteger := AIdCliente;
+    Try
+      query.ExecSQL();
+    Except
+      on E: Exception do
+      Begin
+        Result := False;
         Showmessage('Não foi possível excluir o contato');
       End;
     End;

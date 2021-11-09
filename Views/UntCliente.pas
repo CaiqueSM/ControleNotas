@@ -49,6 +49,7 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure txtcodigoKeyPress(Sender: TObject; var Key: Char);
     procedure txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
+    procedure tbuExcluirClick(Sender: TObject);
   private
     FClienteExistente: Boolean;
     FController: TClienteController;
@@ -56,6 +57,7 @@ type
     procedure HabilitarCampos(AHabilitar: boolean);
     procedure selecionarCliente(Sender: TObject);
 
+    function serializeCliente():TClienteModel;
     function validarCampos(ACampo: TObject): Boolean;
     function atualizarDados(AOperacao: TEnumCRUD): Boolean;
   end;
@@ -66,7 +68,7 @@ var
 implementation
 
 uses
-  UntEmailModel, UntTelefoneModel;
+  UntEmailModel, UntTelefoneModel, UntMensagemUtil;
 
 {$R *.dfm}
 
@@ -105,6 +107,45 @@ begin
             txtcodigo.Enabled := FClienteExistente;
             Self.TabOrderNext();
          End;
+end;
+
+function TfrmCliente.serializeCliente: TClienteModel;
+var
+  contato: TContatoModel;
+  email: TEmailModel;
+  telefone: TTelefoneModel;
+begin
+   Result := TClienteModel.Create();
+   Result.Id := StrToInt(txtcodigo.Text);
+   Result.Nome := txtNomeCliente.Text;
+   Result.CNPJ := txtCNPJCPF.Text;
+   Result.CPF := txtCNPJCPF.Text;
+
+   contato := TContatoModel.Create();
+   contato.CEP := mskCEP.Text;
+   contato.Cidade := txtCidade.Text;
+   contato.Bairro := txtBairro.Text;
+   contato.Rua := txtRua.Text;
+   contato.Numero := txtNumero.Text;
+   contato.Complemento := txtComplemento.Text;
+
+   email := TEmailModel.Create();
+   email.Email := txtEmail.Text;
+
+   telefone := TTelefoneModel.Create();
+   telefone.Telefone := mskTelefone.Text;
+
+   contato.Emails.Add(email);
+   contato.Telefones.Add(telefone);
+
+   Result.Contatos.Add(contato);
+end;
+
+procedure TfrmCliente.tbuExcluirClick(Sender: TObject);
+begin
+   If ShowConfirm('Tem certeza que deseja excluir este cliente?') Then
+      If atualizarDados(actExcluir) Then
+         btnCancelarClick(Sender);
 end;
 
 procedure TfrmCliente.txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
@@ -245,39 +286,13 @@ begin
 
          actCriar:
             Begin
-               cliente := TClienteModel.Create();
-               cliente.Id := StrToInt(txtcodigo.Text);
-               cliente.Nome := txtNomeCliente.Text;
-               cliente.CNPJ := txtCNPJCPF.Text;
-               cliente.CPF := txtCNPJCPF.Text;
-
-               contato := TContatoModel.Create();
-               contato.CEP := mskCEP.Text;
-               contato.Cidade := txtCidade.Text;
-               contato.Bairro := txtBairro.Text;
-               contato.Rua := txtRua.Text;
-               contato.Numero := txtNumero.Text;
-               contato.Complemento := txtComplemento.Text;
-
-               email := TEmailModel.Create();
-               email.Email := txtEmail.Text;
-
-               telefone := TTelefoneModel.Create();
-               telefone.Telefone := mskTelefone.Text;
-
-               contato.Emails.Add(email);
-               contato.Telefones.Add(telefone);
-
-               cliente.Contatos.Add(contato);
+               cliente := serializeCliente();
                Result := FController.Criar(cliente);
             End;
 
          actAlterar:
             Begin
-               cliente := TClienteModel.Create();
-               cliente.Id := StrToInt(txtcodigo.Text);
-               cliente.Nome := txtNomeCliente.Text;
-
+               cliente := serializeCliente();
                Result := FController.Alterar(cliente);
             End;
 

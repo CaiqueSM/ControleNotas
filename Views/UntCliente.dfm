@@ -303,6 +303,7 @@ object frmCliente: TfrmCliente
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = True
+      OnClick = tbuExcluirClick
     end
   end
 end

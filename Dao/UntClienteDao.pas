@@ -164,6 +164,10 @@ begin
       query.ParamByName('id').AsInteger := AIdCliente;
       Try
          query.ExecSQL();
+
+         If Not FContatoDao.ExcluirPorCliente(AIdCliente) Then
+            raise Exception.Create('Erro ao excluir os contatos');
+
          Conexao.Database.Commit;
       Except
          on E: Exception do
