@@ -5,7 +5,7 @@ object frmCliente: TfrmCliente
   BorderStyle = bsSingle
   Caption = 'Cadastrar cliente da nota fiscal'
   ClientHeight = 372
-  ClientWidth = 610
+  ClientWidth = 609
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -258,10 +258,11 @@ object frmCliente: TfrmCliente
   object tobTop: TToolBar
     Left = 0
     Top = 0
-    Width = 610
+    Width = 609
     Height = 22
     Images = frmMenu.ListaImagens
     TabOrder = 5
+    ExplicitWidth = 610
     object tbuPesquisar: TToolButton
       Left = 0
       Top = 0

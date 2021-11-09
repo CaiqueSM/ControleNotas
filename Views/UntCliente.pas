@@ -8,7 +8,8 @@ uses
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
   UntClienteController, UntClienteModel, UntContatoModel, UntContatoController,
   UntEmailModel, UntTelefoneModel, UntEmailController, UntTelefoneController,
-  UntEnumContatoDao, Vcl.ComCtrls, Vcl.ToolWin;
+  UntEnumContatoDao, Vcl.ComCtrls, Vcl.ToolWin, UntCrudEnum,
+  UntFormHelper;
 
 type
   TfrmCliente = class(TForm)
@@ -49,14 +50,17 @@ type
     procedure bntGravarClick(Sender: TObject);
     procedure txtcodigoKeyPress(Sender: TObject; var Key: Char);
   private
-    FClienteController: TClienteController;
+    FClienteExistente: Boolean;
+    FController: TClienteController;
     FContatoController: TContatoController;
     FEmailController: TEmailController;
     FTelefoneController: TTelefoneController;
     procedure LimparCampos();
-    function ValidarCamposCliente(ACliente: TClienteController): boolean;
-    function ValidarCamposContato(AContato: TContatoController): boolean;
     procedure HabilitarCampos(AHabilitar: boolean);
+    procedure selecionarCliente(Sender: TObject);
+
+    function validarCampos(ACampo: TObject): Boolean;
+    function atualizarDados(AOperacao: TEnumCRUD): Boolean;
   end;
 
 var
@@ -81,72 +85,103 @@ begin
   mskTelefone.Clear;
 end;
 
+procedure TfrmCliente.selecionarCliente(Sender: TObject);
+begin
+   If validarCampos(Sender) Then
+      If atualizarDados(actConsultar) Then
+         Begin
+            habilitarCampos(True);
+            txtcodigo.Enabled := FClienteExistente;
+            Self.TabOrderNext();
+         End;
+end;
+
 procedure TfrmCliente.txtcodigoKeyPress(Sender: TObject; var Key: Char);
 begin
-   If Key = BotaoEnter Then HabilitarCampos(true);
+   If Key = BotaoEnter Then
+      selecionarCliente(Sender)
 end;
 
-function TfrmCliente.ValidarCamposCliente(ACliente: TClienteController)
-  : boolean;
+function TfrmCliente.validarCampos(ACampo: TObject): Boolean;
 begin
-  Result := False;
+   Result := False;
 
-  if not ACliente.ValidarCadastroPessoal(txtCNPJCPF.Text) then
-  begin
-    showmessage('CPF ou CNPJ incorreto.');
-    if txtCNPJCPF.CanFocus then
-      txtCNPJCPF.SetFocus;
-    exit();
-  end;
+   If (ACampo = txtcodigo) Or (ACampo = todosCampos) Then
+      Begin
+         If (txtcodigo.Text = EmptyStr) Then
+            Begin
+               ShowMessage('O campo código deve ser preenchido!');
+               If txtcodigo.CanFocus Then txtcodigo.SetFocus;
+               Exit;
+            End;
+      End;
 
-  if not ACliente.ValidarNome(txtNomeCliente.Text) then
-  begin
-    showmessage
-      ('Nome invalido. Não é permitido o uso de caracteres especiais.');
-    if txtNomeCliente.CanFocus then
-      txtNomeCliente.SetFocus;
-    exit();
-  end;
-  Result := True;
+   If (ACampo = txtCNPJCPF) Or (ACampo = todosCampos) Then
+      Begin
+         If Not FController.ValidarCadastroPessoal(txtCNPJCPF.Text) Then
+            begin
+               ShowMessage('CPF ou CNPJ incorreto!');
+               If txtCNPJCPF.CanFocus Then txtCNPJCPF.SetFocus;
+               Exit();
+            end;
+      End;
+
+   If (ACampo = txtNomeCliente) Or (ACampo = todosCampos) Then
+      Begin
+         If Not FController.ValidarNome(txtNomeCliente.Text) then
+            begin
+               ShowMessage('Nome invalido, não é permitido o uso de caracteres especiais!');
+               If txtNomeCliente.CanFocus Then txtNomeCliente.SetFocus;
+               Exit();
+           end;
+      End;
+
+   If (ACampo = mskCEP) Or (ACampo = todosCampos) Then
+      Begin
+         If Not FController.ValidarCEP(mskCEP.Text) Then
+            begin
+               ShowMessage('CEP incorreto!');
+               If mskCEP.CanFocus Then mskCEP.SetFocus;
+               Exit();
+            end;
+      End;
+
+   If (ACampo = txtNumero) Or (ACampo = todosCampos) Then
+      Begin
+         If Not FController.ValidarNumero(txtNumero.Text) Then
+            begin
+               ShowMessage('O número é obrigatório!');
+               If txtNumero.CanFocus Then txtNumero.SetFocus;
+               exit();
+            end;
+      End;
+
+   If (ACampo = txtEmail) Or (ACampo = todosCampos) Then
+      Begin
+         If not FController.ValidarEmail(txtEmail.Text) Then
+            begin
+               ShowMessage('Email incorreto!');
+               if txtEmail.CanFocus then txtEmail.SetFocus;
+               exit();
+            End;
+      End;
+
+   If (ACampo = mskTelefone) Or (ACampo = todosCampos) Then
+      Begin
+         If Not FController.ValidarTelefone(mskTelefone.Text) Then
+            begin
+               ShowMessage('Digite um número de telefone válido!');
+               if mskTelefone.CanFocus Then mskTelefone.SetFocus;
+               Exit();
+            end;
+      End;
+
+   Result := True;
 end;
 
-function TfrmCliente.ValidarCamposContato(AContato: TContatoController)
-  : boolean;
+function TfrmCliente.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 begin
-  Result := False;
 
-  if not AContato.ValidarCEP(mskCEP.Text) then
-  begin
-    showmessage('CEP incorreto!');
-    if mskCEP.CanFocus then
-      mskCEP.SetFocus;
-    exit();
-  end;
-
-  if not AContato.ValidarNumero(txtNumero.Text) then
-  begin
-    showmessage('O número não pode estar vazio!');
-    if txtNumero.CanFocus then
-      txtNumero.SetFocus;
-    exit();
-  end;
-
-  if not AContato.ValidarEmail(txtEmail.Text) then
-  begin
-    showmessage('Formato de email incorreto!');
-    if txtEmail.CanFocus then
-      txtEmail.SetFocus;
-    exit();
-  end;
-
-  if not AContato.ValidarTelefone(mskTelefone.Text) then
-  begin
-    showmessage('Digite um número de telefone válido!');
-    if CanFocus then
-      SetFocus;
-    exit();
-  end;
-  Result := True;
 end;
 
 procedure TfrmCliente.bntCancelarClick(Sender: TObject);
@@ -163,10 +198,7 @@ var
 
 begin
 
-  if not ValidarCamposCliente(FClienteController) then
-    exit();
-  if not ValidarCamposContato(FContatoController) then
-    exit();
+  
 
   FCliente := TClienteModel.Create;
   FContato := TContatoModel.Create;
@@ -181,7 +213,7 @@ begin
       Nome := txtNomeCliente.Text;
     end;
 
-    FClienteController.Criar(FCliente);
+    FController.Criar(FCliente);
 
     with FContato do
     begin
@@ -231,7 +263,7 @@ end;
 
 procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  FClienteController.Free;
+  FController.Free;
   FContatoController.Free;
   FEmailController.Free;
   FTelefoneController.Free;
@@ -240,7 +272,7 @@ end;
 
 procedure TfrmCliente.FormCreate(Sender: TObject);
 begin
-  FClienteController := TClienteController.Create();
+  FController := TClienteController.Create();
   FContatoController := TContatoController.Create();
   FEmailController := TEmailController.Create;
   FTelefoneController := TTelefoneController.Create;

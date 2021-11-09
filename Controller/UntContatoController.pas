@@ -21,10 +21,8 @@ type
     procedure Criar(AContato: TContatoModel);
     function Consultar(ACodigo: integer; Enum: TEnumContatoDao): TContatoModel;
     procedure Excluir(ACodigo: integer; Enum: TEnumContatoDao);
-    function ValidarCEP(ACEP: string): boolean;
-    function ValidarEmail(AEmail: string): boolean;
-    function ValidarNumero(ANumero: string): boolean;
-    function ValidarTelefone(ATelefone: string): boolean;
+
+    
   end;
 
 implementation
@@ -66,24 +64,6 @@ begin
   FDao.Excluir(ACodigo, Enum);
 end;
 
-function TContatoController.ValidarCEP(ACEP: string): boolean;
-begin
-  Result := FValidarContato.ValidarCEP(ACEP);
-end;
 
-function TContatoController.ValidarEmail(AEmail: string): boolean;
-begin
-  Result := FValidarContato.ValidarEmail(AEmail);
-end;
-
-function TContatoController.ValidarNumero(ANumero: string): boolean;
-begin
-  Result := FValidarContato.ValidarNumero(ANumero);
-end;
-
-function TContatoController.ValidarTelefone(ATelefone: string): boolean;
-begin
-  Result := FValidarContato.ValidarTelefone(ATelefone);
-end;
 
 end.
