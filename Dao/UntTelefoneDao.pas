@@ -11,9 +11,9 @@ type
   public
     function ListarTelefone(): TObjectList<TTelefoneModel>;
     function Consultar(ACodigo: integer): TTelefoneModel;
-    procedure Criar(ATelefone: TTelefoneModel);
-    procedure Alterar(ATelefone: TTelefoneModel);
-    procedure Excluir(ACodigo: integer);
+    function Criar(ATelefone: TTelefoneModel): Boolean;
+    function Alterar(ATelefone: TTelefoneModel): Boolean;
+    function Excluir(ACodigo: integer): Boolean;
   end;
 
 implementation
@@ -23,11 +23,12 @@ uses
 
 { TTelefoneDao }
 
-procedure TTelefoneDao.Alterar(ATelefone: TTelefoneModel);
+function TTelefoneDao.Alterar(ATelefone: TTelefoneModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
   sql := 'Update telefone Set telefone = :telefone' + ' where idcontato = :id';
 
   query := CreateQuery(sql);
@@ -41,6 +42,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de telefone.');
       End;
@@ -79,11 +81,13 @@ begin
   End;
 end;
 
-procedure TTelefoneDao.Criar(ATelefone: TTelefoneModel);
+function TTelefoneDao.Criar(ATelefone: TTelefoneModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
+
   sql := 'Insert Into telefone (id, idcontato, telefone)' +
          'Values (:id, :idcontato, :telefone)';
 
@@ -99,6 +103,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de telefone.');
       End;
@@ -108,11 +113,13 @@ begin
   End;
 end;
 
-procedure TTelefoneDao.Excluir(ACodigo: integer);
+function TTelefoneDao.Excluir(ACodigo: integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'delete from telefone ' +
           ' where idcontato = :id' ;
 
@@ -125,6 +132,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível excluir o telefone');
             End;

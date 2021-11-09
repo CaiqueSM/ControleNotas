@@ -11,9 +11,9 @@ type
   public
     function ListarEmails(): TObjectList<TEmailModel>;
     function Consultar(ACodigo: integer): TEmailModel;
-    procedure Criar(AEmail: TEmailModel);
-    procedure Alterar(AEmail: TEmailModel);
-    procedure Excluir(ACodigo: integer);
+    function Criar(AEmail: TEmailModel): Boolean;
+    function Alterar(AEmail: TEmailModel): Boolean;
+    function Excluir(ACodigo: integer): Boolean;
   end;
 
 implementation
@@ -23,11 +23,13 @@ uses
 
 { TEmailDao }
 
-procedure TEmailDao.Alterar(AEmail: TEmailModel);
+function TEmailDao.Alterar(AEmail: TEmailModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
+
   sql := 'Update email Set email = :email where idcontato = :id';
   query := CreateQuery(sql);
 
@@ -40,6 +42,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de email.');
       End;
@@ -77,11 +80,13 @@ begin
   End;
 end;
 
-procedure TEmailDao.Criar(AEmail: TEmailModel);
+function TEmailDao.Criar(AEmail: TEmailModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
+
   sql := 'Insert Into email (id, idcontato, email)' +
          'Values (:id, :idcontato, :email)';
 
@@ -97,6 +102,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de email.');
       End;
@@ -106,11 +112,13 @@ begin
   End;
 end;
 
-procedure TEmailDao.Excluir(ACodigo: integer);
+function TEmailDao.Excluir(ACodigo: integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'delete from email ' +
           ' where idcontato = :id' ;
 
@@ -123,6 +131,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível excluir o email');
             End;

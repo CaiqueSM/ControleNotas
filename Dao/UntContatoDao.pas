@@ -12,9 +12,9 @@ type
   public
     function ListarContatos(): TObjectList<TContatoModel>;
     function Consultar(ACodigo: integer; Enum: TEnumContatoDao): TContatoModel;
-    procedure Criar(AContato: TContatoModel);
-    procedure Alterar(AContato: TContatoModel);
-    procedure Excluir(ACodigo: integer; Enum: TEnumContatoDao);
+    function Criar(AContato: TContatoModel): Boolean;
+    function Alterar(AContato: TContatoModel): Boolean;
+    function Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
   end;
 
 implementation
@@ -24,11 +24,13 @@ uses
 
 { TContatoDao }
 
-procedure TContatoDao.Alterar(AContato: TContatoModel);
+function TContatoDao.Alterar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
+
   sql := 'Update contato Set bairro = :bairro, CEP = :CEP, cidade = :cidade,' +
     'complemento = :complemento, numero = :numero, rua = :rua' +
     ' Where id = :id';
@@ -40,7 +42,7 @@ begin
       ParamByName('id').AsInteger := AContato.Id;
       ParamByName('bairro').AsString := AContato.Bairro;
       ParamByName('CEP').AsString := AContato.CEP;
-	  ParamByName('cidade').AsString := AContato.Cidade;
+	   ParamByName('cidade').AsString := AContato.Cidade;
       ParamByName('complemento').AsString := AContato.Complemento;
       ParamByName('numero').AsString := AContato.Numero;
       ParamByName('rua').AsString := AContato.Rua;
@@ -52,6 +54,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível atualizar os dados de contato.');
       End;
@@ -110,11 +113,13 @@ begin
   End;
 end;
 
-procedure TContatoDao.Criar(AContato: TContatoModel);
+function TContatoDao.Criar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
+
   sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP, cidade,' +
     'complemento, numero, rua)' +
     'Values (:idcliente, :idfornecedor, :bairro, :CEP, cidade,' +
@@ -128,7 +133,7 @@ begin
       ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
       ParamByName('bairro').AsString := AContato.Bairro;
       ParamByName('CEP').AsString := AContato.CEP;
-	  ParamByName('cidade').AsString := AContato.cidade;
+	   ParamByName('cidade').AsString := AContato.cidade;
       ParamByName('complemento').AsString := AContato.Complemento;
       ParamByName('numero').AsString := AContato.Numero;
       ParamByName('rua').AsString := AContato.Rua;
@@ -140,6 +145,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de contato.');
       End;
@@ -149,11 +155,12 @@ begin
   End;
 end;
 
-procedure TContatoDao.Excluir(ACodigo: integer; Enum: TEnumContatoDao);
+function TContatoDao.Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
 
   case Enum of
     actContato:
@@ -179,6 +186,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível excluir o contato');
       End;

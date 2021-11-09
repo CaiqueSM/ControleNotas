@@ -9,9 +9,9 @@ type
   public
     function ListarClientes(): TObjectList<TClienteModel>;
     function Consultar(ANome: String): TClienteModel;
-    procedure Criar(ACliente: TClienteModel);
-    procedure Alterar(ACliente: TClienteModel);
-    procedure Excluir(AIdCliente: Integer);
+    function Criar(ACliente: TClienteModel): Boolean;
+    function Alterar(ACliente: TClienteModel): Boolean;
+    function Excluir(AIdCliente: Integer): Boolean;
   end;
 
 implementation
@@ -21,11 +21,13 @@ uses
 
 { TClienteDao }
 
-procedure TClienteDao.Alterar(ACliente: TClienteModel);
+function TClienteDao.Alterar(ACliente: TClienteModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'Update Cliente Set nome = :nome, CPF = :CPF, CNPJ = :CNPJ ' +
           ' Where id = :id';
 
@@ -42,6 +44,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível gravar os dados de cliente.');
             End;
@@ -81,11 +84,13 @@ begin
    End;
 end;
 
-procedure TClienteDao.Criar(ACliente: TClienteModel);
+function TClienteDao.Criar(ACliente: TClienteModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'Insert Into cliente (id, nome, CPF, CNPJ) Values (:id, :nome, :CPF, :CNPJ)';
    query := CreateQuery(sql);
    Try
@@ -100,6 +105,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível gravar os dados de cliente.');
             End;
@@ -109,11 +115,13 @@ begin
    End;
 end;
 
-procedure TClienteDao.Excluir(AIdCliente: Integer);
+function TClienteDao.Excluir(AIdCliente: Integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'delete from cliente ' +
           ' where id = :id' ;
 
@@ -126,6 +134,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível excluir o cliente');
             End;

@@ -6,8 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, UntEnvironment,
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
-  UntClienteController, UntClienteModel, UntContatoModel, UntContatoController,
-  UntEmailModel, UntTelefoneModel, UntEmailController, UntTelefoneController,
+  UntClienteController, UntClienteModel, UntContatoModel,
   UntEnumContatoDao, Vcl.ComCtrls, Vcl.ToolWin, UntCrudEnum,
   UntFormHelper;
 
@@ -52,9 +51,6 @@ type
   private
     FClienteExistente: Boolean;
     FController: TClienteController;
-    FContatoController: TContatoController;
-    FEmailController: TEmailController;
-    FTelefoneController: TTelefoneController;
     procedure LimparCampos();
     procedure HabilitarCampos(AHabilitar: boolean);
     procedure selecionarCliente(Sender: TObject);
@@ -69,6 +65,17 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCliente.FormCreate(Sender: TObject);
+begin
+  FController := TClienteController.Create();
+end;
+
+procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  FController.Free;
+  CloseAction := caFree;
+end;
 
 procedure TfrmCliente.LimparCampos();
 begin
@@ -208,7 +215,7 @@ begin
          actAlterar:
             Begin
                cliente := TClienteModel.Create();
-               cliente.Id := txtcodigo.Text;
+               cliente.Id := StrToInt(txtcodigo.Text);
                cliente.Nome := txtNomeCliente.Text;
 
                Result := FController.Alterar(cliente);
@@ -216,7 +223,7 @@ begin
 
          actExcluir:
             Begin
-               Result := FController.Excluir(txtcodigo.Text);
+               Result := FController.Excluir(StrToInt(txtcodigo.Text));
             End;
        End;
    Finally
@@ -247,23 +254,6 @@ begin
                   btnCancelarClick(Sender)
             End;
       End;
-end;
-
-procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-  FController.Free;
-  FContatoController.Free;
-  FEmailController.Free;
-  FTelefoneController.Free;
-  CloseAction := caFree;
-end;
-
-procedure TfrmCliente.FormCreate(Sender: TObject);
-begin
-  FController := TClienteController.Create();
-  FContatoController := TContatoController.Create();
-  FEmailController := TEmailController.Create;
-  FTelefoneController := TTelefoneController.Create;
 end;
 
 procedure TfrmCliente.FormShow(Sender: TObject);

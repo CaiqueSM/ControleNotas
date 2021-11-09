@@ -74,14 +74,14 @@ begin
   Result := FClienteDao.Consultar(ANome);
 end;
 
-procedure TClienteController.Criar(ACliente: TClienteModel);
+function TClienteController.Criar(ACliente: TClienteModel): Boolean;
 begin
-  FClienteDao.Criar(ACliente);
+  Result := FClienteDao.Criar(ACliente);
 end;
 
-procedure TClienteController.Excluir(AIdCliente: Integer);
+function TClienteController.Excluir(AIdCliente: Integer): Boolean;
 begin
-  FClienteDao.Excluir(AIdCliente);
+  Result := FClienteDao.Excluir(AIdCliente);
 end;
 
 function TClienteController.ValidarCadastroPessoal(ANumero: string): boolean;
