@@ -59,3 +59,4 @@ idcontato integer NOT NULL REFERENCES contato ON DELETE cascade
 
 use notafiscal;
 insert into usuario(nome, senha) values('root', 'root'); 
+insert into usuario(nome, senha) values('jeihcio', '123456'); 
