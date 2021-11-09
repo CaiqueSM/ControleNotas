@@ -9,9 +9,9 @@ type
   public
     function ListarUsuarios(): TObjectList<TUsuarioModel>;
     function Consultar(ANome: String): TUsuarioModel;
-    procedure Criar(AUsuario: TUsuarioModel);
-    procedure Alterar(AUsuario: TUsuarioModel);
-    procedure Excluir(AIdUsuario: Integer);
+    function Criar(AUsuario: TUsuarioModel): Boolean;
+    function Alterar(AUsuario: TUsuarioModel): Boolean;
+    function Excluir(AIdUsuario: Integer): Boolean;
   end;
 
 implementation
@@ -82,11 +82,13 @@ begin
    End;
 end;
 
-procedure TUsuarioDao.Criar(AUsuario: TUsuarioModel);
+function TUsuarioDao.Criar(AUsuario: TUsuarioModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'Insert Into usuario (nome, senha) Values (:nome, :senha)';
    query := CreateQuery(sql);
    Try
@@ -98,6 +100,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível salvar o usuários');
             End;
@@ -107,11 +110,13 @@ begin
    End;
 end;
 
-procedure TUsuarioDao.Alterar(AUsuario: TUsuarioModel);
+function TUsuarioDao.Alterar(AUsuario: TUsuarioModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'Update usuario Set senha = :senha ' +
           ' Where id = :id';
 
@@ -125,6 +130,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível salvar o usuários');
             End;
@@ -134,11 +140,13 @@ begin
    End;
 end;
 
-procedure TUsuarioDao.Excluir(AIdUsuario: Integer);
+function TUsuarioDao.Excluir(AIdUsuario: Integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'delete from usuario ' +
           ' where id = :id' ;
 
@@ -151,6 +159,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível excluir o usuários');
             End;

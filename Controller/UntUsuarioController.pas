@@ -14,9 +14,9 @@ type
     destructor Destroy(); override;
 
     function Consultar(ANome: String): TUsuarioModel;
-    procedure Criar(AUsuario: TUsuarioModel);
-    procedure Alterar(AUsuario: TUsuarioModel);
-    procedure Excluir(AIdUsuario: Integer);
+    function Criar(AUsuario: TUsuarioModel): Boolean;
+    function Alterar(AUsuario: TUsuarioModel): Boolean;
+    function Excluir(AIdUsuario: Integer): Boolean;
 
     function VerificarSenhaUsuarioEstaCorreta(AUsuario, ASenhaAtual: String): Boolean;
   end;
@@ -37,19 +37,19 @@ begin
   inherited;
 end;
 
-procedure TUsuarioController.Excluir(AIdUsuario: Integer);
+function TUsuarioController.Excluir(AIdUsuario: Integer): Boolean;
 begin
-   FDao.Excluir(AIdUsuario);
+   Result := FDao.Excluir(AIdUsuario);
 end;
 
-procedure TUsuarioController.Criar(AUsuario: TUsuarioModel);
+function TUsuarioController.Criar(AUsuario: TUsuarioModel): Boolean;
 begin
-   FDao.Criar(AUsuario);
+   Result := FDao.Criar(AUsuario);
 end;
 
-procedure TUsuarioController.Alterar(AUsuario: TUsuarioModel);
+function TUsuarioController.Alterar(AUsuario: TUsuarioModel): Boolean;
 begin
-   FDao.Alterar(AUsuario);
+   Result := FDao.Alterar(AUsuario);
 end;
 
 function TUsuarioController.Consultar(ANome: String): TUsuarioModel;

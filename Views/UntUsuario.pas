@@ -59,13 +59,19 @@ function TfrmUsuario.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   usuario: TUsuarioModel;
 begin
+   Result := True;
+
    Try
        Case AOperacao Of
           actConsultar:
              Begin
-                usuario := FController.Consultar(txtNomeUsuario.Text);
-                FUsuarioExistente := Not usuario.Nome.IsEmpty;
-                FIdUsuarioExistente := usuario.Id;
+                Try
+                   usuario := FController.Consultar(txtNomeUsuario.Text);
+                   FUsuarioExistente := Not usuario.Nome.IsEmpty;
+                   FIdUsuarioExistente := usuario.Id;
+                Except
+                   Result := False;
+                End;
              End;
 
           actCriar:
@@ -74,7 +80,7 @@ begin
                 usuario.Nome := txtNomeUsuario.Text;
                 usuario.Senha := Trim(txtConfirmacaoNovaSenha.Text);
 
-                FController.Criar(usuario);
+                Result := FController.Criar(usuario);
              End;
 
           actAlterar:
@@ -84,18 +90,17 @@ begin
                 usuario.Nome := txtNomeUsuario.Text;
                 usuario.Senha := Trim(txtConfirmacaoNovaSenha.Text);
 
-                FController.Alterar(usuario);
+                Result := FController.Alterar(usuario);
              End;
 
           actExcluir:
              Begin
-                FController.Excluir(FIdUsuarioExistente);
+                Result := FController.Excluir(FIdUsuarioExistente);
              End;
        End;
    Finally
       If Assigned(usuario) Then usuario.Free;
    End;
-   Result := True;
 end;
 
 procedure TfrmUsuario.btnCadastarClick(Sender: TObject);
@@ -103,11 +108,15 @@ begin
    If validarCampos(todosCampos) Then
       Begin
          If FUsuarioExistente Then
-            atualizarDados(actAlterar)
+            Begin
+               If atualizarDados(actAlterar) Then
+                  btnCancelarClick(Sender)
+            End
          Else
-            atualizarDados(actCriar);
-
-         btnCancelarClick(Sender);
+            Begin
+               If atualizarDados(actCriar) Then
+                  btnCancelarClick(Sender)
+            End;
       End;
 end;
 
