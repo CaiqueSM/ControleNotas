@@ -48,6 +48,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure txtcodigoKeyPress(Sender: TObject; var Key: Char);
+    procedure txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
   private
     FClienteExistente: Boolean;
     FController: TClienteController;
@@ -101,6 +102,13 @@ begin
             txtcodigo.Enabled := FClienteExistente;
             Self.TabOrderNext();
          End;
+end;
+
+procedure TfrmCliente.txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
+begin
+   If Key = BotaoEnter Then
+      If validarCampos(Sender) Then
+         Self.TabOrderNext();
 end;
 
 procedure TfrmCliente.txtcodigoKeyPress(Sender: TObject; var Key: Char);

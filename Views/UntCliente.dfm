@@ -50,6 +50,7 @@ object frmCliente: TfrmCliente
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtNomeCliente: TEdit
       Left = 310
@@ -61,6 +62,7 @@ object frmCliente: TfrmCliente
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
+      OnKeyPress = txtCNPJCPFKeyPress
     end
   end
   object gbContatoCliente: TGroupBox
@@ -120,7 +122,7 @@ object frmCliente: TfrmCliente
       Caption = 'Complemento:'
     end
     object lblCidade: TLabel
-      Left = 71
+      Left = 77
       Top = 24
       Width = 40
       Height = 15
@@ -133,7 +135,10 @@ object frmCliente: TfrmCliente
       Height = 23
       Hint = 'Logradouro'
       MaxLength = 32
-      TabOrder = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtEmail: TEdit
       Left = 5
@@ -144,51 +149,64 @@ object frmCliente: TfrmCliente
       MaxLength = 64
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 5
+      TabOrder = 6
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtBairro: TEdit
       Left = 310
       Top = 40
       Width = 280
       Height = 23
+      Hint = 'Bairro'
       MaxLength = 32
-      TabOrder = 1
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtNumero: TEdit
       Left = 310
       Top = 86
       Width = 55
       Height = 23
+      Hint = 'N'#250'mero'
       MaxLength = 9
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 4
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtComplemento: TEdit
       Left = 376
       Top = 86
       Width = 214
       Height = 23
+      Hint = 'Complemento'
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
+      TabOrder = 5
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object mskTelefone: TMaskEdit
       Left = 310
       Top = 132
       Width = 280
       Height = 23
+      Hint = 'Telefone'
       EditMask = '!\(99\)00000-0000;1;_'
       MaxLength = 14
-      TabOrder = 6
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 7
       Text = '(  )     -    '
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object mskCEP: TMaskEdit
       Left = 5
       Top = 40
-      Width = 55
+      Width = 66
       Height = 23
       Hint = 'CEP'
       EditMask = '00999-999;1;_'
@@ -197,17 +215,19 @@ object frmCliente: TfrmCliente
       ShowHint = True
       TabOrder = 0
       Text = '     -   '
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtCidade: TEdit
-      Left = 70
+      Left = 77
       Top = 40
-      Width = 215
+      Width = 208
       Height = 23
       Hint = 'Cidade'
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 7
+      TabOrder = 1
+      OnKeyPress = txtCNPJCPFKeyPress
     end
   end
   object btnCancelar: TButton
@@ -215,7 +235,10 @@ object frmCliente: TfrmCliente
     Top = 339
     Width = 75
     Height = 25
+    Hint = 'Cancelar'
     Caption = 'Cancelar'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 3
     OnClick = btnCancelarClick
   end
@@ -224,7 +247,10 @@ object frmCliente: TfrmCliente
     Top = 339
     Width = 75
     Height = 25
+    Hint = 'Gravar'
     Caption = 'Gravar'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 2
     OnClick = btnGravarClick
   end
