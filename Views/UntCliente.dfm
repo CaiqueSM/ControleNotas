@@ -210,14 +210,14 @@ object frmCliente: TfrmCliente
       TabOrder = 7
     end
   end
-  object bntCancelar: TButton
+  object btnCancelar: TButton
     Left = 447
     Top = 339
     Width = 75
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 3
-    OnClick = bntCancelarClick
+    OnClick = btnCancelarClick
   end
   object bntGravar: TButton
     Left = 528

@@ -29,7 +29,7 @@ type
     lbBairro: TLabel;
     lbNumero: TLabel;
     lbTelefone: TLabel;
-    bntCancelar: TButton;
+    btnCancelar: TButton;
     bntGravar: TButton;
     txtComplemento: TEdit;
     lbComplemento: TLabel;
@@ -44,7 +44,7 @@ type
     tbuPesquisar: TToolButton;
     tbuExcluir: TToolButton;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure bntCancelarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure bntGravarClick(Sender: TObject);
@@ -180,11 +180,51 @@ begin
 end;
 
 function TfrmCliente.atualizarDados(AOperacao: TEnumCRUD): Boolean;
+var
+  cliente: TClienteModel;
 begin
+   Result := True;
 
+   Try
+      Case AOperacao Of
+         actConsultar:
+            Begin
+               Try
+                  cliente := FController.Consultar(txtcodigo.Text);
+                  FClienteExistente := Not cliente.Nome.IsEmpty;
+               Except
+                  Result := False;
+               End;
+            End;
+
+         actCriar:
+            Begin
+               cliente := TClienteModel.Create();
+               cliente.Nome := txtNomeCliente.Text;
+
+               Result := FController.Criar(cliente);
+            End;
+
+         actAlterar:
+            Begin
+               cliente := TClienteModel.Create();
+               cliente.Id := txtcodigo.Text;
+               cliente.Nome := txtNomeCliente.Text;
+
+               Result := FController.Alterar(cliente);
+            End;
+
+         actExcluir:
+            Begin
+               Result := FController.Excluir(txtcodigo.Text);
+            End;
+       End;
+   Finally
+      If Assigned(cliente) Then cliente.Free;
+   End;
 end;
 
-procedure TfrmCliente.bntCancelarClick(Sender: TObject);
+procedure TfrmCliente.btnCancelarClick(Sender: TObject);
 begin
   limparCampos();
   habilitarCampos(False);
@@ -193,75 +233,20 @@ begin
 end;
 
 procedure TfrmCliente.bntGravarClick(Sender: TObject);
-var
-  FCliente: TClienteModel;
-  FContato: TContatoModel;
-  FEmail: TEmailModel;
-  FTelefone: TTelefoneModel;
-
 begin
-
-  
-
-  FCliente := TClienteModel.Create;
-  FContato := TContatoModel.Create;
-  FEmail := TEmailModel.Create;
-  FTelefone := TTelefoneModel.Create;
-  try
-    with FCliente do
-    begin
-      Id := strTOint(txtcodigo.Text);
-      CNPJ := txtCNPJCPF.Text;
-      CPF := txtCNPJCPF.Text;
-      Nome := txtNomeCliente.Text;
-    end;
-
-    FController.Criar(FCliente);
-
-    with FContato do
-    begin
-      IdCliente := strTOint(txtcodigo.Text);
-      IdFornecedor := 0;
-      CEP := mskCEP.Text;
-      Cidade := txtCidade.Text;
-      Rua := txtRua.Text;
-      Bairro := txtBairro.Text;
-      Numero := txtNumero.Text;
-      Complemento := txtComplemento.Text;
-    end;
-
-    FContatoController.Criar(FContato);
-    FContato := FContatoController.Consultar(strTOint(txtcodigo.Text),
-      actCliente);
-
-    with FEmail do
-    begin
-      IdContato := FContato.Id;
-      Email := txtEmail.Text;
-    end;
-
-    FEmailController.Criar(FEmail);
-
-    with FTelefone do
-    begin
-      IdContato := FContato.Id;
-      Telefone := mskTelefone.Text;
-    end;
-
-    FTelefoneController.Criar(FTelefone);
-
-    FContato.Emails.add(FEmail);
-    FContato.Telefones.add(FTelefone);
-    FCliente.Contatos.add(FContato);
-
-    showmessage('Cadastrado com sucesso!');
-  Except
-    on E: Exception do
-    Begin
-      raise E.Create('Não foi possível gravar os dados.');
-    End;
-  end;
-  LimparCampos();
+   If validarCampos(todosCampos) Then
+      Begin
+         If FClienteExistente Then
+            Begin
+               If atualizarDados(actAlterar) Then
+                  btnCancelarClick(Sender)
+            End
+         Else
+            Begin
+               If atualizarDados(actCriar) Then
+                  btnCancelarClick(Sender)
+            End;
+      End;
 end;
 
 procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
