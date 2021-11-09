@@ -112,7 +112,7 @@ begin
             Begin
                ShowMessage('O campo código deve ser preenchido!');
                If txtcodigo.CanFocus Then txtcodigo.SetFocus;
-               Exit;
+               Exit();
             End;
       End;
 
@@ -140,7 +140,7 @@ begin
       Begin
          If Not FController.ValidarCEP(mskCEP.Text) Then
             begin
-               ShowMessage('CEP incorreto!');
+               ShowMessage('CEP inválido!');
                If mskCEP.CanFocus Then mskCEP.SetFocus;
                Exit();
             end;
@@ -152,7 +152,7 @@ begin
             begin
                ShowMessage('O número é obrigatório!');
                If txtNumero.CanFocus Then txtNumero.SetFocus;
-               exit();
+               Exit();
             end;
       End;
 
@@ -160,9 +160,9 @@ begin
       Begin
          If not FController.ValidarEmail(txtEmail.Text) Then
             begin
-               ShowMessage('Email incorreto!');
+               ShowMessage('Email inválido!');
                if txtEmail.CanFocus then txtEmail.SetFocus;
-               exit();
+               Exit();
             End;
       End;
 
@@ -170,7 +170,7 @@ begin
       Begin
          If Not FController.ValidarTelefone(mskTelefone.Text) Then
             begin
-               ShowMessage('Digite um número de telefone válido!');
+               ShowMessage('Número de telefone válido!');
                if mskTelefone.CanFocus Then mskTelefone.SetFocus;
                Exit();
             end;
@@ -186,7 +186,10 @@ end;
 
 procedure TfrmCliente.bntCancelarClick(Sender: TObject);
 begin
-  LimparCampos();
+  limparCampos();
+  habilitarCampos(False);
+  FClienteExistente := False;
+  If txtcodigo.CanFocus Then txtcodigo.SetFocus;
 end;
 
 procedure TfrmCliente.bntGravarClick(Sender: TObject);
