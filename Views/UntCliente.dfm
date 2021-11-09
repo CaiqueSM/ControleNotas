@@ -27,14 +27,14 @@ object frmCliente: TfrmCliente
     TabOrder = 0
     object lbCNPJCPF: TLabel
       Left = 5
-      Top = 26
+      Top = 25
       Width = 56
       Height = 15
       Caption = 'CNPJ/CPF:'
     end
     object lbNomeCliente: TLabel
       Left = 310
-      Top = 26
+      Top = 25
       Width = 91
       Height = 15
       Caption = 'Nome do cliente:'
@@ -230,19 +230,19 @@ object frmCliente: TfrmCliente
   end
   object gbCodigoCliente: TGroupBox
     Left = 5
-    Top = 24
+    Top = 27
     Width = 598
     Height = 50
     TabOrder = 4
     object lblcodigo: TLabel
       Left = 5
-      Top = 15
-      Width = 50
+      Top = 18
+      Width = 42
       Height = 15
       Caption = 'C'#243'digo:'
     end
     object txtcodigo: TEdit
-      Left = 61
+      Left = 53
       Top = 15
       Width = 55
       Height = 23
@@ -262,8 +262,6 @@ object frmCliente: TfrmCliente
     Height = 22
     Images = frmMenu.ListaImagens
     TabOrder = 5
-    ExplicitLeft = 5
-    ExplicitWidth = 611
     object tbuPesquisar: TToolButton
       Left = 0
       Top = 0
