@@ -60,11 +60,11 @@ begin
   Result := TObjectList<TTelefoneModel>.Create();
 
   sql := 'select * from telefone ' +
-         ' where idcontato = :codigo ';
+         ' where idcontato = :idcontato ';
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('codigo').AsInteger := AIdcontato;
+    query.ParamByName('idcontato').AsInteger := AIdcontato;
     Try
       query.Open();
       While Not query.Eof Do
@@ -93,12 +93,11 @@ var
 begin
   Result := True;
 
-  sql := 'Insert Into telefone (id, idcontato, telefone)' +
-         'Values (:id, LAST_INSERT_ID(), :telefone)';
+  sql := 'Insert Into telefone (idcontato, telefone)' +
+         'Values (LAST_INSERT_ID(), :telefone)';
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('id').AsInteger := ATelefone.Id;
     query.ParamByName('telefone').AsString := ATelefone.Telefone;
     Try
       query.ExecSQL();

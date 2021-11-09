@@ -2,11 +2,17 @@ unit UntClienteDao;
 
 interface
 
-uses untbasedao, System.Generics.Collections, UntClienteModel, System.Classes;
+uses untbasedao, System.Generics.Collections, UntClienteModel, System.Classes,
+  UntContatoDao, UntConexao;
 
 type
   TClienteDao = class(TBaseDao)
+  private
+    FContatoDao: TContatoDao;
   public
+    constructor Create(AConexao: TConexao); reintroduce;
+    destructor Destroy(); override;
+
     function ListarClientes(): TObjectList<TClienteModel>;
     function Consultar(AId: String): TClienteModel;
     function Criar(ACliente: TClienteModel): Boolean;
@@ -17,10 +23,22 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoDao, UntContatoModel,
+  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoModel,
   UntEmailModel, UntTelefoneModel;
 
 { TClienteDao }
+
+constructor TClienteDao.Create(AConexao: TConexao);
+begin
+  inherited Create(AConexao);
+  FContatoDao := TContatoDao.Create(AConexao);
+end;
+
+destructor TClienteDao.Destroy;
+begin
+  FContatoDao.Free;
+  inherited;
+end;
 
 function TClienteDao.Alterar(ACliente: TClienteModel): Boolean;
 var
@@ -59,10 +77,8 @@ function TClienteDao.Consultar(AId: String): TClienteModel;
 var
   query: TZQuery;
   sql: String;
-  contatoDao: TContatoDao;
 begin
    Result := TClienteModel.Create();
-   contatoDao := TContatoDao.Create(Conexao);
 
    sql := 'select * from cliente ' +
           ' where id = :id ' ;
@@ -78,13 +94,12 @@ begin
          Result.CPF := Trim(query.FieldByName('CPF').AsString);
          Result.CNPJ:= Trim(query.FieldByName('CNPJ').AsString);
 
-         Result.Contatos := contatoDao.ConsultarPorCliente(Result.Id);
+         Result.Contatos := FContatoDao.ConsultarPorCliente(Result.Id);
       Except
          on E: Exception do
             Showmessage('Não foi possível obter o cliente.');
       End;
    Finally
-      contatoDao.Free;
       query.Free;
    End;
 end;
@@ -93,14 +108,11 @@ function TClienteDao.Criar(ACliente: TClienteModel): Boolean;
 var
   query: TZQuery;
   sql: String;
-  contatoDao: TContatoDao;
   contato: TContatoModel;
   nenhum: Integer;
 begin
    Result := True;
    nenhum := 0;
-
-   contatoDao := TContatoDao.Create(Conexao);
 
    sql := 'Insert Into cliente (id, nome, CPF, CNPJ) Values (:id, :nome, :CPF, :CNPJ)';
    query := CreateQuery(sql);
@@ -118,7 +130,7 @@ begin
                   Begin
                      contato.IdCliente := ACliente.Id;
 
-                     If Not contatoDao.Criar(contato) Then
+                     If Not FContatoDao.Criar(contato) Then
                         raise Exception.Create('Erro ao gravar os contatos');
                   End;
             End;
@@ -134,7 +146,6 @@ begin
       End;
    Finally
       query.Free;
-      contatoDao.Free;
    End;
 end;
 

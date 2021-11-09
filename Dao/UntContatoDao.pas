@@ -4,19 +4,25 @@ interface
 
 uses
   untBaseDao, System.Generics.Collections, UntContatoModel, System.Classes,
-  UntEnumContatoDao;
+  UntEnumContatoDao, UntEmailDao, UntTelefoneDao, UntConexao;
 
 type
 
   TContatoDao = class(TBaseDao)
+  private
+    FEmailDao: TEmailDao;
+    FTelefoneDao: TTelefoneDao;
   public
+    constructor Create(AConexao: TConexao); reintroduce;
+    destructor Destroy(); override;
+
     function ConsultarPorCliente(AIdCliente: Integer): TObjectList<TContatoModel>;
     function Criar(AContato: TContatoModel): Boolean;
 
 
 
 
-    function Consultar(ACodigo: integer; Enum: TEnumContatoDao): TContatoModel;
+
 
     function Alterar(AContato: TContatoModel): Boolean;
     function Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
@@ -25,10 +31,23 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs, UntEmailModel, UntTelefoneModel,
-  UntEmailDao, UntTelefoneDao;
+  ZDataset, System.SysUtils, Vcl.Dialogs, UntEmailModel, UntTelefoneModel;
 
 { TContatoDao }
+
+constructor TContatoDao.Create(AConexao: TConexao);
+begin
+  inherited Create(AConexao);
+  FEmailDao := TEmailDao.Create(AConexao);
+  FTelefoneDao := TTelefoneDao.Create(AConexao);
+end;
+
+destructor TContatoDao.Destroy;
+begin
+  FEmailDao.Free;
+  FTelefoneDao.Free;
+  inherited;
+end;
 
 function TContatoDao.Alterar(AContato: TContatoModel): Boolean;
 var
@@ -70,73 +89,19 @@ begin
   End;
 end;
 
-function TContatoDao.Consultar(ACodigo: integer; Enum: TEnumContatoDao)
-  : TContatoModel;
-var
-  query: TZQuery;
-  sql: String;
-begin
-  Result := TContatoModel.Create();
-
-  case Enum of
-    actContato:
-      begin
-        sql := 'select * from contato where id = :codigo';
-      end;
-    actCliente:
-      begin
-        sql := 'select * from contato where idcliente = :codigo';
-      end;
-    actFornecedor:
-      begin
-        sql := 'select * from contato where idfornecedor = :codigo';
-      end;
-  end;
-
-  query := CreateQuery(sql);
-  Try
-    query.ParamByName('codigo').AsInteger := ACodigo;
-    Try
-      query.Open();
-
-      with Result do
-      begin
-        Id := query.FieldByName('id').AsInteger;
-        CEP := Trim(query.FieldByName('CEP').AsString);
-		cidade:= Trim(query.FieldByName('cidade').AsString);
-		bairro:= Trim(query.FieldByName('bairro').AsString);
-        Complemento := Trim(query.FieldByName('complemento').AsString);
-        Numero := Trim(query.FieldByName('numero').AsString);
-        Rua := Trim(query.FieldByName('rua').AsString);
-      end;
-
-    Except
-      on E: Exception do
-        Showmessage('Não foi possível obter o contato.');
-    End;
-  Finally
-    query.Free;
-  End;
-end;
-
 function TContatoDao.ConsultarPorCliente(
   AIdCliente: Integer): TObjectList<TContatoModel>;
 var
   query: TZQuery;
   sql: String;
   contato: TContatoModel;
-  emailDao: TEmailDao;
-  telefoneDao: TTelefoneDao;
 begin
   Result := TObjectList<TContatoModel>.Create();
 
-  emailDao := TEmailDao.Create(Conexao);
-  telefoneDao := TTelefoneDao.Create(Conexao);
-
-  sql := 'select * from contato where idcliente = :codigo';
+  sql := 'select * from contato where idcliente = :idcliente';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('codigo').AsInteger := AIdCliente;
+    query.ParamByName('idcliente').AsInteger := AIdCliente;
     Try
       query.Open();
       While Not query.Eof Do
@@ -151,8 +116,8 @@ begin
             contato.Bairro      := Trim(query.FieldByName('bairro').AsString);
             contato.Complemento := Trim(query.FieldByName('complemento').AsString);
 
-            contato.Emails    := emailDao.Consultar(AIdCliente);
-            contato.Telefones := telefoneDao.Consultar(AIdCliente);
+            contato.Emails    := FEmailDao.Consultar(contato.Id);
+            contato.Telefones := FTelefoneDao.Consultar(contato.Id);
 
             Result.Add(contato);
             query.Next;
@@ -163,8 +128,6 @@ begin
     End;
   Finally
     query.Free;
-    emailDao.Free;
-    telefoneDao.Free;
   End;
 end;
 
@@ -172,17 +135,12 @@ function TContatoDao.Criar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
   sql: String;
-  emailDao: TEmailDao;
-  telefoneDao: TTelefoneDao;
   nenhum: Integer;
   email: TEmailModel;
   telefone: TTelefoneModel;
 begin
   Result := True;
   nenhum := 0;
-
-  emailDao := TEmailDao.Create(Conexao);
-  telefoneDao := TTelefoneDao.Create(Conexao);
 
   sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP, cidade,' +
     'complemento, numero, rua)' +
@@ -206,7 +164,7 @@ begin
          Begin
             For email In AContato.Emails Do
                Begin
-                  If Not emailDao.Criar(email) Then
+                  If Not FEmailDao.Criar(email) Then
                      raise Exception.Create('Erro ao gravar os emails');
                End;
          End;
@@ -215,7 +173,7 @@ begin
          Begin
             For telefone In AContato.Telefones Do
                Begin
-                  If Not telefoneDao.Criar(telefone) Then
+                  If Not FTelefoneDao.Criar(telefone) Then
                      raise Exception.Create('Erro ao gravar os telefones');
                End;
          End;
@@ -228,8 +186,6 @@ begin
     End;
   Finally
     query.Free;
-    emailDao.Free;
-    telefoneDao.Free;
   End;
 end;
 

@@ -59,10 +59,10 @@ var
 begin
   Result := TObjectList<TEmailModel>.Create();
 
-  sql := 'select * from email where idcontato = :codigo ';
+  sql := 'select * from email where idcontato = :idcontato ';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('codigo').AsInteger := AIdContato;
+    query.ParamByName('idcontato').AsInteger := AIdContato;
     Try
       query.Open();
       While Not query.Eof Do
@@ -91,12 +91,11 @@ var
 begin
   Result := True;
 
-  sql := 'Insert Into email (id, idcontato, email)' +
-         'Values (:id, LAST_INSERT_ID(), :email)';
+  sql := 'Insert Into email (idcontato, email)' +
+         'Values (LAST_INSERT_ID(), :email)';
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('id').AsInteger := AEmail.Id;
     query.ParamByName('email').AsString := AEmail.Email;
     Try
       query.ExecSQL();
