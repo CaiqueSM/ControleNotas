@@ -94,22 +94,18 @@ begin
   Result := True;
 
   sql := 'Insert Into telefone (id, idcontato, telefone)' +
-         'Values (:id, :idcontato, :telefone)';
+         'Values (:id, LAST_INSERT_ID(), :telefone)';
 
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := ATelefone.Id;
-    query.ParamByName('idcontato').AsInteger := ATelefone.Idcontato;
     query.ParamByName('telefone').AsString := ATelefone.Telefone;
-
     Try
       query.ExecSQL();
-      Conexao.Database.Commit;
     Except
       on E: Exception do
       Begin
         Result := False;
-        Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de telefone.');
       End;
     End;

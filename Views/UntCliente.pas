@@ -65,6 +65,9 @@ var
 
 implementation
 
+uses
+  UntEmailModel, UntTelefoneModel;
+
 {$R *.dfm}
 
 procedure TfrmCliente.FormCreate(Sender: TObject);
@@ -197,11 +200,12 @@ end;
 function TfrmCliente.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   cliente: TClienteModel;
-  primeiro,
+  contato: TContatoModel;
+  email: TEmailModel;
+  telefone: TTelefoneModel;
   nenhum: Integer;
 begin
    Result := True;
-   primeiro := 0;
    nenhum := 0;
 
    Try
@@ -221,18 +225,18 @@ begin
 
                   If (cliente.Contatos.Count > nenhum) Then
                      Begin
-                        mskCEP.Text := cliente.Contatos[primeiro].CEP;
-                        txtCidade.Text := cliente.Contatos[primeiro].Cidade;
-                        txtBairro.Text := cliente.Contatos[primeiro].Bairro;
-                        txtRua.Text := cliente.Contatos[primeiro].Rua;
-                        txtNumero.Text := cliente.Contatos[primeiro].Numero;
-                        txtComplemento.Text := cliente.Contatos[primeiro].Complemento;
+                        mskCEP.Text := cliente.Contatos.First.CEP;
+                        txtCidade.Text := cliente.Contatos.First.Cidade;
+                        txtBairro.Text := cliente.Contatos.First.Bairro;
+                        txtRua.Text := cliente.Contatos.First.Rua;
+                        txtNumero.Text := cliente.Contatos.First.Numero;
+                        txtComplemento.Text := cliente.Contatos.First.Complemento;
 
-                        If (cliente.Contatos[primeiro].Emails.Count > nenhum) Then
-                           txtEmail.Text := cliente.Contatos[primeiro].Emails[primeiro].Email;
+                        If (cliente.Contatos.First.Emails.Count > nenhum) Then
+                           txtEmail.Text := cliente.Contatos.First.Emails.First.Email;
 
-                        If (cliente.Contatos[primeiro].Telefones.Count > nenhum) Then
-                           mskTelefone.Text := cliente.Contatos[primeiro].Telefones[primeiro].Telefone;
+                        If (cliente.Contatos.First.Telefones.Count > nenhum) Then
+                           mskTelefone.Text := cliente.Contatos.First.Telefones.First.Telefone;
                      End;
                Except
                   Result := False;
@@ -242,8 +246,29 @@ begin
          actCriar:
             Begin
                cliente := TClienteModel.Create();
+               cliente.Id := StrToInt(txtcodigo.Text);
                cliente.Nome := txtNomeCliente.Text;
+               cliente.CNPJ := txtCNPJCPF.Text;
+               cliente.CPF := txtCNPJCPF.Text;
 
+               contato := TContatoModel.Create();
+               contato.CEP := mskCEP.Text;
+               contato.Cidade := txtCidade.Text;
+               contato.Bairro := txtBairro.Text;
+               contato.Rua := txtRua.Text;
+               contato.Numero := txtNumero.Text;
+               contato.Complemento := txtComplemento.Text;
+
+               email := TEmailModel.Create();
+               email.Email := txtEmail.Text;
+
+               telefone := TTelefoneModel.Create();
+               telefone.Telefone := mskTelefone.Text;
+
+               contato.Emails.Add(email);
+               contato.Telefones.Add(telefone);
+
+               cliente.Contatos.Add(contato);
                Result := FController.Criar(cliente);
             End;
 

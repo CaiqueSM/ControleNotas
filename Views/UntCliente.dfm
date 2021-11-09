@@ -288,7 +288,6 @@ object frmCliente: TfrmCliente
     Height = 22
     Images = frmMenu.ListaImagens
     TabOrder = 5
-    ExplicitWidth = 610
     object tbuPesquisar: TToolButton
       Left = 0
       Top = 0

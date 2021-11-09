@@ -92,22 +92,18 @@ begin
   Result := True;
 
   sql := 'Insert Into email (id, idcontato, email)' +
-         'Values (:id, :idcontato, :email)';
+         'Values (:id, LAST_INSERT_ID(), :email)';
 
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AEmail.Id;
-    query.ParamByName('idcontato').AsInteger := AEmail.IdContato;
     query.ParamByName('email').AsString := AEmail.Email;
-
     Try
       query.ExecSQL();
-      Conexao.Database.Commit;
     Except
       on E: Exception do
       Begin
         Result := False;
-        Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de email.');
       End;
     End;

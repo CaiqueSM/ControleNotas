@@ -19,7 +19,7 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Consultar(ANome: String): TClienteModel;
+    function Consultar(AId: String): TClienteModel;
     function Criar(ACliente: TClienteModel): Boolean;
     function Alterar(ACliente: TClienteModel): Boolean;
     function Excluir(AIdCliente: Integer): Boolean;
@@ -60,9 +60,9 @@ begin
   Result := FClienteDao.Alterar(ACliente);
 end;
 
-function TClienteController.Consultar(ANome: String): TClienteModel;
+function TClienteController.Consultar(AId: String): TClienteModel;
 begin
-  Result := FClienteDao.Consultar(ANome);
+  Result := FClienteDao.Consultar(AId);
 end;
 
 function TClienteController.Criar(ACliente: TClienteModel): Boolean;

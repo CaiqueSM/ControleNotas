@@ -9,7 +9,7 @@ uses
 type
 
   TContatoModel = class
-  public
+  private
     FId: integer;
     FidCliente: integer;
     FidFornecedor: integer;

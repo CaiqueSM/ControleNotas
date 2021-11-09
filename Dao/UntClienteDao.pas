@@ -8,7 +8,7 @@ type
   TClienteDao = class(TBaseDao)
   public
     function ListarClientes(): TObjectList<TClienteModel>;
-    function Consultar(ANome: String): TClienteModel;
+    function Consultar(AId: String): TClienteModel;
     function Criar(ACliente: TClienteModel): Boolean;
     function Alterar(ACliente: TClienteModel): Boolean;
     function Excluir(AIdCliente: Integer): Boolean;
@@ -17,7 +17,8 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoDao;
+  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoDao, UntContatoModel,
+  UntEmailModel, UntTelefoneModel;
 
 { TClienteDao }
 
@@ -54,7 +55,7 @@ begin
    End;
 end;
 
-function TClienteDao.Consultar(ANome: String): TClienteModel;
+function TClienteDao.Consultar(AId: String): TClienteModel;
 var
   query: TZQuery;
   sql: String;
@@ -64,11 +65,11 @@ begin
    contatoDao := TContatoDao.Create(Conexao);
 
    sql := 'select * from cliente ' +
-          ' where upper(trim(nome)) = upper(:nome) ' ;
+          ' where id = :id ' ;
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName('nome').AsString := ANome.Trim;
+      query.ParamByName('id').AsString := AId;
       Try
          query.Open();
 
@@ -92,8 +93,14 @@ function TClienteDao.Criar(ACliente: TClienteModel): Boolean;
 var
   query: TZQuery;
   sql: String;
+  contatoDao: TContatoDao;
+  contato: TContatoModel;
+  nenhum: Integer;
 begin
    Result := True;
+   nenhum := 0;
+
+   contatoDao := TContatoDao.Create(Conexao);
 
    sql := 'Insert Into cliente (id, nome, CPF, CNPJ) Values (:id, :nome, :CPF, :CNPJ)';
    query := CreateQuery(sql);
@@ -101,10 +108,21 @@ begin
       query.ParamByName('id').AsInteger:= ACliente.Id;
       query.ParamByName('nome').AsString := ACliente.Nome.Trim;
       query.ParamByName('CPF').AsString := ACliente.CPF.Trim;
-      query.ParamByName('CNPJ').AsString := ACliente.CPF.Trim;
-
+      query.ParamByName('CNPJ').AsString := ACliente.CNPJ.Trim;
       Try
          query.ExecSQL();
+
+         If (ACliente.Contatos.Count > nenhum) Then
+            Begin
+               For contato In ACliente.Contatos Do
+                  Begin
+                     contato.IdCliente := ACliente.Id;
+
+                     If Not contatoDao.Criar(contato) Then
+                        raise Exception.Create('Erro ao gravar os contatos');
+                  End;
+            End;
+
          Conexao.Database.Commit;
       Except
          on E: Exception do
@@ -116,6 +134,7 @@ begin
       End;
    Finally
       query.Free;
+      contatoDao.Free;
    End;
 end;
 

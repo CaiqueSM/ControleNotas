@@ -11,13 +11,13 @@ type
   TContatoDao = class(TBaseDao)
   public
     function ConsultarPorCliente(AIdCliente: Integer): TObjectList<TContatoModel>;
-
+    function Criar(AContato: TContatoModel): Boolean;
 
 
 
 
     function Consultar(ACodigo: integer; Enum: TEnumContatoDao): TContatoModel;
-    function Criar(AContato: TContatoModel): Boolean;
+
     function Alterar(AContato: TContatoModel): Boolean;
     function Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
   end;
@@ -172,41 +172,64 @@ function TContatoDao.Criar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
   sql: String;
+  emailDao: TEmailDao;
+  telefoneDao: TTelefoneDao;
+  nenhum: Integer;
+  email: TEmailModel;
+  telefone: TTelefoneModel;
 begin
   Result := True;
+  nenhum := 0;
+
+  emailDao := TEmailDao.Create(Conexao);
+  telefoneDao := TTelefoneDao.Create(Conexao);
 
   sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP, cidade,' +
     'complemento, numero, rua)' +
-    'Values (:idcliente, :idfornecedor, :bairro, :CEP, cidade,' +
+    'Values (:idcliente, :idfornecedor, :bairro, :CEP, :cidade,' +
     ':complemento, :numero, :rua)';
 
   query := CreateQuery(sql);
   Try
-    with query do
-    begin
-      ParamByName('idcliente').AsInteger := AContato.IdCliente;
-      ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
-      ParamByName('bairro').AsString := AContato.Bairro;
-      ParamByName('CEP').AsString := AContato.CEP;
-	   ParamByName('cidade').AsString := AContato.cidade;
-      ParamByName('complemento').AsString := AContato.Complemento;
-      ParamByName('numero').AsString := AContato.Numero;
-      ParamByName('rua').AsString := AContato.Rua;
-    end;
-
+      query.ParamByName('idcliente').AsInteger := AContato.IdCliente;
+      query.ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
+      query.ParamByName('bairro').AsString := AContato.Bairro;
+      query.ParamByName('CEP').AsString := AContato.CEP;
+	   query.ParamByName('cidade').AsString := AContato.cidade;
+      query.ParamByName('complemento').AsString := AContato.Complemento;
+      query.ParamByName('numero').AsString := AContato.Numero;
+      query.ParamByName('rua').AsString := AContato.Rua;
     Try
       query.ExecSQL();
-      Conexao.Database.Commit;
+
+      If (AContato.Emails.Count > nenhum) Then
+         Begin
+            For email In AContato.Emails Do
+               Begin
+                  If Not emailDao.Criar(email) Then
+                     raise Exception.Create('Erro ao gravar os emails');
+               End;
+         End;
+
+      If (AContato.Telefones.Count > nenhum) Then
+         Begin
+            For telefone In AContato.Telefones Do
+               Begin
+                  If Not telefoneDao.Criar(telefone) Then
+                     raise Exception.Create('Erro ao gravar os telefones');
+               End;
+         End;
     Except
       on E: Exception do
       Begin
         Result := False;
-        Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de contato.');
       End;
     End;
   Finally
     query.Free;
+    emailDao.Free;
+    telefoneDao.Free;
   End;
 end;
 
