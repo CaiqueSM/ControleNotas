@@ -169,7 +169,7 @@ begin
       Begin
          If (txtcodigo.Text = EmptyStr) Then
             Begin
-               ShowMessage('O campo cÛdigo deve ser preenchido!');
+               ShowMessage('O campo c√≥digo deve ser preenchido!');
                If txtcodigo.CanFocus Then txtcodigo.SetFocus;
                Exit();
             End;
@@ -189,7 +189,7 @@ begin
       Begin
          If Not FController.ValidarNome(txtNomeCliente.Text) then
             begin
-               ShowMessage('Nome invalido, n„o È permitido o uso de caracteres especiais!');
+               ShowMessage('Nome invalido, n√£o √© permitido o uso de caracteres especiais!');
                If txtNomeCliente.CanFocus Then txtNomeCliente.SetFocus;
                Exit();
            end;
@@ -199,7 +199,7 @@ begin
       Begin
          If Not FController.ValidarCEP(mskCEP.Text) Then
             begin
-               ShowMessage('CEP inv·lido!');
+               ShowMessage('CEP inv√°lido!');
                If mskCEP.CanFocus Then mskCEP.SetFocus;
                Exit();
             end;
@@ -209,7 +209,7 @@ begin
       Begin
          If Not FController.ValidarNumero(txtNumero.Text) Then
             begin
-               ShowMessage('O n˙mero È obrigatÛrio!');
+               ShowMessage('O n√∫mero √© obrigat√≥rio!');
                If txtNumero.CanFocus Then txtNumero.SetFocus;
                Exit();
             end;
@@ -219,7 +219,7 @@ begin
       Begin
          If not FController.ValidarEmail(txtEmail.Text) Then
             begin
-               ShowMessage('Email inv·lido!');
+               ShowMessage('Email inv√°lido!');
                if txtEmail.CanFocus then txtEmail.SetFocus;
                Exit();
             End;
@@ -229,7 +229,7 @@ begin
       Begin
          If Not FController.ValidarTelefone(mskTelefone.Text) Then
             begin
-               ShowMessage('N˙mero de telefone v·lido!');
+               ShowMessage('N√∫mero de telefone v√°lido!');
                if mskTelefone.CanFocus Then mskTelefone.SetFocus;
                Exit();
             end;
