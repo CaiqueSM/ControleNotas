@@ -38,7 +38,7 @@ FOREIGN KEY(id) REFERENCES fornecedor(id) ON DELETE cascade
 );
 
 create table if not EXISTS contato(
-id integer AUTO_INCREMENT,
+id integer,
 CEP VARCHAR(9) NOT NULL,
 rua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
