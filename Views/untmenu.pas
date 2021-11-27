@@ -5,7 +5,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus,
   untmenucontroller, UntEnvironment, Vcl.ExtCtrls, Vcl.ToolWin, Vcl.ComCtrls,
-  Vcl.ImgList;
+  Vcl.ImgList, System.ImageList;
 
 type
 

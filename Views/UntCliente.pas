@@ -122,6 +122,7 @@ begin
   Result.CPF := txtCNPJCPF.Text;
 
   contato := TContatoModel.Create();
+  contato.Id := Result.Id;
   contato.CEP := mskCEP.Text;
   contato.Cidade := txtCidade.Text;
   contato.Bairro := txtBairro.Text;

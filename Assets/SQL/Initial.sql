@@ -42,17 +42,21 @@ FOREIGN KEY(idFornecedor) REFERENCES fornecedor(id) ON DELETE cascade
 
 create table if not EXISTS contato(
 id integer,
-idCliente integer,
-idFornecedor integer,
 CEP VARCHAR(9) NOT NULL,
 rua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
 cidade VARCHAR(32),
 numero VARCHAR(9) NOT NULL,
 complemento VARCHAR(64),
+PRIMARY KEY(id)
+);
+
+create table if not EXISTS relacionamentocontato(
+id integer NOT NULL AUTO_INCREMENT,
+idContato integer,
+idRelacionado integer NOT NULL,
 PRIMARY KEY(id),
-FOREIGN KEY(idCliente) REFERENCES cliente(id) ON DELETE cascade,
-FOREIGN KEY(idFornecedor) REFERENCES fornecedor(id) ON DELETE cascade 
+FOREIGN KEY(idContato) REFERENCES contato(id) ON DELETE cascade
 );
 
 create table if not EXISTS email(

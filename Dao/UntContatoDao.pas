@@ -139,16 +139,12 @@ begin
   Result := True;
   nenhum := 0;
 
-  sql := 'Insert Into Contato (id, idcliente, idfornecedor, bairro, CEP, cidade,' +
-    'complemento, numero, rua)' +
-    'Values (:id, :idcliente, :idfornecedor, :bairro, :CEP, :cidade,' +
-    ':complemento, :numero, :rua)';
+  sql := 'Insert Into Contato (id, bairro, CEP, cidade, complemento, numero, rua)' +
+    'Values (:id, :bairro, :CEP, :cidade, :complemento, :numero, :rua)';
 
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AContato.Id;
-    query.ParamByName('idcliente').AsInteger := AContato.IdCliente;
-    query.ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
     query.ParamByName('bairro').AsString := AContato.Bairro;
     query.ParamByName('CEP').AsString := AContato.CEP;
     query.ParamByName('cidade').AsString := AContato.Cidade;

@@ -2,13 +2,14 @@ unit UntClienteDao;
 
 interface
 
-uses untbasedao, System.Generics.Collections, UntClienteModel, System.Classes,
-  UntContatoDao, UntConexao;
+uses untbasedao, System.Generics.Collections, UntClienteModel, UntRelacionamentoContatoModel,
+System.Classes, UntContatoDao, UntRelacionamentoContatoDao,UntConexao;
 
 type
   TClienteDao = class(TBaseDao)
   private
     FContatoDao: TContatoDao;
+    FRelacionamentoDao: TRelacionamentoContatoDao;
   public
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
@@ -32,10 +33,12 @@ constructor TClienteDao.Create(AConexao: TConexao);
 begin
   inherited Create(AConexao);
   FContatoDao := TContatoDao.Create(AConexao);
+  FRelacionamentoDao := TRelacionamentoContatoDao.Create(AConexao);
 end;
 
 destructor TClienteDao.Destroy;
 begin
+  FRelacionamentoDao.Free;
   FContatoDao.Free;
   inherited;
 end;
@@ -109,6 +112,7 @@ var
   query: TZQuery;
   sql: String;
   contato: TContatoModel;
+  relacionamento: TRelacionamentoContatoModel;
   nenhum: Integer;
 begin
    Result := True;
@@ -116,6 +120,7 @@ begin
 
    sql := 'Insert Into cliente (id, nome, CPF, CNPJ) Values (:id, :nome, :CPF, :CNPJ)';
    query := CreateQuery(sql);
+
    Try
       query.ParamByName('id').AsInteger:= ACliente.Id;
       query.ParamByName('nome').AsString := ACliente.Nome.Trim;
@@ -128,13 +133,14 @@ begin
             Begin
                For contato In ACliente.Contatos Do
                   Begin
-                     contato.IdCliente := ACliente.Id;
-                     contato.IdFornecedor:= 0;
                      If Not FContatoDao.Criar(contato) Then
                         raise Exception.Create('Erro ao gravar os contatos');
+                     Relacionamento := TRelacionamentoContatoModel.Create;
+                     Relacionamento.idContato:= contato.Id;
+                     Relacionamento.idRelacionado:= contato.IdCliente;
+                     FRelacionamentoDao.Criar(Relacionamento);
                   End;
             End;
-
          Conexao.Database.Commit;
       Except
          on E: Exception do
