@@ -5,7 +5,7 @@ object frmCliente: TfrmCliente
   BorderStyle = bsSingle
   Caption = 'Cadastrar cliente da nota fiscal'
   ClientHeight = 372
-  ClientWidth = 610
+  ClientWidth = 609
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -27,14 +27,14 @@ object frmCliente: TfrmCliente
     TabOrder = 0
     object lbCNPJCPF: TLabel
       Left = 5
-      Top = 26
+      Top = 25
       Width = 56
       Height = 15
       Caption = 'CNPJ/CPF:'
     end
     object lbNomeCliente: TLabel
       Left = 310
-      Top = 26
+      Top = 25
       Width = 91
       Height = 15
       Caption = 'Nome do cliente:'
@@ -50,6 +50,7 @@ object frmCliente: TfrmCliente
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtNomeCliente: TEdit
       Left = 310
@@ -61,6 +62,7 @@ object frmCliente: TfrmCliente
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
+      OnKeyPress = txtCNPJCPFKeyPress
     end
   end
   object gbContatoCliente: TGroupBox
@@ -120,7 +122,7 @@ object frmCliente: TfrmCliente
       Caption = 'Complemento:'
     end
     object lblCidade: TLabel
-      Left = 71
+      Left = 77
       Top = 24
       Width = 40
       Height = 15
@@ -133,7 +135,10 @@ object frmCliente: TfrmCliente
       Height = 23
       Hint = 'Logradouro'
       MaxLength = 32
-      TabOrder = 2
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtEmail: TEdit
       Left = 5
@@ -144,51 +149,64 @@ object frmCliente: TfrmCliente
       MaxLength = 64
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 5
+      TabOrder = 6
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtBairro: TEdit
       Left = 310
       Top = 40
       Width = 280
       Height = 23
+      Hint = 'Bairro'
       MaxLength = 32
-      TabOrder = 1
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 2
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtNumero: TEdit
       Left = 310
       Top = 86
       Width = 55
       Height = 23
+      Hint = 'N'#250'mero'
       MaxLength = 9
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 4
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtComplemento: TEdit
       Left = 376
       Top = 86
       Width = 214
       Height = 23
+      Hint = 'Complemento'
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
+      TabOrder = 5
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object mskTelefone: TMaskEdit
       Left = 310
       Top = 132
       Width = 280
       Height = 23
+      Hint = 'Telefone'
       EditMask = '!\(99\)00000-0000;1;_'
       MaxLength = 14
-      TabOrder = 6
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 7
       Text = '(  )     -    '
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object mskCEP: TMaskEdit
       Left = 5
       Top = 40
-      Width = 55
+      Width = 66
       Height = 23
       Hint = 'CEP'
       EditMask = '00999-999;1;_'
@@ -197,52 +215,60 @@ object frmCliente: TfrmCliente
       ShowHint = True
       TabOrder = 0
       Text = '     -   '
+      OnKeyPress = txtCNPJCPFKeyPress
     end
     object txtCidade: TEdit
-      Left = 70
+      Left = 77
       Top = 40
-      Width = 215
+      Width = 208
       Height = 23
       Hint = 'Cidade'
       MaxLength = 80
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 7
+      TabOrder = 1
+      OnKeyPress = txtCNPJCPFKeyPress
     end
   end
-  object bntCancelar: TButton
+  object btnCancelar: TButton
     Left = 447
     Top = 339
     Width = 75
     Height = 25
+    Hint = 'Cancelar'
     Caption = 'Cancelar'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 3
-    OnClick = bntCancelarClick
+    OnClick = btnCancelarClick
   end
-  object bntGravar: TButton
+  object btnGravar: TButton
     Left = 528
     Top = 339
     Width = 75
     Height = 25
+    Hint = 'Gravar'
     Caption = 'Gravar'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 2
-    OnClick = bntGravarClick
+    OnClick = btnGravarClick
   end
   object gbCodigoCliente: TGroupBox
     Left = 5
-    Top = 24
+    Top = 27
     Width = 598
     Height = 50
     TabOrder = 4
     object lblcodigo: TLabel
       Left = 5
-      Top = 15
-      Width = 50
+      Top = 18
+      Width = 42
       Height = 15
       Caption = 'C'#243'digo:'
     end
     object txtcodigo: TEdit
-      Left = 61
+      Left = 53
       Top = 15
       Width = 55
       Height = 23
@@ -258,12 +284,10 @@ object frmCliente: TfrmCliente
   object tobTop: TToolBar
     Left = 0
     Top = 0
-    Width = 610
+    Width = 609
     Height = 22
     Images = frmMenu.ListaImagens
     TabOrder = 5
-    ExplicitLeft = 5
-    ExplicitWidth = 611
     object tbuPesquisar: TToolButton
       Left = 0
       Top = 0
@@ -279,6 +303,7 @@ object frmCliente: TfrmCliente
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = True
+      OnClick = tbuExcluirClick
     end
   end
 end

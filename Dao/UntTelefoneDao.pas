@@ -9,11 +9,10 @@ type
 
   TTelefoneDao = class(TBaseDao)
   public
-    function ListarTelefone(): TObjectList<TTelefoneModel>;
-    function Consultar(ACodigo: integer): TTelefoneModel;
-    procedure Criar(ATelefone: TTelefoneModel);
-    procedure Alterar(ATelefone: TTelefoneModel);
-    procedure Excluir(ACodigo: integer);
+    function Consultar(AIdcontato: integer): TObjectList<TTelefoneModel>;
+    function Criar(ATelefone: TTelefoneModel): Boolean;
+    function Alterar(ATelefone: TTelefoneModel): Boolean;
+    function Excluir(ACodigo: integer): Boolean;
   end;
 
 implementation
@@ -23,11 +22,12 @@ uses
 
 { TTelefoneDao }
 
-procedure TTelefoneDao.Alterar(ATelefone: TTelefoneModel);
+function TTelefoneDao.Alterar(ATelefone: TTelefoneModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
   sql := 'Update telefone Set telefone = :telefone' + ' where idcontato = :id';
 
   query := CreateQuery(sql);
@@ -41,6 +41,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de telefone.');
       End;
@@ -50,26 +51,32 @@ begin
   End;
 end;
 
-function TTelefoneDao.Consultar(ACodigo: integer): TTelefoneModel;
+function TTelefoneDao.Consultar(AIdcontato: integer): TObjectList<TTelefoneModel>;
 var
   query: TZQuery;
   sql: String;
+  telefone: TTelefoneModel;
 begin
-  Result := TTelefoneModel.Create();
+  Result := TObjectList<TTelefoneModel>.Create();
 
   sql := 'select * from telefone ' +
-         ' where idcontato = :codigo ';
+         ' where idcontato = :idcontato ';
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('codigo').AsInteger := ACodigo;
+    query.ParamByName('idcontato').AsInteger := AIdcontato;
     Try
       query.Open();
+      While Not query.Eof Do
+         Begin
+            telefone := TTelefoneModel.Create();
+            telefone.Id := query.FieldByName('id').AsInteger;
+            telefone.IdContato := query.FieldByName('idcontato').AsInteger;
+            telefone.Telefone := Trim(query.FieldByName('telefone').AsString);
 
-      Result.Id := query.FieldByName('id').AsInteger;
-      Result.IdContato := query.FieldByName('idcontato').AsInteger;
-      Result.Telefone := Trim(query.FieldByName('telefone').AsString);
-
+            Result.Add(telefone);
+            query.next;
+         End;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o telefone.');
@@ -79,27 +86,25 @@ begin
   End;
 end;
 
-procedure TTelefoneDao.Criar(ATelefone: TTelefoneModel);
+function TTelefoneDao.Criar(ATelefone: TTelefoneModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
-  sql := 'Insert Into telefone (id, idcontato, telefone)' +
-         'Values (:id, :idcontato, :telefone)';
+  Result := True;
+
+  sql := 'Insert Into telefone (idcontato, telefone)' +
+         'Values (LAST_INSERT_ID(), :telefone)';
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('id').AsInteger := ATelefone.Id;
-    query.ParamByName('idcontato').AsInteger := ATelefone.Idcontato;
     query.ParamByName('telefone').AsString := ATelefone.Telefone;
-
     Try
       query.ExecSQL();
-      Conexao.Database.Commit;
     Except
       on E: Exception do
       Begin
-        Conexao.Database.Rollback;
+        Result := False;
         Showmessage('Não foi possível gravar os dados de telefone.');
       End;
     End;
@@ -108,11 +113,13 @@ begin
   End;
 end;
 
-procedure TTelefoneDao.Excluir(ACodigo: integer);
+function TTelefoneDao.Excluir(ACodigo: integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'delete from telefone ' +
           ' where idcontato = :id' ;
 
@@ -125,41 +132,10 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível excluir o telefone');
             End;
-      End;
-   Finally
-      query.Free;
-   End;
-end;
-function TTelefoneDao.ListarTelefone: TObjectList<TTelefoneModel>;
-var
-  query: TZQuery;
-  Telefone: TTelefoneModel;
-  sql: String;
-begin
-   Result := TObjectList<TTelefoneModel>.Create();
-
-   sql := 'select * from telefone ' +
-          ' order by id asc ' ;
-
-   query := CreateQuery(sql);
-   Try
-      Try
-         query.Open();
-         while Not query.Eof do
-            Begin
-               Telefone := TTelefoneModel.Create();
-               Telefone.Id := query.FieldByName('id').AsInteger;
-               Telefone.Idcontato := query.FieldByName('idcontato').AsInteger;
-               Telefone.Telefone := Trim(query.FieldByName('telefone').AsString);
-               Result.Add(Telefone);
-               query.Next;
-            End;
-      Except
-         on E: Exception do
-            Showmessage('Não foi possível carregar a lista de telefone');
       End;
    Finally
       query.Free;

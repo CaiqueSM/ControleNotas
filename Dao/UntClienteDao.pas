@@ -2,30 +2,51 @@ unit UntClienteDao;
 
 interface
 
-uses untbasedao, System.Generics.Collections, UntClienteModel, System.Classes;
+uses untbasedao, System.Generics.Collections, UntClienteModel, System.Classes,
+  UntContatoDao, UntConexao;
 
 type
   TClienteDao = class(TBaseDao)
+  private
+    FContatoDao: TContatoDao;
   public
+    constructor Create(AConexao: TConexao); reintroduce;
+    destructor Destroy(); override;
+
     function ListarClientes(): TObjectList<TClienteModel>;
-    function Consultar(ANome: String): TClienteModel;
-    procedure Criar(ACliente: TClienteModel);
-    procedure Alterar(ACliente: TClienteModel);
-    procedure Excluir(AIdCliente: Integer);
+    function Consultar(AId: String): TClienteModel;
+    function Criar(ACliente: TClienteModel): Boolean;
+    function Alterar(ACliente: TClienteModel): Boolean;
+    function Excluir(AIdCliente: Integer): Boolean;
   end;
 
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs;
+  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoModel,
+  UntEmailModel, UntTelefoneModel;
 
 { TClienteDao }
 
-procedure TClienteDao.Alterar(ACliente: TClienteModel);
+constructor TClienteDao.Create(AConexao: TConexao);
+begin
+  inherited Create(AConexao);
+  FContatoDao := TContatoDao.Create(AConexao);
+end;
+
+destructor TClienteDao.Destroy;
+begin
+  FContatoDao.Free;
+  inherited;
+end;
+
+function TClienteDao.Alterar(ACliente: TClienteModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'Update Cliente Set nome = :nome, CPF = :CPF, CNPJ = :CNPJ ' +
           ' Where id = :id';
 
@@ -42,6 +63,7 @@ begin
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível gravar os dados de cliente.');
             End;
@@ -51,7 +73,7 @@ begin
    End;
 end;
 
-function TClienteDao.Consultar(ANome: String): TClienteModel;
+function TClienteDao.Consultar(AId: String): TClienteModel;
 var
   query: TZQuery;
   sql: String;
@@ -59,11 +81,11 @@ begin
    Result := TClienteModel.Create();
 
    sql := 'select * from cliente ' +
-          ' where upper(trim(nome)) = upper(:nome) ' ;
+          ' where id = :id ' ;
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName('nome').AsString := ANome.Trim;
+      query.ParamByName('id').AsString := AId;
       Try
          query.Open();
 
@@ -72,6 +94,7 @@ begin
          Result.CPF := Trim(query.FieldByName('CPF').AsString);
          Result.CNPJ:= Trim(query.FieldByName('CNPJ').AsString);
 
+         Result.Contatos := FContatoDao.ConsultarPorCliente(Result.Id);
       Except
          on E: Exception do
             Showmessage('Não foi possível obter o cliente.');
@@ -81,25 +104,42 @@ begin
    End;
 end;
 
-procedure TClienteDao.Criar(ACliente: TClienteModel);
+function TClienteDao.Criar(ACliente: TClienteModel): Boolean;
 var
   query: TZQuery;
   sql: String;
+  contato: TContatoModel;
+  nenhum: Integer;
 begin
+   Result := True;
+   nenhum := 0;
+
    sql := 'Insert Into cliente (id, nome, CPF, CNPJ) Values (:id, :nome, :CPF, :CNPJ)';
    query := CreateQuery(sql);
    Try
       query.ParamByName('id').AsInteger:= ACliente.Id;
       query.ParamByName('nome').AsString := ACliente.Nome.Trim;
       query.ParamByName('CPF').AsString := ACliente.CPF.Trim;
-      query.ParamByName('CNPJ').AsString := ACliente.CPF.Trim;
-
+      query.ParamByName('CNPJ').AsString := ACliente.CNPJ.Trim;
       Try
          query.ExecSQL();
+
+         If (ACliente.Contatos.Count > nenhum) Then
+            Begin
+               For contato In ACliente.Contatos Do
+                  Begin
+                     contato.IdCliente := ACliente.Id;
+
+                     If Not FContatoDao.Criar(contato) Then
+                        raise Exception.Create('Erro ao gravar os contatos');
+                  End;
+            End;
+
          Conexao.Database.Commit;
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível gravar os dados de cliente.');
             End;
@@ -109,11 +149,13 @@ begin
    End;
 end;
 
-procedure TClienteDao.Excluir(AIdCliente: Integer);
+function TClienteDao.Excluir(AIdCliente: Integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'delete from cliente ' +
           ' where id = :id' ;
 
@@ -122,10 +164,15 @@ begin
       query.ParamByName('id').AsInteger := AIdCliente;
       Try
          query.ExecSQL();
+
+         If Not FContatoDao.ExcluirPorCliente(AIdCliente) Then
+            raise Exception.Create('Erro ao excluir os contatos');
+
          Conexao.Database.Commit;
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível excluir o cliente');
             End;

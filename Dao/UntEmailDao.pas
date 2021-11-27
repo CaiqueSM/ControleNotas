@@ -9,11 +9,10 @@ type
 
   TEmailDao = class(TBaseDao)
   public
-    function ListarEmails(): TObjectList<TEmailModel>;
-    function Consultar(ACodigo: integer): TEmailModel;
-    procedure Criar(AEmail: TEmailModel);
-    procedure Alterar(AEmail: TEmailModel);
-    procedure Excluir(ACodigo: integer);
+    function Consultar(AIdContato: integer): TObjectList<TEmailModel>;
+    function Criar(AEmail: TEmailModel): Boolean;
+    function Alterar(AEmail: TEmailModel): Boolean;
+    function Excluir(AIdContato: integer): Boolean;
   end;
 
 implementation
@@ -23,11 +22,13 @@ uses
 
 { TEmailDao }
 
-procedure TEmailDao.Alterar(AEmail: TEmailModel);
+function TEmailDao.Alterar(AEmail: TEmailModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
+
   sql := 'Update email Set email = :email where idcontato = :id';
   query := CreateQuery(sql);
 
@@ -40,6 +41,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de email.');
       End;
@@ -49,55 +51,58 @@ begin
   End;
 end;
 
-function TEmailDao.Consultar(ACodigo: integer): TEmailModel;
+function TEmailDao.Consultar(AIdContato: integer): TObjectList<TEmailModel>;
 var
   query: TZQuery;
   sql: String;
+  email: TEmailModel;
 begin
-  Result := TEmailModel.Create();
+  Result := TObjectList<TEmailModel>.Create();
 
-  sql := 'select * from email ' + ' where idcontato = :codigo ';
-
+  sql := 'select * from email where idcontato = :idcontato ';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('codigo').AsInteger := ACodigo;
+    query.ParamByName('idcontato').AsInteger := AIdContato;
     Try
       query.Open();
+      While Not query.Eof Do
+         Begin
+            email := TEmailModel.Create();
+            email.Id := query.FieldByName('id').AsInteger;
+            email.IdContato := query.FieldByName('idcontato').AsInteger;
+            email.Email := Trim(query.FieldByName('email').AsString);
 
-      Result.Id := query.FieldByName('id').AsInteger;
-      Result.IdContato := query.FieldByName('idcontato').AsInteger;
-      Result.Email := Trim(query.FieldByName('email').AsString);
-
+            Result.Add(email);
+            query.Next;
+         End;
     Except
       on E: Exception do
-        Showmessage('Não foi possível obter o email.');
+        Showmessage('Não foi possível obter os emails.');
     End;
   Finally
     query.Free;
   End;
 end;
 
-procedure TEmailDao.Criar(AEmail: TEmailModel);
+function TEmailDao.Criar(AEmail: TEmailModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
-  sql := 'Insert Into email (id, idcontato, email)' +
-         'Values (:id, :idcontato, :email)';
+  Result := True;
+
+  sql := 'Insert Into email (idcontato, email)' +
+         'Values (LAST_INSERT_ID(), :email)';
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('id').AsInteger := AEmail.Id;
-    query.ParamByName('idcontato').AsInteger := AEmail.IdContato;
     query.ParamByName('email').AsString := AEmail.Email;
-
     Try
       query.ExecSQL();
-      Conexao.Database.Commit;
     Except
       on E: Exception do
       Begin
-        Conexao.Database.Rollback;
+        Result := False;
         Showmessage('Não foi possível gravar os dados de email.');
       End;
     End;
@@ -106,59 +111,29 @@ begin
   End;
 end;
 
-procedure TEmailDao.Excluir(ACodigo: integer);
+function TEmailDao.Excluir(AIdContato: integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+   Result := True;
+
    sql := 'delete from email ' +
           ' where idcontato = :id' ;
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName('id').AsInteger := ACodigo;
+      query.ParamByName('id').AsInteger := AIdContato;
       Try
          query.ExecSQL();
          Conexao.Database.Commit;
       Except
          on E: Exception do
             Begin
+               Result := False;
                Conexao.Database.Rollback;
                Showmessage('Não foi possível excluir o email');
             End;
-      End;
-   Finally
-      query.Free;
-   End;
-end;
-
-function TEmailDao.ListarEmails: TObjectList<TEmailModel>;
-var
-  query: TZQuery;
-  Email: TEmailModel;
-  sql: String;
-begin
-   Result := TObjectList<TEmailModel>.Create();
-
-   sql := 'select * from email ' +
-          ' order by id asc ' ;
-
-   query := CreateQuery(sql);
-   Try
-      Try
-         query.Open();
-         while Not query.Eof do
-            Begin
-               Email := TEmailModel.Create();
-               Email.Id := query.FieldByName('id').AsInteger;
-               Email.Idcontato := query.FieldByName('idcontato').AsInteger;
-               Email.Email := Trim(query.FieldByName('email').AsString);
-               Result.Add(Email);
-               query.Next;
-            End;
-      Except
-         on E: Exception do
-            Showmessage('Não foi possível carregar a lista de emails');
       End;
    Finally
       query.Free;

@@ -5,62 +5,74 @@ interface
 uses
 
   Classes, SysUtils, UntValidarPessoa, UntClienteDao, UntClienteModel,
-  UntBaseController;
+  UntBaseController, UntValidarContato, UntTelefoneDao, UntEmailDao,
+  UntContatoDao;
 
 type
 
   TClienteController = class(TBaseController)
   private
-    FDao: TClienteDao;
+    FClienteDao: TClienteDao;
     FValidarCliente: TValidarPessoa;
+    FValidarContato: TValidarContato;
   public
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Consultar(ANome: String): TClienteModel;
-    procedure Criar(ACliente: TClienteModel);
-    procedure Alterar(ACliente: TClienteModel);
-    procedure Excluir(AIdCliente: Integer);
+    function Consultar(AId: String): TClienteModel;
+    function Criar(ACliente: TClienteModel): Boolean;
+    function Alterar(ACliente: TClienteModel): Boolean;
+    function Excluir(AIdCliente: Integer): Boolean;
+
     function ValidarNome(ANome: string): boolean;
     function ValidarCadastroPessoal(ANumero: string): boolean;
+    function ValidarCEP(ACEP: string): boolean;
+    function ValidarEmail(AEmail: string): boolean;
+    function ValidarNumero(ANumero: string): boolean;
+    function ValidarTelefone(ATelefone: string): boolean;
   end;
 
 implementation
 
+uses
+  UntContatoModel, UntEmailModel, UntTelefoneModel, UntEnumContatoDao;
+
 { TClienteController }
-
-procedure TClienteController.Alterar(ACliente: TClienteModel);
-begin
-  FDao.Alterar(ACliente);
-end;
-
-function TClienteController.Consultar(ANome: String): TClienteModel;
-begin
-  Result := FDao.Consultar(ANome);
-end;
 
 constructor TClienteController.Create;
 begin
   inherited;
-  FDao := TClienteDao.Create(Conexao);
-  FValidarCliente:= TValidarPessoa.Create;
-end;
-
-procedure TClienteController.Criar(ACliente: TClienteModel);
-begin
-  FDao.Criar(ACliente);
-end;
+  FClienteDao := TClienteDao.Create(Conexao);
+  FValidarCliente := TValidarPessoa.Create;
+  FValidarContato := TValidarContato.Create;
+End;
 
 destructor TClienteController.Destroy;
 begin
-  FDao.Free;
+  FClienteDao.Free;
   FValidarCliente.Free;
+  FValidarContato.Free;
   inherited;
 end;
 
-procedure TClienteController.Excluir(AIdCliente: Integer);
+function TClienteController.Alterar(ACliente: TClienteModel): Boolean;
 begin
-  FDao.Excluir(AIdCliente);
+  Result := FClienteDao.Alterar(ACliente);
+end;
+
+function TClienteController.Consultar(AId: String): TClienteModel;
+begin
+  Result := FClienteDao.Consultar(AId);
+end;
+
+function TClienteController.Criar(ACliente: TClienteModel): Boolean;
+begin
+  Result := FClienteDao.Criar(ACliente);
+end;
+
+function TClienteController.Excluir(AIdCliente: Integer): Boolean;
+begin
+  Result := FClienteDao.Excluir(AIdCliente);
 end;
 
 function TClienteController.ValidarCadastroPessoal(ANumero: string): boolean;
@@ -68,9 +80,29 @@ begin
   Result := FValidarCliente.ValidarNumeroCadastroPessoal(ANumero);
 end;
 
+function TClienteController.ValidarCEP(ACEP: string): boolean;
+begin
+  Result := FValidarContato.ValidarCEP(ACEP);
+end;
+
 function TClienteController.ValidarNome(ANome: string): boolean;
 begin
   Result:= FValidarCliente.ValidarNome(ANome);
+end;
+
+function TClienteController.ValidarEmail(AEmail: string): boolean;
+begin
+  Result := FValidarContato.ValidarEmail(AEmail);
+end;
+
+function TClienteController.ValidarNumero(ANumero: string): boolean;
+begin
+  Result := FValidarContato.ValidarNumero(ANumero);
+end;
+
+function TClienteController.ValidarTelefone(ATelefone: string): boolean;
+begin
+  Result := FValidarContato.ValidarTelefone(ATelefone);
 end;
 
 end.

@@ -24,44 +24,52 @@ implementation
 
 
 function TValidarPessoa.ValidarCPF(ACPF: string): boolean;
-var
-  tamanhoCPF, numeroSoma, resto, indiceCPF: integer;
-  digitoVerificador: array [0 .. 1] of integer;
-  regraDigitoVerificador: integer;
-begin
-  tamanhoCPF := 11;
-  numeroSoma:= 0;
-  regraDigitoVerificador:= 9;
-  Trim(ACPF);
+Var
+   IntI, IntJ :Integer;
+   IntD1,IntD2: Integer;
+   StrDigitado, StrCalculado: string;
+Begin
+   Result := True;
 
-  for indiceCPF := 1 to tamanhoCPF - 2 do
-  begin
-    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * (tamanhoCPF - indiceCPF);
-  end;
+   If Length(ACPF) <> 11 Then
+      Begin
+         Result := False;
+         Exit;
+      End;
 
-  resto := tamanhoCPF - (numeroSoma mod tamanhoCPF);
+   IntD1 := 0;
+   IntJ := 2;
+   For IntI := Length(ACPF) - 2 DownTo 1 Do
+      Begin
+         If Pos(Copy(ACPF, IntI, 1), '-.') = 0 Then
+            Begin
+               IntD1 := IntD1 + (StrToInt(Copy(ACPF, IntI, 1)) * IntJ);
+               IntJ := IntJ + 1;
+            End;
+      End;
 
-  if (tamanhoCPF - resto) > regraDigitoVerificador then
-    digitoVerificador[0] := 0
-  else
-    digitoVerificador[0] := resto;
+   IntD1 := 11-(IntD1 Mod 11);
+   If IntD1 >= 10 then IntD1:=0;
 
-  numeroSoma := 0;
+   IntD2 := IntD1 * 2;
+   IntJ := 3;
+   For IntI := Length(ACPF) - 2 DownTo 1 Do
+      Begin
+         If Pos(Copy(ACPF, IntI, 1), '-.') = 0 Then
+            Begin
+               IntD2 := IntD2 + (StrToInt(Copy(ACPF, IntI, 1)) * IntJ);
+               IntJ := IntJ + 1;
+            End;
+      End;
 
-  for indiceCPF := 1 to tamanhoCPF - 1 do
-  begin
-    numeroSoma := numeroSoma + strTOint(ACPF[indiceCPF]) * ((tamanhoCPF+1) -indiceCPF);
-  end;
+   IntD2 := 11 -(IntD2 Mod 11);
+   If IntD2 >= 10 Then IntD2:=0;
 
-  resto := tamanhoCPF - (numeroSoma mod tamanhoCPF);
+   StrCalculado := IntToStr(IntD1) + IntToStr(IntD2);
+   StrDigitado  := Copy(ACPF, Length(ACPF) - 1, 2);
 
-  if (tamanhoCPF - resto) > regraDigitoVerificador then
-    digitoVerificador[1] := 0
-  else
-    digitoVerificador[1] := resto;
-
-  Result := (digitoVerificador[0] = strTOint(ACPF[10])) and
-    (digitoVerificador[1] = strTOint(ACPF[11]));
+   If StrCalculado <> StrDigitado then
+      Result := False;
 end;
 
 function TValidarPessoa.ValidarCNPJ(ACNPJ: string): boolean;

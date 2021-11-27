@@ -4,31 +4,60 @@ interface
 
 uses
   untBaseDao, System.Generics.Collections, UntContatoModel, System.Classes,
-  UntEnumContatoDao;
+  UntEnumContatoDao, UntEmailDao, UntTelefoneDao, UntConexao;
 
 type
 
   TContatoDao = class(TBaseDao)
+  private
+    FEmailDao: TEmailDao;
+    FTelefoneDao: TTelefoneDao;
   public
-    function ListarContatos(): TObjectList<TContatoModel>;
-    function Consultar(ACodigo: integer; Enum: TEnumContatoDao): TContatoModel;
-    procedure Criar(AContato: TContatoModel);
-    procedure Alterar(AContato: TContatoModel);
-    procedure Excluir(ACodigo: integer; Enum: TEnumContatoDao);
+    constructor Create(AConexao: TConexao); reintroduce;
+    destructor Destroy(); override;
+
+    function Criar(AContato: TContatoModel): Boolean;
+    function ConsultarPorCliente(AIdCliente: Integer): TObjectList<TContatoModel>;
+    function ExcluirPorCliente(AIdCliente: Integer): Boolean;
+
+
+
+
+
+
+
+    function Alterar(AContato: TContatoModel): Boolean;
+    function Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
   end;
 
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs;
+  ZDataset, System.SysUtils, Vcl.Dialogs, UntEmailModel, UntTelefoneModel;
 
 { TContatoDao }
 
-procedure TContatoDao.Alterar(AContato: TContatoModel);
+constructor TContatoDao.Create(AConexao: TConexao);
+begin
+  inherited Create(AConexao);
+  FEmailDao := TEmailDao.Create(AConexao);
+  FTelefoneDao := TTelefoneDao.Create(AConexao);
+end;
+
+destructor TContatoDao.Destroy;
+begin
+  FEmailDao.Free;
+  FTelefoneDao.Free;
+  inherited;
+end;
+
+function TContatoDao.Alterar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
+
   sql := 'Update contato Set bairro = :bairro, CEP = :CEP, cidade = :cidade,' +
     'complemento = :complemento, numero = :numero, rua = :rua' +
     ' Where id = :id';
@@ -40,7 +69,7 @@ begin
       ParamByName('id').AsInteger := AContato.Id;
       ParamByName('bairro').AsString := AContato.Bairro;
       ParamByName('CEP').AsString := AContato.CEP;
-	  ParamByName('cidade').AsString := AContato.Cidade;
+	   ParamByName('cidade').AsString := AContato.Cidade;
       ParamByName('complemento').AsString := AContato.Complemento;
       ParamByName('numero').AsString := AContato.Numero;
       ParamByName('rua').AsString := AContato.Rua;
@@ -52,6 +81,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível atualizar os dados de contato.');
       End;
@@ -61,46 +91,39 @@ begin
   End;
 end;
 
-function TContatoDao.Consultar(ACodigo: integer; Enum: TEnumContatoDao)
-  : TContatoModel;
+function TContatoDao.ConsultarPorCliente(
+  AIdCliente: Integer): TObjectList<TContatoModel>;
 var
   query: TZQuery;
   sql: String;
+  contato: TContatoModel;
 begin
-  Result := TContatoModel.Create();
+  Result := TObjectList<TContatoModel>.Create();
 
-  case Enum of
-    actContato:
-      begin
-        sql := 'select * from contato where id = :codigo';
-      end;
-    actCliente:
-      begin
-        sql := 'select * from contato where idcliente = :codigo';
-      end;
-    actFornecedor:
-      begin
-        sql := 'select * from contato where idfornecedor = :codigo';
-      end;
-  end;
-
+  sql := 'select * from contato where idcliente = :idcliente';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('codigo').AsInteger := ACodigo;
+    query.ParamByName('idcliente').AsInteger := AIdCliente;
     Try
       query.Open();
+      While Not query.Eof Do
+         Begin
+            contato := TContatoModel.Create();
+            contato.Id          := query.FieldByName('id').AsInteger;
+            contato.IdCliente   := query.FieldByName('IdCliente').AsInteger;
+            contato.CEP         := Trim(query.FieldByName('CEP').AsString);
+            contato.Rua         := Trim(query.FieldByName('rua').AsString);
+  	         contato.Cidade      := Trim(query.FieldByName('cidade').AsString);
+            contato.Numero      := Trim(query.FieldByName('numero').AsString);
+            contato.Bairro      := Trim(query.FieldByName('bairro').AsString);
+            contato.Complemento := Trim(query.FieldByName('complemento').AsString);
 
-      with Result do
-      begin
-        Id := query.FieldByName('id').AsInteger;
-        CEP := Trim(query.FieldByName('CEP').AsString);
-		cidade:= Trim(query.FieldByName('cidade').AsString);
-		bairro:= Trim(query.FieldByName('bairro').AsString);
-        Complemento := Trim(query.FieldByName('complemento').AsString);
-        Numero := Trim(query.FieldByName('numero').AsString);
-        Rua := Trim(query.FieldByName('rua').AsString);
-      end;
+            contato.Emails    := FEmailDao.Consultar(contato.Id);
+            contato.Telefones := FTelefoneDao.Consultar(contato.Id);
 
+            Result.Add(contato);
+            query.Next;
+         End;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o contato.');
@@ -110,37 +133,56 @@ begin
   End;
 end;
 
-procedure TContatoDao.Criar(AContato: TContatoModel);
+function TContatoDao.Criar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
   sql: String;
+  nenhum: Integer;
+  email: TEmailModel;
+  telefone: TTelefoneModel;
 begin
+  Result := True;
+  nenhum := 0;
+
   sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP, cidade,' +
     'complemento, numero, rua)' +
-    'Values (:idcliente, :idfornecedor, :bairro, :CEP, cidade,' +
+    'Values (:idcliente, :idfornecedor, :bairro, :CEP, :cidade,' +
     ':complemento, :numero, :rua)';
 
   query := CreateQuery(sql);
   Try
-    with query do
-    begin
-      ParamByName('idcliente').AsInteger := AContato.IdCliente;
-      ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
-      ParamByName('bairro').AsString := AContato.Bairro;
-      ParamByName('CEP').AsString := AContato.CEP;
-	  ParamByName('cidade').AsString := AContato.cidade;
-      ParamByName('complemento').AsString := AContato.Complemento;
-      ParamByName('numero').AsString := AContato.Numero;
-      ParamByName('rua').AsString := AContato.Rua;
-    end;
-
+      query.ParamByName('idcliente').AsInteger := AContato.IdCliente;
+      query.ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
+      query.ParamByName('bairro').AsString := AContato.Bairro;
+      query.ParamByName('CEP').AsString := AContato.CEP;
+	   query.ParamByName('cidade').AsString := AContato.cidade;
+      query.ParamByName('complemento').AsString := AContato.Complemento;
+      query.ParamByName('numero').AsString := AContato.Numero;
+      query.ParamByName('rua').AsString := AContato.Rua;
     Try
       query.ExecSQL();
-      Conexao.Database.Commit;
+
+      If (AContato.Emails.Count > nenhum) Then
+         Begin
+            For email In AContato.Emails Do
+               Begin
+                  If Not FEmailDao.Criar(email) Then
+                     raise Exception.Create('Erro ao gravar os emails');
+               End;
+         End;
+
+      If (AContato.Telefones.Count > nenhum) Then
+         Begin
+            For telefone In AContato.Telefones Do
+               Begin
+                  If Not FTelefoneDao.Criar(telefone) Then
+                     raise Exception.Create('Erro ao gravar os telefones');
+               End;
+         End;
     Except
       on E: Exception do
       Begin
-        Conexao.Database.Rollback;
+        Result := False;
         Showmessage('Não foi possível gravar os dados de contato.');
       End;
     End;
@@ -149,11 +191,12 @@ begin
   End;
 end;
 
-procedure TContatoDao.Excluir(ACodigo: integer; Enum: TEnumContatoDao);
+function TContatoDao.Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
+  Result := True;
 
   case Enum of
     actContato:
@@ -179,6 +222,7 @@ begin
     Except
       on E: Exception do
       Begin
+        Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível excluir o contato');
       End;
@@ -188,41 +232,25 @@ begin
   End;
 end;
 
-function TContatoDao.ListarContatos: TObjectList<TContatoModel>;
+function TContatoDao.ExcluirPorCliente(AIdCliente: Integer): Boolean;
 var
   query: TZQuery;
-  contato: TContatoModel;
   sql: String;
 begin
-  Result := TObjectList<TContatoModel>.Create();
+  Result := True;
 
-  sql := 'select * from contato order by id asc ';
-
+  sql := 'delete from contato where idcliente = :idcliente';
   query := CreateQuery(sql);
   Try
+    query.ParamByName('idcliente').AsInteger := AIdCliente;
     Try
-      query.Open();
-      while Not query.Eof do
-      Begin
-        contato := TContatoModel.Create();
-        with contato do
-        begin
-          Id := query.FieldByName('id').AsInteger;
-          IdCliente := query.FieldByName('idcliente').AsInteger;
-          IdFornecedor := query.FieldByName('idfornecedor').AsInteger;
-          CEP := Trim(query.FieldByName('CEP').AsString);
-          Complemento := Trim(query.FieldByName('complemento').AsString);
-          Numero := Trim(query.FieldByName('numero').AsString);
-          Rua := Trim(query.FieldByName('rua').AsString);
-		  Bairro := Trim(query.FieldByName('Bairro').AsString);
-		  Cidade := Trim(query.FieldByName('cidade').AsString);
-        end;
-        Result.Add(contato);
-        query.Next;
-      end;
+      query.ExecSQL();
     Except
       on E: Exception do
-        Showmessage('Não foi possível carregar a lista de contatos');
+      Begin
+        Result := False;
+        Showmessage('Não foi possível excluir o contato');
+      End;
     End;
   Finally
     query.Free;
