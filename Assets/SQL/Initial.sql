@@ -27,18 +27,23 @@ PRIMARY KEY(id)
 
 create table if not EXISTS notas(
 id INTEGER NOT NULL,
+idUsuario integer,
+idCliente integer,
+idFornecedor integer,
 chaveacesso VARCHAR(44) NOT NULL,
 codigo INTEGER NOT NULL,
 descricao VARCHAR(140) NOT NULL,
 valor DECIMAL,
 PRIMARY KEY(id),
-FOREIGN KEY(id) REFERENCES usuario(id) ON DELETE cascade,
-FOREIGN KEY(id) REFERENCES cliente(id) ON DELETE cascade,
-FOREIGN KEY(id) REFERENCES fornecedor(id) ON DELETE cascade
+FOREIGN KEY(idUsuario) REFERENCES usuario(id) ON DELETE cascade,
+FOREIGN KEY(idCliente) REFERENCES cliente(id) ON DELETE cascade,
+FOREIGN KEY(idFornecedor) REFERENCES fornecedor(id) ON DELETE cascade
 );
 
 create table if not EXISTS contato(
 id integer,
+idCliente integer,
+idFornecedor integer,
 CEP VARCHAR(9) NOT NULL,
 rua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
@@ -46,22 +51,24 @@ cidade VARCHAR(32),
 numero VARCHAR(9) NOT NULL,
 complemento VARCHAR(64),
 PRIMARY KEY(id),
-FOREIGN KEY(id) REFERENCES cliente(id) ON DELETE cascade,
-FOREIGN KEY(id) REFERENCES fornecedor(id) ON DELETE cascade 
+FOREIGN KEY(idCliente) REFERENCES cliente(id) ON DELETE cascade,
+FOREIGN KEY(idFornecedor) REFERENCES fornecedor(id) ON DELETE cascade 
 );
 
 create table if not EXISTS email(
 id INTEGER AUTO_INCREMENT,
+idContato integer,
 email VARCHAR(64) NOT NULL,
 PRIMARY KEY(id),
-FOREIGN KEY(id) REFERENCES contato(id) ON DELETE cascade
+FOREIGN KEY(idContato) REFERENCES contato(id) ON DELETE cascade
 );
 
 create table if not EXISTS telefone(
 id INTEGER AUTO_INCREMENT,
+idContato integer,
 telefone VARCHAR(14) NOT NULL,
 PRIMARY KEY(id),
-FOREIGN KEY(id) REFERENCES contato(id) ON DELETE cascade
+FOREIGN KEY(idContato) REFERENCES contato(id) ON DELETE cascade
 );
 
 use notafiscal;

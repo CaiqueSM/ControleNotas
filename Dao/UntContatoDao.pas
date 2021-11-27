@@ -17,17 +17,12 @@ type
     destructor Destroy(); override;
 
     function Criar(AContato: TContatoModel): Boolean;
-    function ConsultarPorCliente(AIdCliente: Integer): TObjectList<TContatoModel>;
+    function ConsultarPorCliente(AIdCliente: Integer)
+      : TObjectList<TContatoModel>;
     function ExcluirPorCliente(AIdCliente: Integer): Boolean;
 
-
-
-
-
-
-
     function Alterar(AContato: TContatoModel): Boolean;
-    function Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
+    function Excluir(ACodigo: Integer; Enum: TEnumContatoDao): Boolean;
   end;
 
 implementation
@@ -69,7 +64,7 @@ begin
       ParamByName('id').AsInteger := AContato.Id;
       ParamByName('bairro').AsString := AContato.Bairro;
       ParamByName('CEP').AsString := AContato.CEP;
-	   ParamByName('cidade').AsString := AContato.Cidade;
+      ParamByName('cidade').AsString := AContato.Cidade;
       ParamByName('complemento').AsString := AContato.Complemento;
       ParamByName('numero').AsString := AContato.Numero;
       ParamByName('rua').AsString := AContato.Rua;
@@ -91,8 +86,8 @@ begin
   End;
 end;
 
-function TContatoDao.ConsultarPorCliente(
-  AIdCliente: Integer): TObjectList<TContatoModel>;
+function TContatoDao.ConsultarPorCliente(AIdCliente: Integer)
+  : TObjectList<TContatoModel>;
 var
   query: TZQuery;
   sql: String;
@@ -107,23 +102,23 @@ begin
     Try
       query.Open();
       While Not query.Eof Do
-         Begin
-            contato := TContatoModel.Create();
-            contato.Id          := query.FieldByName('id').AsInteger;
-            contato.IdCliente   := query.FieldByName('IdCliente').AsInteger;
-            contato.CEP         := Trim(query.FieldByName('CEP').AsString);
-            contato.Rua         := Trim(query.FieldByName('rua').AsString);
-  	         contato.Cidade      := Trim(query.FieldByName('cidade').AsString);
-            contato.Numero      := Trim(query.FieldByName('numero').AsString);
-            contato.Bairro      := Trim(query.FieldByName('bairro').AsString);
-            contato.Complemento := Trim(query.FieldByName('complemento').AsString);
+      Begin
+        contato := TContatoModel.Create();
+        contato.Id := query.FieldByName('id').AsInteger;
+        contato.IdCliente := query.FieldByName('IdCliente').AsInteger;
+        contato.CEP := Trim(query.FieldByName('CEP').AsString);
+        contato.Rua := Trim(query.FieldByName('rua').AsString);
+        contato.Cidade := Trim(query.FieldByName('cidade').AsString);
+        contato.Numero := Trim(query.FieldByName('numero').AsString);
+        contato.Bairro := Trim(query.FieldByName('bairro').AsString);
+        contato.Complemento := Trim(query.FieldByName('complemento').AsString);
 
-            contato.Emails    := FEmailDao.Consultar(contato.Id);
-            contato.Telefones := FTelefoneDao.Consultar(contato.Id);
+        contato.Emails := FEmailDao.Consultar(contato.Id);
+        contato.Telefones := FTelefoneDao.Consultar(contato.Id);
 
-            Result.Add(contato);
-            query.Next;
-         End;
+        Result.Add(contato);
+        query.Next;
+      End;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o contato.');
@@ -144,41 +139,42 @@ begin
   Result := True;
   nenhum := 0;
 
-  sql := 'Insert Into Contato (idcliente, idfornecedor, bairro, CEP, cidade,' +
+  sql := 'Insert Into Contato (id, idcliente, idfornecedor, bairro, CEP, cidade,' +
     'complemento, numero, rua)' +
-    'Values (:idcliente, :idfornecedor, :bairro, :CEP, :cidade,' +
+    'Values (:id, :idcliente, :idfornecedor, :bairro, :CEP, :cidade,' +
     ':complemento, :numero, :rua)';
 
   query := CreateQuery(sql);
   Try
-      query.ParamByName('idcliente').AsInteger := AContato.IdCliente;
-      query.ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
-      query.ParamByName('bairro').AsString := AContato.Bairro;
-      query.ParamByName('CEP').AsString := AContato.CEP;
-	   query.ParamByName('cidade').AsString := AContato.cidade;
-      query.ParamByName('complemento').AsString := AContato.Complemento;
-      query.ParamByName('numero').AsString := AContato.Numero;
-      query.ParamByName('rua').AsString := AContato.Rua;
+    query.ParamByName('id').AsInteger := AContato.Id;
+    query.ParamByName('idcliente').AsInteger := AContato.IdCliente;
+    query.ParamByName('idfornecedor').AsInteger := AContato.IdFornecedor;
+    query.ParamByName('bairro').AsString := AContato.Bairro;
+    query.ParamByName('CEP').AsString := AContato.CEP;
+    query.ParamByName('cidade').AsString := AContato.Cidade;
+    query.ParamByName('complemento').AsString := AContato.Complemento;
+    query.ParamByName('numero').AsString := AContato.Numero;
+    query.ParamByName('rua').AsString := AContato.Rua;
     Try
       query.ExecSQL();
 
       If (AContato.Emails.Count > nenhum) Then
-         Begin
-            For email In AContato.Emails Do
-               Begin
-                  If Not FEmailDao.Criar(email) Then
-                     raise Exception.Create('Erro ao gravar os emails');
-               End;
-         End;
+      Begin
+        For email In AContato.Emails Do
+        Begin
+          If Not FEmailDao.Criar(email) Then
+            raise Exception.Create('Erro ao gravar os emails');
+        End;
+      End;
 
       If (AContato.Telefones.Count > nenhum) Then
-         Begin
-            For telefone In AContato.Telefones Do
-               Begin
-                  If Not FTelefoneDao.Criar(telefone) Then
-                     raise Exception.Create('Erro ao gravar os telefones');
-               End;
-         End;
+      Begin
+        For telefone In AContato.Telefones Do
+        Begin
+          If Not FTelefoneDao.Criar(telefone) Then
+            raise Exception.Create('Erro ao gravar os telefones');
+        End;
+      End;
     Except
       on E: Exception do
       Begin
@@ -191,7 +187,7 @@ begin
   End;
 end;
 
-function TContatoDao.Excluir(ACodigo: integer; Enum: TEnumContatoDao): Boolean;
+function TContatoDao.Excluir(ACodigo: Integer; Enum: TEnumContatoDao): Boolean;
 var
   query: TZQuery;
   sql: String;

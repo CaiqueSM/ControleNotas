@@ -129,7 +129,7 @@ begin
                For contato In ACliente.Contatos Do
                   Begin
                      contato.IdCliente := ACliente.Id;
-
+                     contato.IdFornecedor:= 0;
                      If Not FContatoDao.Criar(contato) Then
                         raise Exception.Create('Erro ao gravar os contatos');
                   End;
