@@ -19,10 +19,12 @@ type
     function Criar(AContato: TContatoModel): Boolean;
     function ConsultarPorCliente(AIdCliente, AIdContato: Integer)
       : TObjectList<TContatoModel>;
+    function ConsultarPorFornecedor(AIdFornecedor, AIdContato: Integer)
+  : TObjectList<TContatoModel>;
     function ExcluirPorCliente(AIdCliente: Integer): Boolean;
-
+    function ExcluirPorFornecedor(AIdFornecedor: Integer): Boolean;
     function Alterar(AContato: TContatoModel): Boolean;
-    function Excluir(ACodigo: Integer; Enum: TEnumContatoDao): Boolean;
+    function Excluir(ACodigo: Integer): Boolean;
   end;
 
 implementation
@@ -96,12 +98,12 @@ begin
   Result := TObjectList<TContatoModel>.Create();
 
   sql := 'select c.id, cep, rua, bairro, cidade, numero, complemento, cl.id as IdCliente'
-         + ' from contato as c, relacionamentocontato as r, cliente as cl'
-         + ' where (c.id = :ridcontato) and (r.idrelacionado = :clid)';
+    + ' from contato as c, relacionamentocontato as r, cliente as cl' +
+    ' where (c.id = :idcontato) and (r.idrelacionado = :id)';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('clid').AsInteger := AIdCliente;
-    query.ParamByName('ridcontato').AsInteger := AIdContato;
+    query.ParamByName('id').AsInteger := AIdCliente;
+    query.ParamByName('idcontato').AsInteger := AIdContato;
     Try
       query.Open();
       While Not query.Eof Do
@@ -109,6 +111,51 @@ begin
         contato := TContatoModel.Create();
         contato.Id := query.FieldByName('id').AsInteger;
         contato.IdCliente := query.FieldByName('IdCliente').AsInteger;
+        contato.CEP := Trim(query.FieldByName('CEP').AsString);
+        contato.Rua := Trim(query.FieldByName('rua').AsString);
+        contato.Cidade := Trim(query.FieldByName('cidade').AsString);
+        contato.Numero := Trim(query.FieldByName('numero').AsString);
+        contato.Bairro := Trim(query.FieldByName('bairro').AsString);
+        contato.Complemento := Trim(query.FieldByName('complemento').AsString);
+
+        contato.Emails := FEmailDao.Consultar(contato.Id);
+        contato.Telefones := FTelefoneDao.Consultar(contato.Id);
+
+        Result.Add(contato);
+        query.Next;
+      End;
+    Except
+      on E: Exception do
+        Showmessage('Não foi possível obter o contato.');
+    End;
+  Finally
+    query.Free;
+  End;
+end;
+
+function TContatoDao.ConsultarPorFornecedor(AIdFornecedor, AIdContato: Integer)
+  : TObjectList<TContatoModel>;
+var
+  query: TZQuery;
+  sql: String;
+  contato: TContatoModel;
+begin
+  Result := TObjectList<TContatoModel>.Create();
+
+  sql := 'select c.id, cep, rua, bairro, cidade, numero, complemento, f.id as IdFornecedor'
+    + ' from contato as c, relacionamentocontato as r, fornecedor as f' +
+    ' where (c.id = :idcontato) and (r.idrelacionado = :id)';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('id').AsInteger := AIdFornecedor;
+    query.ParamByName('idcontato').AsInteger := AIdContato;
+    Try
+      query.Open();
+      While Not query.Eof Do
+      Begin
+        contato := TContatoModel.Create();
+        contato.Id := query.FieldByName('id').AsInteger;
+        contato.IdCliente := query.FieldByName('IdFornecedor').AsInteger;
         contato.CEP := Trim(query.FieldByName('CEP').AsString);
         contato.Rua := Trim(query.FieldByName('rua').AsString);
         contato.Cidade := Trim(query.FieldByName('cidade').AsString);
@@ -142,8 +189,8 @@ begin
   Result := True;
   nenhum := 0;
 
-  sql := 'Insert Into Contato (id, bairro, CEP, cidade, complemento, numero, rua)' +
-    'Values (:id, :bairro, :CEP, :cidade, :complemento, :numero, :rua)';
+  sql := 'Insert Into Contato (id, bairro, CEP, cidade, complemento, numero, rua)'
+    + 'Values (:id, :bairro, :CEP, :cidade, :complemento, :numero, :rua)';
 
   query := CreateQuery(sql);
   Try
@@ -186,28 +233,13 @@ begin
   End;
 end;
 
-function TContatoDao.Excluir(ACodigo: Integer; Enum: TEnumContatoDao): Boolean;
+function TContatoDao.Excluir(ACodigo: Integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
   Result := True;
-
-  case Enum of
-    actContato:
-      begin
-        sql := 'delete from cliente where id = :id';
-      end;
-    actCliente:
-      begin
-        sql := 'delete from cliente where idcliente = :id';
-      end;
-    actFornecedor:
-      begin
-        sql := 'delete from cliente where idfornecedor = :id';
-      end;
-  end;
-
+  sql := 'delete from contato where id = :id';
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := ACodigo;
@@ -234,7 +266,9 @@ var
 begin
   Result := True;
 
-  sql := 'delete from contato where idcliente = :idcliente';
+  sql := 'delete from contato' +
+    ' where id = (select idcontato from relacionamentocontato as r' +
+    ' where r.idrelacionado = :idcliente)';
   query := CreateQuery(sql);
   Try
     query.ParamByName('idcliente').AsInteger := AIdCliente;
@@ -251,5 +285,34 @@ begin
     query.Free;
   End;
 end;
+
+function TContatoDao.ExcluirPorFornecedor(AIdFornecedor: Integer): Boolean;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := True;
+
+  sql := 'delete from contato' +
+    ' where id = (select idcontato from relacionamentocontato as r' +
+    ' where r.idrelacionado = :idfornecedor)';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('idfornecedor').AsInteger := AIdFornecedor;
+    Try
+      query.ExecSQL();
+    Except
+      on E: Exception do
+      Begin
+        Result := False;
+        Showmessage('Não foi possível excluir o contato');
+      End;
+    End;
+  Finally
+    query.Free;
+  End;
+
+end;
+
 
 end.
