@@ -80,11 +80,13 @@ function TClienteDao.Consultar(AId: String): TClienteModel;
 var
   query: TZQuery;
   sql: String;
+  idContato: integer;
 begin
    Result := TClienteModel.Create();
 
-   sql := 'select * from cliente ' +
-          ' where id = :id ' ;
+   sql := 'select cl.id, nome, CPF, CNPJ, r.idcontato as idcontato'
+        + ' from cliente as cl, relacionamentocontato as r' +
+          ' where cl.id = :id and r.idrelacionado = :id' ;
 
    query := CreateQuery(sql);
    Try
@@ -96,8 +98,8 @@ begin
          Result.Nome := Trim(query.FieldByName('nome').AsString);
          Result.CPF := Trim(query.FieldByName('CPF').AsString);
          Result.CNPJ:= Trim(query.FieldByName('CNPJ').AsString);
-
-         Result.Contatos := FContatoDao.ConsultarPorCliente(Result.Id);
+         idcontato:= query.FieldByName('idcontato').AsInteger;
+         Result.Contatos := FContatoDao.ConsultarPorCliente(Result.Id, idcontato);
       Except
          on E: Exception do
             Showmessage('Não foi possível obter o cliente.');
@@ -139,6 +141,7 @@ begin
                      Relacionamento.idContato:= contato.Id;
                      Relacionamento.idRelacionado:= contato.IdCliente;
                      FRelacionamentoDao.Criar(Relacionamento);
+                     Relacionamento.Free;
                   End;
             End;
          Conexao.Database.Commit;

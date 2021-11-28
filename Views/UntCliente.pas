@@ -131,11 +131,11 @@ begin
   contato.Complemento := txtComplemento.Text;
 
   email := TEmailModel.Create();
-  email.Id := contato.Id;
+  email.IdContato := contato.Id;
   email.email := txtEmail.Text;
 
   telefone := TTelefoneModel.Create();
-  telefone.Id := contato.Id;
+  telefone.IdContato := contato.Id;
   telefone.telefone := mskTelefone.Text;
 
   contato.Emails.Add(email);

@@ -43,7 +43,7 @@ begin
       Begin
         Result := False;
         Conexao.Database.Rollback;
-        Showmessage('Não foi possível gravar os dados de cliente.');
+        Showmessage('Não foi possível gravar os dados do relacionamento.');
       End;
     end;
   finally

@@ -94,10 +94,11 @@ begin
   Result := True;
 
   sql := 'Insert Into telefone (idcontato, telefone)' +
-         'Values (LAST_INSERT_ID(), :telefone)';
+         'Values (:idcontato, :telefone)';
 
   query := CreateQuery(sql);
   Try
+    query.ParamByName('idcontato').AsInteger := ATelefone.IdContato;
     query.ParamByName('telefone').AsString := ATelefone.Telefone;
     Try
       query.ExecSQL();

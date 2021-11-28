@@ -17,7 +17,7 @@ type
     destructor Destroy(); override;
 
     function Criar(AContato: TContatoModel): Boolean;
-    function ConsultarPorCliente(AIdCliente: Integer)
+    function ConsultarPorCliente(AIdCliente, AIdContato: Integer)
       : TObjectList<TContatoModel>;
     function ExcluirPorCliente(AIdCliente: Integer): Boolean;
 
@@ -86,7 +86,7 @@ begin
   End;
 end;
 
-function TContatoDao.ConsultarPorCliente(AIdCliente: Integer)
+function TContatoDao.ConsultarPorCliente(AIdCliente, AIdContato: Integer)
   : TObjectList<TContatoModel>;
 var
   query: TZQuery;
@@ -95,10 +95,13 @@ var
 begin
   Result := TObjectList<TContatoModel>.Create();
 
-  sql := 'select * from contato where idcliente = :idcliente';
+  sql := 'select c.id, cep, rua, bairro, cidade, numero, complemento, cl.id as IdCliente'
+         + ' from contato as c, relacionamentocontato as r, cliente as cl'
+         + ' where (c.id = :ridcontato) and (r.idrelacionado = :clid)';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('idcliente').AsInteger := AIdCliente;
+    query.ParamByName('clid').AsInteger := AIdCliente;
+    query.ParamByName('ridcontato').AsInteger := AIdContato;
     Try
       query.Open();
       While Not query.Eof Do
