@@ -92,10 +92,11 @@ begin
   Result := True;
 
   sql := 'Insert Into email (idcontato, email)' +
-         'Values (LAST_INSERT_ID(), :email)';
+         'Values (:idcontato, :email)';
 
   query := CreateQuery(sql);
   Try
+    query.ParamByName('idcontato').AsInteger := AEmail.IdContato;
     query.ParamByName('email').AsString := AEmail.Email;
     Try
       query.ExecSQL();

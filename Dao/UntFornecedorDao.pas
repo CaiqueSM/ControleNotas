@@ -1,12 +1,12 @@
-unit UntClienteDao;
+unit UntFornecedorDao;
 
 interface
 
-uses untbasedao, System.Generics.Collections, UntClienteModel, UntRelacionamentoContatoModel,
+uses untbasedao, System.Generics.Collections, UntFornecedorModel, UntRelacionamentoContatoModel,
 System.Classes, UntContatoDao, UntRelacionamentoContatoDao,UntConexao;
 
 type
-  TClienteDao = class(TBaseDao)
+  TFornecedorDao = class(TBaseDao)
   private
     FContatoDao: TContatoDao;
     FRelacionamentoDao: TRelacionamentoContatoDao;
@@ -14,11 +14,11 @@ type
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
 
-    function ListarClientes(): TObjectList<TClienteModel>;
-    function Consultar(AId: String): TClienteModel;
-    function Criar(ACliente: TClienteModel): Boolean;
-    function Alterar(ACliente: TClienteModel): Boolean;
-    function Excluir(AIdCliente: Integer): Boolean;
+    function ListarFornecedores(): TObjectList<TFornecedorModel>;
+    function Consultar(AId: String): TFornecedorModel;
+    function Criar(AFornecedor: TFornecedorModel): Boolean;
+    function Alterar(AFornecedor: TFornecedorModel): Boolean;
+    function Excluir(AIdFornecedor: Integer): Boolean;
   end;
 
 implementation
@@ -27,38 +27,38 @@ uses
   ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoModel,
   UntEmailModel, UntTelefoneModel;
 
-{ TClienteDao }
+{ TFornecedorDao }
 
-constructor TClienteDao.Create(AConexao: TConexao);
+constructor TFornecedorDao.Create(AConexao: TConexao);
 begin
   inherited Create(AConexao);
   FContatoDao := TContatoDao.Create(AConexao);
   FRelacionamentoDao := TRelacionamentoContatoDao.Create(AConexao);
 end;
 
-destructor TClienteDao.Destroy;
+destructor TFornecedorDao.Destroy;
 begin
   FRelacionamentoDao.Free;
   FContatoDao.Free;
   inherited;
 end;
 
-function TClienteDao.Alterar(ACliente: TClienteModel): Boolean;
+function TFornecedorDao.Alterar(AFornecedor: TFornecedorModel): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
    Result := True;
 
-   sql := 'Update Cliente Set nome = :nome, CPF = :CPF, CNPJ = :CNPJ ' +
+   sql := 'Update Fornecedor Set nome = :nome, CPF = :CPF, CNPJ = :CNPJ ' +
           ' Where id = :id';
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName('id').AsInteger := ACliente.Id;
-      query.ParamByName('nome').AsString := ACliente.nome;
-      query.ParamByName('CPF').AsString := ACliente.CPF;
-      query.ParamByName('CNPJ').AsString := ACliente.CNPJ;
+      query.ParamByName('id').AsInteger := AFornecedor.Id;
+      query.ParamByName('nome').AsString := AFornecedor.nome;
+      query.ParamByName('CPF').AsString := AFornecedor.CPF;
+      query.ParamByName('CNPJ').AsString := AFornecedor.CNPJ;
 
       Try
          query.ExecSQL();
@@ -68,7 +68,7 @@ begin
             Begin
                Result := False;
                Conexao.Database.Rollback;
-               Showmessage('Não foi possível gravar os dados de cliente.');
+               Showmessage('Não foi possível gravar os dados de Fornecedor.');
             End;
       End;
    Finally
@@ -76,17 +76,17 @@ begin
    End;
 end;
 
-function TClienteDao.Consultar(AId: String): TClienteModel;
+function TFornecedorDao.Consultar(AId: String): TFornecedorModel;
 var
   query: TZQuery;
   sql: String;
   idContato: integer;
 begin
-   Result := TClienteModel.Create();
+   Result := TFornecedorModel.Create();
 
-   sql := 'select cl.id, nome, CPF, CNPJ, r.idcontato as idcontato'
-        + ' from cliente as cl, relacionamentocontato as r' +
-          ' where cl.id = :id and r.idrelacionado = :id' ;
+   sql := 'select f.id, nome, CPF, CNPJ, r.idcontato as idcontato'
+        + ' from Fornecedor as f, relacionamentocontato as r' +
+          ' where f.id = :id and r.idrelacionado = :id' ;
 
    query := CreateQuery(sql);
    Try
@@ -99,17 +99,17 @@ begin
          Result.CPF := Trim(query.FieldByName('CPF').AsString);
          Result.CNPJ:= Trim(query.FieldByName('CNPJ').AsString);
          idcontato:= query.FieldByName('idcontato').AsInteger;
-         Result.Contatos := FContatoDao.ConsultarPorCliente(Result.Id, idcontato);
+         Result.Contatos := FContatoDao.ConsultarPorFornecedor(Result.Id, idcontato);
       Except
          on E: Exception do
-            Showmessage('Não foi possível obter o cliente.');
+            Showmessage('Não foi possível obter o Fornecedor.');
       End;
    Finally
       query.Free;
    End;
 end;
 
-function TClienteDao.Criar(ACliente: TClienteModel): Boolean;
+function TFornecedorDao.Criar(AFornecedor: TFornecedorModel): Boolean;
 var
   query: TZQuery;
   sql: String;
@@ -120,26 +120,26 @@ begin
    Result := True;
    nenhum := 0;
 
-   sql := 'Insert Into cliente (id, nome, CPF, CNPJ) Values (:id, :nome, :CPF, :CNPJ)';
+   sql := 'Insert Into Fornecedor (id, nome, CPF, CNPJ) Values (:id, :nome, :CPF, :CNPJ)';
    query := CreateQuery(sql);
 
    Try
-      query.ParamByName('id').AsInteger:= ACliente.Id;
-      query.ParamByName('nome').AsString := ACliente.Nome.Trim;
-      query.ParamByName('CPF').AsString := ACliente.CPF.Trim;
-      query.ParamByName('CNPJ').AsString := ACliente.CNPJ.Trim;
+      query.ParamByName('id').AsInteger:= AFornecedor.Id;
+      query.ParamByName('nome').AsString := AFornecedor.Nome.Trim;
+      query.ParamByName('CPF').AsString := AFornecedor.CPF.Trim;
+      query.ParamByName('CNPJ').AsString := AFornecedor.CNPJ.Trim;
       Try
          query.ExecSQL();
 
-         If (ACliente.Contatos.Count > nenhum) Then
+         If (AFornecedor.Contatos.Count > nenhum) Then
             Begin
-               For contato In ACliente.Contatos Do
+               For contato In AFornecedor.Contatos Do
                   Begin
                      If Not FContatoDao.Criar(contato) Then
                         raise Exception.Create('Erro ao gravar os contatos');
                      Relacionamento := TRelacionamentoContatoModel.Create;
                      Relacionamento.idContato:= contato.Id;
-                     Relacionamento.idRelacionado:= ACliente.id;
+                     Relacionamento.idRelacionado:= AFornecedor.id;
                      FRelacionamentoDao.Criar(Relacionamento);
                      Relacionamento.Free;
                   End;
@@ -150,7 +150,7 @@ begin
             Begin
                Result := False;
                Conexao.Database.Rollback;
-               Showmessage('Não foi possível gravar os dados de cliente.');
+               Showmessage('Não foi possível gravar os dados de Fornecedor.');
             End;
       End;
    Finally
@@ -158,23 +158,23 @@ begin
    End;
 end;
 
-function TClienteDao.Excluir(AIdCliente: Integer): Boolean;
+function TFornecedorDao.Excluir(AIdFornecedor: Integer): Boolean;
 var
   query: TZQuery;
   sql: String;
 begin
    Result := True;
 
-   sql := 'delete from cliente ' +
+   sql := 'delete from Fornecedor ' +
           ' where id = :id' ;
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName('id').AsInteger := AIdCliente;
+      query.ParamByName('id').AsInteger := AIdFornecedor;
       Try
          query.ExecSQL();
 
-         If Not FContatoDao.ExcluirPorCliente(AIdCliente) Then
+         If Not FContatoDao.ExcluirPorFornecedor(AIdFornecedor) Then
             raise Exception.Create('Erro ao excluir os contatos');
 
          Conexao.Database.Commit;
@@ -183,7 +183,7 @@ begin
             Begin
                Result := False;
                Conexao.Database.Rollback;
-               Showmessage('Não foi possível excluir o cliente');
+               Showmessage('Não foi possível excluir o Fornecedor');
             End;
       End;
    Finally
@@ -191,15 +191,15 @@ begin
    End;
 end;
 
-function TClienteDao.ListarClientes: TObjectList<TClienteModel>;
+function TFornecedorDao.ListarFornecedores: TObjectList<TFornecedorModel>;
 var
   query: TZQuery;
-  cliente: TClienteModel;
+  Fornecedor: TFornecedorModel;
   sql: String;
 begin
-   Result := TObjectList<TClienteModel>.Create();
+   Result := TObjectList<TFornecedorModel>.Create();
 
-   sql := 'select * from cliente ' +
+   sql := 'select * from Fornecedor ' +
           ' order by id asc ' ;
 
    query := CreateQuery(sql);
@@ -208,22 +208,24 @@ begin
          query.Open();
          while Not query.Eof do
             Begin
-               cliente := TClienteModel.Create();
-               cliente.Id := query.FieldByName('id').AsInteger;
-               cliente.Nome := Trim(query.FieldByName('nome').AsString);
-               cliente.CPF := Trim(query.FieldByName('CPF').AsString);
-               cliente.CNPJ := Trim(query.FieldByName('CNPJ').AsString);
+               Fornecedor := TFornecedorModel.Create();
+               Fornecedor.Id := query.FieldByName('id').AsInteger;
+               Fornecedor.Nome := Trim(query.FieldByName('nome').AsString);
+               Fornecedor.CPF := Trim(query.FieldByName('CPF').AsString);
+               Fornecedor.CNPJ := Trim(query.FieldByName('CNPJ').AsString);
 
-               Result.Add(cliente);
+               Result.Add(Fornecedor);
                query.Next;
             End;
       Except
          on E: Exception do
-            Showmessage('Não foi possível carregar a lista de clientes');
+            Showmessage('Não foi possível carregar a lista de Fornecedores');
       End;
    Finally
       query.Free;
    End;
 end;
+
+
 
 end.

@@ -1,44 +1,43 @@
-ï»¿unit UntCliente;
+unit untFornecedor;
 
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, UntEnvironment,
-  Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
-  UntClienteController, UntClienteModel, UntContatoModel,
-  UntEnumContatoDao, Vcl.ComCtrls, Vcl.ToolWin, UntCrudEnum,
-  UntFormHelper;
+  System.Classes, Vcl.Graphics, UntFornecedorModel, UntFornecedorController,
+  UntContatoModel, UntEnumContatoDao, UntCrudEnum, UntEnvironment,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.ComCtrls,
+  Vcl.ToolWin, UntFormHelper;
 
 type
-  TfrmCliente = class(TForm)
-    gbInfoCliente: TGroupBox;
-    lbCNPJCPF: TLabel;
-    txtCNPJCPF: TEdit;
-    lbNomeCliente: TLabel;
-    txtNomeCliente: TEdit;
-    gbContatoCliente: TGroupBox;
-    txtRua: TEdit;
-    txtEmail: TEdit;
-    txtBairro: TEdit;
-    txtNumero: TEdit;
+  TfrmFornecedor = class(TForm)
+    btnCancelar: TButton;
+    btnGravar: TButton;
+    gbCodigoFornecedor: TGroupBox;
+    lblcodigo: TLabel;
+    txtcodigo: TEdit;
+    gbContatoFornecedor: TGroupBox;
     lbCEP: TLabel;
     lbRua: TLabel;
     lbEmail: TLabel;
     lbBairro: TLabel;
     lbNumero: TLabel;
+    lbNomeFornecedor: TLabel;
     lbTelefone: TLabel;
-    btnCancelar: TButton;
-    btnGravar: TButton;
-    txtComplemento: TEdit;
     lbComplemento: TLabel;
+    lblCidade: TLabel;
+    txtRua: TEdit;
+    txtEmail: TEdit;
+    txtBairro: TEdit;
+    txtNumero: TEdit;
+    txtNomeFornecedor: TEdit;
+    txtComplemento: TEdit;
     mskTelefone: TMaskEdit;
     mskCEP: TMaskEdit;
     txtCidade: TEdit;
-    lblCidade: TLabel;
-    gbCodigoCliente: TGroupBox;
-    txtcodigo: TEdit;
-    lblcodigo: TLabel;
+    gbInfoFornecedor: TGroupBox;
+    lbCNPJCPF: TLabel;
+    txtCNPJCPF: TEdit;
     tobTop: TToolBar;
     tbuPesquisar: TToolButton;
     tbuExcluir: TToolButton;
@@ -52,19 +51,19 @@ type
     procedure tbuExcluirClick(Sender: TObject);
     procedure tbuPesquisarClick(Sender: TObject);
   private
-    FClienteExistente: Boolean;
-    FController: TClienteController;
+    FFornecedorExistente: Boolean;
+    FController: TFornecedorController;
     procedure LimparCampos();
     procedure HabilitarCampos(AHabilitar: Boolean);
-    procedure selecionarCliente(Sender: TObject);
+    procedure selecionarFornecedor(Sender: TObject);
 
-    function serializeCliente(): TClienteModel;
+    function serializeFornecedor(): TFornecedorModel;
     function validarCampos(ACampo: TObject): Boolean;
     function atualizarDados(AOperacao: TEnumCRUD): Boolean;
   end;
 
 var
-  frmCliente: TfrmCliente;
+  frmFornecedor: TfrmFornecedor;
 
 implementation
 
@@ -73,18 +72,18 @@ uses
 
 {$R *.dfm}
 
-procedure TfrmCliente.FormCreate(Sender: TObject);
+procedure TfrmFornecedor.FormCreate(Sender: TObject);
 begin
-  FController := TClienteController.Create();
+  FController := TFornecedorController.Create();
 end;
 
-procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TfrmFornecedor.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   FController.Free;
   CloseAction := caFree;
 end;
 
-procedure TfrmCliente.LimparCampos();
+procedure TfrmFornecedor.LimparCampos();
 begin
   txtBairro.Clear;
   mskCEP.Clear;
@@ -93,32 +92,32 @@ begin
   txtCidade.Clear;
   txtComplemento.Clear;
   txtEmail.Clear;
-  txtNomeCliente.Clear;
+  txtNomeFornecedor.Clear;
   txtNumero.Clear;
   txtRua.Clear;
   mskTelefone.Clear;
 end;
 
-procedure TfrmCliente.selecionarCliente(Sender: TObject);
+procedure TfrmFornecedor.selecionarFornecedor(Sender: TObject);
 begin
   If validarCampos(Sender) Then
     If atualizarDados(actConsultar) Then
     Begin
       HabilitarCampos(True);
-      txtcodigo.Enabled := FClienteExistente;
+      txtcodigo.Enabled := FFornecedorExistente;
       Self.TabOrderNext();
     End;
 end;
 
-function TfrmCliente.serializeCliente: TClienteModel;
+function TfrmFornecedor.serializeFornecedor: TFornecedorModel;
 var
   contato: TContatoModel;
   email: TEmailModel;
   telefone: TTelefoneModel;
 begin
-  Result := TClienteModel.Create();
+  Result := TFornecedorModel.Create();
   Result.Id := StrToInt(txtcodigo.Text);
-  Result.Nome := txtNomeCliente.Text;
+  Result.Nome := txtNomeFornecedor.Text;
   Result.CNPJ := txtCNPJCPF.Text;
   Result.CPF := txtCNPJCPF.Text;
 
@@ -145,32 +144,32 @@ begin
   Result.Contatos.Add(contato);
 end;
 
-procedure TfrmCliente.tbuExcluirClick(Sender: TObject);
+procedure TfrmFornecedor.tbuExcluirClick(Sender: TObject);
 begin
-  If ShowConfirm('Tem certeza que deseja excluir este cliente?') Then
+  If ShowConfirm('Tem certeza que deseja excluir este Fornecedor?') Then
     If atualizarDados(actExcluir) Then
       btnCancelarClick(Sender);
 end;
 
-procedure TfrmCliente.tbuPesquisarClick(Sender: TObject);
+procedure TfrmFornecedor.tbuPesquisarClick(Sender: TObject);
 begin
   null;
 end;
 
-procedure TfrmCliente.txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
+procedure TfrmFornecedor.txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
 begin
   If Key = BotaoEnter Then
     If validarCampos(Sender) Then
       Self.TabOrderNext();
 end;
 
-procedure TfrmCliente.txtcodigoKeyPress(Sender: TObject; var Key: Char);
+procedure TfrmFornecedor.txtcodigoKeyPress(Sender: TObject; var Key: Char);
 begin
   If Key = BotaoEnter Then
-    selecionarCliente(Sender)
+    selecionarFornecedor(Sender)
 end;
 
-function TfrmCliente.validarCampos(ACampo: TObject): Boolean;
+function TfrmFornecedor.validarCampos(ACampo: TObject): Boolean;
 begin
   Result := False;
 
@@ -178,7 +177,7 @@ begin
   Begin
     If (txtcodigo.Text = EmptyStr) Then
     Begin
-      ShowMessage('O campo cÃ³digo deve ser preenchido!');
+      ShowMessage('O campo código deve ser preenchido!');
       If txtcodigo.CanFocus Then
         txtcodigo.SetFocus;
       Exit();
@@ -196,14 +195,14 @@ begin
     end;
   End;
 
-  If (ACampo = txtNomeCliente) Or (ACampo = todosCampos) Then
+  If (ACampo = txtNomeFornecedor) Or (ACampo = todosCampos) Then
   Begin
-    If Not FController.ValidarNome(txtNomeCliente.Text) then
+    If Not FController.ValidarNome(txtNomeFornecedor.Text) then
     begin
       ShowMessage
-        ('Nome invalido, nÃ£o Ã© permitido o uso de caracteres especiais!');
-      If txtNomeCliente.CanFocus Then
-        txtNomeCliente.SetFocus;
+        ('Nome invalido, não é permitido o uso de caracteres especiais!');
+      If txtNomeFornecedor.CanFocus Then
+        txtNomeFornecedor.SetFocus;
       Exit();
     end;
   End;
@@ -212,7 +211,7 @@ begin
   Begin
     If Not FController.ValidarCEP(mskCEP.Text) Then
     begin
-      ShowMessage('CEP invÃ¡lido!');
+      ShowMessage('CEP inválido!');
       If mskCEP.CanFocus Then
         mskCEP.SetFocus;
       Exit();
@@ -223,7 +222,7 @@ begin
   Begin
     If Not FController.ValidarNumero(txtNumero.Text) Then
     begin
-      ShowMessage('O nÃºmero Ã© obrigatÃ³rio!');
+      ShowMessage('O número é obrigatório!');
       If txtNumero.CanFocus Then
         txtNumero.SetFocus;
       Exit();
@@ -234,7 +233,7 @@ begin
   Begin
     If not FController.ValidarEmail(txtEmail.Text) Then
     begin
-      ShowMessage('Email invÃ¡lido!');
+      ShowMessage('Email inválido!');
       if txtEmail.CanFocus then
         txtEmail.SetFocus;
       Exit();
@@ -245,7 +244,7 @@ begin
   Begin
     If Not FController.ValidarTelefone(mskTelefone.Text) Then
     begin
-      ShowMessage('NÃºmero de telefone vÃ¡lido!');
+      ShowMessage('Número de telefone válido!');
       if mskTelefone.CanFocus Then
         mskTelefone.SetFocus;
       Exit();
@@ -255,9 +254,9 @@ begin
   Result := True;
 end;
 
-function TfrmCliente.atualizarDados(AOperacao: TEnumCRUD): Boolean;
+function TfrmFornecedor.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
-  cliente: TClienteModel;
+  Fornecedor: TFornecedorModel;
   contato: TContatoModel;
   email: TEmailModel;
   telefone: TTelefoneModel;
@@ -271,31 +270,31 @@ begin
       actConsultar:
         Begin
           Try
-            cliente := FController.Consultar(txtcodigo.Text);
-            FClienteExistente := Not cliente.Nome.IsEmpty;
+            Fornecedor := FController.Consultar(txtcodigo.Text);
+            FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
 
-            If Not cliente.CNPJ.IsEmpty Then
-              txtCNPJCPF.Text := cliente.CNPJ
+            If Not Fornecedor.CNPJ.IsEmpty Then
+              txtCNPJCPF.Text := Fornecedor.CNPJ
             Else
-              txtCNPJCPF.Text := cliente.CPF;
+              txtCNPJCPF.Text := Fornecedor.CPF;
 
-            txtNomeCliente.Text := cliente.Nome;
+            txtNomeFornecedor.Text := Fornecedor.Nome;
 
-            If (cliente.Contatos.Count > nenhum) Then
+            If (Fornecedor.Contatos.Count > nenhum) Then
             Begin
-              mskCEP.Text := cliente.Contatos.First.CEP;
-              txtCidade.Text := cliente.Contatos.First.Cidade;
-              txtBairro.Text := cliente.Contatos.First.Bairro;
-              txtRua.Text := cliente.Contatos.First.Rua;
-              txtNumero.Text := cliente.Contatos.First.Numero;
-              txtComplemento.Text := cliente.Contatos.First.Complemento;
+              mskCEP.Text := Fornecedor.Contatos.First.CEP;
+              txtCidade.Text := Fornecedor.Contatos.First.Cidade;
+              txtBairro.Text := Fornecedor.Contatos.First.Bairro;
+              txtRua.Text := Fornecedor.Contatos.First.Rua;
+              txtNumero.Text := Fornecedor.Contatos.First.Numero;
+              txtComplemento.Text := Fornecedor.Contatos.First.Complemento;
 
-              If (cliente.Contatos.First.Emails.Count > nenhum) Then
-                txtEmail.Text := cliente.Contatos.First.Emails.First.email;
+              If (Fornecedor.Contatos.First.Emails.Count > nenhum) Then
+                txtEmail.Text := Fornecedor.Contatos.First.Emails.First.email;
 
-              If (cliente.Contatos.First.Telefones.Count > nenhum) Then
+              If (Fornecedor.Contatos.First.Telefones.Count > nenhum) Then
                 mskTelefone.Text :=
-                  cliente.Contatos.First.Telefones.First.telefone;
+                  Fornecedor.Contatos.First.Telefones.First.telefone;
             End;
           Except
             Result := False;
@@ -304,14 +303,14 @@ begin
 
       actCriar:
         Begin
-          cliente := serializeCliente();
-          Result := FController.Criar(cliente);
+          Fornecedor := serializeFornecedor();
+          Result := FController.Criar(Fornecedor);
         End;
 
       actAlterar:
         Begin
-          cliente := serializeCliente();
-          Result := FController.Alterar(cliente);
+          Fornecedor := serializeFornecedor();
+          Result := FController.Alterar(Fornecedor);
         End;
 
       actExcluir:
@@ -320,25 +319,25 @@ begin
         End;
     End;
   Finally
-    If Assigned(cliente) Then
-      cliente.Free;
+    If Assigned(Fornecedor) Then
+      Fornecedor.Free;
   End;
 end;
 
-procedure TfrmCliente.btnCancelarClick(Sender: TObject);
+procedure TfrmFornecedor.btnCancelarClick(Sender: TObject);
 begin
   LimparCampos();
   HabilitarCampos(False);
-  FClienteExistente := False;
+  FFornecedorExistente := False;
   If txtcodigo.CanFocus Then
     txtcodigo.SetFocus;
 end;
 
-procedure TfrmCliente.btnGravarClick(Sender: TObject);
+procedure TfrmFornecedor.btnGravarClick(Sender: TObject);
 begin
   If validarCampos(todosCampos) Then
   Begin
-    If FClienteExistente Then
+    If FFornecedorExistente Then
     Begin
       If atualizarDados(actAlterar) Then
         btnCancelarClick(Sender)
@@ -351,12 +350,12 @@ begin
   End;
 end;
 
-procedure TfrmCliente.FormShow(Sender: TObject);
+procedure TfrmFornecedor.FormShow(Sender: TObject);
 begin
   HabilitarCampos(False);
 end;
 
-procedure TfrmCliente.HabilitarCampos(AHabilitar: Boolean);
+procedure TfrmFornecedor.HabilitarCampos(AHabilitar: Boolean);
 begin
   tbuPesquisar.Enabled := Not AHabilitar;
   txtcodigo.Enabled := Not AHabilitar;
@@ -370,7 +369,7 @@ begin
   txtCidade.Enabled := AHabilitar;
   txtComplemento.Enabled := AHabilitar;
   txtEmail.Enabled := AHabilitar;
-  txtNomeCliente.Enabled := AHabilitar;
+  txtNomeFornecedor.Enabled := AHabilitar;
   txtNumero.Enabled := AHabilitar;
   txtRua.Enabled := AHabilitar;
   mskTelefone.Enabled := AHabilitar;
