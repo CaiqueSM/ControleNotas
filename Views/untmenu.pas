@@ -52,7 +52,7 @@ implementation
 uses
   untConsultarNotas, UntUsuario, UntCliente,
   untGerarRelatorio,
-  untCadastrarFornecedorNota, untCadastrarNota;
+  untFornecedor, untCadastrarNota;
 
 {$R *.dfm}
 { TfrmMenu }
@@ -85,8 +85,8 @@ end;
 
 procedure TfrmMenu.itemFornercedorClick(Sender: TObject);
 begin
-  FController.AbrirTelaFilha(Self, TfrmFornecedorNotaFiscal,
-    frmFornecedorNotaFiscal);
+  FController.AbrirTelaFilha(Self, TfrmFornecedor,
+    frmFornecedor);
 end;
 
 procedure TfrmMenu.itemNotaClick(Sender: TObject);

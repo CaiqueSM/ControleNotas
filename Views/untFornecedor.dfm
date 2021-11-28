@@ -1,9 +1,9 @@
-object frmCliente: TfrmCliente
+object frmFornecedor: TfrmFornecedor
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'Cadastrar cliente da nota fiscal'
+  Caption = 'Cadastrar fornecedor nota fiscal'
   ClientHeight = 372
   ClientWidth = 609
   Color = clBtnFace
@@ -18,60 +18,64 @@ object frmCliente: TfrmCliente
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
-  object gbInfoCliente: TGroupBox
-    Left = 5
-    Top = 80
-    Width = 598
-    Height = 85
-    Caption = ' Informa'#231#245'es do cliente '
+  object btnCancelar: TButton
+    Left = 447
+    Top = 339
+    Width = 75
+    Height = 25
+    Hint = 'Cancelar'
+    Caption = 'Cancelar'
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
-    object lbCNPJCPF: TLabel
+    OnClick = btnCancelarClick
+  end
+  object btnGravar: TButton
+    Left = 528
+    Top = 339
+    Width = 75
+    Height = 25
+    Hint = 'Gravar'
+    Caption = 'Gravar'
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 1
+    OnClick = btnGravarClick
+  end
+  object gbCodigoFornecedor: TGroupBox
+    Left = 5
+    Top = 27
+    Width = 598
+    Height = 50
+    TabOrder = 2
+    object lblcodigo: TLabel
       Left = 5
-      Top = 25
-      Width = 56
+      Top = 18
+      Width = 42
       Height = 15
-      Caption = 'CNPJ/CPF:'
+      Caption = 'C'#243'digo:'
     end
-    object lbNomeCliente: TLabel
-      Left = 310
-      Top = 25
-      Width = 91
-      Height = 15
-      Caption = 'Nome do cliente:'
-    end
-    object txtCNPJCPF: TEdit
-      Left = 5
-      Top = 40
-      Width = 280
+    object txtcodigo: TEdit
+      Left = 53
+      Top = 15
+      Width = 55
       Height = 23
-      Hint = 'Digite os n'#250'meros do CNPJ/CPF'
-      MaxLength = 14
+      Hint = 'C'#243'digo'
+      MaxLength = 7
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      OnKeyPress = txtCNPJCPFKeyPress
-    end
-    object txtNomeCliente: TEdit
-      Left = 310
-      Top = 40
-      Width = 280
-      Height = 23
-      Hint = 'Nome completo'
-      MaxLength = 80
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-      OnKeyPress = txtCNPJCPFKeyPress
+      OnKeyPress = txtcodigoKeyPress
     end
   end
-  object gbContatoCliente: TGroupBox
+  object gbContatoFornecedor: TGroupBox
     Left = 5
     Top = 164
     Width = 598
     Height = 169
-    Caption = ' Contato do cliente '
-    TabOrder = 1
+    Caption = ' Contato do fornecedor'
+    TabOrder = 3
     object lbCEP: TLabel
       Left = 5
       Top = 24
@@ -230,55 +234,51 @@ object frmCliente: TfrmCliente
       OnKeyPress = txtCNPJCPFKeyPress
     end
   end
-  object btnCancelar: TButton
-    Left = 447
-    Top = 339
-    Width = 75
-    Height = 25
-    Hint = 'Cancelar'
-    Caption = 'Cancelar'
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 3
-    OnClick = btnCancelarClick
-  end
-  object btnGravar: TButton
-    Left = 528
-    Top = 339
-    Width = 75
-    Height = 25
-    Hint = 'Gravar'
-    Caption = 'Gravar'
-    ParentShowHint = False
-    ShowHint = True
-    TabOrder = 2
-    OnClick = btnGravarClick
-  end
-  object gbCodigoCliente: TGroupBox
+  object gbInfoFornecedor: TGroupBox
     Left = 5
-    Top = 27
+    Top = 80
     Width = 598
-    Height = 50
+    Height = 85
+    Caption = ' Informa'#231#245'es do fornecedor'
     TabOrder = 4
-    object lblcodigo: TLabel
+    object lbCNPJCPF: TLabel
       Left = 5
-      Top = 18
-      Width = 42
+      Top = 25
+      Width = 56
       Height = 15
-      Caption = 'C'#243'digo:'
+      Caption = 'CNPJ/CPF:'
     end
-    object txtcodigo: TEdit
-      Left = 53
-      Top = 15
-      Width = 55
+    object lbNomeFornecedor: TLabel
+      Left = 310
+      Top = 25
+      Width = 116
+      Height = 15
+      Caption = 'Nome do Fornecedor:'
+    end
+    object txtCNPJCPF: TEdit
+      Left = 5
+      Top = 40
+      Width = 280
       Height = 23
-      Hint = 'C'#243'digo'
-      MaxLength = 7
+      Hint = 'Digite os n'#250'meros do CNPJ/CPF'
+      MaxLength = 14
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      OnKeyPress = txtCodigoKeyPress
+      OnKeyPress = txtCNPJCPFKeyPress
+    end
+    object txtNomeFornecedor: TEdit
+      Left = 310
+      Top = 40
+      Width = 280
+      Height = 23
+      Hint = 'Nome completo'
+      MaxLength = 80
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnKeyPress = txtCNPJCPFKeyPress
     end
   end
   object tobTop: TToolBar
