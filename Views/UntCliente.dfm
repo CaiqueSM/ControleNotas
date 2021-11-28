@@ -295,6 +295,7 @@ object frmCliente: TfrmCliente
       ImageIndex = 0
       ParentShowHint = False
       ShowHint = True
+      OnClick = tbuPesquisarClick
     end
     object tbuExcluir: TToolButton
       Left = 23

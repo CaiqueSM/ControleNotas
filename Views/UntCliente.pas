@@ -50,6 +50,7 @@ type
     procedure txtcodigoKeyPress(Sender: TObject; var Key: Char);
     procedure txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
     procedure tbuExcluirClick(Sender: TObject);
+    procedure tbuPesquisarClick(Sender: TObject);
   private
     FClienteExistente: Boolean;
     FController: TClienteController;
@@ -149,6 +150,11 @@ begin
   If ShowConfirm('Tem certeza que deseja excluir este cliente?') Then
     If atualizarDados(actExcluir) Then
       btnCancelarClick(Sender);
+end;
+
+procedure TfrmCliente.tbuPesquisarClick(Sender: TObject);
+begin
+  null;
 end;
 
 procedure TfrmCliente.txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);

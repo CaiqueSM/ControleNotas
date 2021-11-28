@@ -42,7 +42,9 @@ uses
   UntContatoDao in 'Dao\UntContatoDao.pas',
   UntEmailDao in 'Dao\UntEmailDao.pas',
   UntTelefoneDao in 'Dao\UntTelefoneDao.pas',
-  UntCliente in 'Views\UntCliente.pas' {frmCliente};
+  UntCliente in 'Views\UntCliente.pas' {frmCliente},
+  UntRelacionamentoContatoModel in 'Model\UntRelacionamentoContatoModel.pas',
+  UntRelacionamentoContatoDao in 'Dao\UntRelacionamentoContatoDao.pas';
 
 {$R *.res}
 

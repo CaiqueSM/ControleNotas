@@ -139,7 +139,7 @@ begin
                         raise Exception.Create('Erro ao gravar os contatos');
                      Relacionamento := TRelacionamentoContatoModel.Create;
                      Relacionamento.idContato:= contato.Id;
-                     Relacionamento.idRelacionado:= contato.IdCliente;
+                     Relacionamento.idRelacionado:= ACliente.id;
                      FRelacionamentoDao.Criar(Relacionamento);
                      Relacionamento.Free;
                   End;
