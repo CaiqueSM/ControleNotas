@@ -36,6 +36,8 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FClienteExistente: Boolean;
     FController: TNotasController;
@@ -90,6 +92,16 @@ procedure TfrmCadastrarNota.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   Action := caFree;
+end;
+
+procedure TfrmCadastrarNota.FormCreate(Sender: TObject);
+begin
+  FController := TNotasController.Create();
+end;
+
+procedure TfrmCadastrarNota.FormShow(Sender: TObject);
+begin
+  HabilitarCampos(False);
 end;
 
 procedure TfrmCadastrarNota.HabilitarCampos(AHabilitar: Boolean);
