@@ -35,6 +35,7 @@ type
     lblCNPJCPFcliente: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
   private
     FClienteExistente: Boolean;
     FController: TNotasController;
@@ -66,6 +67,23 @@ begin
   FClienteExistente := False;
   If txtCodigo.CanFocus Then
     txtCodigo.SetFocus;
+end;
+
+procedure TfrmCadastrarNota.btnGravarClick(Sender: TObject);
+begin
+  If validarCampos(todosCampos) Then
+  Begin
+    If FClienteExistente Then
+    Begin
+      If atualizarDados(actAlterar) Then
+        btnCancelarClick(Sender)
+    End
+    Else
+    Begin
+      If atualizarDados(actCriar) Then
+        btnCancelarClick(Sender)
+    End;
+  End;
 end;
 
 procedure TfrmCadastrarNota.FormClose(Sender: TObject;
