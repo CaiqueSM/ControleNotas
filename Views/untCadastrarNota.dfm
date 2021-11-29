@@ -51,7 +51,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       Height = 15
       Caption = 'CNPJ/CPF do fornecedor:'
     end
-    object Label1: TLabel
+    object lblCNPJCPFcliente: TLabel
       Left = 312
       Top = 70
       Width = 111
@@ -69,7 +69,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ShowHint = True
       TabOrder = 0
     end
-    object txtCodigo: TEdit
+    object txtControle: TEdit
       Left = 5
       Top = 85
       Width = 121
@@ -124,7 +124,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Height = 127
     Caption = ' Descri'#231#227'o '
     TabOrder = 1
-    object menoDescricao: TMemo
+    object memoDescricao: TMemo
       Left = 5
       Top = 20
       Width = 587
@@ -190,7 +190,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       Height = 15
       Caption = 'C'#243'digo:'
     end
-    object Edit1: TEdit
+    object txtCodigo: TEdit
       Left = 53
       Top = 15
       Width = 55
