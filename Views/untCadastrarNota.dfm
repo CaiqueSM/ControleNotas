@@ -30,7 +30,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       Height = 15
       Caption = 'Chave de acesso:'
     end
-    object lbCodigo: TLabel
+    object lbControle: TLabel
       Left = 5
       Top = 70
       Width = 93
@@ -44,14 +44,14 @@ object frmCadastrarNota: TfrmCadastrarNota
       Height = 15
       Caption = 'Valor:'
     end
-    object lbCNPJCPF: TLabel
+    object lbCNPJCPFfornecedor: TLabel
       Left = 312
       Top = 20
       Width = 134
       Height = 15
       Caption = 'CNPJ/CPF do fornecedor:'
     end
-    object lblCNPJCPFcliente: TLabel
+    object lbCNPJCPFcliente: TLabel
       Left = 312
       Top = 70
       Width = 111
@@ -183,7 +183,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Width = 598
     Height = 50
     TabOrder = 5
-    object lblcodigo: TLabel
+    object lbcodigo: TLabel
       Left = 5
       Top = 18
       Width = 42

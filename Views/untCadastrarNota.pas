@@ -16,7 +16,7 @@ type
     lbChaveAcesso: TLabel;
     txtChaveAcesso: TEdit;
     txtControle: TEdit;
-    lbCodigo: TLabel;
+    lbControle: TLabel;
     lbValor: TLabel;
     gbDescricao: TGroupBox;
     memoDescricao: TMemo;
@@ -27,25 +27,25 @@ type
     tbuExcluir: TToolButton;
     mskValor: TMaskEdit;
     gbCodigoFornecedor: TGroupBox;
-    lblcodigo: TLabel;
+    lbcodigo: TLabel;
     txtCodigo: TEdit;
     txtCNPJCPFfornecedor: TEdit;
-    txtCNPJCPFcliente: TEdit;
-    lbCNPJCPF: TLabel;
-    lblCNPJCPFcliente: TLabel;
+    txtCNPJCPFCliente: TEdit;
+    lbCNPJCPFfornecedor: TLabel;
+    lbCNPJCPFcliente: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
-    FClienteExistente: Boolean;
+    FNotasExistente: Boolean;
     FController: TNotasController;
     procedure LimparCampos();
     procedure HabilitarCampos(AHabilitar: Boolean);
-    procedure selecionarCliente(Sender: TObject);
+    procedure selecionarNotas(Sender: TObject);
 
-    function serializeCliente(): TNotasModel;
+    function serializeNotas(): TNotasModel;
     function validarCampos(ACampo: TObject): Boolean;
     function atualizarDados(AOperacao: TEnumCRUD): Boolean;
   end;
@@ -66,7 +66,7 @@ procedure TfrmCadastrarNota.btnCancelarClick(Sender: TObject);
 begin
   LimparCampos();
   HabilitarCampos(False);
-  FClienteExistente := False;
+  FNotasExistente := False;
   If txtCodigo.CanFocus Then
     txtCodigo.SetFocus;
 end;
@@ -75,7 +75,7 @@ procedure TfrmCadastrarNota.btnGravarClick(Sender: TObject);
 begin
   If validarCampos(todosCampos) Then
   Begin
-    If FClienteExistente Then
+    If FNotasExistente Then
     Begin
       If atualizarDados(actAlterar) Then
         btnCancelarClick(Sender)
@@ -115,17 +115,17 @@ begin
   txtChaveAcesso.Clear;
   txtControle.Clear;
   mskValor.Clear;
-  txtCNPJCPFcliente.Clear;
+  txtCNPJCPFNotas.Clear;
   txtCNPJCPFfornecedor.Clear;
   memoDescricao.Clear;
 end;
 
-procedure TfrmCadastrarNota.selecionarCliente(Sender: TObject);
+procedure TfrmCadastrarNota.selecionarNotas(Sender: TObject);
 begin
 
 end;
 
-function TfrmCadastrarNota.serializeCliente: TNotasModel;
+function TfrmCadastrarNota.serializeNotas: TNotasModel;
 begin
 
 end;
