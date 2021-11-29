@@ -44,12 +44,12 @@ object frmCadastrarNota: TfrmCadastrarNota
       Height = 15
       Caption = 'Valor:'
     end
-    object lbCNPJCPFfornecedor: TLabel
+    object lbCNPJfornecedor: TLabel
       Left = 312
       Top = 20
-      Width = 134
+      Width = 108
       Height = 15
-      Caption = 'CNPJ/CPF do fornecedor:'
+      Caption = 'CNPJ do fornecedor:'
     end
     object lbCNPJCPFcliente: TLabel
       Left = 312

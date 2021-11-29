@@ -31,7 +31,7 @@ type
     txtCodigo: TEdit;
     txtCNPJCPFfornecedor: TEdit;
     txtCNPJCPFCliente: TEdit;
-    lbCNPJCPFfornecedor: TLabel;
+    lbCNPJfornecedor: TLabel;
     lbCNPJCPFcliente: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
@@ -115,7 +115,7 @@ begin
   txtChaveAcesso.Clear;
   txtControle.Clear;
   mskValor.Clear;
-  txtCNPJCPFNotas.Clear;
+  txtCNPJCPFcliente.Clear;
   txtCNPJCPFfornecedor.Clear;
   memoDescricao.Clear;
 end;
