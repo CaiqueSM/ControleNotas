@@ -27,8 +27,8 @@ type
     gbCodigoFornecedor: TGroupBox;
     lblcodigo: TLabel;
     Edit1: TEdit;
-    txtCNPJCPF: TEdit;
-    Edit2: TEdit;
+    txtCNPJCPFfornecedor: TEdit;
+    txtCNPJCPFcliente: TEdit;
     lbCNPJCPF: TLabel;
     Label1: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

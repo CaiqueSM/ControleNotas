@@ -92,7 +92,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       TabOrder = 2
       Text = ''
     end
-    object txtCNPJCPF: TEdit
+    object txtCNPJCPFfornecedor: TEdit
       Left = 312
       Top = 35
       Width = 280
@@ -104,7 +104,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ShowHint = True
       TabOrder = 3
     end
-    object Edit2: TEdit
+    object txtCNPJCPFcliente: TEdit
       Left = 312
       Top = 85
       Width = 280
@@ -160,7 +160,6 @@ object frmCadastrarNota: TfrmCadastrarNota
     Height = 22
     Images = frmMenu.ListaImagens
     TabOrder = 4
-    ExplicitLeft = -305
     object tbuPesquisar: TToolButton
       Left = 0
       Top = 0
