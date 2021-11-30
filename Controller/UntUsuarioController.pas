@@ -13,7 +13,8 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Consultar(ANome: String): TUsuarioModel;
+    function Consultar(ANome: String): TUsuarioModel;overload;
+    function Consultar(AIdUsuario: Integer): TUsuarioModel;overload;
     function Criar(AUsuario: TUsuarioModel): Boolean;
     function Alterar(AUsuario: TUsuarioModel): Boolean;
     function Excluir(AIdUsuario: Integer): Boolean;
@@ -55,6 +56,11 @@ end;
 function TUsuarioController.Consultar(ANome: String): TUsuarioModel;
 begin
    Result := FDao.Consultar(ANome);
+end;
+
+function TUsuarioController.Consultar(AIdUsuario: Integer): TUsuarioModel;
+begin
+  Result := FDao.Consultar(AIdUsuario);
 end;
 
 function TUsuarioController.VerificarSenhaUsuarioEstaCorreta(AUsuario,
