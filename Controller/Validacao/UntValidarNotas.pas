@@ -12,10 +12,10 @@ TValidarNotas = class
 private
   NumeroPessoal: TValidarPessoa;
 public
-  function ValidarChaveAcesso(AChaveAcesso: string): boolean;
-  function ValidarValor(Avalor: string): boolean;
   constructor Create;
   destructor Destroy; override;
+  function ValidarChaveAcesso(AChaveAcesso: string): boolean;
+  function ValidarValor(Avalor: string): boolean;
   property ValidarNumeroPessoal: TvalidarPessoa read NumeroPessoal;
 end;
 

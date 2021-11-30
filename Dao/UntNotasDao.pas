@@ -19,10 +19,12 @@ type
   public
     constructor Create;
     destructor Destroy;
-    function Consultar(AIdUsuario: integer): TObjectList<TNotasModel>;
+    function Consultar(AIdNotas: integer): TObjectList<TNotasModel>;overload;
+    function Consultar(AChaveAcesso: string): TObjectList<TNotasModel>;overload;
     function Criar(ANotas: TNotasModel): Boolean;
     function Alterar(ANotas: TNotasModel): Boolean;
-    function Excluir(AIdNotas: integer): Boolean;
+    function Excluir(AIdNotas: integer): Boolean;overload;
+    function Excluir(AChaveAcesso: string): Boolean;overload;
   end;
 
 implementation
@@ -69,7 +71,7 @@ begin
   End;
 end;
 
-function TNotasDao.Consultar(AIdUsuario: integer): TObjectList<TNotasModel>;
+function TNotasDao.Consultar(AIdNotas: integer): TObjectList<TNotasModel>;
 var
   query: TZQuery;
   sql: String;
@@ -77,10 +79,10 @@ var
 begin
   Result := TObjectList<TNotasModel>.Create();
 
-  sql := 'select * from Notas where idusuario = :idusuario ';
+  sql := 'select * from Notas where id = :id ';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('idusuario').AsInteger := AIdUsuario;
+    query.ParamByName('id').AsInteger := AIdNotas;
     Try
       query.Open();
       While Not query.Eof Do
@@ -105,6 +107,28 @@ begin
         Result.Add(Notas);
         query.Next;
       End;
+    Except
+      on E: Exception do
+        Showmessage('Não foi possível obter as Notas.');
+    End;
+  Finally
+    query.Free;
+  End;
+end;
+
+function TNotasDao.Consultar(AChaveAcesso: string): TObjectList<TNotasModel>;
+var
+  query: TZQuery;
+  sql: String;
+begin
+
+  sql := 'select id from Notas where chaveacesso = :chave ';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('chave').AsString := AChaveAcesso;
+    Try
+      query.Open();
+      Result:= Consultar(query.FieldByName('id').AsInteger);
     Except
       on E: Exception do
         Showmessage('Não foi possível obter as Notas.');
@@ -166,6 +190,35 @@ begin
   FFornecedorDao.Free;
 end;
 
+function TNotasDao.Excluir(AChaveAcesso: string): Boolean;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := True;
+
+  sql := 'delete from Notas where chaveacesso = :chave';
+
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('chave').AsString := AChaveAcesso;
+    Try
+      query.ExecSQL();
+      Conexao.Database.Commit;
+    Except
+      on E: Exception do
+      Begin
+        Result := False;
+        Conexao.Database.Rollback;
+        Showmessage('Não foi possível excluir o Notas');
+      End;
+    End;
+  Finally
+    query.Free;
+  End;
+
+end;
+
 function TNotasDao.Excluir(AIdNotas: integer): Boolean;
 var
   query: TZQuery;
@@ -173,7 +226,7 @@ var
 begin
   Result := True;
 
-  sql := 'delete from Notas where idNotas = :id';
+  sql := 'delete from Notas where id = :id';
 
   query := CreateQuery(sql);
   Try

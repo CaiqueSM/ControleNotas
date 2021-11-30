@@ -10,7 +10,7 @@ uses
   UntConexao in 'Dao\UntConexao.pas',
   UntLoginDao in 'Dao\UntLoginDao.pas',
   untmenu in 'Views\untmenu.pas' {frmMenu},
-  UntCadastrarNota in 'Views\UntCadastrarNota.pas' {frmCadastrarNota},
+  untCadastrarNota in 'Views\untCadastrarNota.pas' {frmCadastrarNota},
   UntUsuario in 'Views\UntUsuario.pas' {frmUsuario},
   UntGerarRelatorio in 'Views\UntGerarRelatorio.pas' {frmGerarRelatorio},
   untLogin in 'Views\untLogin.pas' {frmLogin},
@@ -46,7 +46,10 @@ uses
   UntRelacionamentoContatoDao in 'Dao\UntRelacionamentoContatoDao.pas',
   untFornecedor in 'Views\untFornecedor.pas' {frmFornecedor},
   UntFornecedorDao in 'Dao\UntFornecedorDao.pas',
-  UntFornecedorController in 'Controller\UntFornecedorController.pas';
+  UntFornecedorController in 'Controller\UntFornecedorController.pas',
+  UntNotasController in 'Controller\UntNotasController.pas',
+  UntNotasDao in 'Dao\UntNotasDao.pas',
+  UntValidarNotas in 'Controller\Validacao\UntValidarNotas.pas';
 
 {$R *.res}
 
