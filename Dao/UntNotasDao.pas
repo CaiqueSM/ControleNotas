@@ -173,7 +173,7 @@ var
 begin
   Result := True;
 
-  sql := 'delete from Notas ' + ' where idcontato = :id';
+  sql := 'delete from Notas where idNotas = :id';
 
   query := CreateQuery(sql);
   Try
