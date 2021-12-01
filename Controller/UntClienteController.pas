@@ -19,7 +19,8 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Consultar(AId: String): TClienteModel;
+    function Consultar(AId: integer): TClienteModel;overload;
+    function Consultar(ANumeroPessoal: String): TClienteModel;overload;
     function Criar(ACliente: TClienteModel): Boolean;
     function Alterar(ACliente: TClienteModel): Boolean;
     function Excluir(AIdCliente: Integer): Boolean;
@@ -60,7 +61,12 @@ begin
   Result := FClienteDao.Alterar(ACliente);
 end;
 
-function TClienteController.Consultar(AId: String): TClienteModel;
+function TClienteController.Consultar(ANumeroPessoal: String): TClienteModel;
+begin
+  Result:= FClienteDao.Consultar(ANumeroPessoal);
+end;
+
+function TClienteController.Consultar(AId: integer): TClienteModel;
 begin
   Result := FClienteDao.Consultar(AId);
 end;

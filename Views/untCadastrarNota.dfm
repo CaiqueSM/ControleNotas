@@ -22,7 +22,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Width = 598
     Height = 121
     Caption = ' Informa'#231#245'es da Nota '
-    TabOrder = 0
+    TabOrder = 1
     object lbChaveAcesso: TLabel
       Left = 5
       Top = 20
@@ -68,6 +68,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      OnExit = txtChaveAcessoExit
     end
     object txtControle: TEdit
       Left = 5
@@ -91,6 +92,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ShowHint = True
       TabOrder = 2
       Text = ''
+      OnChange = mskValorChange
     end
     object txtCNPJCPFfornecedor: TEdit
       Left = 312
@@ -103,6 +105,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ParentShowHint = False
       ShowHint = True
       TabOrder = 3
+      OnExit = txtCNPJCPFfornecedorExit
     end
     object txtCNPJCPFcliente: TEdit
       Left = 312
@@ -115,6 +118,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ParentShowHint = False
       ShowHint = True
       TabOrder = 4
+      OnExit = txtCNPJCPFclienteExit
     end
   end
   object gbDescricao: TGroupBox
@@ -123,7 +127,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Width = 598
     Height = 127
     Caption = ' Descri'#231#227'o '
-    TabOrder = 1
+    TabOrder = 2
     object memoDescricao: TMemo
       Left = 5
       Top = 20
@@ -143,7 +147,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Width = 75
     Height = 25
     Caption = 'Gravar'
-    TabOrder = 2
+    TabOrder = 3
   end
   object btnCancelar: TButton
     Left = 445
@@ -151,7 +155,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 3
+    TabOrder = 4
   end
   object tobTop: TToolBar
     Left = 0
@@ -159,7 +163,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Width = 609
     Height = 22
     Images = frmMenu.ListaImagens
-    TabOrder = 4
+    TabOrder = 5
     object tbuPesquisar: TToolButton
       Left = 0
       Top = 0
@@ -182,7 +186,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Top = 25
     Width = 598
     Height = 50
-    TabOrder = 5
+    TabOrder = 0
     object lbcodigo: TLabel
       Left = 5
       Top = 18
@@ -201,6 +205,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
+      OnKeyPress = txtCodigoKeyPress
     end
   end
 end

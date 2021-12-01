@@ -16,7 +16,7 @@ public
   destructor Destroy; override;
   function ValidarChaveAcesso(AChaveAcesso: string): boolean;
   function ValidarValor(Avalor: string): boolean;
-  property ValidarNumeroPessoal: TvalidarPessoa read NumeroPessoal;
+  function ValidarNumeroPessoal(Anumero: string):boolean;
 end;
 
 implementation
@@ -54,6 +54,11 @@ begin
   resultado:= 11 - (soma mod 11);
 
   result:= (digitoVerificador = resultado);
+end;
+
+function TValidarNotas.ValidarNumeroPessoal(Anumero: string): boolean;
+begin
+  Result:= NumeroPessoal.ValidarNumeroCadastroPessoal(ANumero);
 end;
 
 function TValidarNotas.ValidarValor(Avalor: string): boolean;

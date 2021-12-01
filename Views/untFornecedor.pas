@@ -257,9 +257,6 @@ end;
 function TfrmFornecedor.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   Fornecedor: TFornecedorModel;
-  contato: TContatoModel;
-  email: TEmailModel;
-  telefone: TTelefoneModel;
   nenhum: Integer;
 begin
   Result := True;

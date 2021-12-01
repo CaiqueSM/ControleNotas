@@ -18,7 +18,7 @@ type
     FFornecedorDao: TFornecedorController;
   public
     constructor Create;
-    destructor Destroy;
+    destructor Destroy;override;
     function Consultar(AIdNotas: integer): TObjectList<TNotasModel>;overload;
     function Consultar(AChaveAcesso: string): TObjectList<TNotasModel>;overload;
     function Criar(ANotas: TNotasModel): Boolean;
@@ -121,7 +121,7 @@ var
   query: TZQuery;
   sql: String;
 begin
-
+  Result:= nil;
   sql := 'select id from Notas where chaveacesso = :chave ';
   query := CreateQuery(sql);
   Try

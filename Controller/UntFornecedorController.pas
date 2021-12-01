@@ -19,7 +19,8 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Consultar(AId: String): TFornecedorModel;
+    function Consultar(AId: integer): TFornecedorModel;overload;
+    function Consultar(ANumeroPessoal: String): TFornecedorModel;overload;
     function Criar(AFornecedor: TFornecedorModel): Boolean;
     function Alterar(AFornecedor: TFornecedorModel): Boolean;
     function Excluir(AIdFornecedor: Integer): Boolean;
@@ -60,9 +61,14 @@ begin
   Result := FFornecedorDao.Alterar(AFornecedor);
 end;
 
-function TFornecedorController.Consultar(AId: String): TFornecedorModel;
+function TFornecedorController.Consultar(AId: integer): TFornecedorModel;
 begin
   Result := FFornecedorDao.Consultar(AId);
+end;
+
+function TFornecedorController.Consultar(ANumeroPessoal: String): TFornecedorModel;
+begin
+  Result := FFornecedorDao.Consultar(ANumeroPessoal);
 end;
 
 function TFornecedorController.Criar(AFornecedor: TFornecedorModel): Boolean;
