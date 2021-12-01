@@ -106,8 +106,6 @@ end;
 
 procedure TfrmMenu.itemSairClick(Sender: TObject);
 begin
-   if Assigned(FController) then
-      FController.Free;
    Close();
 end;
 

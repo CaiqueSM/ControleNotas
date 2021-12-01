@@ -17,10 +17,10 @@ type
     FClienteDao: TClienteController;
     FFornecedorDao: TFornecedorController;
   public
-    constructor Create;
+    constructor Create(AConexao: TConexao);
     destructor Destroy;override;
-    function Consultar(AIdNotas: integer): TObjectList<TNotasModel>;overload;
-    function Consultar(AChaveAcesso: string): TObjectList<TNotasModel>;overload;
+    function Consultar(AIdNotas: integer): TNotasModel;overload;
+    function Consultar(AChaveAcesso: string): TNotasModel;overload;
     function Criar(ANotas: TNotasModel): Boolean;
     function Alterar(ANotas: TNotasModel): Boolean;
     function Excluir(AIdNotas: integer): Boolean;overload;
@@ -71,13 +71,12 @@ begin
   End;
 end;
 
-function TNotasDao.Consultar(AIdNotas: integer): TObjectList<TNotasModel>;
+function TNotasDao.Consultar(AIdNotas: integer): TNotasModel;
 var
   query: TZQuery;
   sql: String;
-  Notas: TNotasModel;
 begin
-  Result := TObjectList<TNotasModel>.Create();
+  Result:= nil;
 
   sql := 'select * from Notas where id = :id ';
   query := CreateQuery(sql);
@@ -85,11 +84,8 @@ begin
     query.ParamByName('id').AsInteger := AIdNotas;
     Try
       query.Open();
-      While Not query.Eof Do
-      Begin
-        Notas := TNotasModel.Create();
-
-        with Notas do
+      Result:= TNotasModel.Create;
+        with Result do
         begin
           Id := query.FieldByName('id').AsInteger;
           Chave := query.FieldByName('chaveacesso').AsString;
@@ -103,10 +99,6 @@ begin
           Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
             .AsInteger);
         end;
-
-        Result.Add(Notas);
-        query.Next;
-      End;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter as Notas.');
@@ -116,7 +108,7 @@ begin
   End;
 end;
 
-function TNotasDao.Consultar(AChaveAcesso: string): TObjectList<TNotasModel>;
+function TNotasDao.Consultar(AChaveAcesso: string): TNotasModel;
 var
   query: TZQuery;
   sql: String;
@@ -138,8 +130,9 @@ begin
   End;
 end;
 
-constructor TNotasDao.Create;
+constructor TNotasDao.Create(AConexao: TConexao);
 begin
+  inherited Create(AConexao);
   FUsuarioDao := TUsuarioController.Create();
   FClienteDao := TClienteController.Create();
   FFornecedorDao := TFornecedorController.Create();

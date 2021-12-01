@@ -4,20 +4,20 @@ interface
 
 uses
 
-UntValidarPessoa, SysUtils;
+  UntValidarPessoa, SysUtils;
 
 type
 
-TValidarNotas = class
-private
-  NumeroPessoal: TValidarPessoa;
-public
-  constructor Create;
-  destructor Destroy; override;
-  function ValidarChaveAcesso(AChaveAcesso: string): boolean;
-  function ValidarValor(Avalor: string): boolean;
-  function ValidarNumeroPessoal(Anumero: string):boolean;
-end;
+  TValidarNotas = class
+  private
+    NumeroPessoal: TValidarPessoa;
+  public
+    constructor Create;
+    destructor Destroy; override;
+    function ValidarChaveAcesso(AChaveAcesso: string): boolean;
+    function ValidarValor(Avalor: string): boolean;
+    function ValidarNumeroPessoal(Anumero: string): boolean;
+  end;
 
 implementation
 
@@ -25,7 +25,7 @@ implementation
 
 constructor TValidarNotas.Create;
 begin
-  NumeroPessoal:= TValidarPessoa.Create;
+  NumeroPessoal := TValidarPessoa.Create;
 end;
 
 destructor TValidarNotas.Destroy;
@@ -40,30 +40,30 @@ var
   i: integer;
   tamanhoChave, soma, resultado, digitoVerificador: integer;
 begin
-  regraValidacao := [4,3,2, 9,8,7,6,5,4,3,2, 9,8,7,6,5,4,3,2,
-  9,8,7,6,5,4,3,2, 9,8,7,6,5,4,3,2, 9,8,7,6,5,4,3,2];
-  tamanhoChave:= 43;
-  soma:= 0;
-  digitoVerificador:= strTOint(AChaveAcesso[length(AChaveAcesso) -1]);
+  regraValidacao := [4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9,
+    8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+  tamanhoChave := 43;
+  soma := 0;
+  digitoVerificador := strTOint(AChaveAcesso[length(AChaveAcesso)]);
 
-  for i := 0 to tamanhoChave - 1 do
+  for i := 1 to tamanhoChave do
   begin
-    soma:= soma + strTOint(AChaveAcesso[i]) * regraValidacao[i];
+    soma := soma + strTOint(AChaveAcesso[i]) * regraValidacao[i - 1];
   end;
 
-  resultado:= 11 - (soma mod 11);
+  resultado := 11 - (soma mod 11);
 
-  result:= (digitoVerificador = resultado);
+  result := (digitoVerificador = resultado);
 end;
 
 function TValidarNotas.ValidarNumeroPessoal(Anumero: string): boolean;
 begin
-  Result:= NumeroPessoal.ValidarNumeroCadastroPessoal(ANumero);
+  result := NumeroPessoal.ValidarNumeroCadastroPessoal(Anumero);
 end;
 
 function TValidarNotas.ValidarValor(Avalor: string): boolean;
 begin
-  result:= not(AValor.IsNullOrEmpty(AValor));
+  result := not(Avalor.IsNullOrEmpty(Avalor));
 end;
 
 end.

@@ -14,11 +14,11 @@ type
     FNotasDao: TNotasDao;
     FValidar: TValidarNotas;
   public
-    constructor Create(); reintroduce;
+    constructor Create();
     destructor Destroy(); override;
-    function Consultar(AChaveAcesso: string): TObjectList<TNotasModel>;
+    function Consultar(AChaveAcesso: string): TNotasModel;
       overload;
-    function Consultar(AIdNotas: integer): TObjectList<TNotasModel>; overload;
+    function Consultar(AIdNotas: integer): TNotasModel; overload;
     function Criar(ANota: TNotasModel): Boolean;
     function Alterar(ANota: TNotasModel): Boolean;
     function Excluir(AIdNota: integer): Boolean; overload;
@@ -37,21 +37,20 @@ begin
   Result := FNotasDao.Alterar(ANota);
 end;
 
-function TNotasController.Consultar(AChaveAcesso: string)
-  : TObjectList<TNotasModel>;
+function TNotasController.Consultar(AChaveAcesso: string): TNotasModel;
 begin
   Result := FNotasDao.Consultar(AChaveAcesso);
 end;
 
-function TNotasController.Consultar(AIdNotas: integer)
-  : TObjectList<TNotasModel>;
+function TNotasController.Consultar(AIdNotas: integer): TNotasModel;
 begin
   Result := FNotasDao.Consultar(AIdNotas);
 end;
 
 constructor TNotasController.Create;
 begin
-  FNotasDao := TNotasDao.Create;
+  inherited;
+  FNotasDao := TNotasDao.Create(Conexao);
   FValidar := TValidarNotas.Create;
 end;
 
@@ -84,7 +83,7 @@ end;
 
 function TNotasController.ValidarNumeroPessoal(ANumero: string): boolean;
 begin
-  Result:= ValidarNumeroPessoal(ANumero);
+  Result:= FValidar.ValidarNumeroPessoal(ANumero);
 end;
 
 function TNotasController.ValidarValor(AValor: string): Boolean;

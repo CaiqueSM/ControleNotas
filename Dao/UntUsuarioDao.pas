@@ -95,7 +95,7 @@ begin
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName(':id').AsInteger := AIdUsuario;
+      query.ParamByName('id').AsInteger := AIdUsuario;
       Try
          query.Open();
 

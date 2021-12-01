@@ -74,7 +74,7 @@ begin
       actConsultar:
         Begin
           Try
-            Notas := FController.Consultar(txtCodigo.Text).First;
+            Notas := FController.Consultar(strTOint(txtCodigo.Text));
             FNotasExistente := Not Notas.Chave.IsEmpty;
 
             if not Notas.Chave.IsEmpty then
