@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, UntNotasModel, UntNotasController,
   UntEnvironment, UntClienteController, UntFornecedorController,
-  UntUsuarioController,
+  UntUsuarioController, UntMensagemUtil,
   UntCrudEnum, UntFormHelper, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.Mask;
@@ -74,22 +74,22 @@ begin
       actConsultar:
         Begin
           Try
-            Notas := FController.Consultar(txtcodigo.Text).First;
+            Notas := FController.Consultar(txtCodigo.Text).First;
             FNotasExistente := Not Notas.Chave.IsEmpty;
 
             if not Notas.Chave.IsEmpty then
-              txtChaveAcesso.Text:= Notas.Chave;
+              txtChaveAcesso.Text := Notas.Chave;
 
-           if Notas.Controle <> 0 then
-            txtControle.Text:= intTOstr(Notas.Controle);
+            if Notas.Controle <> 0 then
+              txtControle.Text := intTOstr(Notas.Controle);
 
-           if Notas.Valor <> 0 then
-            mskValor.Text:= FloatToStr(Notas.Valor);
+            if Notas.Valor <> 0 then
+              mskValor.Text := FloatToStr(Notas.Valor);
 
-           If Not Notas.Cliente.CPF.IsEmpty Then
-              txtCNPJCPFcliente.Text := Notas.Cliente.CPF
+            If Not Notas.Cliente.CPF.IsEmpty Then
+              txtCNPJCPFCliente.Text := Notas.Cliente.CPF
             Else
-              txtCNPJCPFcliente.Text := Notas.Cliente.CNPJ;
+              txtCNPJCPFCliente.Text := Notas.Cliente.CNPJ;
 
             If Not Notas.Fornecedor.CNPJ.IsEmpty Then
               txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CNPJ
@@ -97,7 +97,7 @@ begin
               txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CPF;
 
             if not Notas.Descricao.IsEmpty then
-               memoDescricao.Text:= Notas.Descricao;
+              memoDescricao.Text := Notas.Descricao;
           Except
             Result := False;
           End;
@@ -106,6 +106,20 @@ begin
       actCriar:
         Begin
           Notas := serializeNotas();
+          if Notas.Cliente.Nome.IsEmpty then
+          begin
+            MensagemNaoCadastrado('Cliente');
+            Result:= False;
+            Exit();
+          end;
+
+          if Notas.Fornecedor.Nome.IsEmpty then
+          begin
+            MensagemNaoCadastrado('Fornecedor');
+            Result:= False;
+            Exit();
+          end;
+
           Result := FController.Criar(Notas);
         End;
 
@@ -117,7 +131,7 @@ begin
 
       actExcluir:
         Begin
-          Result := FController.Excluir(StrToInt(txtcodigo.Text));
+          Result := FController.Excluir(StrToInt(txtCodigo.Text));
         End;
     End;
   Finally
@@ -218,7 +232,7 @@ begin
 
   Result := TNotasModel.Create;
   Result.Chave := txtChaveAcesso.Text;
-  Result.Controle := strTOint(txtControle.Text);
+  Result.Controle := StrToInt(txtControle.Text);
   Result.Valor := strTOFloat(mskValor.Text);
   Result.Descricao := memoDescricao.Text;
   Result.Usuario := Usuario.Consultar(Global.Usuario);
