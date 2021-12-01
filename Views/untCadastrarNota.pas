@@ -39,11 +39,11 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure mskValorChange(Sender: TObject);
-    procedure txtChaveAcessoExit(Sender: TObject);
-    procedure txtCNPJCPFclienteExit(Sender: TObject);
-    procedure txtCNPJCPFfornecedorExit(Sender: TObject);
     procedure txtCodigoKeyPress(Sender: TObject; var Key: Char);
+    procedure txtChaveAcessoExit(Sender: TObject);
+    procedure mskValorExit(Sender: TObject);
+    procedure txtCNPJCPFfornecedorExit(Sender: TObject);
+    procedure txtCNPJCPFclienteExit(Sender: TObject);
   private
     FNotasExistente: Boolean;
     FController: TNotasController;
@@ -64,8 +64,66 @@ implementation
 {$R *.dfm}
 
 function TfrmCadastrarNota.atualizarDados(AOperacao: TEnumCRUD): Boolean;
+var
+  Notas: TNotasModel;
 begin
+  Result := True;
 
+  Try
+    Case AOperacao Of
+      actConsultar:
+        Begin
+          Try
+            Notas := FController.Consultar(txtcodigo.Text).First;
+            FNotasExistente := Not Notas.Chave.IsEmpty;
+
+            if not Notas.Chave.IsEmpty then
+              txtChaveAcesso.Text:= Notas.Chave;
+
+           if Notas.Controle <> 0 then
+            txtControle.Text:= intTOstr(Notas.Controle);
+
+           if Notas.Valor <> 0 then
+            mskValor.Text:= FloatToStr(Notas.Valor);
+
+           If Not Notas.Cliente.CPF.IsEmpty Then
+              txtCNPJCPFcliente.Text := Notas.Cliente.CPF
+            Else
+              txtCNPJCPFcliente.Text := Notas.Cliente.CNPJ;
+
+            If Not Notas.Fornecedor.CNPJ.IsEmpty Then
+              txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CNPJ
+            Else
+              txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CPF;
+
+            if not Notas.Descricao.IsEmpty then
+               memoDescricao.Text:= Notas.Descricao;
+          Except
+            Result := False;
+          End;
+        End;
+
+      actCriar:
+        Begin
+          Notas := serializeNotas();
+          Result := FController.Criar(Notas);
+        End;
+
+      actAlterar:
+        Begin
+          Notas := serializeNotas();
+          Result := FController.Alterar(Notas);
+        End;
+
+      actExcluir:
+        Begin
+          Result := FController.Excluir(StrToInt(txtcodigo.Text));
+        End;
+    End;
+  Finally
+    If Assigned(Notas) Then
+      Notas.Free;
+  End;
 end;
 
 procedure TfrmCadastrarNota.btnCancelarClick(Sender: TObject);
@@ -97,6 +155,7 @@ end;
 procedure TfrmCadastrarNota.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  FController.Free;
   Action := caFree;
 end;
 
@@ -113,16 +172,16 @@ end;
 procedure TfrmCadastrarNota.HabilitarCampos(AHabilitar: Boolean);
 begin
   tbuPesquisar.Enabled := Not AHabilitar;
-  txtcodigo.Enabled := Not AHabilitar;
+  txtCodigo.Enabled := Not AHabilitar;
   tbuExcluir.Enabled := AHabilitar;
   btnCancelar.Enabled := AHabilitar;
   btnGravar.Enabled := AHabilitar;
-  txtChaveAcesso.Enabled:= AHabilitar;
-  txtCodigo.Enabled:= AHabilitar;
-  mskValor.Enabled:= AHabilitar;
-  txtCNPJCPFcliente.Enabled:= AHabilitar;
-  txtCNPJCPFfornecedor.Enabled:= AHabilitar;
-  memoDescricao.Enabled:= AHabilitar;
+  txtChaveAcesso.Enabled := AHabilitar;
+  txtControle.Enabled := AHabilitar;
+  mskValor.Enabled := AHabilitar;
+  txtCNPJCPFCliente.Enabled := AHabilitar;
+  txtCNPJCPFfornecedor.Enabled := AHabilitar;
+  memoDescricao.Enabled := AHabilitar;
 end;
 
 procedure TfrmCadastrarNota.LimparCampos;
@@ -138,7 +197,13 @@ end;
 
 procedure TfrmCadastrarNota.selecionarNotas(Sender: TObject);
 begin
-
+  If validarCampos(Sender) Then
+    If atualizarDados(actConsultar) Then
+    Begin
+      HabilitarCampos(True);
+      txtCodigo.Enabled := FNotasExistente;
+      Self.TabOrderNext();
+    End;
 end;
 
 function TfrmCadastrarNota.serializeNotas: TNotasModel;
@@ -161,44 +226,24 @@ begin
   Result.Fornecedor := Fornecedor.Consultar(txtCNPJCPFfornecedor.Text);
 end;
 
-procedure TfrmCadastrarNota.mskValorChange(Sender: TObject);
+procedure TfrmCadastrarNota.mskValorExit(Sender: TObject);
 begin
-  if not FController.ValidarValor(mskValor.Text) then
-  begin
-    ShowMessage('O campo valor não pode ser nulo.');
-    if mskValor.CanFocus then
-      mskValor.SetFocus;
-  end;
+  validarCampos(Sender);
 end;
 
 procedure TfrmCadastrarNota.txtChaveAcessoExit(Sender: TObject);
 begin
-  if not FController.ValidarChaveAcesso(txtChaveAcesso.Text) then
-  begin
-    ShowMessage('Chave inválida.');
-    if txtChaveAcesso.CanFocus then
-      txtChaveAcesso.SetFocus;
-  end;
+  validarCampos(Sender);
 end;
 
 procedure TfrmCadastrarNota.txtCNPJCPFclienteExit(Sender: TObject);
 begin
-  if not FController.ValidarNumeroPessoal(txtCNPJCPFCliente.Text) then
-  begin
-    ShowMessage('CNPJ ou CPF inválido.');
-    if txtCNPJCPFCliente.CanFocus then
-      txtCNPJCPFCliente.SetFocus;
-  end;
+  validarCampos(Sender);
 end;
 
 procedure TfrmCadastrarNota.txtCNPJCPFfornecedorExit(Sender: TObject);
 begin
-  if not FController.ValidarNumeroPessoal(txtCNPJCPFfornecedor.Text) then
-  begin
-    ShowMessage('CNPJ inválido.');
-    if txtCNPJCPFfornecedor.CanFocus then
-      txtCNPJCPFfornecedor.SetFocus;
-  end;
+  validarCampos(Sender);
 end;
 
 procedure TfrmCadastrarNota.txtCodigoKeyPress(Sender: TObject; var Key: Char);
@@ -209,7 +254,54 @@ end;
 
 function TfrmCadastrarNota.validarCampos(ACampo: TObject): Boolean;
 begin
+  Result := False;
 
+  if txtCodigo.Text = EmptyStr then
+  begin
+    ShowMessage('O campo código deve ser preenchido!');
+    txtCodigo.Enabled := True;
+    If txtCodigo.CanFocus Then
+      txtCodigo.SetFocus;
+    Exit();
+  end;
+
+  if (mskValor = ACampo) or (mskValor = todosCampos) then
+    if not FController.ValidarValor(mskValor.Text) then
+    begin
+      ShowMessage('O campo valor não pode ser nulo.');
+      if mskValor.CanFocus then
+        mskValor.SetFocus;
+      Exit();
+    end;
+
+  if (txtChaveAcesso = ACampo) or (txtChaveAcesso = todosCampos) then
+    if not FController.ValidarChaveAcesso(txtChaveAcesso.Text) then
+    begin
+      ShowMessage('Chave inválida.');
+      if txtChaveAcesso.CanFocus then
+        txtChaveAcesso.SetFocus;
+      Exit();
+    end;
+
+  if (txtCNPJCPFCliente = ACampo) or (txtCNPJCPFCliente = todosCampos) then
+    if not FController.ValidarNumeroPessoal(txtCNPJCPFCliente.Text) then
+    begin
+      ShowMessage('CNPJ ou CPF inválido.');
+      if txtCNPJCPFCliente.CanFocus then
+        txtCNPJCPFCliente.SetFocus;
+      Exit();
+    end;
+  if (txtCNPJCPFfornecedor = ACampo) or (txtCNPJCPFfornecedor = todosCampos)
+  then
+    if not FController.ValidarNumeroPessoal(txtCNPJCPFfornecedor.Text) then
+    begin
+      ShowMessage('CNPJ inválido.');
+      if txtCNPJCPFfornecedor.CanFocus then
+        txtCNPJCPFfornecedor.SetFocus;
+      Exit();
+    end;
+
+  Result := True;
 end;
 
 end.

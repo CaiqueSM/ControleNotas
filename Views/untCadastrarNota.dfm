@@ -92,7 +92,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ShowHint = True
       TabOrder = 2
       Text = ''
-      OnChange = mskValorChange
+      OnExit = mskValorExit
     end
     object txtCNPJCPFfornecedor: TEdit
       Left = 312
