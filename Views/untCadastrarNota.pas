@@ -112,7 +112,17 @@ end;
 
 procedure TfrmCadastrarNota.HabilitarCampos(AHabilitar: Boolean);
 begin
-
+  tbuPesquisar.Enabled := Not AHabilitar;
+  txtcodigo.Enabled := Not AHabilitar;
+  tbuExcluir.Enabled := AHabilitar;
+  btnCancelar.Enabled := AHabilitar;
+  btnGravar.Enabled := AHabilitar;
+  txtChaveAcesso.Enabled:= AHabilitar;
+  txtCodigo.Enabled:= AHabilitar;
+  mskValor.Enabled:= AHabilitar;
+  txtCNPJCPFcliente.Enabled:= AHabilitar;
+  txtCNPJCPFfornecedor.Enabled:= AHabilitar;
+  memoDescricao.Enabled:= AHabilitar;
 end;
 
 procedure TfrmCadastrarNota.LimparCampos;
