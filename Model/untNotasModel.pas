@@ -14,6 +14,7 @@ type
     FControle: integer;
     FDescricao: string;
     FValor: real;
+    FEmissao: TDate;
     FCliente: TClienteModel;
     FFornecedor: TFornecedorModel;
     FUsuario: TUsuarioModel;
@@ -31,6 +32,7 @@ type
     property Descricao: string read FDescricao write SetDescricao;
     property Controle: integer read FControle write SetControle;
     property Valor: real read FValor write SetValor;
+    property Emissao: TDate read FEmissao write FEmissao;
     property Usuario: TUsuarioModel read FUsuario write FUsuario;
     property Cliente: TClienteModel read FCliente write SetCliente;
     property Fornecedor: TFornecedorModel read FFornecedor write SetFornecedor;
@@ -43,7 +45,7 @@ implementation
 destructor TNotasModel.Destroy;
 begin
   If (FUsuario <> nil) Then
-     FUsuario.Free;
+    FUsuario.Free;
 
   If (FCliente <> nil) Then
     FCliente.Free;
@@ -66,7 +68,7 @@ end;
 
 procedure TNotasModel.SetControle(AValue: integer);
 begin
-  FControle:= AValue;
+  FControle := AValue;
 end;
 
 procedure TNotasModel.SetDescricao(AValue: string);
@@ -76,12 +78,12 @@ end;
 
 procedure TNotasModel.SetFornecedor(AValue: TFornecedorModel);
 begin
-  FFornecedor:= AValue;
+  FFornecedor := AValue;
 end;
 
 procedure TNotasModel.SetValor(AValue: real);
 begin
-  FValor:= AValue;
+  FValor := AValue;
 end;
 
 end.
