@@ -11,7 +11,7 @@ type
   private
     FId: integer;
     FChaveAcesso: string;
-    FCodigo: integer;
+    FControle: integer;
     FDescricao: string;
     FValor: real;
     FCliente: TClienteModel;
@@ -19,7 +19,7 @@ type
     FUsuario: TUsuarioModel;
     procedure SetChaveAcesso(AValue: string);
     procedure SetDescricao(AValue: string);
-    procedure SetCodigo(AValue: integer);
+    procedure SetControle(AValue: integer);
     procedure SetValor(AValue: real);
     procedure SetCliente(AValue: TClienteModel);
     procedure SetFornecedor(AValue: TFornecedorModel);
@@ -28,8 +28,8 @@ type
 
     property Id: integer read FId write FId;
     property Chave: string read FChaveAcesso write SetChaveAcesso;
-    property Descicao: string read FDescricao write SetDescricao;
-    property Codigo: integer read FCodigo write SetCodigo;
+    property Descricao: string read FDescricao write SetDescricao;
+    property Controle: integer read FControle write SetControle;
     property Valor: real read FValor write SetValor;
     property Usuario: TUsuarioModel read FUsuario write FUsuario;
     property Cliente: TClienteModel read FCliente write SetCliente;
@@ -64,9 +64,9 @@ begin
   FCliente := AValue;
 end;
 
-procedure TNotasModel.SetCodigo(AValue: integer);
+procedure TNotasModel.SetControle(AValue: integer);
 begin
-  FCodigo:= AValue;
+  FControle:= AValue;
 end;
 
 procedure TNotasModel.SetDescricao(AValue: string);

@@ -8,7 +8,8 @@ type
   TUsuarioDao = class(TBaseDao)
   public
     function ListarUsuarios(): TObjectList<TUsuarioModel>;
-    function Consultar(ANome: String): TUsuarioModel;
+    function Consultar(ANome: String): TUsuarioModel; overload;
+    function Consultar(AIdUsuario: integer): TUsuarioModel; overload;
     function Criar(AUsuario: TUsuarioModel): Boolean;
     function Alterar(AUsuario: TUsuarioModel): Boolean;
     function Excluir(AIdUsuario: Integer): Boolean;
@@ -76,6 +77,34 @@ begin
       Except
          on E: Exception do
             Showmessage('Não foi possível carregar a lista de usuários');
+      End;
+   Finally
+      query.Free;
+   End;
+end;
+
+function TUsuarioDao.Consultar(AIdUsuario: integer): TUsuarioModel;
+var
+  query: TZQuery;
+  sql: String;
+begin
+   Result := TUsuarioModel.Create();
+
+   sql := 'select * from usuario ' +
+          ' where id = :id ' ;
+
+   query := CreateQuery(sql);
+   Try
+      query.ParamByName('id').AsInteger := AIdUsuario;
+      Try
+         query.Open();
+
+         Result.Id := query.FieldByName('id').AsInteger;
+         Result.Nome := Trim(query.FieldByName('nome').AsString);
+         Result.Senha := Trim(query.FieldByName('senha').AsString);
+      Except
+         on E: Exception do
+            Showmessage('Não foi possível obter o usuário');
       End;
    Finally
       query.Free;

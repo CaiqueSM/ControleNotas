@@ -115,12 +115,23 @@ var
   contato: TContatoModel;
   email: TEmailModel;
   telefone: TTelefoneModel;
+  tamanhoCPF: integer;
 begin
+  tamanhoCPF := 11;
   Result := TClienteModel.Create();
   Result.Id := StrToInt(txtcodigo.Text);
   Result.Nome := txtNomeCliente.Text;
-  Result.CNPJ := txtCNPJCPF.Text;
-  Result.CPF := txtCNPJCPF.Text;
+
+  if tamanhoCPF = length(txtCNPJCPF.Text) then
+  begin
+    Result.CPF := txtCNPJCPF.Text;
+    Result.CNPJ := '0';
+  end
+  else
+  begin
+    Result.CPF := '0';
+    Result.CNPJ := txtCNPJCPF.Text;;
+  end;
 
   contato := TContatoModel.Create();
   contato.Id := Result.Id;
@@ -258,10 +269,7 @@ end;
 function TfrmCliente.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   cliente: TClienteModel;
-  contato: TContatoModel;
-  email: TEmailModel;
-  telefone: TTelefoneModel;
-  nenhum: Integer;
+  nenhum: integer;
 begin
   Result := True;
   nenhum := 0;

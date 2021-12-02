@@ -272,7 +272,7 @@ object frmCliente: TfrmCliente
       Top = 15
       Width = 55
       Height = 23
-      Hint = 'C'#243'digo'
+      Hint = 'Valor para ordenar os clientes'
       MaxLength = 7
       NumbersOnly = True
       ParentShowHint = False

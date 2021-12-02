@@ -15,7 +15,8 @@ type
     destructor Destroy(); override;
 
     function ListarClientes(): TObjectList<TClienteModel>;
-    function Consultar(AId: String): TClienteModel;
+    function Consultar(AId: integer): TClienteModel;overload;
+    function Consultar(AnumeroPessoal: String): TClienteModel;overload;
     function Criar(ACliente: TClienteModel): Boolean;
     function Alterar(ACliente: TClienteModel): Boolean;
     function Excluir(AIdCliente: Integer): Boolean;
@@ -76,7 +77,7 @@ begin
    End;
 end;
 
-function TClienteDao.Consultar(AId: String): TClienteModel;
+function TClienteDao.Consultar(AId: integer): TClienteModel;
 var
   query: TZQuery;
   sql: String;
@@ -90,7 +91,7 @@ begin
 
    query := CreateQuery(sql);
    Try
-      query.ParamByName('id').AsString := AId;
+      query.ParamByName('id').AsInteger := AId;
       Try
          query.Open();
 
@@ -108,6 +109,30 @@ begin
       query.Free;
    End;
 end;
+
+function TClienteDao.Consultar(ANumeroPessoal: string): TClienteModel;
+var
+  query: TZQuery;
+  sql: String;
+begin
+   Result:= nil;
+   sql := 'select id from Cliente where CPF = :CPF';
+
+   query := CreateQuery(sql);
+   Try
+      query.ParamByName('CPF').AsString := ANumeroPessoal;
+      Try
+         query.Open();
+         Result:= Consultar(query.FieldByName('id').AsInteger);
+      Except
+         on E: Exception do
+            Showmessage('Não foi possível obter o cliente.');
+      End;
+   Finally
+     query.Free;
+   End;
+end;
+
 
 function TClienteDao.Criar(ACliente: TClienteModel): Boolean;
 var

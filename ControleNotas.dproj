@@ -129,7 +129,7 @@
         <DCCReference Include="Views\untmenu.pas">
             <Form>frmMenu</Form>
         </DCCReference>
-        <DCCReference Include="Views\UntCadastrarNota.pas">
+        <DCCReference Include="Views\untCadastrarNota.pas">
             <Form>frmCadastrarNota</Form>
         </DCCReference>
         <DCCReference Include="Views\UntUsuario.pas">
@@ -185,6 +185,9 @@
         </DCCReference>
         <DCCReference Include="Dao\UntFornecedorDao.pas"/>
         <DCCReference Include="Controller\UntFornecedorController.pas"/>
+        <DCCReference Include="Controller\UntNotasController.pas"/>
+        <DCCReference Include="Dao\UntNotasDao.pas"/>
+        <DCCReference Include="Controller\Validacao\UntValidarNotas.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

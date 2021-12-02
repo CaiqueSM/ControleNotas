@@ -1,4 +1,4 @@
-unit untFornecedor;
+unit UntFornecedor;
 
 interface
 
@@ -77,7 +77,8 @@ begin
   FController := TFornecedorController.Create();
 end;
 
-procedure TfrmFornecedor.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TfrmFornecedor.FormClose(Sender: TObject;
+  var CloseAction: TCloseAction);
 begin
   FController.Free;
   CloseAction := caFree;
@@ -114,12 +115,23 @@ var
   contato: TContatoModel;
   email: TEmailModel;
   telefone: TTelefoneModel;
+  tamanhoCPF: integer;
 begin
+  tamanhoCPF := 11;
   Result := TFornecedorModel.Create();
   Result.Id := StrToInt(txtcodigo.Text);
   Result.Nome := txtNomeFornecedor.Text;
-  Result.CNPJ := txtCNPJCPF.Text;
-  Result.CPF := txtCNPJCPF.Text;
+
+  if tamanhoCPF = length(txtCNPJCPF.Text) then
+  begin
+    Result.CPF := txtCNPJCPF.Text;
+    Result.CNPJ := '0';
+  end
+  else
+  begin
+    Result.CPF := '0';
+    Result.CNPJ := txtCNPJCPF.Text;;
+  end;
 
   contato := TContatoModel.Create();
   contato.Id := Result.Id;
@@ -257,10 +269,7 @@ end;
 function TfrmFornecedor.atualizarDados(AOperacao: TEnumCRUD): Boolean;
 var
   Fornecedor: TFornecedorModel;
-  contato: TContatoModel;
-  email: TEmailModel;
-  telefone: TTelefoneModel;
-  nenhum: Integer;
+  nenhum: integer;
 begin
   Result := True;
   nenhum := 0;
@@ -293,8 +302,8 @@ begin
                 txtEmail.Text := Fornecedor.Contatos.First.Emails.First.email;
 
               If (Fornecedor.Contatos.First.Telefones.Count > nenhum) Then
-                mskTelefone.Text :=
-                  Fornecedor.Contatos.First.Telefones.First.telefone;
+                mskTelefone.Text := Fornecedor.Contatos.First.Telefones.
+                  First.telefone;
             End;
           Except
             Result := False;
