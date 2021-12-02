@@ -34,6 +34,8 @@ type
     txtCNPJCPFCliente: TEdit;
     lbCNPJfornecedor: TLabel;
     lbCNPJCPFcliente: TLabel;
+    mskEmissao: TMaskEdit;
+    lbEmitido: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnGravarClick(Sender: TObject);
@@ -50,7 +52,7 @@ type
     procedure LimparCampos();
     procedure HabilitarCampos(AHabilitar: Boolean);
     procedure selecionarNotas(Sender: TObject);
-    function formatarValor(AValor: string):string;
+    function formatarValor(AValor: string): string;
     function serializeNotas(): TNotasModel;
     function validarCampos(ACampo: TObject): Boolean;
     function atualizarDados(AOperacao: TEnumCRUD): Boolean;
@@ -86,6 +88,9 @@ begin
             if Notas.Valor <> 0 then
               mskValor.Text := FloatToStr(Notas.Valor);
 
+            if Notas.Emissao <> 0 then
+              mskEmissao.Text := dateTOstr(Notas.Emissao);
+
             If Not Notas.Cliente.CPF.IsEmpty Then
               txtCNPJCPFCliente.Text := Notas.Cliente.CPF
             Else
@@ -109,14 +114,14 @@ begin
           if Notas.Cliente.Nome.IsEmpty then
           begin
             MensagemNaoCadastrado('Cliente');
-            Result:= False;
+            Result := False;
             Exit();
           end;
 
           if Notas.Fornecedor.Nome.IsEmpty then
           begin
             MensagemNaoCadastrado('Fornecedor');
-            Result:= False;
+            Result := False;
             Exit();
           end;
 
@@ -131,7 +136,7 @@ begin
 
       actExcluir:
         Begin
-          Result := FController.Excluir(StrToInt(txtCodigo.Text));
+          Result := FController.Excluir(strTOint(txtCodigo.Text));
         End;
     End;
   Finally
@@ -168,11 +173,11 @@ end;
 
 function TfrmCadastrarNota.formatarValor(AValor: string): string;
 var
-parteInteira, parteFracionaria: string;
+  parteInteira, parteFracionaria: string;
 begin
-  ParteInteira:= Copy(Avalor, 1, length(AValor) - 2);
-  ParteFracionaria:= Copy(Avalor, length(AValor) - 1, length(AValor));
-  Result:= ParteInteira + ',' + ParteFracionaria;
+  parteInteira := Copy(AValor, 1, length(AValor) - 2);
+  parteFracionaria := Copy(AValor, length(AValor) - 1, length(AValor));
+  Result := parteInteira + ',' + parteFracionaria;
 end;
 
 procedure TfrmCadastrarNota.FormClose(Sender: TObject;
@@ -202,6 +207,7 @@ begin
   txtChaveAcesso.Enabled := AHabilitar;
   txtControle.Enabled := AHabilitar;
   mskValor.Enabled := AHabilitar;
+  mskEmissao.Enabled := AHabilitar;
   txtCNPJCPFCliente.Enabled := AHabilitar;
   txtCNPJCPFfornecedor.Enabled := AHabilitar;
   memoDescricao.Enabled := AHabilitar;
@@ -213,6 +219,7 @@ begin
   txtChaveAcesso.Clear;
   txtControle.Clear;
   mskValor.Clear;
+  mskEmissao.Clear;
   txtCNPJCPFCliente.Clear;
   txtCNPJCPFfornecedor.Clear;
   memoDescricao.Clear;
@@ -240,9 +247,11 @@ begin
   Fornecedor := TFornecedorController.Create;
 
   Result := TNotasModel.Create;
+  Result.Id := strTOint(txtCodigo.Text);
   Result.Chave := txtChaveAcesso.Text;
-  Result.Controle := StrToInt(txtControle.Text);
+  Result.Controle := strTOint(txtControle.Text);
   Result.Valor := strTOFloat(mskValor.Text);
+  Result.Emissao := strTOdate(mskEmissao.Text);
   Result.Descricao := memoDescricao.Text;
   Result.Usuario := Usuario.Consultar(Global.Usuario);
   Result.Cliente := Cliente.Consultar(txtCNPJCPFCliente.Text);
@@ -251,33 +260,42 @@ end;
 
 procedure TfrmCadastrarNota.mskValorExit(Sender: TObject);
 begin
-  validarCampos(Sender);
-  mskValor.text:= formatarValor(mskValor.text);
+  if not(mskValor.Text = EmptyStr) then
+  begin
+    validarCampos(Sender);
+    mskValor.Text := formatarValor(mskValor.Text);
+  end;
 end;
 
 procedure TfrmCadastrarNota.txtChaveAcessoExit(Sender: TObject);
 begin
-  validarCampos(Sender);
+  if not(txtChaveAcesso.Text = EmptyStr) then
+    validarCampos(Sender);
 end;
 
 procedure TfrmCadastrarNota.txtCNPJCPFclienteExit(Sender: TObject);
 begin
-  validarCampos(Sender);
+  if not(txtCNPJCPFCliente.Text = EmptyStr) then
+    validarCampos(Sender);
 end;
 
 procedure TfrmCadastrarNota.txtCNPJCPFfornecedorExit(Sender: TObject);
 begin
-  validarCampos(Sender);
+  if not(txtCNPJCPFfornecedor.Text = EmptyStr) then
+    validarCampos(Sender);
 end;
 
 procedure TfrmCadastrarNota.txtCodigoKeyPress(Sender: TObject; var Key: Char);
 begin
   If Key = BotaoEnter Then
-    selecionarNotas(Sender)
+    selecionarNotas(Sender);
 end;
 
 function TfrmCadastrarNota.validarCampos(ACampo: TObject): Boolean;
+var
+PadraoData: string;
 begin
+  PadraoData:= 'dd/mm/aaaa';
   Result := False;
 
   if txtCodigo.Text = EmptyStr then
@@ -297,6 +315,14 @@ begin
         mskValor.SetFocus;
       Exit();
     end;
+
+  if (mskEmissao.Text = PadraoData) and (not txtCodigo.Enabled) then
+  begin
+    ShowMessage('Informe a data de emissão!');
+    If mskEmissao.CanFocus Then
+      mskEmissao.SetFocus;
+    Exit();
+  end;
 
   if (txtChaveAcesso = ACampo) or (txtChaveAcesso = todosCampos) then
     if not FController.ValidarChaveAcesso(txtChaveAcesso.Text) then

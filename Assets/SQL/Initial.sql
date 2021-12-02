@@ -26,13 +26,14 @@ PRIMARY KEY(id)
 );
 
 create table if not EXISTS notas(
-id INTEGER NOT NULL,
+id INTEGER AUTO_INCREMENT NOT NULL,
 idUsuario integer,
 idCliente integer,
 idFornecedor integer,
 chaveacesso VARCHAR(44) NOT NULL,
 controle INTEGER NOT NULL,
-descricao VARCHAR(140) NOT NULL,
+descricao VARCHAR(500) NOT NULL,
+emissao date NOT NUll,
 valor DECIMAL,
 PRIMARY KEY(id),
 FOREIGN KEY(idUsuario) REFERENCES usuario(id) ON DELETE cascade,

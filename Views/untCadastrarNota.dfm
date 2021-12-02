@@ -13,7 +13,6 @@ object frmCadastrarNota: TfrmCadastrarNota
   Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
-  OnClick = btnGravarClick
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -21,9 +20,9 @@ object frmCadastrarNota: TfrmCadastrarNota
   TextHeight = 15
   object gbInfoNota: TGroupBox
     Left = 5
-    Top = 79
+    Top = 80
     Width = 598
-    Height = 121
+    Height = 127
     Caption = ' Informa'#231#245'es da Nota '
     TabOrder = 1
     object lbChaveAcesso: TLabel
@@ -36,12 +35,12 @@ object frmCadastrarNota: TfrmCadastrarNota
     object lbControle: TLabel
       Left = 5
       Top = 70
-      Width = 93
+      Width = 49
       Height = 15
-      Caption = 'C'#243'digo/Controle:'
+      Caption = 'Controle:'
     end
     object lbValor: TLabel
-      Left = 164
+      Left = 104
       Top = 70
       Width = 29
       Height = 15
@@ -61,6 +60,13 @@ object frmCadastrarNota: TfrmCadastrarNota
       Height = 15
       Caption = 'CNPJ/CPF do cliente:'
     end
+    object lbEmitido: TLabel
+      Left = 205
+      Top = 70
+      Width = 64
+      Height = 15
+      Caption = 'Emitido em:'
+    end
     object txtChaveAcesso: TEdit
       Left = 5
       Top = 35
@@ -76,7 +82,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     object txtControle: TEdit
       Left = 5
       Top = 85
-      Width = 121
+      Width = 80
       Height = 23
       MaxLength = 10
       NumbersOnly = True
@@ -85,9 +91,9 @@ object frmCadastrarNota: TfrmCadastrarNota
       TabOrder = 1
     end
     object mskValor: TMaskEdit
-      Left = 164
+      Left = 104
       Top = 85
-      Width = 121
+      Width = 80
       Height = 23
       Hint = 'R$'
       MaxLength = 12
@@ -107,7 +113,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 4
       OnExit = txtCNPJCPFfornecedorExit
     end
     object txtCNPJCPFcliente: TEdit
@@ -120,13 +126,27 @@ object frmCadastrarNota: TfrmCadastrarNota
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
+      TabOrder = 5
       OnExit = txtCNPJCPFclienteExit
+    end
+    object mskEmissao: TMaskEdit
+      Left = 205
+      Top = 85
+      Width = 80
+      Height = 23
+      Hint = 'Data de emiss'#227'o'
+      EditMask = '!99/99/0000;1;_'
+      MaxLength = 10
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      Text = 'dd/mm/aaaa'
+      OnExit = mskValorExit
     end
   end
   object gbDescricao: TGroupBox
     Left = 5
-    Top = 199
+    Top = 206
     Width = 598
     Height = 127
     Caption = ' Descri'#231#227'o '
@@ -137,7 +157,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       Width = 587
       Height = 95
       Hint = 'Descreva ou liste os produtos e servi'#231'os.'
-      MaxLength = 140
+      MaxLength = 500
       ParentShowHint = False
       ScrollBars = ssVertical
       ShowHint = True
@@ -145,7 +165,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     end
   end
   object btnGravar: TButton
-    Left = 526
+    Left = 528
     Top = 339
     Width = 75
     Height = 25
