@@ -27,7 +27,7 @@ object frmFornecedor: TfrmFornecedor
     Caption = 'Cancelar'
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 0
+    TabOrder = 3
     OnClick = btnCancelarClick
   end
   object btnGravar: TButton
@@ -39,7 +39,7 @@ object frmFornecedor: TfrmFornecedor
     Caption = 'Gravar'
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 1
+    TabOrder = 2
     OnClick = btnGravarClick
   end
   object gbCodigoFornecedor: TGroupBox
@@ -47,7 +47,7 @@ object frmFornecedor: TfrmFornecedor
     Top = 27
     Width = 598
     Height = 50
-    TabOrder = 2
+    TabOrder = 4
     object lblcodigo: TLabel
       Left = 5
       Top = 18
@@ -75,7 +75,7 @@ object frmFornecedor: TfrmFornecedor
     Width = 598
     Height = 169
     Caption = ' Contato do fornecedor'
-    TabOrder = 3
+    TabOrder = 1
     object lbCEP: TLabel
       Left = 5
       Top = 24
@@ -240,7 +240,7 @@ object frmFornecedor: TfrmFornecedor
     Width = 598
     Height = 85
     Caption = ' Informa'#231#245'es do fornecedor'
-    TabOrder = 4
+    TabOrder = 0
     object lbCNPJCPF: TLabel
       Left = 5
       Top = 25

@@ -50,7 +50,7 @@ type
     procedure LimparCampos();
     procedure HabilitarCampos(AHabilitar: Boolean);
     procedure selecionarNotas(Sender: TObject);
-
+    function formatarValor(AValor: string):string;
     function serializeNotas(): TNotasModel;
     function validarCampos(ACampo: TObject): Boolean;
     function atualizarDados(AOperacao: TEnumCRUD): Boolean;
@@ -166,6 +166,15 @@ begin
   End;
 end;
 
+function TfrmCadastrarNota.formatarValor(AValor: string): string;
+var
+parteInteira, parteFracionaria: string;
+begin
+  ParteInteira:= Copy(Avalor, 1, length(AValor) - 2);
+  ParteFracionaria:= Copy(Avalor, length(AValor) - 1, length(AValor));
+  Result:= ParteInteira + ',' + ParteFracionaria;
+end;
+
 procedure TfrmCadastrarNota.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -243,6 +252,7 @@ end;
 procedure TfrmCadastrarNota.mskValorExit(Sender: TObject);
 begin
   validarCampos(Sender);
+  mskValor.text:= formatarValor(mskValor.text);
 end;
 
 procedure TfrmCadastrarNota.txtChaveAcessoExit(Sender: TObject);

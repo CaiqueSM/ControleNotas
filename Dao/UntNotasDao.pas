@@ -164,6 +164,7 @@ begin
     end;
     Try
       query.ExecSQL();
+      Conexao.Database.Commit;
     Except
       on E: Exception do
       Begin

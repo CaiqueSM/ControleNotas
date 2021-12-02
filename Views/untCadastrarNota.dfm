@@ -13,6 +13,7 @@ object frmCadastrarNota: TfrmCadastrarNota
   Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
+  OnClick = btnGravarClick
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -150,6 +151,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Height = 25
     Caption = 'Gravar'
     TabOrder = 3
+    OnClick = btnGravarClick
   end
   object btnCancelar: TButton
     Left = 445
@@ -158,6 +160,7 @@ object frmCadastrarNota: TfrmCadastrarNota
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 4
+    OnClick = btnCancelarClick
   end
   object tobTop: TToolBar
     Left = 0
