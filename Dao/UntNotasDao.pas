@@ -42,9 +42,10 @@ begin
   Result := True;
 
   sql := 'Update Notas' +
-    ' Set(idCliente, idFornecedor, chaveacesso, controle, descricao, valor, emissao)'
-    + ' values(:idCliente, :idFornecedor, :chaveacesso, :controle, :descricao, :valor, :emissao)'
-    + ' where id = :id';
+    ' Set idCliente = :idCliente, idFornecedor = :idFornecedor,'+
+    ' chaveacesso = :chaveacesso, controle = :controle,'+
+    ' descricao = :descricao, valor = :valor, emissao = :emissao)'+
+    ' where id = :id';
   query := CreateQuery(sql);
 
   Try
@@ -95,9 +96,9 @@ begin
         valor := query.FieldByName('valor').AsInteger;
         emissao := query.FieldByName('emissao').AsDateTime;
         Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
-          .AsString);
+          .AsInteger);
         Fornecedor := FFornecedorDao.Consultar(query.FieldByName('idfornecedor')
-          .AsString);
+          .AsInteger);
         Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
           .AsInteger);
       end;
