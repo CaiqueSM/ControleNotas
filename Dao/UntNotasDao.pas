@@ -18,13 +18,13 @@ type
     FFornecedorDao: TFornecedorController;
   public
     constructor Create(AConexao: TConexao);
-    destructor Destroy;override;
-    function Consultar(AIdNotas: integer): TNotasModel;overload;
-    function Consultar(AChaveAcesso: string): TNotasModel;overload;
+    destructor Destroy; override;
+    function Consultar(AIdNotas: integer): TNotasModel; overload;
+    function Consultar(AChaveAcesso: string): TNotasModel; overload;
     function Criar(ANotas: TNotasModel): Boolean;
     function Alterar(ANotas: TNotasModel): Boolean;
-    function Excluir(AIdNotas: integer): Boolean;overload;
-    function Excluir(AChaveAcesso: string): Boolean;overload;
+    function Excluir(AIdNotas: integer): Boolean; overload;
+    function Excluir(AChaveAcesso: string): Boolean; overload;
   end;
 
 implementation
@@ -42,8 +42,8 @@ begin
   Result := True;
 
   sql := 'Update Notas' +
-    ' Set(idCliente, idFornecedor, chaveacesso, controle, descricao, valor)' +
-    ' values(:idCliente, :idFornecedor, :chaveacesso, :controle, :descricao, :valor)'
+    ' Set(idCliente, idFornecedor, chaveacesso, controle, descricao, valor, emissao)'
+    + ' values(:idCliente, :idFornecedor, :chaveacesso, :controle, :descricao, :valor, :emissao)'
     + ' where id = :id';
   query := CreateQuery(sql);
 
@@ -54,6 +54,7 @@ begin
     query.ParamByName('controle').AsInteger := ANotas.Controle;
     query.ParamByName('descricao').AsString := ANotas.Descricao;
     query.ParamByName('valor').AsFloat := ANotas.valor;
+    query.ParamByName('emissao').AsDate := ANotas.emissao;
 
     Try
       query.ExecSQL();
@@ -76,7 +77,7 @@ var
   query: TZQuery;
   sql: String;
 begin
-  Result:= nil;
+  Result := nil;
 
   sql := 'select * from Notas where id = :id ';
   query := CreateQuery(sql);
@@ -84,21 +85,22 @@ begin
     query.ParamByName('id').AsInteger := AIdNotas;
     Try
       query.Open();
-      Result:= TNotasModel.Create;
-        with Result do
-        begin
-          Id := query.FieldByName('id').AsInteger;
-          Chave := query.FieldByName('chaveacesso').AsString;
-          Controle := query.FieldByName('controle').AsInteger;
-          Descricao := query.FieldByName('descricao').AsString;
-          valor := query.FieldByName('valor').AsInteger;
-          Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
-            .AsString);
-          Fornecedor := FFornecedorDao.Consultar
-            (query.FieldByName('idfornecedor').AsString);
-          Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
-            .AsInteger);
-        end;
+      Result := TNotasModel.Create;
+      with Result do
+      begin
+        Id := query.FieldByName('id').AsInteger;
+        Chave := query.FieldByName('chaveacesso').AsString;
+        Controle := query.FieldByName('controle').AsInteger;
+        Descricao := query.FieldByName('descricao').AsString;
+        valor := query.FieldByName('valor').AsInteger;
+        emissao := query.FieldByName('emissao').AsDateTime;
+        Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
+          .AsString);
+        Fornecedor := FFornecedorDao.Consultar(query.FieldByName('idfornecedor')
+          .AsString);
+        Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
+          .AsInteger);
+      end;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter as Notas.');
@@ -113,14 +115,14 @@ var
   query: TZQuery;
   sql: String;
 begin
-  Result:= nil;
+  Result := nil;
   sql := 'select id from Notas where chaveacesso = :chave ';
   query := CreateQuery(sql);
   Try
     query.ParamByName('chave').AsString := AChaveAcesso;
     Try
       query.Open();
-      Result:= Consultar(query.FieldByName('id').AsInteger);
+      Result := Consultar(query.FieldByName('id').AsInteger);
     Except
       on E: Exception do
         Showmessage('Não foi possível obter as Notas.');
@@ -146,8 +148,8 @@ begin
   Result := True;
 
   sql := 'Insert Into' +
-         ' Notas(id, idUsuario, idCliente, idFornecedor, chaveacesso, controle, descricao, valor)' +
-         ' values(:id, :idUsuario, :idCliente, :idFornecedor, :chaveacesso, :controle, :descricao, :valor)';
+    ' Notas(id, idUsuario, idCliente, idFornecedor, chaveacesso, controle, descricao, valor, emissao)'
+    + ' values(:id, :idUsuario, :idCliente, :idFornecedor, :chaveacesso, :controle, :descricao, :valor, :emissao)';
 
   query := CreateQuery(sql);
   Try
@@ -161,6 +163,7 @@ begin
       ParamByName('controle').AsInteger := ANotas.Controle;
       ParamByName('descricao').AsString := ANotas.Descricao;
       ParamByName('valor').AsFloat := ANotas.valor;
+      ParamByName('emissao').AsDate := ANotas.emissao;
     end;
     Try
       query.ExecSQL();
