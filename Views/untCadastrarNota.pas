@@ -247,6 +247,7 @@ begin
   Fornecedor := TFornecedorController.Create;
 
   Result := TNotasModel.Create;
+  Result.Id := strTOint(txtCodigo.Text);
   Result.Chave := txtChaveAcesso.Text;
   Result.Controle := strTOint(txtControle.Text);
   Result.Valor := strTOFloat(mskValor.Text);
