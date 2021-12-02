@@ -26,7 +26,7 @@ PRIMARY KEY(id)
 );
 
 create table if not EXISTS notas(
-id INTEGER AUTO_INCREMENT NOT NULL,
+id INTEGER NOT NULL,
 idUsuario integer,
 idCliente integer,
 idFornecedor integer,
