@@ -293,9 +293,9 @@ end;
 
 function TfrmCadastrarNota.validarCampos(ACampo: TObject): Boolean;
 var
-PadraoData: string;
+  PadraoData: string;
 begin
-  PadraoData:= 'dd/mm/aaaa';
+  PadraoData := 'dd/mm/aaaa';
   Result := False;
 
   if txtCodigo.Text = EmptyStr then
@@ -316,13 +316,14 @@ begin
       Exit();
     end;
 
-  if (mskEmissao.Text = PadraoData) and (not txtCodigo.Enabled) then
-  begin
-    ShowMessage('Informe a data de emissão!');
-    If mskEmissao.CanFocus Then
-      mskEmissao.SetFocus;
-    Exit();
-  end;
+  if (mskEmissao = ACampo) or (mskEmissao = todosCampos) then
+    if (mskEmissao.Text = PadraoData) then
+    begin
+      ShowMessage('Informe a data de emissão!');
+      If mskEmissao.CanFocus Then
+        mskEmissao.SetFocus;
+      Exit();
+    end;
 
   if (txtChaveAcesso = ACampo) or (txtChaveAcesso = todosCampos) then
     if not FController.ValidarChaveAcesso(txtChaveAcesso.Text) then
