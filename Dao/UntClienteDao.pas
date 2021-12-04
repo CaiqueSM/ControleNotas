@@ -17,6 +17,7 @@ type
     function ListarClientes(): TObjectList<TClienteModel>;
     function Consultar(AId: integer): TClienteModel;overload;
     function Consultar(AnumeroPessoal: String): TClienteModel;overload;
+    function ConsultarPorNome(ANome: String): TClienteModel;
     function Criar(ACliente: TClienteModel): Boolean;
     function Alterar(ACliente: TClienteModel): Boolean;
     function Excluir(AIdCliente: Integer): Boolean;
@@ -87,7 +88,7 @@ begin
 
    sql := 'select cl.id, nome, CPF, CNPJ, r.idcontato as idcontato'
         + ' from cliente as cl, relacionamentocontato as r' +
-          ' where cl.id = :id and r.idrelacionado = :id' ;
+          ' where cl.id = :id and r.idrelacionado = :id';
 
    query := CreateQuery(sql);
    Try
@@ -116,6 +117,7 @@ var
   sql: String;
 begin
    Result:= nil;
+
    sql := 'select id from Cliente where CPF = :CPF';
 
    query := CreateQuery(sql);
@@ -133,6 +135,30 @@ begin
    End;
 end;
 
+
+function TClienteDao.ConsultarPorNome(ANome: String): TClienteModel;
+var
+  query: TZQuery;
+  sql: String;
+begin
+   Result:= nil;
+
+   sql := 'select id from Cliente where nome = :nome';
+
+   query := CreateQuery(sql);
+   Try
+      query.ParamByName('nome').AsString := ANome;
+      Try
+         query.Open();
+         Result:= Consultar(query.FieldByName('id').AsInteger);
+      Except
+         on E: Exception do
+            Showmessage('Não foi possível obter o cliente.');
+      End;
+   Finally
+     query.Free;
+   End;
+end;
 
 function TClienteDao.Criar(ACliente: TClienteModel): Boolean;
 var
