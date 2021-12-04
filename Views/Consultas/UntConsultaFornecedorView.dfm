@@ -1,7 +1,7 @@
-object FrmConsultaClienteView: TFrmConsultaClienteView
+object frmConsultaFornecedorView: TfrmConsultaFornecedorView
   Left = 0
   Top = 0
-  Caption = 'Consultar nome clientes'
+  Caption = 'Consultar fornecedores'
   ClientHeight = 221
   ClientWidth = 193
   Color = clBtnFace
@@ -11,12 +11,12 @@ object FrmConsultaClienteView: TFrmConsultaClienteView
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
-  OnKeyPress = gridClienteViewKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object gridClienteView: TStringGrid
+  object gridFornecedorView: TStringGrid
     Left = 0
     Top = 0
     Width = 193
@@ -38,6 +38,8 @@ object FrmConsultaClienteView: TFrmConsultaClienteView
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 0
-    OnDblClick = gridClienteViewDblClick
+    OnDblClick = gridFornecedorViewDblClick
+    OnKeyPress = gridFornecedorViewKeyPress
+    ExplicitTop = -20
   end
 end

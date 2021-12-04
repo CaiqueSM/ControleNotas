@@ -21,6 +21,7 @@ type
 
     function Consultar(AId: integer): TFornecedorModel; overload;
     function Consultar(ANumeroPessoal: String): TFornecedorModel; overload;
+    function ConsultarPorNome(ANome: String): TFornecedorModel;
     function Criar(AFornecedor: TFornecedorModel): Boolean;
     function Alterar(AFornecedor: TFornecedorModel): Boolean;
     function Excluir(AIdFornecedor: integer): Boolean;
@@ -70,6 +71,12 @@ function TFornecedorController.Consultar(ANumeroPessoal: String)
   : TFornecedorModel;
 begin
   Result := FFornecedorDao.Consultar(ANumeroPessoal);
+end;
+
+function TFornecedorController.ConsultarPorNome(
+  ANome: String): TFornecedorModel;
+begin
+  Result := FFornecedorDao.ConsultarPorNome(ANome);
 end;
 
 function TFornecedorController.Criar(AFornecedor: TFornecedorModel): Boolean;

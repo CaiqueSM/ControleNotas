@@ -6,6 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, UntFornecedorModel, UntFornecedorController,
   UntContatoModel, UntEnumContatoDao, UntCrudEnum, UntEnvironment,
+  UntConsultaFornecedor,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.ComCtrls,
   Vcl.ToolWin, UntFormHelper;
 
@@ -164,8 +165,18 @@ begin
 end;
 
 procedure TfrmFornecedor.tbuPesquisarClick(Sender: TObject);
+var
+  Fornecedor: String;
 begin
-  null;
+  Fornecedor := TConsultaFornecedor.ConsultarFornecedores();
+  If (Not Fornecedor.IsEmpty) Then
+  Begin
+    txtNomeFornecedor.Text := trim(Fornecedor);
+    selecionarFornecedor(txtNomeFornecedor);
+    txtcodigo.Enabled := False;
+  End
+  Else If txtNomeFornecedor.CanFocus Then
+    txtNomeFornecedor.SetFocus;
 end;
 
 procedure TfrmFornecedor.txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
@@ -279,7 +290,14 @@ begin
       actConsultar:
         Begin
           Try
-            Fornecedor := FController.Consultar(txtcodigo.Text);
+            if txtcodigo.Text = EmptyStr then
+              Fornecedor := FController.ConsultarPorNome(txtNomeFornecedor.Text)
+            else
+              Fornecedor := FController.Consultar(StrToInt(txtcodigo.Text));
+            FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
+
+            txtcodigo.Text := intTOstr(Fornecedor.Id);
+
             FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
 
             If Not Fornecedor.CNPJ.IsEmpty Then
