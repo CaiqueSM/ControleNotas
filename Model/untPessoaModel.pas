@@ -26,7 +26,8 @@ type
     property CNPJ: string read FCNPJ write SetCNPJ;
     property CPF: string read FCPF write SetCPF;
     property Nome: String read FNome write SetNome;
-    property Contatos: TObjectList<TContatoModel> read FContatos write SetContatos;
+    property Contatos: TObjectList<TContatoModel> read FContatos
+      write SetContatos;
   end;
 
 implementation
@@ -51,11 +52,11 @@ end;
 
 procedure TPessoaModel.SetContatos(const Value: TObjectList<TContatoModel>);
 begin
-   If (FContatos <> Value) and (Value <> Nil) then
-      Begin
-         FContatos.Free;
-         FContatos := Value;
-      End;
+  If (FContatos <> Value) and (Value <> Nil) then
+  Begin
+    FContatos.Free;
+    FContatos := Value;
+  End;
 end;
 
 procedure TPessoaModel.SetCPF(AValue: string);

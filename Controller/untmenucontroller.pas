@@ -36,24 +36,24 @@ begin
   Result := False;
 end;
 
-procedure TMenuController.AbrirTelaFilha(MainForm: TForm;
-  ClassRef: TFormClass; var Form);
+procedure TMenuController.AbrirTelaFilha(MainForm: TForm; ClassRef: TFormClass;
+  var Form);
 begin
-   If FormExiste(ClassRef) Then
-      Begin
-         TForm(Form).Show;
-         TForm(Form).WindowState := wsNormal;
-      End
-   Else
-      Begin
-         TForm(Form) := TFormClass(ClassRef).Create(MainForm);
-         With TForm(Form) Do
-            Begin
-               FormStyle := fsMDIChild;
-               Left := 0;
-               Top  := 0;
-            End;
-      End;
+  If FormExiste(ClassRef) Then
+  Begin
+    TForm(Form).Show;
+    TForm(Form).WindowState := wsNormal;
+  End
+  Else
+  Begin
+    TForm(Form) := TFormClass(ClassRef).Create(MainForm);
+    With TForm(Form) Do
+    Begin
+      FormStyle := fsMDIChild;
+      Left := 0;
+      Top := 0;
+    End;
+  End;
 end;
 
 function TMenuController.Logar(): boolean;

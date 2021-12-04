@@ -3,21 +3,21 @@ unit UntBaseController;
 interface
 
 uses
-  Classes, SysUtils, UntConexao;
+        Classes, SysUtils, UntConexao;
 
 type
 
-  { TBaseController }
+        { TBaseController }
 
-  TBaseController = class
-  private
-    FConexao: TConexao;
-  public
-    constructor Create(); reintroduce;
-    destructor Destroy(); override;
+        TBaseController = class
+        private
+                FConexao: TConexao;
+        public
+                constructor Create(); reintroduce;
+                destructor Destroy(); override;
 
-    property Conexao: TConexao read FConexao;
-  end;
+                property Conexao: TConexao read FConexao;
+        end;
 
 implementation
 
@@ -25,13 +25,13 @@ implementation
 
 constructor TBaseController.Create();
 begin
-  FConexao := TConexao.Create();
+        FConexao := TConexao.Create();
 end;
 
 destructor TBaseController.Destroy();
 begin
-  FConexao.Free;
-  inherited Destroy();
+        FConexao.Free;
+        inherited Destroy();
 end;
 
 end.

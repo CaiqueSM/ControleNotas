@@ -16,8 +16,7 @@ type
   public
     constructor Create();
     destructor Destroy(); override;
-    function Consultar(AChaveAcesso: string): TNotasModel;
-      overload;
+    function Consultar(AChaveAcesso: string): TNotasModel; overload;
     function Consultar(AIdNotas: integer): TNotasModel; overload;
     function Criar(ANota: TNotasModel): Boolean;
     function Alterar(ANota: TNotasModel): Boolean;
@@ -25,7 +24,7 @@ type
     function Excluir(AChaveAcesso: string): Boolean; overload;
     function ValidarChaveAcesso(AChaveAcesso: string): Boolean;
     function ValidarValor(AValor: string): Boolean;
-    function ValidarNumeroPessoal(ANumero: string): boolean;
+    function ValidarNumeroPessoal(ANumero: string): Boolean;
   end;
 
 implementation
@@ -56,7 +55,7 @@ end;
 
 function TNotasController.Criar(ANota: TNotasModel): Boolean;
 begin
-  Result:= FNotasDao.Criar(ANota);
+  Result := FNotasDao.Criar(ANota);
 end;
 
 destructor TNotasController.Destroy;
@@ -68,12 +67,12 @@ end;
 
 function TNotasController.Excluir(AChaveAcesso: string): Boolean;
 begin
-  Result:= FNotasDao.Excluir(AChaveAcesso);
+  Result := FNotasDao.Excluir(AChaveAcesso);
 end;
 
 function TNotasController.Excluir(AIdNota: integer): Boolean;
 begin
-  Result:= FNotasDao.Excluir(AIdNota);
+  Result := FNotasDao.Excluir(AIdNota);
 end;
 
 function TNotasController.ValidarChaveAcesso(AChaveAcesso: string): Boolean;
@@ -81,9 +80,9 @@ begin
   Result := FValidar.ValidarChaveAcesso(AChaveAcesso);
 end;
 
-function TNotasController.ValidarNumeroPessoal(ANumero: string): boolean;
+function TNotasController.ValidarNumeroPessoal(ANumero: string): Boolean;
 begin
-  Result:= FValidar.ValidarNumeroPessoal(ANumero);
+  Result := FValidar.ValidarNumeroPessoal(ANumero);
 end;
 
 function TNotasController.ValidarValor(AValor: string): Boolean;

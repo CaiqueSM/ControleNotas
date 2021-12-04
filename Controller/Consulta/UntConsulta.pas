@@ -18,13 +18,13 @@ class function TConsulta.ConsultarUsuarios: String;
 var
   formulario: TFrmConsultaUsuarios;
 begin
-   formulario := TFrmConsultaUsuarios.Create(nil);
-   Try
-      formulario.ShowModal();
-      Result := formulario.Resultado;
-   Finally
-      formulario.Free;
-   End;
+  formulario := TFrmConsultaUsuarios.Create(nil);
+  Try
+    formulario.ShowModal();
+    Result := formulario.Resultado;
+  Finally
+    formulario.Free;
+  End;
 end;
 
 end.

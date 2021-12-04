@@ -19,18 +19,18 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Consultar(AId: integer): TFornecedorModel;overload;
-    function Consultar(ANumeroPessoal: String): TFornecedorModel;overload;
+    function Consultar(AId: integer): TFornecedorModel; overload;
+    function Consultar(ANumeroPessoal: String): TFornecedorModel; overload;
     function Criar(AFornecedor: TFornecedorModel): Boolean;
     function Alterar(AFornecedor: TFornecedorModel): Boolean;
-    function Excluir(AIdFornecedor: Integer): Boolean;
+    function Excluir(AIdFornecedor: integer): Boolean;
 
-    function ValidarNome(ANome: string): boolean;
-    function ValidarCadastroPessoal(ANumero: string): boolean;
-    function ValidarCEP(ACEP: string): boolean;
-    function ValidarEmail(AEmail: string): boolean;
-    function ValidarNumero(ANumero: string): boolean;
-    function ValidarTelefone(ATelefone: string): boolean;
+    function ValidarNome(ANome: string): Boolean;
+    function ValidarCadastroPessoal(ANumero: string): Boolean;
+    function ValidarCEP(ACEP: string): Boolean;
+    function ValidarEmail(AEmail: string): Boolean;
+    function ValidarNumero(ANumero: string): Boolean;
+    function ValidarTelefone(ATelefone: string): Boolean;
   end;
 
 implementation
@@ -66,7 +66,8 @@ begin
   Result := FFornecedorDao.Consultar(AId);
 end;
 
-function TFornecedorController.Consultar(ANumeroPessoal: String): TFornecedorModel;
+function TFornecedorController.Consultar(ANumeroPessoal: String)
+  : TFornecedorModel;
 begin
   Result := FFornecedorDao.Consultar(ANumeroPessoal);
 end;
@@ -76,37 +77,37 @@ begin
   Result := FFornecedorDao.Criar(AFornecedor);
 end;
 
-function TFornecedorController.Excluir(AIdFornecedor: Integer): Boolean;
+function TFornecedorController.Excluir(AIdFornecedor: integer): Boolean;
 begin
   Result := FFornecedorDao.Excluir(AIdFornecedor);
 end;
 
-function TFornecedorController.ValidarCadastroPessoal(ANumero: string): boolean;
+function TFornecedorController.ValidarCadastroPessoal(ANumero: string): Boolean;
 begin
   Result := FValidarFornecedor.ValidarNumeroCadastroPessoal(ANumero);
 end;
 
-function TFornecedorController.ValidarCEP(ACEP: string): boolean;
+function TFornecedorController.ValidarCEP(ACEP: string): Boolean;
 begin
   Result := FValidarContato.ValidarCEP(ACEP);
 end;
 
-function TFornecedorController.ValidarNome(ANome: string): boolean;
+function TFornecedorController.ValidarNome(ANome: string): Boolean;
 begin
-  Result:= FValidarFornecedor.ValidarNome(ANome);
+  Result := FValidarFornecedor.ValidarNome(ANome);
 end;
 
-function TFornecedorController.ValidarEmail(AEmail: string): boolean;
+function TFornecedorController.ValidarEmail(AEmail: string): Boolean;
 begin
   Result := FValidarContato.ValidarEmail(AEmail);
 end;
 
-function TFornecedorController.ValidarNumero(ANumero: string): boolean;
+function TFornecedorController.ValidarNumero(ANumero: string): Boolean;
 begin
   Result := FValidarContato.ValidarNumero(ANumero);
 end;
 
-function TFornecedorController.ValidarTelefone(ATelefone: string): boolean;
+function TFornecedorController.ValidarTelefone(ATelefone: string): Boolean;
 begin
   Result := FValidarContato.ValidarTelefone(ATelefone);
 end;

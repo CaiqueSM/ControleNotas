@@ -55,7 +55,7 @@ function TEmailDao.Consultar(AIdContato: integer): TObjectList<TEmailModel>;
 var
   query: TZQuery;
   sql: String;
-  email: TEmailModel;
+  Email: TEmailModel;
 begin
   Result := TObjectList<TEmailModel>.Create();
 
@@ -66,15 +66,15 @@ begin
     Try
       query.Open();
       While Not query.Eof Do
-         Begin
-            email := TEmailModel.Create();
-            email.Id := query.FieldByName('id').AsInteger;
-            email.IdContato := query.FieldByName('idcontato').AsInteger;
-            email.Email := Trim(query.FieldByName('email').AsString);
+      Begin
+        Email := TEmailModel.Create();
+        Email.Id := query.FieldByName('id').AsInteger;
+        Email.IdContato := query.FieldByName('idcontato').AsInteger;
+        Email.Email := Trim(query.FieldByName('email').AsString);
 
-            Result.Add(email);
-            query.Next;
-         End;
+        Result.Add(Email);
+        query.Next;
+      End;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter os emails.');
@@ -91,8 +91,7 @@ var
 begin
   Result := True;
 
-  sql := 'Insert Into email (idcontato, email)' +
-         'Values (:idcontato, :email)';
+  sql := 'Insert Into email (idcontato, email)' + 'Values (:idcontato, :email)';
 
   query := CreateQuery(sql);
   Try
@@ -117,28 +116,27 @@ var
   query: TZQuery;
   sql: String;
 begin
-   Result := True;
+  Result := True;
 
-   sql := 'delete from email ' +
-          ' where idcontato = :id' ;
+  sql := 'delete from email ' + ' where idcontato = :id';
 
-   query := CreateQuery(sql);
-   Try
-      query.ParamByName('id').AsInteger := AIdContato;
-      Try
-         query.ExecSQL();
-         Conexao.Database.Commit;
-      Except
-         on E: Exception do
-            Begin
-               Result := False;
-               Conexao.Database.Rollback;
-               Showmessage('Não foi possível excluir o email');
-            End;
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('id').AsInteger := AIdContato;
+    Try
+      query.ExecSQL();
+      Conexao.Database.Commit;
+    Except
+      on E: Exception do
+      Begin
+        Result := False;
+        Conexao.Database.Rollback;
+        Showmessage('Não foi possível excluir o email');
       End;
-   Finally
-      query.Free;
-   End;
+    End;
+  Finally
+    query.Free;
+  End;
 end;
 
 end.

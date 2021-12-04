@@ -18,13 +18,13 @@ class function TConsultaCliente.ConsultarClientes: String;
 var
   formulario: TFrmConsultaClienteView;
 begin
-   formulario := TFrmConsultaClienteView.Create(nil);
-   Try
-      formulario.ShowModal();
-      Result := formulario.Resultado;
-   Finally
-      formulario.Free;
-   End;
+  formulario := TFrmConsultaClienteView.Create(nil);
+  Try
+    formulario.ShowModal();
+    Result := formulario.Resultado;
+  Finally
+    formulario.Free;
+  End;
 end;
 
 end.

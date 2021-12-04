@@ -19,19 +19,19 @@ type
     constructor Create(); reintroduce;
     destructor Destroy(); override;
 
-    function Consultar(AId: integer): TClienteModel;overload;
-    function Consultar(ANumeroPessoal: String): TClienteModel;overload;
+    function Consultar(AId: integer): TClienteModel; overload;
+    function Consultar(ANumeroPessoal: String): TClienteModel; overload;
     function ConsultarPorNome(ANome: String): TClienteModel;
     function Criar(ACliente: TClienteModel): Boolean;
     function Alterar(ACliente: TClienteModel): Boolean;
-    function Excluir(AIdCliente: Integer): Boolean;
+    function Excluir(AIdCliente: integer): Boolean;
 
-    function ValidarNome(ANome: string): boolean;
-    function ValidarCadastroPessoal(ANumero: string): boolean;
-    function ValidarCEP(ACEP: string): boolean;
-    function ValidarEmail(AEmail: string): boolean;
-    function ValidarNumero(ANumero: string): boolean;
-    function ValidarTelefone(ATelefone: string): boolean;
+    function ValidarNome(ANome: string): Boolean;
+    function ValidarCadastroPessoal(ANumero: string): Boolean;
+    function ValidarCEP(ACEP: string): Boolean;
+    function ValidarEmail(AEmail: string): Boolean;
+    function ValidarNumero(ANumero: string): Boolean;
+    function ValidarTelefone(ATelefone: string): Boolean;
   end;
 
 implementation
@@ -64,12 +64,12 @@ end;
 
 function TClienteController.Consultar(ANumeroPessoal: String): TClienteModel;
 begin
-  Result:= FClienteDao.Consultar(ANumeroPessoal);
+  Result := FClienteDao.Consultar(ANumeroPessoal);
 end;
 
 function TClienteController.ConsultarPorNome(ANome: String): TClienteModel;
 begin
-  Result:= FClienteDao.ConsultarPorNome(ANome);
+  Result := FClienteDao.ConsultarPorNome(ANome);
 end;
 
 function TClienteController.Consultar(AId: integer): TClienteModel;
@@ -82,37 +82,37 @@ begin
   Result := FClienteDao.Criar(ACliente);
 end;
 
-function TClienteController.Excluir(AIdCliente: Integer): Boolean;
+function TClienteController.Excluir(AIdCliente: integer): Boolean;
 begin
   Result := FClienteDao.Excluir(AIdCliente);
 end;
 
-function TClienteController.ValidarCadastroPessoal(ANumero: string): boolean;
+function TClienteController.ValidarCadastroPessoal(ANumero: string): Boolean;
 begin
   Result := FValidarCliente.ValidarNumeroCadastroPessoal(ANumero);
 end;
 
-function TClienteController.ValidarCEP(ACEP: string): boolean;
+function TClienteController.ValidarCEP(ACEP: string): Boolean;
 begin
   Result := FValidarContato.ValidarCEP(ACEP);
 end;
 
-function TClienteController.ValidarNome(ANome: string): boolean;
+function TClienteController.ValidarNome(ANome: string): Boolean;
 begin
-  Result:= FValidarCliente.ValidarNome(ANome);
+  Result := FValidarCliente.ValidarNome(ANome);
 end;
 
-function TClienteController.ValidarEmail(AEmail: string): boolean;
+function TClienteController.ValidarEmail(AEmail: string): Boolean;
 begin
   Result := FValidarContato.ValidarEmail(AEmail);
 end;
 
-function TClienteController.ValidarNumero(ANumero: string): boolean;
+function TClienteController.ValidarNumero(ANumero: string): Boolean;
 begin
   Result := FValidarContato.ValidarNumero(ANumero);
 end;
 
-function TClienteController.ValidarTelefone(ATelefone: string): boolean;
+function TClienteController.ValidarTelefone(ATelefone: string): Boolean;
 begin
   Result := FValidarContato.ValidarTelefone(ATelefone);
 end;

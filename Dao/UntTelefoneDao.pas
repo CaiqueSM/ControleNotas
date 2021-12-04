@@ -51,16 +51,16 @@ begin
   End;
 end;
 
-function TTelefoneDao.Consultar(AIdcontato: integer): TObjectList<TTelefoneModel>;
+function TTelefoneDao.Consultar(AIdcontato: integer)
+  : TObjectList<TTelefoneModel>;
 var
   query: TZQuery;
   sql: String;
-  telefone: TTelefoneModel;
+  Telefone: TTelefoneModel;
 begin
   Result := TObjectList<TTelefoneModel>.Create();
 
-  sql := 'select * from telefone ' +
-         ' where idcontato = :idcontato ';
+  sql := 'select * from telefone ' + ' where idcontato = :idcontato ';
 
   query := CreateQuery(sql);
   Try
@@ -68,15 +68,15 @@ begin
     Try
       query.Open();
       While Not query.Eof Do
-         Begin
-            telefone := TTelefoneModel.Create();
-            telefone.Id := query.FieldByName('id').AsInteger;
-            telefone.IdContato := query.FieldByName('idcontato').AsInteger;
-            telefone.Telefone := Trim(query.FieldByName('telefone').AsString);
+      Begin
+        Telefone := TTelefoneModel.Create();
+        Telefone.Id := query.FieldByName('id').AsInteger;
+        Telefone.IdContato := query.FieldByName('idcontato').AsInteger;
+        Telefone.Telefone := Trim(query.FieldByName('telefone').AsString);
 
-            Result.Add(telefone);
-            query.next;
-         End;
+        Result.Add(Telefone);
+        query.next;
+      End;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o telefone.');
@@ -94,7 +94,7 @@ begin
   Result := True;
 
   sql := 'Insert Into telefone (idcontato, telefone)' +
-         'Values (:idcontato, :telefone)';
+    'Values (:idcontato, :telefone)';
 
   query := CreateQuery(sql);
   Try
@@ -119,28 +119,27 @@ var
   query: TZQuery;
   sql: String;
 begin
-   Result := True;
+  Result := True;
 
-   sql := 'delete from telefone ' +
-          ' where idcontato = :id' ;
+  sql := 'delete from telefone ' + ' where idcontato = :id';
 
-   query := CreateQuery(sql);
-   Try
-      query.ParamByName('id').AsInteger := ACodigo;
-      Try
-         query.ExecSQL();
-         Conexao.Database.Commit;
-      Except
-         on E: Exception do
-            Begin
-               Result := False;
-               Conexao.Database.Rollback;
-               Showmessage('Não foi possível excluir o telefone');
-            End;
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('id').AsInteger := ACodigo;
+    Try
+      query.ExecSQL();
+      Conexao.Database.Commit;
+    Except
+      on E: Exception do
+      Begin
+        Result := False;
+        Conexao.Database.Rollback;
+        Showmessage('Não foi possível excluir o telefone');
       End;
-   Finally
-      query.Free;
-   End;
+    End;
+  Finally
+    query.Free;
+  End;
 end;
 
 end.

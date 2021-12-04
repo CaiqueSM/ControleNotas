@@ -37,14 +37,14 @@ var
   usuarios: TObjectList<TUsuarioModel>;
   usuario: TUsuarioModel;
 begin
-   Result := TStringList.Create();
-   usuarios := FDao.ListarUsuarios();
-   Try
-      For usuario In usuarios Do
-         Result.Add(usuario.Nome);
-   Finally
-      usuarios.Free;
-   End;
+  Result := TStringList.Create();
+  usuarios := FDao.ListarUsuarios();
+  Try
+    For usuario In usuarios Do
+      Result.Add(usuario.Nome);
+  Finally
+    usuarios.Free;
+  End;
 end;
 
 end.

@@ -21,4 +21,3 @@ Const
 implementation
 
 end.
-

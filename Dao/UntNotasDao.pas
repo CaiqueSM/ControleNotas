@@ -42,9 +42,9 @@ begin
   Result := True;
 
   sql := 'Update Notas' +
-    ' Set idCliente = :idCliente, idFornecedor = :idFornecedor,'+
-    ' chaveacesso = :chaveacesso, controle = :controle,'+
-    ' descricao = :descricao, valor = :valor, emissao = :emissao)'+
+    ' Set idCliente = :idCliente, idFornecedor = :idFornecedor,' +
+    ' chaveacesso = :chaveacesso, controle = :controle,' +
+    ' descricao = :descricao, valor = :valor, emissao = :emissao)' +
     ' where id = :id';
   query := CreateQuery(sql);
 
@@ -78,8 +78,6 @@ var
   query: TZQuery;
   sql: String;
 begin
-  Result := nil;
-
   sql := 'select * from Notas where id = :id ';
   query := CreateQuery(sql);
   Try
@@ -154,18 +152,15 @@ begin
 
   query := CreateQuery(sql);
   Try
-    with query do
-    begin
-      ParamByName('id').AsInteger := ANotas.Id;
-      ParamByName('idUsuario').AsInteger := ANotas.Usuario.Id;
-      ParamByName('idCliente').AsInteger := ANotas.Cliente.Id;
-      ParamByName('idFornecedor').AsInteger := ANotas.Fornecedor.Id;
-      ParamByName('chaveacesso').AsString := ANotas.Chave;
-      ParamByName('controle').AsInteger := ANotas.Controle;
-      ParamByName('descricao').AsString := ANotas.Descricao;
-      ParamByName('valor').AsFloat := ANotas.valor;
-      ParamByName('emissao').AsDate := ANotas.emissao;
-    end;
+    query.ParamByName('id').AsInteger := ANotas.Id;
+    query.ParamByName('idUsuario').AsInteger := ANotas.Usuario.Id;
+    query.ParamByName('idCliente').AsInteger := ANotas.Cliente.Id;
+    query.ParamByName('idFornecedor').AsInteger := ANotas.Fornecedor.Id;
+    query.ParamByName('chaveacesso').AsString := ANotas.Chave;
+    query.ParamByName('controle').AsInteger := ANotas.Controle;
+    query.ParamByName('descricao').AsString := ANotas.Descricao;
+    query.ParamByName('valor').AsFloat := ANotas.valor;
+    query.ParamByName('emissao').AsDate := ANotas.emissao;
     Try
       query.ExecSQL();
       Conexao.Database.Commit;

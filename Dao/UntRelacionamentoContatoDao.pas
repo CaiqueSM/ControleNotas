@@ -26,7 +26,7 @@ var
 begin
 
   try
-    Result:= True;
+    Result := True;
     sql := 'Insert Into relacionamentocontato(idContato, idRelacionado)' +
       ' Values(:idContato, :idRelacionado)';
     query := CreateQuery(sql);
@@ -48,8 +48,8 @@ begin
       End;
     end;
   finally
-  if Assigned(query) then
-    query.Free;
+    if Assigned(query) then
+      query.Free;
   end;
 
 end;

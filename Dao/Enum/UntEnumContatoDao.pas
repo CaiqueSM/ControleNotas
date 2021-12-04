@@ -4,7 +4,7 @@ interface
 
 type
 
-TEnumContatoDao = (actCliente, actFornecedor, actContato);
+  TEnumContatoDao = (actCliente, actFornecedor, actContato);
 
 implementation
 

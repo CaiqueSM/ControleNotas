@@ -20,7 +20,7 @@ type
     function ConsultarPorCliente(AIdCliente, AIdContato: Integer)
       : TObjectList<TContatoModel>;
     function ConsultarPorFornecedor(AIdFornecedor, AIdContato: Integer)
-  : TObjectList<TContatoModel>;
+      : TObjectList<TContatoModel>;
     function ExcluirPorCliente(AIdCliente: Integer): Boolean;
     function ExcluirPorFornecedor(AIdFornecedor: Integer): Boolean;
     function Alterar(AContato: TContatoModel): Boolean;
@@ -61,17 +61,13 @@ begin
 
   query := CreateQuery(sql);
   Try
-    with query do
-    begin
-      ParamByName('id').AsInteger := AContato.Id;
-      ParamByName('bairro').AsString := AContato.Bairro;
-      ParamByName('CEP').AsString := AContato.CEP;
-      ParamByName('cidade').AsString := AContato.Cidade;
-      ParamByName('complemento').AsString := AContato.Complemento;
-      ParamByName('numero').AsString := AContato.Numero;
-      ParamByName('rua').AsString := AContato.Rua;
-    end;
-
+      query.ParamByName('id').AsInteger := AContato.Id;
+      query.ParamByName('bairro').AsString := AContato.Bairro;
+      query.ParamByName('CEP').AsString := AContato.CEP;
+      query.ParamByName('cidade').AsString := AContato.Cidade;
+      query.ParamByName('complemento').AsString := AContato.Complemento;
+      query.ParamByName('numero').AsString := AContato.Numero;
+      query.ParamByName('rua').AsString := AContato.Rua;
     Try
       query.ExecSQL();
       Conexao.Database.Commit;
@@ -313,6 +309,5 @@ begin
   End;
 
 end;
-
 
 end.

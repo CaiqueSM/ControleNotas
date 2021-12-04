@@ -4,7 +4,7 @@ interface
 
 uses
 
-Classes, SysUtils, System.RegularExpressions;
+  Classes, SysUtils, System.RegularExpressions;
 
 type
 
@@ -40,7 +40,7 @@ end;
 
 function TValidarContato.ValidarNumero(ANumero: string): boolean;
 begin
-  result:= not(ANumero.IsNullOrEmpty(ANumero));
+  Result := not(ANumero.IsNullOrEmpty(ANumero));
 end;
 
 function TValidarContato.ValidarTelefone(ATelefone: string): boolean;

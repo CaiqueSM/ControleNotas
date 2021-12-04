@@ -3,7 +3,8 @@ unit UntConsultaUsuarios;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids, untenvironment,
   UntConsultaUsuarioController;
 
@@ -33,8 +34,8 @@ implementation
 procedure TFrmConsultaUsuarios.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-   FController.Free;
-   Action := caFree;
+  FController.Free;
+  Action := caFree;
 end;
 
 procedure TFrmConsultaUsuarios.FormCreate(Sender: TObject);
@@ -44,45 +45,44 @@ end;
 
 procedure TFrmConsultaUsuarios.FormShow(Sender: TObject);
 begin
-   carregarDados();
+  carregarDados();
 end;
 
 procedure TFrmConsultaUsuarios.gridUsuariosDblClick(Sender: TObject);
 var
   linha: Integer;
 begin
-   linha := gridUsuarios.Row;
-   FResultado := gridUsuarios.Rows[linha].Text;
-   Close();
+  linha := gridUsuarios.Row;
+  FResultado := gridUsuarios.Rows[linha].Text;
+  Close();
 end;
 
 procedure TFrmConsultaUsuarios.gridUsuariosKeyPress(Sender: TObject;
   var Key: Char);
 begin
-   If (Key = BotaoEnter) Then
-      gridUsuariosDblClick(Sender);
+  If (Key = BotaoEnter) Then
+    gridUsuariosDblClick(Sender);
 end;
 
 procedure TFrmConsultaUsuarios.carregarDados;
 var
   nomesUsuarios: TStringList;
   nome: String;
-  coluna,
-  linha: Integer;
+  coluna, linha: Integer;
 begin
-   coluna := 0;
-   nomesUsuarios := FController.ListarNomesUsuarios();
-   Try
-      linha := 0;
-      for nome in nomesUsuarios do
-         begin
-            gridUsuarios.Cells[coluna, linha] := nome;
-            linha := linha + 1;
-            gridUsuarios.RowCount := linha;
-         end;
-   Finally
-      nomesUsuarios.Free;
-   End;
+  coluna := 0;
+  nomesUsuarios := FController.ListarNomesUsuarios();
+  Try
+    linha := 0;
+    for nome in nomesUsuarios do
+    begin
+      gridUsuarios.Cells[coluna, linha] := nome;
+      linha := linha + 1;
+      gridUsuarios.RowCount := linha;
+    end;
+  Finally
+    nomesUsuarios.Free;
+  End;
 end;
 
 end.

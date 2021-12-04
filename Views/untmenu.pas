@@ -72,10 +72,10 @@ end;
 procedure TfrmMenu.Logar();
 begin
   if not FController.Logar() then
-    Begin
-       Close();
-       Application.Terminate;
-    End;
+  Begin
+    Close();
+    Application.Terminate;
+  End;
 end;
 
 procedure TfrmMenu.itemClienteClick(Sender: TObject);
@@ -85,8 +85,7 @@ end;
 
 procedure TfrmMenu.itemFornercedorClick(Sender: TObject);
 begin
-  FController.AbrirTelaFilha(Self, TfrmFornecedor,
-    frmFornecedor);
+  FController.AbrirTelaFilha(Self, TfrmFornecedor, frmFornecedor);
 end;
 
 procedure TfrmMenu.itemNotaClick(Sender: TObject);
@@ -106,7 +105,7 @@ end;
 
 procedure TfrmMenu.itemSairClick(Sender: TObject);
 begin
-   Close();
+  Close();
 end;
 
 procedure TfrmMenu.itemUsuarioClick(Sender: TObject);
@@ -118,9 +117,10 @@ procedure TfrmMenu.configurarStatusBar;
 var
   usuario: Integer;
 begin
-   usuario := 0;
-   stbControleNotas.Panels[usuario].Text := Format(' Usuário: %s ', [Global.Usuario]);
-   stbControleNotas.Panels[usuario].Width := GetTamanhoPanel(usuario);
+  usuario := 0;
+  stbControleNotas.Panels[usuario].Text :=
+    Format(' Usuário: %s ', [Global.usuario]);
+  stbControleNotas.Panels[usuario].Width := GetTamanhoPanel(usuario);
 end;
 
 function TfrmMenu.GetTamanhoPanel(AIndexPanel: Integer): Integer;
@@ -128,11 +128,11 @@ var
   texto: String;
   offset: Integer;
 begin
-   stbControleNotas.Canvas.Font := stbControleNotas.Font;
-   texto := stbControleNotas.Panels[AIndexPanel].Text;
-   offset := 10;
+  stbControleNotas.Canvas.Font := stbControleNotas.Font;
+  texto := stbControleNotas.Panels[AIndexPanel].Text;
+  offset := 10;
 
-   Result := stbControleNotas.Canvas.TextWidth(texto) + offset;
+  Result := stbControleNotas.Canvas.TextWidth(texto) + offset;
 end;
 
 procedure TfrmMenu.FormClose(Sender: TObject; var CloseAction: TCloseAction);

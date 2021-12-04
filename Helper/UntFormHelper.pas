@@ -19,7 +19,7 @@ uses
 
 procedure TFormHelper.TabOrderNext;
 begin
-   Perform(wm_NextDlgCtl,0,0);
+  Perform(wm_NextDlgCtl, 0, 0);
 end;
 
 end.

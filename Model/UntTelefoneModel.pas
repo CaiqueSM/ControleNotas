@@ -15,7 +15,7 @@ type
     procedure SetTelefone(AValue: string);
   public
     property Id: integer read FId write FId;
-    property IdContato: integer read FidContato write FidContato;
+    property IdContato: integer read FIdContato write FIdContato;
     property Telefone: string read FTelefone write SetTelefone;
   end;
 

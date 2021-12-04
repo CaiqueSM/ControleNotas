@@ -37,14 +37,14 @@ var
   Clientes: TObjectList<TClienteModel>;
   Cliente: TClienteModel;
 begin
-   Result := TStringList.Create();
-   Clientes := FDao.ListarClientes();
-   Try
-      For Cliente In Clientes Do
-         Result.Add(Cliente.nome);
-   Finally
-      Clientes.Free;
-   End;
+  Result := TStringList.Create();
+  Clientes := FDao.ListarClientes();
+  Try
+    For Cliente In Clientes Do
+      Result.Add(Cliente.nome);
+  Finally
+    Clientes.Free;
+  End;
 end;
 
 end.

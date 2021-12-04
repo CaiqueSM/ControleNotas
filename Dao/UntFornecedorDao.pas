@@ -117,7 +117,7 @@ var
   query: TZQuery;
   sql: String;
 begin
-  Result:= nil;
+  Result := nil;
   sql := 'select id from fornecedor where CNPJ = :CNPJ';
   query := CreateQuery(sql);
   Try
