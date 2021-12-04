@@ -18,6 +18,7 @@ type
     function ListarFornecedores(): TObjectList<TFornecedorModel>;
     function Consultar(AId: integer): TFornecedorModel; overload;
     function Consultar(ANumeroPessoal: String): TFornecedorModel; overload;
+    function ConsultarPorNome(ANome: String): TFornecedorModel;
     function Criar(AFornecedor: TFornecedorModel): Boolean;
     function Alterar(AFornecedor: TFornecedorModel): Boolean;
     function Excluir(AIdFornecedor: integer): Boolean;
@@ -132,6 +133,29 @@ begin
   Finally
     query.Free;
   End;
+end;
+
+function TFornecedorDao.ConsultarPorNome(ANome: String): TFornecedorModel;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := nil;
+  sql := 'select id from fornecedor where nome = :nome';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('nome').AsString := ANome;
+    Try
+      query.Open();
+      Result := Consultar(query.FieldByName('id').AsInteger);
+    Except
+      on E: Exception do
+        Showmessage('Não foi possível obter o Fornecedor.');
+    End;
+  Finally
+    query.Free;
+  End;
+
 end;
 
 function TFornecedorDao.Criar(AFornecedor: TFornecedorModel): Boolean;
