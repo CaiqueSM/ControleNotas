@@ -12,6 +12,7 @@ object FrmConsultaClienteView: TFrmConsultaClienteView
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
+  OnKeyPress = gridClienteViewKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
