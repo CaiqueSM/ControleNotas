@@ -76,6 +76,5 @@ PRIMARY KEY(id),
 FOREIGN KEY(idContato) REFERENCES contato(id) ON DELETE cascade
 );
 
-use notafiscal;
 insert into usuario(nome, senha) values('root', 'root'); 
 insert into usuario(nome, senha) values('jeihcio', '123456'); 

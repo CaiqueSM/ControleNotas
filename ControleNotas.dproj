@@ -188,6 +188,12 @@
         <DCCReference Include="Controller\UntNotasController.pas"/>
         <DCCReference Include="Dao\UntNotasDao.pas"/>
         <DCCReference Include="Controller\Validacao\UntValidarNotas.pas"/>
+        <DCCReference Include="Controller\Consulta\UntConsultarClienteController.pas"/>
+        <DCCReference Include="Controller\Consulta\UntConsultarCliente.pas"/>
+        <DCCReference Include="Views\Consultas\UntConsultaClienteView.pas">
+            <Form>FrmConsultaClienteView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

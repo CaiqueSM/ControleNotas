@@ -21,6 +21,7 @@ type
 
     function Consultar(AId: integer): TClienteModel;overload;
     function Consultar(ANumeroPessoal: String): TClienteModel;overload;
+    function ConsultarPorNome(ANome: String): TClienteModel;
     function Criar(ACliente: TClienteModel): Boolean;
     function Alterar(ACliente: TClienteModel): Boolean;
     function Excluir(AIdCliente: Integer): Boolean;
@@ -64,6 +65,11 @@ end;
 function TClienteController.Consultar(ANumeroPessoal: String): TClienteModel;
 begin
   Result:= FClienteDao.Consultar(ANumeroPessoal);
+end;
+
+function TClienteController.ConsultarPorNome(ANome: String): TClienteModel;
+begin
+  Result:= FClienteDao.ConsultarPorNome(ANome);
 end;
 
 function TClienteController.Consultar(AId: integer): TClienteModel;

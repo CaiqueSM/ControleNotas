@@ -49,7 +49,10 @@ uses
   UntFornecedorController in 'Controller\UntFornecedorController.pas',
   UntNotasController in 'Controller\UntNotasController.pas',
   UntNotasDao in 'Dao\UntNotasDao.pas',
-  UntValidarNotas in 'Controller\Validacao\UntValidarNotas.pas';
+  UntValidarNotas in 'Controller\Validacao\UntValidarNotas.pas',
+  UntConsultarClienteController in 'Controller\Consulta\UntConsultarClienteController.pas',
+  UntConsultarCliente in 'Controller\Consulta\UntConsultarCliente.pas',
+  UntConsultaClienteView in 'Views\Consultas\UntConsultaClienteView.pas' {FrmConsultaClienteView};
 
 {$R *.res}
 
@@ -59,7 +62,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
-  Application.CreateForm(TfrmFornecedor, frmFornecedor);
   Application.Run;
 
 end.

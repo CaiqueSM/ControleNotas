@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, UntEnvironment,
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
-  UntClienteController, UntClienteModel, UntContatoModel,
+  UntClienteController, UntClienteModel, UntContatoModel, UntConsultarCliente,
   UntEnumContatoDao, Vcl.ComCtrls, Vcl.ToolWin, UntCrudEnum,
   UntFormHelper;
 
@@ -164,8 +164,18 @@ begin
 end;
 
 procedure TfrmCliente.tbuPesquisarClick(Sender: TObject);
+var
+  cliente: String;
 begin
-  null;
+  cliente := TConsultaCliente.ConsultarClientes();
+  If (Not cliente.IsEmpty) Then
+  Begin
+    txtNomeCliente.Text := trim(cliente);
+    selecionarCliente(txtNomeCliente);
+    txtcodigo.Enabled := False;
+  End
+  Else If txtNomeCliente.CanFocus Then
+    txtNomeCliente.SetFocus;
 end;
 
 procedure TfrmCliente.txtCNPJCPFKeyPress(Sender: TObject; var Key: Char);
@@ -279,13 +289,18 @@ begin
       actConsultar:
         Begin
           Try
-            cliente := FController.Consultar(txtcodigo.Text);
+            if txtcodigo.Text = EmptyStr then
+              cliente := FController.ConsultarPorNome(txtNomeCliente.Text)
+            else
+              cliente := FController.Consultar(StrToInt(txtcodigo.Text));
             FClienteExistente := Not cliente.Nome.IsEmpty;
 
-            If Not cliente.CNPJ.IsEmpty Then
-              txtCNPJCPF.Text := cliente.CNPJ
+            txtcodigo.Text := intTOstr(cliente.Id);
+
+            If Not cliente.CPF.IsNullOrEmpty(cliente.CPF) Then
+              txtCNPJCPF.Text := cliente.CPF
             Else
-              txtCNPJCPF.Text := cliente.CPF;
+              txtCNPJCPF.Text := cliente.CNPJ;
 
             txtNomeCliente.Text := cliente.Nome;
 
