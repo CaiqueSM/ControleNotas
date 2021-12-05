@@ -8,6 +8,8 @@ uses
 function ShowConfirm(AMensagem: String): Boolean;
 procedure MensagemNaoCadastrado(ANome: string);
 procedure MensagemNotaExiste(AChave: String);
+procedure MensagemNotaNaoExiste(AChave: String);
+procedure MensagemChaveInvalida(AChave: string);
 
 implementation
 
@@ -24,7 +26,17 @@ end;
 
 procedure MensagemNotaExiste(AChave: String);
 begin
-  ShowMessage('Nota com chave de acesso: '+ AChave + 'existe no sistema.');
+  ShowMessage('Nota fiscal com chave de acesso: '+ AChave + ' já existe no sistema.');
+end;
+
+procedure MensagemNotaNaoExiste(AChave: String);
+begin
+  ShowMessage('Nota fiscal com chave de acesso: '+ AChave + ' habilitada para uso.');
+end;
+
+procedure MensagemChaveInvalida(AChave: string);
+begin
+  ShowMessage('A Chave ' + AChave + ' é inválida.');
 end;
 
 end.
