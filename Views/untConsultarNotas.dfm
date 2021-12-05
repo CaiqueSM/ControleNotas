@@ -16,6 +16,7 @@ object frmConsultarNotas: TfrmConsultarNotas
   OldCreateOrder = True
   Visible = True
   OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object grpConsulta: TGroupBox
