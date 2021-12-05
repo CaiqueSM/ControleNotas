@@ -7,6 +7,7 @@ uses
 
 function ShowConfirm(AMensagem: String): Boolean;
 procedure MensagemNaoCadastrado(ANome: string);
+procedure MensagemNotaExiste(AChave: String);
 
 implementation
 
@@ -19,6 +20,11 @@ procedure MensagemNaoCadastrado(ANome: string);
 begin
   ShowMessage(ANome + ' não cadastrado! Por favor realize o cadastro de ' +
     ANome + ' depois volte a esta tela.');
+end;
+
+procedure MensagemNotaExiste(AChave: String);
+begin
+  ShowMessage('Nota com chave de acesso: '+ AChave + 'existe no sistema.');
 end;
 
 end.
