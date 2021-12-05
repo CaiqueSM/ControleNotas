@@ -50,8 +50,11 @@ function TFornecedorDao.Alterar(AFornecedor: TFornecedorModel): Boolean;
 var
   query: TZQuery;
   sql: String;
+  contato: TContatoModel;
+  nenhum: integer;
 begin
   Result := True;
+  nenhum := 0;
 
   sql := 'Update Fornecedor Set nome = :nome, CPF = :CPF, CNPJ = :CNPJ ' +
     ' Where id = :id';
@@ -65,6 +68,16 @@ begin
 
     Try
       query.ExecSQL();
+
+      If (AFornecedor.Contatos.Count > nenhum) Then
+      Begin
+        For contato In AFornecedor.Contatos Do
+        Begin
+          If Not FContatoDao.Alterar(contato) Then
+            raise Exception.Create('Erro ao gravar os contatos');
+        End;
+      end;
+
       Conexao.Database.Commit;
     Except
       on E: Exception do
@@ -203,6 +216,7 @@ begin
       End;
     End;
   Finally
+    contato.Free;
     query.Free;
   End;
 end;
@@ -269,6 +283,7 @@ begin
         Showmessage('Não foi possível carregar a lista de Fornecedores');
     End;
   Finally
+    Fornecedor.Free;
     query.Free;
   End;
 end;
