@@ -69,7 +69,7 @@ destructor TNotasController.Destroy;
 begin
   FNotasDao.Free;
   FValidar.Free;
-  inherited;
+  inherited Destroy;
 end;
 
 function TNotasController.Excluir(AChaveAcesso: string): Boolean;

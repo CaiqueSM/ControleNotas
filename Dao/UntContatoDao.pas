@@ -125,6 +125,7 @@ begin
         Showmessage('Não foi possível obter o contato.');
     End;
   Finally
+    contato.Free;
     query.Free;
   End;
 end;
@@ -170,6 +171,7 @@ begin
         Showmessage('Não foi possível obter o contato.');
     End;
   Finally
+    contato.Free;
     query.Free;
   End;
 end;
@@ -225,6 +227,8 @@ begin
       End;
     End;
   Finally
+    Email.Free;
+    Telefone.Free;
     query.Free;
   End;
 end;
