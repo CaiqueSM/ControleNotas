@@ -117,6 +117,14 @@ begin
       actCriar:
         Begin
           Notas := serializeNotas();
+
+          if FController.ChaveExiste(Notas.Chave) then
+          begin
+            MensagemNotaExiste(Notas.Chave);
+            txtChaveAcesso.Clear;
+            Exit();
+          end;
+
           if Notas.Cliente.Nome.IsEmpty then
           begin
             MensagemNaoCadastrado('Cliente');
@@ -361,6 +369,7 @@ begin
     end;
 
   if (txtChaveAcesso = ACampo) or (txtChaveAcesso = todosCampos) then
+  begin
     if not FController.ValidarChaveAcesso(txtChaveAcesso.Text) then
     begin
       ShowMessage('Chave inválida.');
@@ -368,6 +377,7 @@ begin
         txtChaveAcesso.SetFocus;
       Exit();
     end;
+  end;
 
   if (txtCNPJCPFCliente = ACampo) or (txtCNPJCPFCliente = todosCampos) then
     if not FController.ValidarNumeroPessoal(txtCNPJCPFCliente.Text) then
