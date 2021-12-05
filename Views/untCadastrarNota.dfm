@@ -90,19 +90,6 @@ object frmCadastrarNota: TfrmCadastrarNota
       ShowHint = True
       TabOrder = 1
     end
-    object mskValor: TMaskEdit
-      Left = 104
-      Top = 85
-      Width = 80
-      Height = 23
-      Hint = 'R$'
-      MaxLength = 12
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 2
-      Text = ''
-      OnExit = mskValorExit
-    end
     object txtCNPJCPFfornecedor: TEdit
       Left = 312
       Top = 35
@@ -113,7 +100,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
+      TabOrder = 3
       OnExit = txtCNPJCPFfornecedorExit
     end
     object txtCNPJCPFcliente: TEdit
@@ -126,7 +113,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 5
+      TabOrder = 4
       OnExit = txtCNPJCPFclienteExit
     end
     object mskEmissao: TMaskEdit
@@ -139,9 +126,18 @@ object frmCadastrarNota: TfrmCadastrarNota
       MaxLength = 10
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 2
       Text = 'dd/mm/aaaa'
-      OnExit = mskValorExit
+    end
+    object txtValor: TEdit
+      Left = 104
+      Top = 85
+      Width = 85
+      Height = 23
+      MaxLength = 12
+      NumbersOnly = True
+      TabOrder = 5
+      OnExit = txtValorExit
     end
   end
   object gbDescricao: TGroupBox

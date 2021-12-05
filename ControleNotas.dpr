@@ -65,7 +65,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
-  Application.CreateForm(TfrmConsultaFornecedorView, frmConsultaFornecedorView);
   Application.Run;
 
 end.
