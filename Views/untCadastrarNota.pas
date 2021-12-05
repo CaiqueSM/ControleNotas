@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, UntNotasModel, UntNotasController,
   UntEnvironment, UntClienteController, UntFornecedorController,
-  UntUsuarioController, UntMensagemUtil,
+  UntUsuarioController, UntMensagemUtil, UntConsultaNotas,
   UntCrudEnum, UntFormHelper, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.Mask;
@@ -46,6 +46,8 @@ type
     procedure txtValorExit(Sender: TObject);
     procedure txtCNPJCPFfornecedorExit(Sender: TObject);
     procedure txtCNPJCPFclienteExit(Sender: TObject);
+    procedure tbuPesquisarClick(Sender: TObject);
+    procedure tbuExcluirClick(Sender: TObject);
   private
     FNotasExistente: Boolean;
     FController: TNotasController;
@@ -76,8 +78,13 @@ begin
       actConsultar:
         Begin
           Try
-            Notas := FController.Consultar(strTOint(txtCodigo.Text));
+            if txtCodigo.Text = EmptyStr then
+              Notas := FController.Consultar(txtChaveAcesso.Text)
+            else
+              Notas := FController.Consultar(StrToInt(txtCodigo.Text));
             FNotasExistente := Not Notas.Chave.IsEmpty;
+
+            txtCodigo.Text := intTOstr(Notas.Id);
 
             if not Notas.Chave.IsEmpty then
               txtChaveAcesso.Text := Notas.Chave;
@@ -88,8 +95,7 @@ begin
             if Notas.Valor <> 0 then
               txtValor.Text := FloatToStr(Notas.Valor);
 
-            if Notas.Emissao <> 0 then
-              mskEmissao.Text := dateTOstr(Notas.Emissao);
+            mskEmissao.Text := dateTOstr(Notas.Emissao);
 
             If Not Notas.Cliente.CPF.IsEmpty Then
               txtCNPJCPFCliente.Text := Notas.Cliente.CPF
@@ -136,7 +142,7 @@ begin
 
       actExcluir:
         Begin
-          Result := FController.Excluir(strTOint(txtCodigo.Text));
+          Result := FController.Excluir(StrToInt(txtCodigo.Text));
         End;
     End;
   Finally
@@ -178,10 +184,10 @@ var
 begin
   Trim(AValor);
   for i := 1 to length(AValor) - 2 do
-    if CharInSet(AValor[i], ['0'..'9']) then
+    if CharInSet(AValor[i], ['0' .. '9']) then
       parteInteira := parteInteira + AValor[i];
   for j := length(AValor) - 1 to length(AValor) do
-    if CharInSet(AValor[j], ['0'..'9']) then
+    if CharInSet(AValor[j], ['0' .. '9']) then
       parteFracionaria := parteFracionaria + AValor[j];
   Result := parteInteira + ',' + parteFracionaria;
 end;
@@ -253,9 +259,9 @@ begin
   Fornecedor := TFornecedorController.Create;
 
   Result := TNotasModel.Create;
-  Result.Id := strTOint(txtCodigo.Text);
+  Result.Id := StrToInt(txtCodigo.Text);
   Result.Chave := txtChaveAcesso.Text;
-  Result.Controle := strTOint(txtControle.Text);
+  Result.Controle := StrToInt(txtControle.Text);
   Result.Valor := strTOFloat(txtValor.Text);
   Result.Emissao := strTOdate(mskEmissao.Text);
   Result.Descricao := memoDescricao.Text;
@@ -271,6 +277,28 @@ begin
     validarCampos(Sender);
     txtValor.Text := formatarValor(txtValor.Text);
   end;
+end;
+
+procedure TfrmCadastrarNota.tbuExcluirClick(Sender: TObject);
+begin
+  If ShowConfirm('Tem certeza que deseja excluir esta nota?') Then
+    If atualizarDados(actExcluir) Then
+      btnCancelarClick(Sender);
+end;
+
+procedure TfrmCadastrarNota.tbuPesquisarClick(Sender: TObject);
+var
+  nota: String;
+begin
+  nota := TConsultaNotas.ConsultarNotas();
+  If (Not nota.IsEmpty) Then
+  Begin
+    txtChaveAcesso.Text := Trim(nota);
+    selecionarNotas(txtChaveAcesso);
+    txtCodigo.Enabled := False;
+  End
+  Else If txtChaveAcesso.CanFocus Then
+    txtChaveAcesso.SetFocus;
 end;
 
 procedure TfrmCadastrarNota.txtChaveAcessoExit(Sender: TObject);
@@ -304,14 +332,15 @@ begin
   PadraoData := 'dd/mm/aaaa';
   Result := False;
 
-  if txtCodigo.Text = EmptyStr then
-  begin
-    ShowMessage('O campo código deve ser preenchido!');
-    txtCodigo.Enabled := True;
-    If txtCodigo.CanFocus Then
-      txtCodigo.SetFocus;
-    Exit();
-  end;
+  if (txtCodigo = ACampo) or (txtCodigo = todosCampos) then
+    if txtCodigo.Text = EmptyStr then
+    begin
+      ShowMessage('O campo código deve ser preenchido!');
+      txtCodigo.Enabled := True;
+      If txtCodigo.CanFocus Then
+        txtCodigo.SetFocus;
+      Exit();
+    end;
 
   if (txtValor = ACampo) or (txtValor = todosCampos) then
     if not FController.ValidarValor(txtValor.Text) then
