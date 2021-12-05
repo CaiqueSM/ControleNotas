@@ -34,16 +34,16 @@ end;
 
 function TConsultaFornecedorController.ListarNomesFornecedores: TStringList;
 var
-  Fornecedors: TObjectList<TFornecedorModel>;
+  Fornecedores: TObjectList<TFornecedorModel>;
   Fornecedor: TFornecedorModel;
 begin
   Result := TStringList.Create();
-  Fornecedors := FDao.ListarFornecedores();
+  Fornecedores := FDao.ListarFornecedores();
   Try
-    For Fornecedor In Fornecedors Do
+    For Fornecedor In Fornecedores Do
       Result.Add(Fornecedor.nome);
   Finally
-    Fornecedors.Free;
+    Fornecedores.Free;
   End;
 end;
 
