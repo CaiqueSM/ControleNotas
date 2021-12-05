@@ -26,6 +26,7 @@ type
     function ValidarChaveAcesso(AChaveAcesso: string): Boolean;
     function ValidarValor(AValor: string): Boolean;
     function ValidarNumeroPessoal(ANumero: string): Boolean;
+    function ChaveExiste(AChave: String): Boolean;
   end;
 
 implementation
@@ -40,6 +41,11 @@ end;
 function TNotasController.Consultar(AChaveAcesso: string): TNotasModel;
 begin
   Result := FNotasDao.Consultar(AChaveAcesso);
+end;
+
+function TNotasController.ChaveExiste(AChave: String): Boolean;
+begin
+  Result := Consultar(AChave) <> nil;
 end;
 
 function TNotasController.Consultar(AIdNotas: integer): TNotasModel;
