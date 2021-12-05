@@ -55,7 +55,10 @@ uses
   UntConsultaClienteView in 'Views\Consultas\UntConsultaClienteView.pas' {FrmConsultaClienteView},
   UntConsultaFornecedorController in 'Controller\Consulta\UntConsultaFornecedorController.pas',
   UntConsultaFornecedorView in 'Views\Consultas\UntConsultaFornecedorView.pas' {frmConsultaFornecedorView},
-  UntConsultaFornecedor in 'Controller\Consulta\UntConsultaFornecedor.pas';
+  UntConsultaFornecedor in 'Controller\Consulta\UntConsultaFornecedor.pas',
+  UntConsultaNotasController in 'Controller\Consulta\UntConsultaNotasController.pas',
+  UntConsultaNotasView in 'Views\Consultas\UntConsultaNotasView.pas' {frmConsultaNotasView},
+  UntConsultaNotas in 'Controller\Consulta\UntConsultaNotas.pas';
 
 {$R *.res}
 
