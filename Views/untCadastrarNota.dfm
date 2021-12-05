@@ -192,6 +192,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ImageIndex = 0
       ParentShowHint = False
       ShowHint = True
+      OnClick = tbuPesquisarClick
     end
     object tbuExcluir: TToolButton
       Left = 23
@@ -200,6 +201,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ImageIndex = 1
       ParentShowHint = False
       ShowHint = True
+      OnClick = tbuExcluirClick
     end
   end
   object gbCodigoFornecedor: TGroupBox
