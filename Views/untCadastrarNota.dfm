@@ -84,6 +84,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       Top = 85
       Width = 80
       Height = 23
+      Hint = 'Controle/C'#243'digo'
       MaxLength = 10
       NumbersOnly = True
       ParentShowHint = False
@@ -134,6 +135,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       Top = 85
       Width = 85
       Height = 23
+      Hint = 'R$'
       MaxLength = 12
       NumbersOnly = True
       TabOrder = 5
