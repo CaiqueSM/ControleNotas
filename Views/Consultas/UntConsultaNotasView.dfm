@@ -1,7 +1,6 @@
 object frmConsultaNotasView: TfrmConsultaNotasView
   Left = 0
   Top = 0
-  AutoSize = True
   Caption = 'Consultar notas'
   ClientHeight = 221
   ClientWidth = 320
