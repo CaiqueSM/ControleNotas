@@ -45,11 +45,12 @@ begin
   sql := 'Update Notas' +
     ' Set idCliente = :idCliente, idFornecedor = :idFornecedor,' +
     ' chaveacesso = :chaveacesso, controle = :controle,' +
-    ' descricao = :descricao, valor = :valor, emissao = :emissao)' +
+    ' descricao = :descricao, valor = :valor, emissao = :emissao' +
     ' where id = :id';
   query := CreateQuery(sql);
 
   Try
+    query.ParamByName('id').AsInteger := ANotas.Id;
     query.ParamByName('idCliente').AsInteger := ANotas.Cliente.Id;
     query.ParamByName('idFornecedor').AsInteger := ANotas.Fornecedor.Id;
     query.ParamByName('chaveacesso').AsString := ANotas.Chave;
@@ -253,6 +254,7 @@ begin
         Showmessage('Não foi possível obter as Notas.');
     End;
   Finally
+    Nota.Free;
     query.Free;
   End;
 end;
