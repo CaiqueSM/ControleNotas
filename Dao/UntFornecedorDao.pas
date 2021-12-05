@@ -247,7 +247,7 @@ var
 begin
   Result := TObjectList<TFornecedorModel>.Create();
 
-  sql := 'select * from Fornecedor ' + ' order by id asc ';
+  sql := 'select distinct * from Fornecedor ' + ' order by id asc ';
 
   query := CreateQuery(sql);
   Try
