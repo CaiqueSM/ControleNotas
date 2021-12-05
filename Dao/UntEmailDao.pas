@@ -80,6 +80,7 @@ begin
         Showmessage('Não foi possível obter os emails.');
     End;
   Finally
+    Email.Free;
     query.Free;
   End;
 end;

@@ -82,6 +82,7 @@ begin
         Showmessage('Não foi possível obter o telefone.');
     End;
   Finally
+    Telefone.Free;
     query.Free;
   End;
 end;
