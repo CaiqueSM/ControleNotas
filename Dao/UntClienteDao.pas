@@ -249,7 +249,7 @@ var
 begin
   Result := TObjectList<TClienteModel>.Create();
 
-  sql := 'select * from cliente ' + ' order by id asc ';
+  sql := 'select distinct * from cliente ' + ' order by id asc ';
 
   query := CreateQuery(sql);
   Try
