@@ -22,6 +22,7 @@ type
     function Alterar(ANota: TNotasModel): Boolean;
     function Excluir(AIdNota: integer): Boolean; overload;
     function Excluir(AChaveAcesso: string): Boolean; overload;
+    function ListarNotas(): TObjectList<TNotasModel>;
     function ValidarChaveAcesso(AChaveAcesso: string): Boolean;
     function ValidarValor(AValor: string): Boolean;
     function ValidarNumeroPessoal(ANumero: string): Boolean;
@@ -68,6 +69,11 @@ end;
 function TNotasController.Excluir(AChaveAcesso: string): Boolean;
 begin
   Result := FNotasDao.Excluir(AChaveAcesso);
+end;
+
+function TNotasController.ListarNotas: TObjectList<TNotasModel>;
+begin
+  Result := FNotasDao.ListarNotas;
 end;
 
 function TNotasController.Excluir(AIdNota: integer): Boolean;
