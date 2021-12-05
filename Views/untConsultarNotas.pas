@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Vcl.Grids,
-  Vcl.DBGrids;
+  Vcl.DBGrids, UntNotasController, UntMensagemUtil;
 
 type
 
@@ -18,7 +18,9 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
+    FController: TNotasController;
     function validar(): Boolean;
     procedure limparCampos();
     procedure habilitarCampos(AHabilitar: Boolean);
@@ -39,7 +41,7 @@ end;
 
 procedure TfrmConsultarNotas.btnConsultarClick(Sender: TObject);
 begin
-  if validar() then
+  if validar then
   begin
     habilitarCampos(false);
   end;
@@ -48,7 +50,13 @@ end;
 procedure TfrmConsultarNotas.FormClose(Sender: TObject;
   var CloseAction: TCloseAction);
 begin
+  FController.Free;
   CloseAction := caFree;
+end;
+
+procedure TfrmConsultarNotas.FormCreate(Sender: TObject);
+begin
+  FController := TNotasController.Create;
 end;
 
 procedure TfrmConsultarNotas.habilitarCampos(AHabilitar: Boolean);
@@ -83,6 +91,22 @@ begin
     ShowMessage('Chave de acesso inválida!');
     if txtChaveAcesso.CanFocus then
       txtChaveAcesso.SetFocus;
+    Exit();
+  end;
+
+  if FController.ValidarChaveAcesso(txtChaveAcesso.Text) then
+  begin
+    if FController.ChaveExiste(txtChaveAcesso.Text) then
+    begin
+      MensagemNotaExiste(txtChaveAcesso.Text);
+      Exit();
+    end
+    else
+      MensagemNotaNaoExiste(txtChaveAcesso.Text);
+  end
+  else
+  begin
+    MensagemChaveInvalida(txtChaveAcesso.Text);
     Exit();
   end;
 
