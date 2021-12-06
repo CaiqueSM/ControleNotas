@@ -1,4 +1,4 @@
-unit untGerarRelatorio;
+unit untRelatorioPeriodo;
 
 interface
 
@@ -8,16 +8,16 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask;
 
 type
-  TfrmGerarRelatorio = class(TForm)
+  TfrmRelatorioPeriodo = class(TForm)
     btnCancelar: TButton;
-    txtGerar: TButton;
+    btnGerar: TButton;
     gbPeriodo: TGroupBox;
     lbDataInicio: TLabel;
     lbDataTermino: TLabel;
     rgRelatorio: TRadioGroup;
     rgOrdenar: TRadioGroup;
-    MaskEdit1: TMaskEdit;
-    MaskEdit2: TMaskEdit;
+    mskInicio: TMaskEdit;
+    mskTermino: TMaskEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
@@ -26,13 +26,13 @@ type
   end;
 
 var
-  frmGerarRelatorio: TfrmGerarRelatorio;
+  frmRelatorioPeriodo: TfrmRelatorioPeriodo;
 
 implementation
 
 {$R *.dfm}
 
-procedure TfrmGerarRelatorio.FormClose(Sender: TObject;
+procedure TfrmRelatorioPeriodo.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   Action := caFree;
