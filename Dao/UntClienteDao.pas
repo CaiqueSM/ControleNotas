@@ -15,7 +15,8 @@ type
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
 
-    function ListarClientes(): TObjectList<TClienteModel>;
+    function ListarClientes(): TObjectList<TClienteModel>;overload;
+    function ListarClientes(ASQL: string): TObjectList<TClienteModel>;overload;
     function Consultar(AId: integer): TClienteModel; overload;
     function Consultar(AnumeroPessoal: String): TClienteModel; overload;
     function ConsultarPorNome(ANome: String): TClienteModel;
@@ -87,7 +88,6 @@ begin
       End;
     End;
   Finally
-    contato.Free;
     query.Free;
   End;
 end;
@@ -218,7 +218,6 @@ begin
       End;
     End;
   Finally
-    contato.Free;
     query.Free;
   End;
 end;
@@ -285,7 +284,36 @@ begin
         Showmessage('Não foi possível carregar a lista de clientes');
     End;
   Finally
-    cliente.Free;
+    query.Free;
+  End;
+end;
+
+function TClienteDao.ListarClientes(ASQL: string): TObjectList<TClienteModel>;
+var
+  query: TZQuery;
+  cliente: TClienteModel;
+begin
+  Result := TObjectList<TClienteModel>.Create();
+  query := CreateQuery(trim(ASQL));
+  Try
+    Try
+      query.Open();
+      while Not query.Eof do
+      Begin
+        cliente := TClienteModel.Create();
+        cliente.Id := query.FieldByName('id').AsInteger;
+        cliente.nome := Trim(query.FieldByName('nome').AsString);
+        cliente.CPF := Trim(query.FieldByName('CPF').AsString);
+        cliente.CNPJ := Trim(query.FieldByName('CNPJ').AsString);
+
+        Result.Add(cliente);
+        query.Next;
+      End;
+    Except
+      on E: Exception do
+        Showmessage('Não foi possível carregar a lista de clientes');
+    End;
+  Finally
     query.Free;
   End;
 end;
