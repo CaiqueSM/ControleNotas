@@ -25,7 +25,8 @@ type
     function Alterar(ANotas: TNotasModel): Boolean;
     function Excluir(AIdNotas: integer): Boolean; overload;
     function Excluir(AChaveAcesso: string): Boolean; overload;
-    function ListarNotas(): TObjectList<TNotasModel>;
+    function ListarNotas(): TObjectList<TNotasModel>; overload;
+    function ListarNotas(ASQL: string): TObjectList<TNotasModel>; overload;
   end;
 
 implementation
@@ -80,6 +81,7 @@ var
   query: TZQuery;
   sql: String;
 begin
+  Result:= nil;
   sql := 'select * from Notas where id = :id ';
   query := CreateQuery(sql);
   Try
@@ -214,6 +216,47 @@ begin
 
 end;
 
+function TNotasDao.ListarNotas(ASQL: string): TObjectList<TNotasModel>;
+var
+  query: TZQuery;
+  Nota: TNotasModel;
+begin
+  Result := TObjectList<TNotasModel>.Create;
+  query := CreateQuery(ASQL);
+
+  Try
+    Try
+      query.Open();
+      while not query.Eof do
+      begin
+        with Nota do
+        begin
+          Nota := TNotasModel.Create;
+          Id := query.FieldByName('id').AsInteger;
+          Chave := query.FieldByName('chaveacesso').AsString;
+          Controle := query.FieldByName('controle').AsInteger;
+          Descricao := query.FieldByName('descricao').AsString;
+          valor := query.FieldByName('valor').AsInteger;
+          emissao := query.FieldByName('emissao').AsDateTime;
+          Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
+            .AsInteger);
+          Fornecedor := FFornecedorDao.Consultar
+            (query.FieldByName('idfornecedor').AsInteger);
+          Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
+            .AsInteger);
+        end;
+        Result.Add(Nota);
+        query.Next;
+      end;
+    Except
+      on E: Exception do
+        Showmessage('Não foi possível obter as Notas.');
+    End;
+  Finally
+    query.Free;
+  End;
+end;
+
 function TNotasDao.ListarNotas: TObjectList<TNotasModel>;
 var
   query: TZQuery;
@@ -254,7 +297,6 @@ begin
         Showmessage('Não foi possível obter as Notas.');
     End;
   Finally
-    Nota.Free;
     query.Free;
   End;
 end;
