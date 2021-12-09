@@ -54,7 +54,7 @@ begin
   FFornecedorDao.Free;
   FValidarFornecedor.Free;
   FValidarContato.Free;
-  inherited Destroy;
+  inherited;
 end;
 
 function TFornecedorController.Alterar(AFornecedor: TFornecedorModel): Boolean;
