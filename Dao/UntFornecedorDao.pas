@@ -15,7 +15,9 @@ type
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
 
-    function ListarFornecedores(): TObjectList<TFornecedorModel>;
+    function ListarFornecedores(): TObjectList<TFornecedorModel>;overload;
+    function ListarFornecedores(ASQL: string): TObjectList<TFornecedorModel>;
+    overload;
     function Consultar(AId: integer): TFornecedorModel; overload;
     function Consultar(ANumeroPessoal: String): TFornecedorModel; overload;
     function ConsultarPorNome(ANome: String): TFornecedorModel;
@@ -216,7 +218,6 @@ begin
       End;
     End;
   Finally
-    contato.Free;
     query.Free;
   End;
 end;
@@ -283,7 +284,37 @@ begin
         Showmessage('Não foi possível carregar a lista de Fornecedores');
     End;
   Finally
-    Fornecedor.Free;
+    query.Free;
+  End;
+end;
+
+function TFornecedorDao.ListarFornecedores(ASQL: string): TObjectList<TFornecedorModel>;
+var
+  query: TZQuery;
+  Fornecedor: TFornecedorModel;
+begin
+  Result := TObjectList<TFornecedorModel>.Create();
+
+  query := CreateQuery(trim(ASQL));
+  Try
+    Try
+      query.Open();
+      while Not query.Eof do
+      Begin
+        Fornecedor := TFornecedorModel.Create();
+        Fornecedor.Id := query.FieldByName('id').AsInteger;
+        Fornecedor.nome := Trim(query.FieldByName('nome').AsString);
+        Fornecedor.CPF := Trim(query.FieldByName('CPF').AsString);
+        Fornecedor.CNPJ := Trim(query.FieldByName('CNPJ').AsString);
+
+        Result.Add(Fornecedor);
+        query.Next;
+      End;
+    Except
+      on E: Exception do
+        Showmessage('Não foi possível carregar a lista de Fornecedores');
+    End;
+  Finally
     query.Free;
   End;
 end;
