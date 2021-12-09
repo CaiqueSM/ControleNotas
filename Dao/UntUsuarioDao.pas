@@ -77,7 +77,6 @@ begin
         Showmessage('Não foi possível carregar a lista de usuários');
     End;
   Finally
-    usuario.Free;
     query.Free;
   End;
 end;

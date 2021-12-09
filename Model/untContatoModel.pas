@@ -64,7 +64,7 @@ begin
     FTelefones.Free;
   If Assigned(FEmails) Then
     FEmails.Free;
-  inherited Destroy;
+  inherited;
 end;
 
 procedure TContatoModel.SetBairro(AValue: string);

@@ -26,7 +26,7 @@ type
     procedure SetFornecedor(AValue: TFornecedorModel);
   public
     destructor Destroy(); override;
-    constructor Create();
+
     property Id: integer read FId write FId;
     property Chave: string read FChaveAcesso write SetChaveAcesso;
     property Descricao: string read FDescricao write SetDescricao;
@@ -41,13 +41,6 @@ type
 implementation
 
 { TNotas }
-
-constructor TNotasModel.Create;
-begin
-  FCliente:= TClienteModel.Create;
-  FFornecedor:= TFornecedorModel.Create;
-  FUsuario:= TUsuarioModel.Create;
-end;
 
 destructor TNotasModel.Destroy;
 begin

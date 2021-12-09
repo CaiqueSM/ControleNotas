@@ -31,7 +31,7 @@ end;
 destructor TValidarNotas.Destroy;
 begin
   NumeroPessoal.Free;
-  inherited Destroy;
+  inherited;
 end;
 
 function TValidarNotas.ValidarChaveAcesso(AChaveAcesso: string): boolean;

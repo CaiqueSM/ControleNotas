@@ -42,7 +42,7 @@ end;
 destructor TPessoaModel.Destroy;
 begin
   FContatos.Free;
-  inherited Destroy;
+  inherited;
 end;
 
 procedure TPessoaModel.SetCNPJ(AValue: string);
