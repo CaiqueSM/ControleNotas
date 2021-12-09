@@ -61,10 +61,10 @@ end;
 destructor TContatoModel.Destroy;
 begin
   If Assigned(FTelefones) Then
-    FTelefones.Free;
+    FreeAndNil(FTelefones);
   If Assigned(FEmails) Then
-    FEmails.Free;
-  inherited Destroy;
+    FreeAndNil(FEmails);
+  inherited;
 end;
 
 procedure TContatoModel.SetBairro(AValue: string);
