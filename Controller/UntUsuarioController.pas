@@ -36,7 +36,7 @@ end;
 destructor TUsuarioController.Destroy;
 begin
   FDao.Free;
-  inherited Destroy;
+  inherited;
 end;
 
 function TUsuarioController.Excluir(AIdUsuario: Integer): Boolean;

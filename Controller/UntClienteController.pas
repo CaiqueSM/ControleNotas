@@ -54,7 +54,7 @@ begin
   FClienteDao.Free;
   FValidarCliente.Free;
   FValidarContato.Free;
-  inherited Destroy;
+  inherited;
 end;
 
 function TClienteController.Alterar(ACliente: TClienteModel): Boolean;
