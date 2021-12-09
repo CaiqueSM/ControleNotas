@@ -59,8 +59,9 @@ uses
   UntConsultaNotas in 'Controller\Consulta\UntConsultaNotas.pas',
   untRelatorioPeriodo in 'Views\untRelatorioPeriodo.pas' {frmRelatorioPeriodo},
   UntRelatorioDao in 'Dao\UntRelatorioDao.pas',
+  UntRelatorioEnum in 'Model\Enum\UntRelatorioEnum.pas',
   UntRelatorioModel in 'Model\UntRelatorioModel.pas',
-  UntRelatorioEnum in 'Model\Enum\UntRelatorioEnum.pas';
+  UntRelatorioPeriodoController in 'Controller\UntRelatorioPeriodoController.pas';
 
 {$R *.res}
 
@@ -70,7 +71,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmMenu, frmMenu);
-  Application.CreateForm(TfrmRelatorioPeriodo, frmRelatorioPeriodo);
   Application.Run;
 
 end.
