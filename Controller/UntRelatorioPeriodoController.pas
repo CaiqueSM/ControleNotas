@@ -11,11 +11,11 @@ type
 
   TRelatorioPeriodoController = class(TBaseController)
   private
-     FRelatorioDao: TRelatorioDao;
+    FRelatorioDao: TRelatorioDao;
   public
     function CriarRelatorioPeriodo(ARelatorio: TRelatorioModel): boolean;
     constructor Create();
-    destructor Destroy();override;
+    destructor Destroy(); override;
   end;
 
 implementation
@@ -24,43 +24,71 @@ implementation
 
 constructor TRelatorioPeriodoController.Create;
 begin
-   inherited;
-   FRelatorioDao:= TRelatorioDao.Create(Conexao);
+  inherited;
+  FRelatorioDao := TRelatorioDao.Create(Conexao);
 end;
 
-function TRelatorioPeriodoController.CriarRelatorioPeriodo(
-  ARelatorio: TRelatorioModel): boolean;
- var
-   sql, tabela: string;
-   id: integer;
-   dataInicio, dataTermino: TDate;
+function TRelatorioPeriodoController.CriarRelatorioPeriodo
+  (ARelatorio: TRelatorioModel): boolean;
+var
+  sql, tabela, ordem: string;
 begin
 
-case ARelatorio.Tipo of
+  case ARelatorio.Tipo of
 
-actNotas:
-begin
-  tabela:= 'notas';
-  case ARelatorio.Ordem of
-    actAlfabetica:
-    begin
+    actNotas:
+      begin
+        tabela := 'notas';
+        case ARelatorio.ordem of
+          actAlfabetica:
+            ordem := ' order by id asc';
+          actFrequencia:
+            ordem := ' order by count(emissao) desc';
+          actValores:
+            ordem := ' order by valor desc';
+        end;
+      end;
 
-    end;
-    actFrequencia:
-    begin
+    actCliente:
+      begin
+        tabela := 'cliente';
+        case ARelatorio.ordem of
+          actAlfabetica:
+            ordem := ' order by nome asc';
+          actFrequencia:
+            ordem := ' order by count(nome) desc';
+          actValores:
+            ordem := ' order by valor desc';
+        end;
+      end;
 
-    end;
-    actValores:
-    begin
+    actFornecedor:
+      begin
+        tabela := 'fornecedor';
+        case ARelatorio.ordem of
+          actAlfabetica:
+            ordem := ' order by nome asc';
+          actFrequencia:
+            ordem := ' order by count(nome) desc';
+          actValores:
+            ordem := ' order by valor desc';
+        end;
+      end;
 
-    end;
   end;
-end;
+  sql := 'select * from ' + tabela +
+    ' where idUsuario = ' + intTOstr(ARelatorio.idUsuario) +
+    ' and emissao between ' + dateTOstr(ARelatorio.DataInicio) +
+    ' and ' + dateTOstr(ARelatorio.DataTermino) + ordem;
 
-end;
-sql := 'select * from notas(tabela) where idUsuario = 1(id)' +
-'and emissao between' + '2021-12-01(DI) and 2021-12-07(DF)';
-
+  case ARelatorio.Tipo of
+    actCliente:
+      FRelatorioDao.ConsultarCliente(sql);
+    actFornecedor:
+      FRelatorioDao.ConsultarFornecedor(sql);
+    actNotas:
+      FRelatorioDao.ConsultarNotas(sql);
+  end;
 
 end;
 
