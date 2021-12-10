@@ -5,7 +5,7 @@ interface
 type
 
 TTipoRelatorio = (actCliente, actFornecedor, actNotas);
-TOrdemRelatorio = (actAfabetico, actFrequencia, actValores);
+TOrdemRelatorio = (actAlfabetica, actFrequencia, actValores);
 
 implementation
 
