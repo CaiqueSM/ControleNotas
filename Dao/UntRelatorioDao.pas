@@ -3,7 +3,7 @@ unit UntRelatorioDao;
 interface
 
 uses
-  untBaseDao, System.Generics.Collections, System.Classes,
+  untBaseDao, System.Generics.Collections, System.Classes, UntConexao,
   UntClienteDao, UntFornecedorDao, UntNotasDao, UntRelatorioModel,
   UntClienteModel, UntFornecedorModel, UntNotasModel, UntRelatorioEnum;
 
@@ -15,7 +15,7 @@ type
     FFornecedor: TFornecedorDao;
     FNotas: TNotasDao;
   public
-    constructor Create();
+    constructor Create(AConexao: TConexao);
     destructor Destroy();override;
     function ConsultarCliente(ASQL: string): TObjectList<TClienteModel>;
     function ConsultarFornecedor(ASQL: string): TObjectList<TFornecedorModel>;
@@ -43,11 +43,12 @@ begin
   Result := FNotas.ListarNotas(ASQL);
 end;
 
-constructor TRelatorioDao.Create;
+constructor TRelatorioDao.Create(AConexao: TConexao);
 begin
-  FCliente := TClienteDao.Create(Conexao);
-  FFornecedor := TFornecedorDao.Create(Conexao);
-  FNotas := TNotasDao.Create(Conexao);
+  inherited Create(AConexao);
+  FCliente := TClienteDao.Create(AConexao);
+  FFornecedor := TFornecedorDao.Create(AConexao);
+  FNotas := TNotasDao.Create(AConexao);
 end;
 
 destructor TRelatorioDao.Destroy;
