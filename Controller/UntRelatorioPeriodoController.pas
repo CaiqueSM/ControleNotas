@@ -5,6 +5,7 @@ interface
 uses
 
   Classes, SysUtils, UntBaseController, UntRelatorioDao, UntRelatorioModel,
+  UntNotasModel, UntClienteModel, UntFornecedorModel,
   UntRelatorioEnum, System.Generics.Collections;
 
 type
@@ -13,7 +14,12 @@ type
   private
     FRelatorioDao: TRelatorioDao;
   public
-    function CriarRelatorioPeriodo(ARelatorio: TRelatorioModel): boolean;
+    function CriarRelatorioNotas(ARelatorio: TRelatorioModel):
+    TObjectList<TNotasModel>;
+    function CriarRelatorioCliente(ARelatorio: TRelatorioModel):
+    TObjectList<TClienteModel>;
+    function CriarRelatorioFornecedor(ARelatorio: TRelatorioModel):
+    TObjectList<TFornecedorModel>;
     constructor Create();
     destructor Destroy(); override;
   end;
@@ -28,8 +34,8 @@ begin
   FRelatorioDao := TRelatorioDao.Create(Conexao);
 end;
 
-function TRelatorioPeriodoController.CriarRelatorioPeriodo
-  (ARelatorio: TRelatorioModel): boolean;
+function TRelatorioPeriodoController.CriarRelatorioNotas
+(ARelatorio: TRelatorioModel): TObjectList<TNotasModel>;
 var
   sql, tabela, ordem: string;
 begin
@@ -94,7 +100,7 @@ end;
 
 destructor TRelatorioPeriodoController.Destroy;
 begin
-
+  FRelatorioDao.Free;
   inherited;
 end;
 
