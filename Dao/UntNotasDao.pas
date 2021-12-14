@@ -5,7 +5,7 @@ interface
 uses
 
   untBaseDao, UntUsuarioController, UntClienteController,
-  UntFornecedorController,
+  UntFornecedorController, ZDataset, UntRelatorioModel,
   System.Generics.Collections, UntNotasModel, System.Classes,
   UntConexao;
 
@@ -26,13 +26,13 @@ type
     function Excluir(AIdNotas: integer): Boolean; overload;
     function Excluir(AChaveAcesso: string): Boolean; overload;
     function ListarNotas(): TObjectList<TNotasModel>; overload;
-    function ListarNotas(ASQL: string): TObjectList<TNotasModel>; overload;
+    function ListarNotas(ARelatorio: TRelatorioModel): TZQuery;overload;
   end;
 
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs;
+  System.SysUtils, Vcl.Dialogs;
 
 { TNotasDao }
 
@@ -216,45 +216,27 @@ begin
 
 end;
 
-function TNotasDao.ListarNotas(ASQL: string): TObjectList<TNotasModel>;
+function TNotasDao.ListarNotas(ARelatorio: TRelatorioModel): TZQuery;
 var
-  query: TZQuery;
-  Nota: TNotasModel;
+  sql: string;
 begin
-  Result := TObjectList<TNotasModel>.Create;
-  query := CreateQuery(ASQL);
 
-  Try
-    Try
-      query.Open();
-      while not query.Eof do
-      begin
-        with Nota do
-        begin
-          Nota := TNotasModel.Create;
-          Id := query.FieldByName('id').AsInteger;
-          Chave := query.FieldByName('chaveacesso').AsString;
-          Controle := query.FieldByName('controle').AsInteger;
-          Descricao := query.FieldByName('descricao').AsString;
-          valor := query.FieldByName('valor').AsInteger;
-          emissao := query.FieldByName('emissao').AsDateTime;
-          Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
-            .AsInteger);
-          Fornecedor := FFornecedorDao.Consultar
-            (query.FieldByName('idfornecedor').AsInteger);
-          Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
-            .AsInteger);
-        end;
-        Result.Add(Nota);
-        query.Next;
-      end;
-    Except
-      on E: Exception do
-        Showmessage('Não foi possível obter as Notas.');
-    End;
-  Finally
-    query.Free;
-  End;
+  sql := 'select id, idCliente, idFornecedor, idUsuario, chaveacesso,' +
+    ' controle, descricao, emissao, valor, count(emissao) from notas'+
+    ' where idUsuario = :id and emissao between :DataInicio and :DataTermino :ordem';
+
+Result := CreateQuery(sql);
+
+ try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
+    Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
+        Showmessage('Não foi possível carregar a lista de notas');
+  end;
+
 end;
 
 function TNotasDao.ListarNotas: TObjectList<TNotasModel>;
