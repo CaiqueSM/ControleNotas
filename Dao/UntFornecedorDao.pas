@@ -3,7 +3,7 @@ unit UntFornecedorDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntFornecedorModel,
-  UntRelacionamentoContatoModel,
+  UntRelacionamentoContatoModel, UntRelatorioModel, ZDataset,
   System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao;
 
 type
@@ -16,8 +16,7 @@ type
     destructor Destroy(); override;
 
     function ListarFornecedores(): TObjectList<TFornecedorModel>;overload;
-    function ListarFornecedores(ASQL: string): TObjectList<TFornecedorModel>;
-    overload;
+    function ListarFornecedores(ARelatorio: TRelatorioModel): TZQuery;overload;
     function Consultar(AId: integer): TFornecedorModel; overload;
     function Consultar(ANumeroPessoal: String): TFornecedorModel; overload;
     function ConsultarPorNome(ANome: String): TFornecedorModel;
@@ -29,7 +28,7 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoModel,
+  System.SysUtils, Vcl.Dialogs, UntContatoModel,
   UntEmailModel, UntTelefoneModel;
 
 { TFornecedorDao }
@@ -288,35 +287,26 @@ begin
   End;
 end;
 
-function TFornecedorDao.ListarFornecedores(ASQL: string): TObjectList<TFornecedorModel>;
+function TFornecedorDao.ListarFornecedores(ARelatorio: TRelatorioModel): TZQuery;
 var
-  query: TZQuery;
-  Fornecedor: TFornecedorModel;
+  sql: string;
 begin
-  Result := TObjectList<TFornecedorModel>.Create();
 
-  query := CreateQuery(trim(ASQL));
-  Try
-    Try
-      query.Open();
-      while Not query.Eof do
-      Begin
-        Fornecedor := TFornecedorModel.Create();
-        Fornecedor.Id := query.FieldByName('id').AsInteger;
-        Fornecedor.nome := Trim(query.FieldByName('nome').AsString);
-        Fornecedor.CPF := Trim(query.FieldByName('CPF').AsString);
-        Fornecedor.CNPJ := Trim(query.FieldByName('CNPJ').AsString);
+  sql := 'select f.id, cpf, cnpj, nome, count(nome) from fornecedor as f' +
+    ', notas as n where f.id = n.idFornecedor and n.idUsuario = :id' +
+    ' and emissao between :DataInicio and :DataTermino :ordem';
 
-        Result.Add(Fornecedor);
-        query.Next;
-      End;
-    Except
-      on E: Exception do
-        Showmessage('Não foi possível carregar a lista de Fornecedores');
-    End;
-  Finally
-    query.Free;
-  End;
+  Result := CreateQuery(sql);
+  try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
+    Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
+        Showmessage('Não foi possível carregar a lista de fornecedores');
+  end;
+
 end;
 
 end.
