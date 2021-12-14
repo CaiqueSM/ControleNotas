@@ -3,51 +3,27 @@ unit UntRelatorioModel;
 interface
 
 uses
-  Classes, SysUtils, System.Generics.Collections, UntRelatorioEnum;
+  Classes, SysUtils, System.Generics.Collections;
 
 type
 
 TRelatorioModel = class
 private
   FIdUsuario: integer;
-  FTipo: TTipoRelatorio;
-  FOrdem: TOrdemRelatorio;
+  FTipo: string;
+  FOrdem: string;
   FDataInicio: Tdate;
   FDataTermino: TDate;
 public
   property IdUsuario: integer read FidUsuario write FidUsuario;
-  property Tipo: TTipoRelatorio read FTipo write FTipo;
-  property Ordem: TOrdemRelatorio read FOrdem write Fordem;
+  property Tipo: string read FTipo write FTipo;
+  property Ordem: string read FOrdem write Fordem;
   property DataInicio: TDate read FDataInicio write FDataInicio;
   property DataTermino: TDate read FDataTermino write FDataTermino;
-  constructor Create();
-  destructor Destroy();override;
-  function Exibir(): boolean;
-  function Exportar(): boolean;
 end;
 
 implementation
 
-{ TRelatorioModel }
 
-constructor TRelatorioModel.Create;
-begin
-
-end;
-
-destructor TRelatorioModel.Destroy;
-begin
-
-end;
-
-function TRelatorioModel.Exibir: boolean;
-begin
-
-end;
-
-function TRelatorioModel.Exportar: boolean;
-begin
-
-end;
 
 end.
