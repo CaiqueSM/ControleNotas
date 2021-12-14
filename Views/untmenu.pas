@@ -51,7 +51,7 @@ implementation
 
 uses
   untConsultarNotas, UntUsuario, UntCliente,
-  untGerarRelatorio,
+  untRelatorioPeriodo,
   untFornecedor, untCadastrarNota;
 
 {$R *.dfm}
@@ -100,7 +100,7 @@ end;
 
 procedure TfrmMenu.itemRelatorioMensalClick(Sender: TObject);
 begin
-  FController.AbrirTelaFilha(Self, TfrmGerarRelatorio, frmGerarRelatorio);
+  FController.AbrirTelaFilha(Self, TfrmRelatorioPeriodo, frmRelatorioPeriodo);
 end;
 
 procedure TfrmMenu.itemSairClick(Sender: TObject);

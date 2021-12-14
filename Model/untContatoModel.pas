@@ -61,7 +61,7 @@ end;
 destructor TContatoModel.Destroy;
 begin
   If Assigned(FTelefones) Then
-    FTelefones.Free;
+    FreeAndNil(FTelefones);
   If Assigned(FEmails) Then
     FEmails.Free;
   inherited;

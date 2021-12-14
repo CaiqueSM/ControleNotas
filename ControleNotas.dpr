@@ -2,19 +2,18 @@ program ControleNotas;
 
 uses
   Vcl.Forms,
-  UntBaseController in 'Controller\untbasecontroller.pas',
+  untbasecontroller in 'Controller\untbasecontroller.pas',
   untlogincontroller in 'Controller\untlogincontroller.pas',
-  UntMenuController in 'Controller\untmenucontroller.pas',
+  untmenucontroller in 'Controller\untmenucontroller.pas',
   untvalidarlogin in 'Controller\Validacao\untvalidarlogin.pas',
-  UntBaseDao in 'Dao\untbasedao.pas',
-  UntConexao in 'Dao\untconexao.pas',
-  UntLoginDao in 'Dao\untlogindao.pas',
+  untbasedao in 'Dao\untbasedao.pas',
+  untconexao in 'Dao\untconexao.pas',
+  untlogindao in 'Dao\untlogindao.pas',
   untmenu in 'Views\untmenu.pas' {frmMenu},
   untCadastrarNota in 'Views\untCadastrarNota.pas' {frmCadastrarNota},
   UntUsuario in 'Views\UntUsuario.pas' {frmUsuario},
-  UntGerarRelatorio in 'Views\UntGerarRelatorio.pas' {frmGerarRelatorio},
   untLogin in 'Views\untLogin.pas' {frmLogin},
-  UntConsultarNotas in 'Views\untConsultarNotas.pas' {frmConsultarNotas},
+  untConsultarNotas in 'Views\untConsultarNotas.pas' {frmConsultarNotas},
   UntClienteModel in 'Model\UntClienteModel.pas',
   UntContatoModel in 'Model\UntContatoModel.pas',
   UntEmailModel in 'Model\UntEmailModel.pas',
@@ -57,7 +56,13 @@ uses
   UntConsultaFornecedor in 'Controller\Consulta\UntConsultaFornecedor.pas',
   UntConsultaNotasController in 'Controller\Consulta\UntConsultaNotasController.pas',
   UntConsultaNotasView in 'Views\Consultas\UntConsultaNotasView.pas' {frmConsultaNotasView},
-  UntConsultaNotas in 'Controller\Consulta\UntConsultaNotas.pas';
+  UntConsultaNotas in 'Controller\Consulta\UntConsultaNotas.pas',
+  untRelatorioPeriodo in 'Views\untRelatorioPeriodo.pas' {frmRelatorioPeriodo},
+  UntRelatorioDao in 'Dao\UntRelatorioDao.pas',
+  UntRelatorioModel in 'Model\UntRelatorioModel.pas',
+  UntRelatorioPeriodoController in 'Controller\UntRelatorioPeriodoController.pas',
+  UntRelatorioImpresso in 'Views\UntRelatorioImpresso.pas' {frmRelatorioImpresso},
+  UntValidarData in 'Controller\Validacao\UntValidarData.pas';
 
 {$R *.res}
 

@@ -101,7 +101,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 3
+      TabOrder = 4
       OnExit = txtCNPJCPFfornecedorExit
     end
     object txtCNPJCPFcliente: TEdit
@@ -114,7 +114,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       NumbersOnly = True
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 4
+      TabOrder = 5
       OnExit = txtCNPJCPFclienteExit
     end
     object mskEmissao: TMaskEdit
@@ -127,7 +127,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       MaxLength = 10
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 2
+      TabOrder = 3
       Text = 'dd/mm/aaaa'
     end
     object txtValor: TEdit
@@ -138,7 +138,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       Hint = 'R$'
       MaxLength = 12
       NumbersOnly = True
-      TabOrder = 5
+      TabOrder = 2
       OnExit = txtValorExit
     end
   end

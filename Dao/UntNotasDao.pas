@@ -5,7 +5,7 @@ interface
 uses
 
   untBaseDao, UntUsuarioController, UntClienteController,
-  UntFornecedorController,
+  UntFornecedorController, ZDataset, UntRelatorioModel,
   System.Generics.Collections, UntNotasModel, System.Classes,
   UntConexao;
 
@@ -25,13 +25,14 @@ type
     function Alterar(ANotas: TNotasModel): Boolean;
     function Excluir(AIdNotas: integer): Boolean; overload;
     function Excluir(AChaveAcesso: string): Boolean; overload;
-    function ListarNotas(): TObjectList<TNotasModel>;
+    function ListarNotas(): TObjectList<TNotasModel>; overload;
+    function ListarNotas(ARelatorio: TRelatorioModel): TZQuery;overload;
   end;
 
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs;
+  System.SysUtils, Vcl.Dialogs;
 
 { TNotasDao }
 
@@ -80,6 +81,7 @@ var
   query: TZQuery;
   sql: String;
 begin
+  Result:= nil;
   sql := 'select * from Notas where id = :id ';
   query := CreateQuery(sql);
   Try
@@ -214,6 +216,29 @@ begin
 
 end;
 
+function TNotasDao.ListarNotas(ARelatorio: TRelatorioModel): TZQuery;
+var
+  sql: string;
+begin
+
+  sql := 'select id, idCliente, idFornecedor, idUsuario, chaveacesso,' +
+    ' controle, descricao, emissao, valor, count(emissao) from notas'+
+    ' where idUsuario = :id and emissao between :DataInicio and :DataTermino :ordem';
+
+Result := CreateQuery(sql);
+
+ try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
+    Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
+        Showmessage('Não foi possível carregar a lista de notas');
+  end;
+
+end;
+
 function TNotasDao.ListarNotas: TObjectList<TNotasModel>;
 var
   query: TZQuery;
@@ -254,7 +279,6 @@ begin
         Showmessage('Não foi possível obter as Notas.');
     End;
   Finally
-    Nota.Free;
     query.Free;
   End;
 end;

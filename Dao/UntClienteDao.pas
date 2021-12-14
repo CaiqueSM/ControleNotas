@@ -3,7 +3,7 @@ unit UntClienteDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntClienteModel,
-  UntRelacionamentoContatoModel,
+  UntRelacionamentoContatoModel, ZDataset, UntRelatorioModel,
   System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao;
 
 type
@@ -15,7 +15,8 @@ type
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
 
-    function ListarClientes(): TObjectList<TClienteModel>;
+    function ListarClientes(): TObjectList<TClienteModel>; overload;
+    function ListarClientes(ARelatorio: TRelatorioModel): TZQuery; overload;
     function Consultar(AId: integer): TClienteModel; overload;
     function Consultar(AnumeroPessoal: String): TClienteModel; overload;
     function ConsultarPorNome(ANome: String): TClienteModel;
@@ -27,7 +28,7 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoModel,
+  System.SysUtils, Vcl.Dialogs, UntContatoModel,
   UntEmailModel, UntTelefoneModel;
 
 { TClienteDao }
@@ -87,7 +88,6 @@ begin
       End;
     End;
   Finally
-    contato.Free;
     query.Free;
   End;
 end;
@@ -218,7 +218,6 @@ begin
       End;
     End;
   Finally
-    contato.Free;
     query.Free;
   End;
 end;
@@ -263,7 +262,7 @@ var
 begin
   Result := TObjectList<TClienteModel>.Create();
 
-  sql := 'select distinct * from cliente ' + ' order by id asc ';
+  sql := 'select * from cliente ' + ' order by id asc ';
 
   query := CreateQuery(sql);
   Try
@@ -285,9 +284,30 @@ begin
         Showmessage('Não foi possível carregar a lista de clientes');
     End;
   Finally
-    cliente.Free;
     query.Free;
   End;
+end;
+
+function TClienteDao.ListarClientes(ARelatorio: TRelatorioModel): TZQuery;
+var
+  sql: string;
+begin
+
+  sql := 'select c.id, cpf, cnpj, nome, count(nome) from cliente as c' +
+    ', notas as n where c.id = n.idCliente and n.idUsuario = :id' +
+    ' and emissao between :DataInicio and :DataTermino :ordem';
+
+  Result := CreateQuery(sql);
+  try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
+    Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
+        Showmessage('Não foi possível carregar a lista de clientes');
+  end;
+
 end;
 
 end.

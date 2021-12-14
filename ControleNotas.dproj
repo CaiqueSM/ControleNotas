@@ -135,9 +135,6 @@
         <DCCReference Include="Views\UntUsuario.pas">
             <Form>frmUsuario</Form>
         </DCCReference>
-        <DCCReference Include="Views\UntGerarRelatorio.pas">
-            <Form>frmGerarRelatorio</Form>
-        </DCCReference>
         <DCCReference Include="Views\untLogin.pas">
             <Form>frmLogin</Form>
         </DCCReference>
@@ -145,11 +142,11 @@
             <Form>frmConsultarNotas</Form>
         </DCCReference>
         <DCCReference Include="Model\UntClienteModel.pas"/>
-        <DCCReference Include="Model\untContatoModel.pas"/>
+        <DCCReference Include="Model\UntContatoModel.pas"/>
         <DCCReference Include="Model\UntEmailModel.pas"/>
         <DCCReference Include="Model\UntFornecedorModel.pas"/>
         <DCCReference Include="Model\untNotasModel.pas"/>
-        <DCCReference Include="Model\untPessoaModel.pas"/>
+        <DCCReference Include="Model\UntPessoaModel.pas"/>
         <DCCReference Include="Model\UntTelefoneModel.pas"/>
         <DCCReference Include="Model\untusuariomodel.pas"/>
         <DCCReference Include="Controller\UntUsuarioController.pas"/>
@@ -205,6 +202,18 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Controller\Consulta\UntConsultaNotas.pas"/>
+        <DCCReference Include="Views\untRelatorioPeriodo.pas">
+            <Form>frmRelatorioPeriodo</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Dao\UntRelatorioDao.pas"/>
+        <DCCReference Include="Model\UntRelatorioModel.pas"/>
+        <DCCReference Include="Controller\UntRelatorioPeriodoController.pas"/>
+        <DCCReference Include="Views\UntRelatorioImpresso.pas">
+            <Form>frmRelatorioImpresso</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Controller\Validacao\UntValidarData.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

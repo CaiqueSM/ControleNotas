@@ -47,7 +47,7 @@ end;
 destructor TConexao.Destroy();
 begin
   FDatabase.Free;
-  inherited Destroy();
+  inherited;
 end;
 
 end.
