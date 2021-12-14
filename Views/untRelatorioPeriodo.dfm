@@ -14,6 +14,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   Font.Style = []
   OldCreateOrder = False
   OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 15
   object btnCancelar: TButton
@@ -23,6 +24,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Height = 25
     Caption = 'Cancelar'
     TabOrder = 3
+    OnClick = btnCancelarClick
   end
   object btnGerar: TButton
     Left = 351
@@ -31,6 +33,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Height = 25
     Caption = 'Gerar'
     TabOrder = 2
+    OnClick = btnGerarClick
   end
   object gbPeriodo: TGroupBox
     Left = 5
@@ -65,6 +68,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
       ShowHint = True
       TabOrder = 0
       Text = '  /  /    '
+      OnExit = mskInicioExit
     end
     object mskTermino: TMaskEdit
       Left = 290
@@ -77,6 +81,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
       ShowHint = True
       TabOrder = 1
       Text = '  /  /    '
+      OnExit = mskTerminoExit
     end
   end
   object rgRelatorio: TRadioGroup
@@ -86,7 +91,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Height = 92
     Caption = ' Relat'#243'rio de '
     Items.Strings = (
-      'Cliente'
+      'Clientes'
       'Fornecedores'
       'Notas fiscais')
     TabOrder = 0
