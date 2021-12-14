@@ -5,7 +5,7 @@ interface
 uses
   untBaseDao, System.Generics.Collections, System.Classes, UntConexao,
   UntClienteDao, UntFornecedorDao, UntNotasDao, UntRelatorioModel,
-  UntClienteModel, UntFornecedorModel, UntNotasModel, UntRelatorioEnum;
+  UntClienteModel, UntFornecedorModel, UntNotasModel, ZDataset;
 
 type
 
@@ -17,30 +17,28 @@ type
   public
     constructor Create(AConexao: TConexao);
     destructor Destroy();override;
-    function ConsultarCliente(ASQL: string): TObjectList<TClienteModel>;
-    function ConsultarFornecedor(ASQL: string): TObjectList<TFornecedorModel>;
-    function ConsultarNotas(ASQL: string): TObjectList<TNotasModel>;
+    function ConsultarCliente(ARelatorio: TRelatorioModel): TZQuery;
+    function ConsultarFornecedor(ARelatorio: TRelatorioModel): TZQuery;
+    function ConsultarNotas(ARelatorio: TRelatorioModel): TZQuery;
   end;
 
 implementation
 
 { TRelatorioDao }
 
-function TRelatorioDao.ConsultarCliente(ASQL: string)
-  : TObjectList<TClienteModel>;
+function TRelatorioDao.ConsultarCliente(ARelatorio: TRelatorioModel): TZQuery;
 begin
-  Result := FCliente.ListarClientes(ASQL);
+  Result := FCliente.ListarClientes(ARelatorio);
 end;
 
-function TRelatorioDao.ConsultarFornecedor(ASQL: string)
-  : TObjectList<TFornecedorModel>;
+function TRelatorioDao.ConsultarFornecedor(ARelatorio: TRelatorioModel): TZQuery;
 begin
-  Result := FFornecedor.ListarFornecedores(ASQL);
+  Result := FFornecedor.ListarFornecedores(ARelatorio);
 end;
 
-function TRelatorioDao.ConsultarNotas(ASQL: string): TObjectList<TNotasModel>;
+function TRelatorioDao.ConsultarNotas(ARelatorio: TRelatorioModel): TZQuery;
 begin
-  Result := FNotas.ListarNotas(ASQL);
+  Result := FNotas.ListarNotas(ARelatorio);
 end;
 
 constructor TRelatorioDao.Create(AConexao: TConexao);
