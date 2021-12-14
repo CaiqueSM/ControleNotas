@@ -3,7 +3,7 @@ unit UntClienteDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntClienteModel,
-  UntRelacionamentoContatoModel,
+  UntRelacionamentoContatoModel, ZDataset, UntRelatorioModel,
   System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao;
 
 type
@@ -15,8 +15,8 @@ type
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
 
-    function ListarClientes(): TObjectList<TClienteModel>;overload;
-    function ListarClientes(ASQL: string): TObjectList<TClienteModel>;overload;
+    function ListarClientes(): TObjectList<TClienteModel>; overload;
+    function ListarClientes(ARelatorio: TRelatorioModel): TZQuery; overload;
     function Consultar(AId: integer): TClienteModel; overload;
     function Consultar(AnumeroPessoal: String): TClienteModel; overload;
     function ConsultarPorNome(ANome: String): TClienteModel;
@@ -28,7 +28,7 @@ type
 implementation
 
 uses
-  ZDataset, System.SysUtils, Vcl.Dialogs, UntContatoModel,
+  System.SysUtils, Vcl.Dialogs, UntContatoModel,
   UntEmailModel, UntTelefoneModel;
 
 { TClienteDao }
@@ -288,34 +288,26 @@ begin
   End;
 end;
 
-function TClienteDao.ListarClientes(ASQL: string): TObjectList<TClienteModel>;
+function TClienteDao.ListarClientes(ARelatorio: TRelatorioModel): TZQuery;
 var
-  query: TZQuery;
-  cliente: TClienteModel;
+  sql: string;
 begin
-  Result := TObjectList<TClienteModel>.Create();
-  query := CreateQuery(trim(ASQL));
-  Try
-    Try
-      query.Open();
-      while Not query.Eof do
-      Begin
-        cliente := TClienteModel.Create();
-        cliente.Id := query.FieldByName('id').AsInteger;
-        cliente.nome := Trim(query.FieldByName('nome').AsString);
-        cliente.CPF := Trim(query.FieldByName('CPF').AsString);
-        cliente.CNPJ := Trim(query.FieldByName('CNPJ').AsString);
 
-        Result.Add(cliente);
-        query.Next;
-      End;
-    Except
-      on E: Exception do
+  sql := 'select c.id, cpf, cnpj, nome, count(nome) from cliente as c' +
+    ', notas as n where c.id = n.idCliente and n.idUsuario = :id' +
+    ' and emissao between :DataInicio and :DataTermino :ordem';
+
+  Result := CreateQuery(sql);
+  try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
+    Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
         Showmessage('Não foi possível carregar a lista de clientes');
-    End;
-  Finally
-    query.Free;
-  End;
+  end;
+
 end;
 
 end.
