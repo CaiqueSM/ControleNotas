@@ -59,9 +59,10 @@ uses
   UntConsultaNotas in 'Controller\Consulta\UntConsultaNotas.pas',
   untRelatorioPeriodo in 'Views\untRelatorioPeriodo.pas' {frmRelatorioPeriodo},
   UntRelatorioDao in 'Dao\UntRelatorioDao.pas',
-  UntRelatorioEnum in 'Model\Enum\UntRelatorioEnum.pas',
   UntRelatorioModel in 'Model\UntRelatorioModel.pas',
-  UntRelatorioPeriodoController in 'Controller\UntRelatorioPeriodoController.pas';
+  UntRelatorioPeriodoController in 'Controller\UntRelatorioPeriodoController.pas',
+  UntRelatorioImpresso in 'Views\UntRelatorioImpresso.pas' {frmRelatorioImpresso},
+  UntValidarData in 'Controller\Validacao\UntValidarData.pas';
 
 {$R *.res}
 
