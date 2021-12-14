@@ -63,7 +63,7 @@ begin
   If Assigned(FTelefones) Then
     FreeAndNil(FTelefones);
   If Assigned(FEmails) Then
-    FreeAndNil(FEmails);
+    FEmails.Free;
   inherited;
 end;
 
