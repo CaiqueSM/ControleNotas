@@ -31,6 +31,8 @@ type
     colunaCliente: TRLDBText;
     colunaControle: TRLDBText;
     lbControle: TRLLabel;
+    colunaFornecedor: TRLDBText;
+    colunaValor: TRLDBText;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -39,8 +41,9 @@ type
     dpsControleNotas: TDataSetProvider;
     dsControleNotas: TDataSource;
     dsQuery: TZQuery;
+    procedure CheckDataSet(ADataSet: TZQuery);
   public
-    property Query: TZQuery read dsQuery write dsQuery;
+    property Query: TZQuery read dsQuery write CheckDataSet;
   end;
 
 var
@@ -50,11 +53,41 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmRelatorioImpresso.CheckDataSet(ADataSet: TZQuery);
+begin
+  if ADataSet <> nil then
+    dsQuery := ADataSet
+  else
+    Close();
+end;
+
 procedure TfrmRelatorioImpresso.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   rlrNotas.ClosePreview;
-  dsControleNotas.Free;
+  btCabecalho.Free;
+  btTitulo.Free;
+  btColuna.Free;
+  btConteudo.Free;
+  btRodape.Free;
+  lbData.Free;
+  lbHora.Free;
+  lbCabecalhoRelatorio.Free;
+  lbTituloRelatorio.Free;
+  lbPeriodo.Free;
+  lbChaveAcesso.Free;
+  lbValor.Free;
+  lbFornecedor.Free;
+  lbCliente.Free;
+  lbEmissao.Free;
+  colunaChave.Free;
+  colunaEmissao.Free;
+  colunaCliente.Free;
+  colunaControle.Free;
+  lbControle.Free;
+  colunaFornecedor.Free;
+  colunaValor.Free;
+  dpsControleNotas.Free;
   dsControleNotas.Free;
   dsQuery.Free;
   rlrNotas.Free;
@@ -63,20 +96,35 @@ end;
 
 procedure TfrmRelatorioImpresso.FormCreate(Sender: TObject);
 begin
-  dpsControleNotas:= TDataSetProvider.Create(self);
+  dpsControleNotas := TDataSetProvider.Create(self);
   dsControleNotas := TDataSource.Create(self);
   dsQuery := TZQuery.Create(self);
 end;
 
 procedure TfrmRelatorioImpresso.FormShow(Sender: TObject);
 begin
-  dpsControleNotas.DataSet:= dsQuery;
-  dsControleNotas.DataSet:= dsQuery;
+  dpsControleNotas.DataSet := dsQuery;
+  dsControleNotas.DataSet := dsQuery;
   rlrNotas.DataSource := dsControleNotas;
+
   colunaChave.DataSource := dsControleNotas;
-  colunaChave.DataField := 'chaveacesso';
+  colunaChave.DataField := 'Chave acesso';
+
+  colunaControle.DataSource := dsControleNotas;
+  colunaControle.DataField := 'Controle';
+
+  colunaValor.DataSource := dsControleNotas;
+  colunaValor.DataField := 'Valor(R$)';
+
+  colunaFornecedor.DataSource := dsControleNotas;
+  colunaFornecedor.DataField := 'CPF/CNPJ Fornecedor';
+
   colunaCliente.DataSource := dsControleNotas;
-  colunaCliente.DataField := 'idCliente';
+  colunaCliente.DataField := 'CPF/CNPJ Cliente';
+
+  colunaEmissao.DataSource := dsControleNotas;
+  colunaEmissao.DataField := 'Emissão';
+
   dpsControleNotas.DataSet.Open;
   rlrNotas.Preview();
 end;
