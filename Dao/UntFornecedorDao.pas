@@ -15,8 +15,8 @@ type
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
 
-    function ListarFornecedores(): TObjectList<TFornecedorModel>;overload;
-    function ListarFornecedores(ARelatorio: TRelatorioModel): TZQuery;overload;
+    function ListarFornecedores(): TObjectList<TFornecedorModel>; overload;
+    function ListarFornecedores(ARelatorio: TRelatorioModel): TZQuery; overload;
     function Consultar(AId: integer): TFornecedorModel; overload;
     function Consultar(ANumeroPessoal: String): TFornecedorModel; overload;
     function ConsultarPorNome(ANome: String): TFornecedorModel;
@@ -113,7 +113,7 @@ begin
 
       if query.IsEmpty then
       begin
-        Result:= nil;
+        Result := nil;
         query.Free;
         exit();
       end;
@@ -296,13 +296,19 @@ begin
   End;
 end;
 
-function TFornecedorDao.ListarFornecedores(ARelatorio: TRelatorioModel): TZQuery;
+function TFornecedorDao.ListarFornecedores(ARelatorio: TRelatorioModel)
+  : TZQuery;
 var
   sql: string;
 begin
 
-  sql := 'select f.id, cpf, cnpj, nome from fornecedor as f' +
-    ', notas as n where f.id = n.idFornecedor and n.idUsuario = :id' +
+  sql := 'select case when f.cpf = "0" then ' +
+    'f.cnpj else f.cpf end as "CPF/CNPJ Fornecedor", Nome, CEP, Rua, Bairro,' +
+    ' Cidade, Numero as "Número", Complemento, Email, Telefone' +
+    ' from fornecedor as f, notas as n, contato as ct, email as e, telefone as t,'
+    + ' relacionamentocontato as r where f.id = ct.id and f.id = r.idrelacionado '
+    + ' and f.id = n.idFornecedor and e.idContato = ct.id and t.idcontato = ct.id and'
+    + ' n.idUsuario = :id ' +
     ' and emissao between :DataInicio and :DataTermino :ordem';
 
   Result := CreateQuery(sql);
@@ -313,7 +319,7 @@ begin
     Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
   except
     on E: Exception do
-        Showmessage('Não foi possível carregar a lista de fornecedores');
+      Showmessage('Não foi possível carregar a lista de fornecedores');
   end;
 
 end;
