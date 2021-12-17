@@ -227,9 +227,10 @@ var
   sql: string;
 begin
 
-  sql := 'select case when c.cpf is null then ' +
+  sql := 'select case when c.cpf = "0" then ' +
 		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
-    'f.cnpj as "CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
+    'case when f.cnpj = "0" then f.cpf else f.cpf end' +
+    ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
     'controle as "Controle", descricao as "Descrição", emissao as "Emissão",' +
     'valor as "Valor(R$)" ' +
     'from notas as n, fornecedor as f, cliente as c ' +
