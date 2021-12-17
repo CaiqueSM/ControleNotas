@@ -293,33 +293,36 @@ begin
               cliente := FController.ConsultarPorNome(txtNomeCliente.Text)
             else
               cliente := FController.Consultar(StrToInt(txtcodigo.Text));
-            FClienteExistente := Not cliente.Nome.IsEmpty;
+            if cliente <> nil then
+            begin
+              FClienteExistente := Not cliente.Nome.IsEmpty;
 
-            txtcodigo.Text := intTOstr(cliente.Id);
+              txtcodigo.Text := intTOstr(cliente.Id);
 
-            If Not cliente.CPF.IsNullOrEmpty(cliente.CPF) Then
-              txtCNPJCPF.Text := cliente.CPF
-            Else
-              txtCNPJCPF.Text := cliente.CNPJ;
+              If Not cliente.CPF.IsNullOrEmpty(cliente.CPF) Then
+                txtCNPJCPF.Text := cliente.CPF
+              Else
+                txtCNPJCPF.Text := cliente.CNPJ;
 
-            txtNomeCliente.Text := cliente.Nome;
+              txtNomeCliente.Text := cliente.Nome;
 
-            If (cliente.Contatos.Count > nenhum) Then
-            Begin
-              mskCEP.Text := cliente.Contatos.First.CEP;
-              txtCidade.Text := cliente.Contatos.First.Cidade;
-              txtBairro.Text := cliente.Contatos.First.Bairro;
-              txtRua.Text := cliente.Contatos.First.Rua;
-              txtNumero.Text := cliente.Contatos.First.Numero;
-              txtComplemento.Text := cliente.Contatos.First.Complemento;
+              If (cliente.Contatos.Count > nenhum) Then
+              Begin
+                mskCEP.Text := cliente.Contatos.First.CEP;
+                txtCidade.Text := cliente.Contatos.First.Cidade;
+                txtBairro.Text := cliente.Contatos.First.Bairro;
+                txtRua.Text := cliente.Contatos.First.Rua;
+                txtNumero.Text := cliente.Contatos.First.Numero;
+                txtComplemento.Text := cliente.Contatos.First.Complemento;
 
-              If (cliente.Contatos.First.Emails.Count > nenhum) Then
-                txtEmail.Text := cliente.Contatos.First.Emails.First.email;
+                If (cliente.Contatos.First.Emails.Count > nenhum) Then
+                  txtEmail.Text := cliente.Contatos.First.Emails.First.email;
 
-              If (cliente.Contatos.First.Telefones.Count > nenhum) Then
-                mskTelefone.Text :=
-                  cliente.Contatos.First.Telefones.First.telefone;
-            End;
+                If (cliente.Contatos.First.Telefones.Count > nenhum) Then
+                  mskTelefone.Text :=
+                    cliente.Contatos.First.Telefones.First.telefone;
+              End;
+            end;
           Except
             Result := False;
           End;
