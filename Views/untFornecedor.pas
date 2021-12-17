@@ -294,34 +294,37 @@ begin
               Fornecedor := FController.ConsultarPorNome(txtNomeFornecedor.Text)
             else
               Fornecedor := FController.Consultar(StrToInt(txtcodigo.Text));
-            FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
+            if Fornecedor <> nil then
+            begin
+              FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
 
-            txtcodigo.Text := intTOstr(Fornecedor.Id);
+              txtcodigo.Text := intTOstr(Fornecedor.Id);
 
-            FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
+              FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
 
-            If Not Fornecedor.CNPJ.IsEmpty Then
-              txtCNPJCPF.Text := Fornecedor.CNPJ
-            Else
-              txtCNPJCPF.Text := Fornecedor.CPF;
+              If Not Fornecedor.CNPJ.IsEmpty Then
+                txtCNPJCPF.Text := Fornecedor.CNPJ
+              Else
+                txtCNPJCPF.Text := Fornecedor.CPF;
 
-            txtNomeFornecedor.Text := Fornecedor.Nome;
+              txtNomeFornecedor.Text := Fornecedor.Nome;
 
-            If (Fornecedor.Contatos.Count > nenhum) Then
-            Begin
-              mskCEP.Text := Fornecedor.Contatos.First.CEP;
-              txtCidade.Text := Fornecedor.Contatos.First.Cidade;
-              txtBairro.Text := Fornecedor.Contatos.First.Bairro;
-              txtRua.Text := Fornecedor.Contatos.First.Rua;
-              txtNumero.Text := Fornecedor.Contatos.First.Numero;
-              txtComplemento.Text := Fornecedor.Contatos.First.Complemento;
+              If (Fornecedor.Contatos.Count > nenhum) Then
+              Begin
+                mskCEP.Text := Fornecedor.Contatos.First.CEP;
+                txtCidade.Text := Fornecedor.Contatos.First.Cidade;
+                txtBairro.Text := Fornecedor.Contatos.First.Bairro;
+                txtRua.Text := Fornecedor.Contatos.First.Rua;
+                txtNumero.Text := Fornecedor.Contatos.First.Numero;
+                txtComplemento.Text := Fornecedor.Contatos.First.Complemento;
 
-              If (Fornecedor.Contatos.First.Emails.Count > nenhum) Then
-                txtEmail.Text := Fornecedor.Contatos.First.Emails.First.email;
+                If (Fornecedor.Contatos.First.Emails.Count > nenhum) Then
+                  txtEmail.Text := Fornecedor.Contatos.First.Emails.First.email;
 
-              If (Fornecedor.Contatos.First.Telefones.Count > nenhum) Then
-                mskTelefone.Text := Fornecedor.Contatos.First.Telefones.
-                  First.telefone;
+                If (Fornecedor.Contatos.First.Telefones.Count > nenhum) Then
+                  mskTelefone.Text := Fornecedor.Contatos.First.Telefones.
+                    First.telefone;
+              End;
             End;
           Except
             Result := False;
