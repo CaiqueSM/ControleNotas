@@ -3,7 +3,8 @@ unit UntRelatorioImpresso;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics, Datasnap.Provider,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, RLReport, Data.DB, ZAbstractRODataset,
   ZAbstractDataset, ZDataset;
 
@@ -21,18 +22,25 @@ type
     lbTituloRelatorio: TRLLabel;
     lbPeriodo: TRLLabel;
     lbChaveAcesso: TRLLabel;
-    lbControle: TRLLabel;
     lbValor: TRLLabel;
     lbFornecedor: TRLLabel;
     lbCliente: TRLLabel;
     lbEmissao: TRLLabel;
-    DataSetRelatorio: TZQuery;
     colunaChave: TRLDBText;
+    colunaEmissao: TRLDBText;
+    colunaCliente: TRLDBText;
+    colunaControle: TRLDBText;
+    lbControle: TRLLabel;
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure rlrNotasBeforePrint(Sender: TObject; var PrintIt: Boolean);
   private
-    { Private declarations }
+    dpsControleNotas: TDataSetProvider;
+    dsControleNotas: TDataSource;
+    dsQuery: TZQuery;
   public
-    { Public declarations }
+    property Query: TZQuery read dsQuery write dsQuery;
   end;
 
 var
@@ -42,10 +50,41 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmRelatorioImpresso.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  rlrNotas.ClosePreview;
+  dsControleNotas.Free;
+  dsControleNotas.Free;
+  dsQuery.Free;
+  rlrNotas.Free;
+  Action := caFree;
+end;
+
 procedure TfrmRelatorioImpresso.FormCreate(Sender: TObject);
 begin
-  colunaChave.DataSource := DataSetRelatorio.DataSource;
-  colunaChave.DataField := DataSetRelatorio.DataSetField.FieldValues[0];
+  dpsControleNotas:= TDataSetProvider.Create(self);
+  dsControleNotas := TDataSource.Create(self);
+  dsQuery := TZQuery.Create(self);
+end;
+
+procedure TfrmRelatorioImpresso.FormShow(Sender: TObject);
+begin
+  dpsControleNotas.DataSet:= dsQuery;
+  dsControleNotas.DataSet:= dsQuery;
+  rlrNotas.DataSource := dsControleNotas;
+  colunaChave.DataSource := dsControleNotas;
+  colunaChave.DataField := 'chaveacesso';
+  colunaCliente.DataSource := dsControleNotas;
+  colunaCliente.DataField := 'idCliente';
+  dpsControleNotas.DataSet.Open;
+  rlrNotas.Preview();
+end;
+
+procedure TfrmRelatorioImpresso.rlrNotasBeforePrint(Sender: TObject;
+  var PrintIt: Boolean);
+begin
+  dpsControleNotas.DataSet.Open;
 end;
 
 end.

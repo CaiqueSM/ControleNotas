@@ -11,7 +11,9 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object rlrNotas: TRLReport
@@ -24,6 +26,7 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
     Font.Height = -13
     Font.Name = 'Arial'
     Font.Style = []
+    BeforePrint = rlrNotasBeforePrint
     object btCabecalho: TRLBand
       Left = 38
       Top = 38
@@ -111,10 +114,9 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
         Left = 0
         Top = 30
         Width = 718
-        Height = 17
+        Height = 28
         Align = faTop
         Alignment = taCenter
-        Caption = 'RLLabel1'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -13
@@ -142,71 +144,100 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
       ParentFont = False
       object lbChaveAcesso: TRLLabel
         Left = 3
-        Top = 3
+        Top = 0
         Width = 99
-        Height = 15
+        Height = 23
+        Align = faLeft
         Caption = 'Chave de acesso'
-      end
-      object lbControle: TRLLabel
-        Left = 131
-        Top = 3
-        Width = 50
-        Height = 15
-        Caption = 'Controle'
+        Holder = colunaChave
       end
       object lbValor: TRLLabel
-        Left = 219
+        Left = 347
         Top = 3
         Width = 55
         Height = 15
         Caption = 'Valor(R$)'
       end
       object lbFornecedor: TRLLabel
-        Left = 302
+        Left = 422
         Top = 3
         Width = 97
         Height = 15
         Caption = 'CNPJ fornecedor'
       end
       object lbCliente: TRLLabel
-        Left = 435
+        Left = 547
         Top = 3
         Width = 101
         Height = 15
         Caption = 'CPF/CNPJ cliente'
       end
       object lbEmissao: TRLLabel
-        Left = 568
-        Top = 6
+        Left = 665
+        Top = 0
         Width = 53
-        Height = 15
+        Height = 23
+        Align = faRight
+        AutoSize = False
         Caption = 'Emiss'#227'o'
+      end
+      object lbControle: TRLLabel
+        Left = 280
+        Top = 3
+        Width = 50
+        Height = 15
+        Caption = 'Controle'
       end
     end
     object btConteudo: TRLBand
       Left = 38
       Top = 153
       Width = 718
-      Height = 96
+      Height = 24
       object colunaChave: TRLDBText
         Left = 3
+        Top = 0
+        Width = 79
+        Height = 24
+        Align = faLeft
+        DataField = 'chaveacesso'
+        Holder = colunaChave
+        Text = ''
+      end
+      object colunaEmissao: TRLDBText
+        Left = 665
         Top = 6
-        Width = 77
+        Width = 53
         Height = 16
+        DataField = 'emissao'
+        Holder = lbEmissao
+        Text = ''
+      end
+      object colunaCliente: TRLDBText
+        Left = 547
+        Top = 5
+        Width = 54
+        Height = 16
+        DataField = 'idCliente'
+        Holder = lbCliente
+        Text = ''
+      end
+      object colunaControle: TRLDBText
+        Left = 272
+        Top = 2
+        Width = 50
+        Height = 16
+        DataField = 'controle'
+        Holder = colunaControle
         Text = ''
       end
     end
     object btRodape: TRLBand
       Left = 38
-      Top = 249
+      Top = 177
       Width = 718
       Height = 16
       BandType = btFooter
     end
-  end
-  object DataSetRelatorio: TZQuery
-    Params = <>
-    Left = 70
-    Top = 201
   end
 end
