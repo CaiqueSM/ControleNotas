@@ -4,7 +4,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Gerar relat'#243'rio'
-  ClientHeight = 190
+  ClientHeight = 346
   ClientWidth = 434
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -15,24 +15,25 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   OldCreateOrder = False
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
   object btnCancelar: TButton
-    Left = 270
+    Left = 189
     Top = 158
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 3
+    TabOrder = 4
     OnClick = btnCancelarClick
   end
   object btnGerar: TButton
-    Left = 351
+    Left = 270
     Top = 158
     Width = 75
     Height = 25
     Caption = 'Gerar'
-    TabOrder = 2
+    TabOrder = 3
     OnClick = btnGerarClick
   end
   object gbPeriodo: TGroupBox
@@ -41,7 +42,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Width = 421
     Height = 56
     Caption = ' Periodo '
-    TabOrder = 1
+    TabOrder = 2
     object lbDataInicio: TLabel
       Left = 8
       Top = 28
@@ -59,7 +60,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     object mskInicio: TMaskEdit
       Left = 73
       Top = 23
-      Width = 120
+      Width = 118
       Height = 23
       Hint = 'DD/MM/AAAA'
       EditMask = '!99/99/0000;1;_'
@@ -67,20 +68,20 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      Text = '  /  /    '
+      Text = 'dd/mm/aaaa'
       OnExit = mskInicioExit
     end
     object mskTermino: TMaskEdit
       Left = 290
       Top = 23
-      Width = 120
+      Width = 119
       Height = 23
       EditMask = '!99/99/0000;1;_'
       MaxLength = 10
       ParentShowHint = False
       ShowHint = True
       TabOrder = 1
-      Text = '  /  /    '
+      Text = 'dd/mm/aaaa'
       OnExit = mskTerminoExit
     end
   end
@@ -106,6 +107,34 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
       'Alfab'#233'tica'
       'Frequ'#234'ncia'
       'Valores')
-    TabOrder = 4
+    TabOrder = 1
+  end
+  object DBResultado: TDBGrid
+    Left = 5
+    Top = 216
+    Width = 421
+    Height = 120
+    DataSource = DMControleNotas.dsControleNotas
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 5
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+  end
+  object btnImprimir: TButton
+    Left = 351
+    Top = 158
+    Width = 75
+    Height = 25
+    Caption = 'Imprimir'
+    TabOrder = 6
+    OnClick = btnImprimirClick
   end
 end
