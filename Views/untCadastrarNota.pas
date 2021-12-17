@@ -128,14 +128,14 @@ begin
             Exit();
           end;
 
-          if Notas.Cliente.Nome.IsEmpty then
+          if Notas.Cliente = nil then
           begin
             MensagemNaoCadastrado('Cliente');
             Result := False;
             Exit();
           end;
 
-          if Notas.Fornecedor.Nome.IsEmpty then
+          if Notas.Fornecedor = nil then
           begin
             MensagemNaoCadastrado('Fornecedor');
             Result := False;
@@ -242,7 +242,7 @@ begin
   txtChaveAcesso.Clear;
   txtControle.Clear;
   txtValor.Clear;
-  mskEmissao.Clear;
+  mskEmissao.text := 'dd/mm/aaaa';
   txtCNPJCPFCliente.Clear;
   txtCNPJCPFfornecedor.Clear;
   memoDescricao.Clear;
