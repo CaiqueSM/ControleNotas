@@ -3,26 +3,36 @@ unit UntValidarData;
 interface
 
 uses
-  SysUtils;
+  SysUtils, StrUtils, System.Types;
 
 type
 
-TValidarData = class
-public
-  function validarData(AData: TDate):boolean;
-end;
+  TValidarData = class
+  public
+    function validarData(AData: string): boolean;
+  end;
 
 implementation
 
 { TValidarData }
 
-function TValidarData.validarData(AData: TDate): boolean;
+function TValidarData.validarData(AData: string): boolean;
 var
-  MenorData, MaiorData: TDate;
+  MenorData, MaiorData, DataAtual: TDate;
+  regraverificacao: TstringDynArray;
 begin
-  MenorData:= strTODate('01/01/1970');
-  MaiorData:= Date();
-  Result:= (MenorData <= AData) and (AData <= MaiorData);
+  regraVerificacao := SplitString(AData, '/');
+  if (strTOint(regraVerificacao[0]) > 31) or
+  (strTOint(regraVerificacao[1]) > 12) then
+  begin
+    Result:= False;
+    exit();
+  end;
+
+  DataAtual := strTOdate(AData);
+  MenorData := strTODate('01/01/1901');
+  MaiorData := Date();
+  Result := (MenorData <= DataAtual) and (DataAtual <= MaiorData);
 end;
 
 end.
