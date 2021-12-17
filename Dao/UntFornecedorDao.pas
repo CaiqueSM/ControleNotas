@@ -111,6 +111,13 @@ begin
     Try
       query.Open();
 
+      if query.IsEmpty then
+      begin
+        Result:= nil;
+        query.Free;
+        exit();
+      end;
+
       Result.Id := query.FieldByName('id').AsInteger;
       Result.nome := Trim(query.FieldByName('nome').AsString);
       Result.CPF := Trim(query.FieldByName('CPF').AsString);
@@ -139,7 +146,8 @@ begin
     query.ParamByName('CNPJ').AsString := ANumeroPessoal;
     Try
       query.Open();
-      Result := Consultar(query.FieldByName('id').AsInteger);
+      if not query.IsEmpty then
+        Result := Consultar(query.FieldByName('id').AsInteger);
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o Fornecedor.');
@@ -161,7 +169,8 @@ begin
     query.ParamByName('nome').AsString := ANome;
     Try
       query.Open();
-      Result := Consultar(query.FieldByName('id').AsInteger);
+      if not query.IsEmpty then
+        Result := Consultar(query.FieldByName('id').AsInteger);
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o Fornecedor.');
@@ -261,7 +270,7 @@ var
 begin
   Result := TObjectList<TFornecedorModel>.Create();
 
-  sql := 'select * from Fornecedor ' + ' order by id asc ';
+  sql := 'select * from Fornecedor order by id asc ';
 
   query := CreateQuery(sql);
   Try
@@ -292,7 +301,7 @@ var
   sql: string;
 begin
 
-  sql := 'select f.id, cpf, cnpj, nome, count(nome) from fornecedor as f' +
+  sql := 'select f.id, cpf, cnpj, nome from fornecedor as f' +
     ', notas as n where f.id = n.idFornecedor and n.idUsuario = :id' +
     ' and emissao between :DataInicio and :DataTermino :ordem';
 
