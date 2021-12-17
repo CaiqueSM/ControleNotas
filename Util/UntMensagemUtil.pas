@@ -26,12 +26,12 @@ end;
 
 procedure MensagemNotaExiste(AChave: String);
 begin
-  ShowMessage('Nota fiscal com chave de acesso: '+ AChave + ' já existe no sistema.');
+  ShowMessage('AVISO: Existe no sistema uma nota fiscal com a chave de acesso informada.');
 end;
 
 procedure MensagemNotaNaoExiste(AChave: String);
 begin
-  ShowMessage('Nota fiscal com chave de acesso: '+ AChave + ' habilitada para uso.');
+  ShowMessage('Nota fiscal livre para uso.');
 end;
 
 procedure MensagemChaveInvalida(AChave: string);
