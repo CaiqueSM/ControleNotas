@@ -53,7 +53,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     object lbDataTermino: TLabel
       Left = 211
       Top = 28
-      Width = 73
+      Width = 74
       Height = 15
       Caption = 'Data T'#233'rmino:'
     end
@@ -114,7 +114,6 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Top = 216
     Width = 421
     Height = 120
-    DataSource = DMControleNotas.dsControleNotas
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -12

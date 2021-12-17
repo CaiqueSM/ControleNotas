@@ -85,7 +85,6 @@ end;
 procedure TfrmRelatorioPeriodo.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  //DMControleNotas.Free;
   frmRelatorioImpresso.free;
   Fcontroller.Free;
   Action := caFree;
@@ -94,7 +93,6 @@ end;
 procedure TfrmRelatorioPeriodo.FormCreate(Sender: TObject);
 begin
   Fcontroller := TRelatorioPeriodoController.Create;
-  //DMControleNotas := TDMControleNotas.Create(self);
 end;
 
 procedure TfrmRelatorioPeriodo.FormShow(Sender: TObject);
@@ -118,8 +116,8 @@ procedure TfrmRelatorioPeriodo.limparCampos;
 begin
   rgRelatorio.ItemIndex := -1;
   rgOrdenar.ItemIndex := -1;
-  mskInicio.Clear;
-  mskTermino.Clear;
+  mskInicio.Text := 'dd/mm/aaaa';
+  mskTermino.Text := 'dd/mm/aaaa';
   DBResultado.DataSource.DataSet.Close;
 end;
 
