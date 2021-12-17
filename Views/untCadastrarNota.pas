@@ -82,33 +82,36 @@ begin
               Notas := FController.Consultar(txtChaveAcesso.Text)
             else
               Notas := FController.Consultar(StrToInt(txtCodigo.Text));
-            FNotasExistente := Not Notas.Chave.IsEmpty;
+            if Notas <> nil then
+            begin
+              FNotasExistente := Not Notas.Chave.IsEmpty;
 
-            txtCodigo.Text := intTOstr(Notas.Id);
+              txtCodigo.Text := intTOstr(Notas.Id);
 
-            if not Notas.Chave.IsEmpty then
-              txtChaveAcesso.Text := Notas.Chave;
+              if not Notas.Chave.IsEmpty then
+                txtChaveAcesso.Text := Notas.Chave;
 
-            if Notas.Controle <> 0 then
-              txtControle.Text := intTOstr(Notas.Controle);
+              if Notas.Controle <> 0 then
+                txtControle.Text := intTOstr(Notas.Controle);
 
-            if Notas.Valor <> 0 then
-              txtValor.Text := FloatToStr(Notas.Valor);
+              if Notas.Valor <> 0 then
+                txtValor.Text := FloatToStr(Notas.Valor);
 
-            mskEmissao.Text := dateTOstr(Notas.Emissao);
+              mskEmissao.Text := dateTOstr(Notas.Emissao);
 
-            If Not Notas.Cliente.CPF.IsEmpty Then
-              txtCNPJCPFCliente.Text := Notas.Cliente.CPF
-            Else
-              txtCNPJCPFCliente.Text := Notas.Cliente.CNPJ;
+              If Not Notas.Cliente.CPF.IsEmpty Then
+                txtCNPJCPFCliente.Text := Notas.Cliente.CPF
+              Else
+                txtCNPJCPFCliente.Text := Notas.Cliente.CNPJ;
 
-            If Not Notas.Fornecedor.CNPJ.IsEmpty Then
-              txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CNPJ
-            Else
-              txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CPF;
+              If Not Notas.Fornecedor.CNPJ.IsEmpty Then
+                txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CNPJ
+              Else
+                txtCNPJCPFfornecedor.Text := Notas.Fornecedor.CPF;
 
-            if not Notas.Descricao.IsEmpty then
-              memoDescricao.Text := Notas.Descricao;
+              if not Notas.Descricao.IsEmpty then
+                memoDescricao.Text := Notas.Descricao;
+            end;
           Except
             Result := False;
           End;
@@ -340,7 +343,7 @@ begin
   PadraoData := 'dd/mm/aaaa';
   Result := False;
 
-  if (txtCodigo = ACampo) or (txtCodigo = todosCampos) then
+  if (txtCodigo = ACampo) or (ACampo = todosCampos) then
     if txtCodigo.Text = EmptyStr then
     begin
       ShowMessage('O campo código deve ser preenchido!');
@@ -350,7 +353,7 @@ begin
       Exit();
     end;
 
-  if (txtValor = ACampo) or (txtValor = todosCampos) then
+  if (txtValor = ACampo) or (ACampo = todosCampos) then
     if not FController.ValidarValor(txtValor.Text) then
     begin
       ShowMessage('O campo valor não pode ser nulo.');
@@ -359,7 +362,7 @@ begin
       Exit();
     end;
 
-  if (mskEmissao = ACampo) or (mskEmissao = todosCampos) then
+  if (mskEmissao = ACampo) or (ACampo = todosCampos) then
     if (mskEmissao.Text = PadraoData) or (mskEmissao.Text = EmptyStr) then
     begin
       ShowMessage('Informe a data de emissão!');
@@ -368,7 +371,7 @@ begin
       Exit();
     end;
 
-  if (txtChaveAcesso = ACampo) or (txtChaveAcesso = todosCampos) then
+  if (txtChaveAcesso = ACampo) or (ACampo = todosCampos) then
   begin
     if not FController.ValidarChaveAcesso(txtChaveAcesso.Text) then
     begin
@@ -379,7 +382,7 @@ begin
     end;
   end;
 
-  if (txtCNPJCPFCliente = ACampo) or (txtCNPJCPFCliente = todosCampos) then
+  if (txtCNPJCPFCliente = ACampo) or (ACampo = todosCampos) then
     if not FController.ValidarNumeroPessoal(txtCNPJCPFCliente.Text) then
     begin
       ShowMessage('CNPJ ou CPF inválido.');
@@ -387,8 +390,7 @@ begin
         txtCNPJCPFCliente.SetFocus;
       Exit();
     end;
-  if (txtCNPJCPFfornecedor = ACampo) or (txtCNPJCPFfornecedor = todosCampos)
-  then
+  if (txtCNPJCPFfornecedor = ACampo) or (ACampo = todosCampos) then
     if not FController.ValidarNumeroPessoal(txtCNPJCPFfornecedor.Text) then
     begin
       ShowMessage('CNPJ inválido.');
