@@ -54,6 +54,7 @@ begin
   FCliente.Free;
   FFornecedor.Free;
   FNotas.Free;
+  inherited;
 end;
 
 end.
