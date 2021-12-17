@@ -129,6 +129,7 @@ object frmCadastrarNota: TfrmCadastrarNota
       ShowHint = True
       TabOrder = 3
       Text = 'dd/mm/aaaa'
+      OnExit = mskEmissaoExit
     end
     object txtValor: TEdit
       Left = 104
