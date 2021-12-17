@@ -229,12 +229,12 @@ begin
 
   sql := 'select case when c.cpf is null then ' +
 		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
-    'f.cnpj as "CNPJ Fornecedor", chaveacesso as Chave acesso",'+
+    'f.cnpj as "CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
     'controle as "Controle", descricao as "Descrição", emissao as "Emissão",' +
     'valor as "Valor(R$)" ' +
     'from notas as n, fornecedor as f, cliente as c ' +
-    'where idUsuario = :id and n.idCliente = c.id and n.idfornecedor = f.id ' +
-    'and emissao between :DataInicio and :DataTermino';
+    'where n.idUsuario = :id and n.idCliente = c.id and n.idFornecedor = f.id ' +
+    'and emissao between :DataInicio and :DataTermino :ordem';
 
   Result := CreateQuery(sql);
 
