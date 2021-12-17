@@ -26,7 +26,7 @@ type
     function Excluir(AIdNotas: integer): Boolean; overload;
     function Excluir(AChaveAcesso: string): Boolean; overload;
     function ListarNotas(): TObjectList<TNotasModel>; overload;
-    function ListarNotas(ARelatorio: TRelatorioModel): TZQuery;overload;
+    function ListarNotas(ARelatorio: TRelatorioModel): TZQuery; overload;
   end;
 
 implementation
@@ -81,13 +81,18 @@ var
   query: TZQuery;
   sql: String;
 begin
-  Result:= nil;
+  Result := nil;
   sql := 'select * from Notas where id = :id ';
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AIdNotas;
+    query.Open();
+    if query.IsEmpty then
+    begin
+      query.Free;
+      exit();
+    end;
     Try
-      query.Open();
       Result := TNotasModel.Create;
       with Result do
       begin
@@ -125,7 +130,8 @@ begin
     query.ParamByName('chave').AsString := AChaveAcesso;
     Try
       query.Open();
-      Result := Consultar(query.FieldByName('id').AsInteger);
+      if not(query.IsEmpty) then
+        Result := Consultar(query.FieldByName('id').AsInteger);
     Except
       on E: Exception do
         Showmessage('Não foi possível obter as Notas.');
@@ -222,19 +228,19 @@ var
 begin
 
   sql := 'select id, idCliente, idFornecedor, idUsuario, chaveacesso,' +
-    ' controle, descricao, emissao, valor, count(emissao) from notas'+
+    ' controle, descricao, emissao, valor from notas'+
     ' where idUsuario = :id and emissao between :DataInicio and :DataTermino :ordem';
 
-Result := CreateQuery(sql);
+  Result := CreateQuery(sql);
 
- try
+  try
     Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
     Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
     Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
     Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
   except
     on E: Exception do
-        Showmessage('Não foi possível carregar a lista de notas');
+      Showmessage('Não foi possível carregar a lista de notas');
   end;
 
 end;
