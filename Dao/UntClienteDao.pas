@@ -109,7 +109,12 @@ begin
     query.ParamByName('id').AsInteger := AId;
     Try
       query.Open();
-
+      if query.IsEmpty then
+      begin
+        Result:= nil;
+        query.Free;
+        exit();
+      end;
       Result.Id := query.FieldByName('id').AsInteger;
       Result.nome := Trim(query.FieldByName('nome').AsString);
       Result.CPF := Trim(query.FieldByName('CPF').AsString);
@@ -139,7 +144,8 @@ begin
     query.ParamByName('CPF').AsString := AnumeroPessoal;
     Try
       query.Open();
-      Result := Consultar(query.FieldByName('id').AsInteger);
+      if not query.IsEmpty then
+        Result := Consultar(query.FieldByName('id').AsInteger);
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o cliente.');
@@ -163,7 +169,8 @@ begin
     query.ParamByName('nome').AsString := ANome;
     Try
       query.Open();
-      Result := Consultar(query.FieldByName('id').AsInteger);
+      if not query.IsEmpty then
+        Result := Consultar(query.FieldByName('id').AsInteger);
     Except
       on E: Exception do
         Showmessage('Não foi possível obter o cliente.');
@@ -293,7 +300,7 @@ var
   sql: string;
 begin
 
-  sql := 'select c.id, cpf, cnpj, nome, count(nome) from cliente as c' +
+  sql := 'select c.id, cpf, cnpj, nome from cliente as c' +
     ', notas as n where c.id = n.idCliente and n.idUsuario = :id' +
     ' and emissao between :DataInicio and :DataTermino :ordem';
 
