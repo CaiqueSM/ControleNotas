@@ -22,7 +22,7 @@ var
 begin
   MenorData:= strTODate('01/01/1970');
   MaiorData:= Date();
-  Result:= (MenorData < AData) and (AData < MaiorData);
+  Result:= (MenorData <= AData) and (AData <= MaiorData);
 end;
 
 end.
