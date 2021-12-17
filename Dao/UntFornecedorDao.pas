@@ -3,7 +3,7 @@ unit UntFornecedorDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntFornecedorModel,
-  UntRelacionamentoContatoModel, UntRelatorioModel, ZDataset,
+  UntRelacionamentoContatoModel, UntRelatorioModel, ZDataset, Data.DB,
   System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao;
 
 type
