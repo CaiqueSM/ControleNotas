@@ -4,7 +4,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Gerar relat'#243'rio'
-  ClientHeight = 346
+  ClientHeight = 313
   ClientWidth = 434
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -20,7 +20,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   TextHeight = 15
   object btnCancelar: TButton
     Left = 189
-    Top = 158
+    Top = 284
     Width = 75
     Height = 25
     Caption = 'Cancelar'
@@ -29,7 +29,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   end
   object btnGerar: TButton
     Left = 270
-    Top = 158
+    Top = 284
     Width = 75
     Height = 25
     Caption = 'Gerar'
@@ -111,7 +111,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   end
   object DBResultado: TDBGrid
     Left = 5
-    Top = 216
+    Top = 158
     Width = 421
     Height = 120
     Font.Charset = ANSI_CHARSET
@@ -129,7 +129,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
   end
   object btnImprimir: TButton
     Left = 351
-    Top = 158
+    Top = 284
     Width = 75
     Height = 25
     Caption = 'Imprimir'

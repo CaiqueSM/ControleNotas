@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, ZDataset, UntRelatorioImpresso,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   UntRelatorioModel, UntRelatorioPeriodoController, UntEnvironment, Data.DB,
-  Vcl.Grids, Vcl.DBGrids{, UntControleNotasDataModule};
+  Vcl.Grids, Vcl.DBGrids {, UntControleNotasDataModule};
 
 type
   TfrmRelatorioPeriodo = class(TForm)
@@ -63,6 +63,9 @@ begin
     DBResultado.DataSource.DataSet := Query;
     Query.Open;
   end;
+
+  if Assigned(Relatorio) then
+    Relatorio.Free;
 end;
 
 procedure TfrmRelatorioPeriodo.btnImprimirClick(Sender: TObject);
@@ -80,12 +83,21 @@ begin
       mskTermino.Text;
     frmRelatorioImpresso.FormShow(self);
   end;
+
+  if Assigned(Relatorio) then
+    Relatorio.Free;
 end;
 
 procedure TfrmRelatorioPeriodo.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  frmRelatorioImpresso.free;
+  limparCampos();
+  DBResultado.Free;
+  if Assigned(frmRelatorioImpresso) then
+  begin
+    frmRelatorioImpresso.Close();
+    frmRelatorioImpresso.Free;
+  end;
   Fcontroller.Free;
   Action := caFree;
 end;
@@ -118,7 +130,8 @@ begin
   rgOrdenar.ItemIndex := -1;
   mskInicio.Text := 'dd/mm/aaaa';
   mskTermino.Text := 'dd/mm/aaaa';
-  DBResultado.DataSource.DataSet.Close;
+  if DBResultado.DataSource <> nil then
+    DBResultado.DataSource.DataSet.Close;
 end;
 
 procedure TfrmRelatorioPeriodo.mskInicioExit(Sender: TObject);
@@ -160,7 +173,7 @@ begin
   begin
     if not(mskInicio.Text = padrao) then
     begin
-      if not Fcontroller.ValidarData(strTOdate(mskInicio.Text)) then
+      if not Fcontroller.ValidarData(mskInicio.Text) then
       begin
         ShowMessage('Data inicial invalida.');
         if mskInicio.CanFocus then
@@ -169,14 +182,17 @@ begin
       end;
     end
     else
+    begin
       ShowMessage('A data inicial não pode estar vazia.');
+      Exit();
+    end;
   end;
 
   if (mskTermino = ACampo) or (ACampo = todosCampos) then
   begin
     if not(mskTermino.Text = padrao) then
     begin
-      if not Fcontroller.ValidarData(strTOdate(mskTermino.Text)) then
+      if not Fcontroller.ValidarData(mskTermino.Text) then
       begin
         ShowMessage('Data final invalida.');
         if mskTermino.CanFocus then
@@ -185,7 +201,10 @@ begin
       end;
     end
     else
+    begin
       ShowMessage('A data final não pode estar vazia.');
+      Exit();
+    end;
   end;
 
   if (mskInicio.Text <> padrao) and (mskTermino.Text <> padrao) then
