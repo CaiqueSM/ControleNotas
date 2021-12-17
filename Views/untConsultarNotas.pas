@@ -41,9 +41,9 @@ end;
 
 procedure TfrmConsultarNotas.btnConsultarClick(Sender: TObject);
 begin
-  if validar then
+  if validar() then
   begin
-    habilitarCampos(false);
+    habilitarCampos(True);
   end;
 end;
 
