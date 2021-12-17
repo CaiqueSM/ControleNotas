@@ -301,10 +301,11 @@ var
 begin
 
   sql := 'select case when c.cpf is null then ' +
-		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente", Nome, cep, rua, bairro,'+
-    ' cidade, numero, complemento from cliente as c, notas as n, contato as ct,'+
-    ' relacionamentocontato as r where c.id = ct.id and c.id = r.idrelacionado'+
-    ' and c.id = n.idCliente and n.idUsuario = :id' +
+		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente", Nome, CEP, Rua, Bairro,'+
+    ' Cidade, Numero as "Número", Complemento, Email, Telefone'+
+    ' from cliente as c, notas as n, contato as ct,'+
+    ' relacionamentocontato as r where c.id = ct.id and c.id = r.idrelacionado '+
+    ' and c.id = n.idCliente and n.idUsuario = :id ' +
     ' and emissao between :DataInicio and :DataTermino :ordem';
 
   Result := CreateQuery(sql);
