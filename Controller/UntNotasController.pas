@@ -5,7 +5,7 @@ interface
 uses
 
   Classes, SysUtils, UntBaseController, UntNotasDao, UntValidarNotas,
-  UntNotasModel, System.Generics.Collections;
+  UntNotasModel, UntValidarData, System.Generics.Collections;
 
 type
 
@@ -13,6 +13,7 @@ type
   private
     FNotasDao: TNotasDao;
     FValidar: TValidarNotas;
+    FValidarData: TValidarData;
   public
     constructor Create();
     destructor Destroy(); override;
@@ -26,6 +27,7 @@ type
     function ValidarChaveAcesso(AChaveAcesso: string): Boolean;
     function ValidarValor(AValor: string): Boolean;
     function ValidarNumeroPessoal(ANumero: string): Boolean;
+    function ValidarData(AData: string):boolean;
     function ChaveExiste(AChaveAcesso: String): Boolean;
   end;
 
@@ -58,6 +60,7 @@ begin
   inherited;
   FNotasDao := TNotasDao.Create(Conexao);
   FValidar := TValidarNotas.Create;
+  FValidarData := TValidarData.Create;
 end;
 
 function TNotasController.Criar(ANota: TNotasModel): Boolean;
@@ -69,6 +72,7 @@ destructor TNotasController.Destroy;
 begin
   FNotasDao.Free;
   FValidar.Free;
+  FValidarData.Free;
   inherited;
 end;
 
@@ -85,6 +89,11 @@ end;
 function TNotasController.Excluir(AIdNota: integer): Boolean;
 begin
   Result := FNotasDao.Excluir(AIdNota);
+end;
+
+function TNotasController.ValidarData(AData: string): boolean;
+begin
+  Result := FValidarData.validarData(AData);
 end;
 
 function TNotasController.ValidarChaveAcesso(AChaveAcesso: string): Boolean;

@@ -61,7 +61,7 @@ uses
   UntRelatorioDao in 'Dao\UntRelatorioDao.pas',
   UntRelatorioModel in 'Model\UntRelatorioModel.pas',
   UntRelatorioPeriodoController in 'Controller\UntRelatorioPeriodoController.pas',
-  UntRelatorioImpresso in 'Views\UntRelatorioImpresso.pas' {frmRelatorioImpresso},
+  UntRelatorioImpresso in 'Views\UntRelatorioImpresso.pas' {frmRelatorioNotas},
   UntValidarData in 'Controller\Validacao\UntValidarData.pas';
 
 {$R *.res}

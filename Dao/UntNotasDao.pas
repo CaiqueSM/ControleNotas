@@ -7,7 +7,7 @@ uses
   untBaseDao, UntUsuarioController, UntClienteController,
   UntFornecedorController, ZDataset, UntRelatorioModel,
   System.Generics.Collections, UntNotasModel, System.Classes,
-  UntConexao;
+  UntConexao, Data.DB;
 
 type
 
@@ -193,43 +193,20 @@ begin
   FFornecedorDao.Free;
 end;
 
-function TNotasDao.Excluir(AChaveAcesso: string): Boolean;
-var
-  query: TZQuery;
-  sql: String;
-begin
-  Result := True;
-
-  sql := 'delete from Notas where chaveacesso = :chave';
-
-  query := CreateQuery(sql);
-  Try
-    query.ParamByName('chave').AsString := AChaveAcesso;
-    Try
-      query.ExecSQL();
-      Conexao.Database.Commit;
-    Except
-      on E: Exception do
-      Begin
-        Result := False;
-        Conexao.Database.Rollback;
-        Showmessage('Não foi possível excluir o Notas');
-      End;
-    End;
-  Finally
-    query.Free;
-  End;
-
-end;
-
 function TNotasDao.ListarNotas(ARelatorio: TRelatorioModel): TZQuery;
 var
   sql: string;
 begin
 
-  sql := 'select id, idCliente, idFornecedor, idUsuario, chaveacesso,' +
-    ' controle, descricao, emissao, valor from notas'+
-    ' where idUsuario = :id and emissao between :DataInicio and :DataTermino :ordem';
+  sql := 'select case when c.cpf = "0" then ' +
+		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
+    'case when f.cnpj = "0" then f.cpf else f.cnpj end' +
+    ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
+    'controle as "Controle", descricao as "Descrição", emissao as "Emissão",' +
+    'valor as "Valor(R$)" ' +
+    'from notas as n, fornecedor as f, cliente as c ' +
+    'where n.idUsuario = :id and n.idCliente = c.id and n.idFornecedor = f.id ' +
+    'and emissao between :DataInicio and :DataTermino :ordem';
 
   Result := CreateQuery(sql);
 
@@ -316,5 +293,34 @@ begin
     query.Free;
   End;
 end;
+
+function TNotasDao.Excluir(AChaveAcesso: string): Boolean;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := True;
+
+  sql := 'delete from Notas where chaveacesso = :chave';
+
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('chave').AsString := AChaveAcesso;
+    Try
+      query.ExecSQL();
+      Conexao.Database.Commit;
+    Except
+      on E: Exception do
+      Begin
+        Result := False;
+        Conexao.Database.Rollback;
+        Showmessage('Não foi possível excluir o Notas');
+      End;
+    End;
+  Finally
+    query.Free;
+  End;
+end;
+
 
 end.

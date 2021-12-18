@@ -18,7 +18,7 @@ type
     function CriarRelatorioNotas(ARelatorio: TRelatorioModel): TZQuery;
     function CriarRelatorioCliente(ARelatorio: TRelatorioModel): TZQuery;
     function CriarRelatorioFornecedor(ARelatorio: TRelatorioModel): TZQuery;
-    function ValidarData(AData: TDate): boolean;
+    function ValidarData(AData: string): boolean;
     constructor Create();
     destructor Destroy(); override;
   end;
@@ -82,7 +82,7 @@ begin
   inherited;
 end;
 
-function TRelatorioPeriodoController.ValidarData(AData: TDate): boolean;
+function TRelatorioPeriodoController.ValidarData(AData: string): boolean;
 begin
   Result := FValidarData.ValidarData(AData);
 end;

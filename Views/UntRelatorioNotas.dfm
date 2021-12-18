@@ -1,7 +1,7 @@
-object frmRelatorioImpresso: TfrmRelatorioImpresso
+object frmRelatorioNotas: TfrmRelatorioNotas
   Left = 0
   Top = 0
-  Caption = 'Relat'#243'rio por per'#237'odo'
+  Caption = 'Relat'#243'rio por per'#237'odo de notas'
   ClientHeight = 437
   ClientWidth = 780
   Color = clBtnFace
@@ -94,7 +94,7 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
         Left = 0
         Top = 0
         Width = 718
-        Height = 30
+        Height = 32
         Align = faTop
         Alignment = taCenter
         Borders.Sides = sdCustom
@@ -112,9 +112,9 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
       end
       object lbPeriodo: TRLLabel
         Left = 0
-        Top = 30
+        Top = 32
         Width = 718
-        Height = 28
+        Height = 32
         Align = faTop
         Alignment = taCenter
         Font.Charset = DEFAULT_CHARSET
@@ -144,45 +144,43 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
       ParentFont = False
       object lbChaveAcesso: TRLLabel
         Left = 3
-        Top = 0
+        Top = 3
         Width = 99
-        Height = 23
-        Align = faLeft
+        Height = 15
         Caption = 'Chave de acesso'
         Holder = colunaChave
       end
       object lbValor: TRLLabel
-        Left = 347
+        Left = 377
         Top = 3
         Width = 55
         Height = 15
         Caption = 'Valor(R$)'
       end
       object lbFornecedor: TRLLabel
-        Left = 422
+        Left = 440
         Top = 3
         Width = 97
         Height = 15
         Caption = 'CNPJ fornecedor'
       end
       object lbCliente: TRLLabel
-        Left = 547
+        Left = 545
         Top = 3
         Width = 101
         Height = 15
         Caption = 'CPF/CNPJ cliente'
       end
       object lbEmissao: TRLLabel
-        Left = 665
-        Top = 0
+        Left = 653
+        Top = 3
         Width = 53
-        Height = 23
-        Align = faRight
+        Height = 15
         AutoSize = False
         Caption = 'Emiss'#227'o'
       end
       object lbControle: TRLLabel
-        Left = 280
+        Left = 318
         Top = 3
         Width = 50
         Height = 15
@@ -194,41 +192,68 @@ object frmRelatorioImpresso: TfrmRelatorioImpresso
       Top = 153
       Width = 718
       Height = 24
+      Borders.Sides = sdCustom
+      Borders.DrawLeft = False
+      Borders.DrawTop = False
+      Borders.DrawRight = False
+      Borders.DrawBottom = False
       object colunaChave: TRLDBText
         Left = 3
-        Top = 0
+        Top = 2
         Width = 79
-        Height = 24
-        Align = faLeft
+        Height = 16
         DataField = 'chaveacesso'
         Holder = colunaChave
         Text = ''
       end
       object colunaEmissao: TRLDBText
-        Left = 665
-        Top = 6
+        Left = 653
+        Top = 2
         Width = 53
         Height = 16
+        Alignment = taCenter
         DataField = 'emissao'
-        Holder = lbEmissao
         Text = ''
       end
       object colunaCliente: TRLDBText
-        Left = 547
-        Top = 5
-        Width = 54
+        Left = 573
+        Top = 0
+        Width = 44
         Height = 16
-        DataField = 'idCliente'
+        Alignment = taCenter
+        DataField = 'Cliente'
         Holder = lbCliente
         Text = ''
       end
       object colunaControle: TRLDBText
-        Left = 272
+        Left = 318
         Top = 2
         Width = 50
         Height = 16
+        Borders.Sides = sdCustom
+        Borders.DrawLeft = False
+        Borders.DrawTop = False
+        Borders.DrawRight = False
+        Borders.DrawBottom = False
         DataField = 'controle'
-        Holder = colunaControle
+        Text = ''
+      end
+      object colunaFornecedor: TRLDBText
+        Left = 456
+        Top = 2
+        Width = 69
+        Height = 16
+        Alignment = taCenter
+        DataField = 'Fornecedor'
+        Text = ''
+      end
+      object colunaValor: TRLDBText
+        Left = 377
+        Top = 2
+        Width = 34
+        Height = 16
+        Alignment = taCenter
+        DataField = 'Valor'
         Text = ''
       end
     end

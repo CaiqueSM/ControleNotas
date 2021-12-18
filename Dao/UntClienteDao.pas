@@ -3,7 +3,7 @@ unit UntClienteDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntClienteModel,
-  UntRelacionamentoContatoModel, ZDataset, UntRelatorioModel,
+  UntRelacionamentoContatoModel, ZDataset, UntRelatorioModel, Data.DB,
   System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao;
 
 type
@@ -111,7 +111,7 @@ begin
       query.Open();
       if query.IsEmpty then
       begin
-        Result:= nil;
+        Result := nil;
         query.Free;
         exit();
       end;
@@ -300,8 +300,13 @@ var
   sql: string;
 begin
 
-  sql := 'select c.id, cpf, cnpj, nome from cliente as c' +
-    ', notas as n where c.id = n.idCliente and n.idUsuario = :id' +
+  sql := 'select case when c.cpf = "0" then ' +
+    'c.cnpj else c.cpf end as "CPF/CNPJ Cliente", Nome, CEP, Rua, Bairro,' +
+    ' Cidade, Numero as "Número", Complemento, Email, Telefone' +
+    ' from cliente as c, notas as n, contato as ct, email as e, telefone as t,'
+    + ' relacionamentocontato as r where c.id = ct.id and c.id = r.idrelacionado '
+    + ' and c.id = n.idCliente and e.idContato = ct.id and t.idcontato = ct.id and'
+    + ' n.idUsuario = :id ' +
     ' and emissao between :DataInicio and :DataTermino :ordem';
 
   Result := CreateQuery(sql);
@@ -312,7 +317,7 @@ begin
     Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
   except
     on E: Exception do
-        Showmessage('Não foi possível carregar a lista de clientes');
+      Showmessage('Não foi possível carregar a lista de clientes');
   end;
 
 end;

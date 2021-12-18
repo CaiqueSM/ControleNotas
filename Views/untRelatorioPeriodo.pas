@@ -4,10 +4,10 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, ZDataset, UntRelatorioImpresso,
+  System.Classes, Vcl.Graphics, ZDataset, UntRelatorioNotas,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   UntRelatorioModel, UntRelatorioPeriodoController, UntEnvironment, Data.DB,
-  Vcl.Grids, Vcl.DBGrids{, UntControleNotasDataModule};
+  Vcl.Grids, Vcl.DBGrids {, UntControleNotasDataModule};
 
 type
   TfrmRelatorioPeriodo = class(TForm)
@@ -63,6 +63,9 @@ begin
     DBResultado.DataSource.DataSet := Query;
     Query.Open;
   end;
+
+  if Assigned(Relatorio) then
+    Relatorio.Free;
 end;
 
 procedure TfrmRelatorioPeriodo.btnImprimirClick(Sender: TObject);
@@ -74,19 +77,27 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
-    frmRelatorioImpresso := TfrmRelatorioImpresso.Create(self);
-    frmRelatorioImpresso.Query := Query;
-    frmRelatorioImpresso.lbPeriodo.Caption := mskInicio.Text + ' até ' +
+    frmRelatorioNotas := TfrmRelatorioNotas.Create(self);
+    frmRelatorioNotas.Query := Query;
+    frmRelatorioNotas.lbPeriodo.Caption := mskInicio.Text + ' até ' +
       mskTermino.Text;
-    frmRelatorioImpresso.FormShow(self);
+    frmRelatorioNotas.FormShow(self);
   end;
+
+  if Assigned(Relatorio) then
+    Relatorio.Free;
 end;
 
 procedure TfrmRelatorioPeriodo.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  //DMControleNotas.Free;
-  frmRelatorioImpresso.free;
+  limparCampos();
+  DBResultado.Free;
+  if Assigned(frmRelatorioNotas) then
+  begin
+    frmRelatorioNotas.Close();
+    frmRelatorioNotas.Free;
+  end;
   Fcontroller.Free;
   Action := caFree;
 end;
@@ -94,7 +105,6 @@ end;
 procedure TfrmRelatorioPeriodo.FormCreate(Sender: TObject);
 begin
   Fcontroller := TRelatorioPeriodoController.Create;
-  //DMControleNotas := TDMControleNotas.Create(self);
 end;
 
 procedure TfrmRelatorioPeriodo.FormShow(Sender: TObject);
@@ -118,9 +128,10 @@ procedure TfrmRelatorioPeriodo.limparCampos;
 begin
   rgRelatorio.ItemIndex := -1;
   rgOrdenar.ItemIndex := -1;
-  mskInicio.Clear;
-  mskTermino.Clear;
-  DBResultado.DataSource.DataSet.Close;
+  mskInicio.Text := 'dd/mm/aaaa';
+  mskTermino.Text := 'dd/mm/aaaa';
+  if DBResultado.DataSource <> nil then
+    DBResultado.DataSource.DataSet.Close;
 end;
 
 procedure TfrmRelatorioPeriodo.mskInicioExit(Sender: TObject);
@@ -162,7 +173,7 @@ begin
   begin
     if not(mskInicio.Text = padrao) then
     begin
-      if not Fcontroller.ValidarData(strTOdate(mskInicio.Text)) then
+      if not Fcontroller.ValidarData(mskInicio.Text) then
       begin
         ShowMessage('Data inicial invalida.');
         if mskInicio.CanFocus then
@@ -171,14 +182,17 @@ begin
       end;
     end
     else
+    begin
       ShowMessage('A data inicial não pode estar vazia.');
+      Exit();
+    end;
   end;
 
   if (mskTermino = ACampo) or (ACampo = todosCampos) then
   begin
     if not(mskTermino.Text = padrao) then
     begin
-      if not Fcontroller.ValidarData(strTOdate(mskTermino.Text)) then
+      if not Fcontroller.ValidarData(mskTermino.Text) then
       begin
         ShowMessage('Data final invalida.');
         if mskTermino.CanFocus then
@@ -187,7 +201,10 @@ begin
       end;
     end
     else
+    begin
       ShowMessage('A data final não pode estar vazia.');
+      Exit();
+    end;
   end;
 
   if (mskInicio.Text <> padrao) and (mskTermino.Text <> padrao) then

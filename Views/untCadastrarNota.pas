@@ -48,6 +48,7 @@ type
     procedure txtCNPJCPFclienteExit(Sender: TObject);
     procedure tbuPesquisarClick(Sender: TObject);
     procedure tbuExcluirClick(Sender: TObject);
+    procedure mskEmissaoExit(Sender: TObject);
   private
     FNotasExistente: Boolean;
     FController: TNotasController;
@@ -128,14 +129,14 @@ begin
             Exit();
           end;
 
-          if Notas.Cliente.Nome.IsEmpty then
+          if Notas.Cliente = nil then
           begin
             MensagemNaoCadastrado('Cliente');
             Result := False;
             Exit();
           end;
 
-          if Notas.Fornecedor.Nome.IsEmpty then
+          if Notas.Fornecedor = nil then
           begin
             MensagemNaoCadastrado('Fornecedor');
             Result := False;
@@ -242,7 +243,7 @@ begin
   txtChaveAcesso.Clear;
   txtControle.Clear;
   txtValor.Clear;
-  mskEmissao.Clear;
+  mskEmissao.text := 'dd/mm/aaaa';
   txtCNPJCPFCliente.Clear;
   txtCNPJCPFfornecedor.Clear;
   memoDescricao.Clear;
@@ -330,6 +331,15 @@ begin
     validarCampos(Sender);
 end;
 
+procedure TfrmCadastrarNota.mskEmissaoExit(Sender: TObject);
+var
+  padrao: string;
+begin
+  padrao := 'dd/mm/aaaa';
+  if not(mskEmissao.Text = padrao) then
+    validarCampos(Sender);
+end;
+
 procedure TfrmCadastrarNota.txtCodigoKeyPress(Sender: TObject; var Key: Char);
 begin
   If Key = BotaoEnter Then
@@ -363,13 +373,22 @@ begin
     end;
 
   if (mskEmissao = ACampo) or (ACampo = todosCampos) then
-    if (mskEmissao.Text = PadraoData) or (mskEmissao.Text = EmptyStr) then
+  begin
+    if not(mskEmissao.Text = padraoData) then
     begin
-      ShowMessage('Informe a data de emissão!');
-      If mskEmissao.CanFocus Then
-        mskEmissao.SetFocus;
-      Exit();
+      if not Fcontroller.ValidarData(mskEmissao.Text) then
+      begin
+        ShowMessage('Data inicial invalida.');
+        if mskEmissao.CanFocus then
+          mskEmissao.SetFocus;
+        Exit();
+      end;
+    end
+    else begin
+      ShowMessage('A data inicial não pode estar vazia.');
+      exit();
     end;
+  end;
 
   if (txtChaveAcesso = ACampo) or (ACampo = todosCampos) then
   begin
