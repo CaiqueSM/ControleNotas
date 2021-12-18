@@ -210,7 +210,7 @@
         <DCCReference Include="Model\UntRelatorioModel.pas"/>
         <DCCReference Include="Controller\UntRelatorioPeriodoController.pas"/>
         <DCCReference Include="Views\UntRelatorioImpresso.pas">
-            <Form>frmRelatorioImpresso</Form>
+            <Form>frmRelatorioNotas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Controller\Validacao\UntValidarData.pas"/>
