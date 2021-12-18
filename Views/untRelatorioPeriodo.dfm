@@ -53,7 +53,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     object lbDataTermino: TLabel
       Left = 211
       Top = 28
-      Width = 74
+      Width = 73
       Height = 15
       Caption = 'Data T'#233'rmino:'
     end

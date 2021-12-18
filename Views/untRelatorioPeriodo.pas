@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, ZDataset, UntRelatorioImpresso,
+  System.Classes, Vcl.Graphics, ZDataset, UntRelatorioNotas,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   UntRelatorioModel, UntRelatorioPeriodoController, UntEnvironment, Data.DB,
   Vcl.Grids, Vcl.DBGrids {, UntControleNotasDataModule};
@@ -77,11 +77,11 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
-    frmRelatorioImpresso := TfrmRelatorioImpresso.Create(self);
-    frmRelatorioImpresso.Query := Query;
-    frmRelatorioImpresso.lbPeriodo.Caption := mskInicio.Text + ' até ' +
+    frmRelatorioNotas := TfrmRelatorioNotas.Create(self);
+    frmRelatorioNotas.Query := Query;
+    frmRelatorioNotas.lbPeriodo.Caption := mskInicio.Text + ' até ' +
       mskTermino.Text;
-    frmRelatorioImpresso.FormShow(self);
+    frmRelatorioNotas.FormShow(self);
   end;
 
   if Assigned(Relatorio) then
@@ -93,10 +93,10 @@ procedure TfrmRelatorioPeriodo.FormClose(Sender: TObject;
 begin
   limparCampos();
   DBResultado.Free;
-  if Assigned(frmRelatorioImpresso) then
+  if Assigned(frmRelatorioNotas) then
   begin
-    frmRelatorioImpresso.Close();
-    frmRelatorioImpresso.Free;
+    frmRelatorioNotas.Close();
+    frmRelatorioNotas.Free;
   end;
   Fcontroller.Free;
   Action := caFree;
