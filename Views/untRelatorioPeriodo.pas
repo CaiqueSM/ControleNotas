@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, ZDataset, UntRelatorioNotas,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
   UntRelatorioModel, UntRelatorioPeriodoController, UntEnvironment, Data.DB,
-  Vcl.Grids, Vcl.DBGrids {, UntControleNotasDataModule};
+  Vcl.Grids, Vcl.DBGrids, UntRelatorioPessoas;
 
 type
   TfrmRelatorioPeriodo = class(TForm)
@@ -77,11 +77,27 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
-    frmRelatorioNotas := TfrmRelatorioNotas.Create(self);
-    frmRelatorioNotas.Query := Query;
-    frmRelatorioNotas.lbPeriodo.Caption := mskInicio.Text + ' até ' +
+    if Relatorio.Tipo = 'Notas fiscais' then
+    begin
+      frmRelatorioNotas := TfrmRelatorioNotas.Create(self);
+      frmRelatorioNotas.Query := Query;
+      frmRelatorioNotas.lbPeriodo.Caption := mskInicio.Text + ' até ' +
+        mskTermino.Text;
+      frmRelatorioNotas.FormShow(self);
+    end
+    else begin
+      frmRelatorioPessoas := TfrmRelatorioPessoas.Create(self);
+      frmRelatorioPessoas.Caption := 'Relatório de '+ Relatorio.Tipo +
+      ' por período.';
+      frmRelatorioPessoas.lbPeriodo.Caption := mskInicio.Text + ' até ' +
       mskTermino.Text;
-    frmRelatorioNotas.FormShow(self);
+      frmRelatorioPessoas.lbCabecalhoRelatorio.Caption:= 'Relatório ' +
+      Relatorio.Tipo;
+      frmRelatorioPessoas.lbTituloRelatorio.Caption := 'Relatório de '+
+      Relatorio.Tipo + ' por período.';
+      frmRelatorioPessoas.Query := Query;
+      frmRelatorioPessoas.FormShow(self);
+    end;
   end;
 
   if Assigned(Relatorio) then
@@ -93,11 +109,19 @@ procedure TfrmRelatorioPeriodo.FormClose(Sender: TObject;
 begin
   limparCampos();
   DBResultado.Free;
+
   if Assigned(frmRelatorioNotas) then
   begin
     frmRelatorioNotas.Close();
     frmRelatorioNotas.Free;
   end;
+
+  if Assigned(frmRelatorioPessoas) then
+  begin
+    frmRelatorioPessoas.Close();
+    frmRelatorioPessoas.Free;
+  end;
+
   Fcontroller.Free;
   Action := caFree;
 end;

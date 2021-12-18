@@ -209,11 +209,15 @@
         <DCCReference Include="Dao\UntRelatorioDao.pas"/>
         <DCCReference Include="Model\UntRelatorioModel.pas"/>
         <DCCReference Include="Controller\UntRelatorioPeriodoController.pas"/>
-        <DCCReference Include="Views\UntRelatorioImpresso.pas">
+        <DCCReference Include="Controller\Validacao\UntValidarData.pas"/>
+        <DCCReference Include="Views\UntRelatorioNotas.pas">
             <Form>frmRelatorioNotas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Controller\Validacao\UntValidarData.pas"/>
+        <DCCReference Include="Views\UntRelatorioPessoas.pas">
+            <Form>frmRelatorioPessoas</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
