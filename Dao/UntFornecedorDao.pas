@@ -303,8 +303,8 @@ var
 begin
 
   sql := 'select case when f.cpf = "0" then ' +
-    'f.cnpj else f.cpf end as "CPF/CNPJ Fornecedor", Nome, CEP, Rua, Bairro,' +
-    ' Cidade, Numero as "Número", Complemento, Email, Telefone' +
+    'f.cnpj else f.cpf end as "CPF/CNPJ", Nome, CEP, Rua, Bairro,' +
+    ' Cidade, Numero as "Número", Complemento, Email as "E-Mail", Telefone' +
     ' from fornecedor as f, notas as n, contato as ct, email as e, telefone as t,'
     + ' relacionamentocontato as r where f.id = ct.id and f.id = r.idrelacionado '
     + ' and f.id = n.idFornecedor and e.idContato = ct.id and t.idcontato = ct.id and'
