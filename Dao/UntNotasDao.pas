@@ -193,35 +193,6 @@ begin
   FFornecedorDao.Free;
 end;
 
-function TNotasDao.Excluir(AChaveAcesso: string): Boolean;
-var
-  query: TZQuery;
-  sql: String;
-begin
-  Result := True;
-
-  sql := 'delete from Notas where chaveacesso = :chave';
-
-  query := CreateQuery(sql);
-  Try
-    query.ParamByName('chave').AsString := AChaveAcesso;
-    Try
-      query.ExecSQL();
-      Conexao.Database.Commit;
-    Except
-      on E: Exception do
-      Begin
-        Result := False;
-        Conexao.Database.Rollback;
-        Showmessage('Não foi possível excluir o Notas');
-      End;
-    End;
-  Finally
-    query.Free;
-  End;
-
-end;
-
 function TNotasDao.ListarNotas(ARelatorio: TRelatorioModel): TZQuery;
 var
   sql: string;
@@ -229,7 +200,7 @@ begin
 
   sql := 'select case when c.cpf = "0" then ' +
 		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
-    'case when f.cnpj = "0" then f.cpf else f.cpf end' +
+    'case when f.cnpj = "0" then f.cpf else f.cnpj end' +
     ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
     'controle as "Controle", descricao as "Descrição", emissao as "Emissão",' +
     'valor as "Valor(R$)" ' +
@@ -322,5 +293,34 @@ begin
     query.Free;
   End;
 end;
+
+function TNotasDao.Excluir(AChaveAcesso: string): Boolean;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := True;
+
+  sql := 'delete from Notas where chaveacesso = :chave';
+
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('chave').AsString := AChaveAcesso;
+    Try
+      query.ExecSQL();
+      Conexao.Database.Commit;
+    Except
+      on E: Exception do
+      Begin
+        Result := False;
+        Conexao.Database.Rollback;
+        Showmessage('Não foi possível excluir o Notas');
+      End;
+    End;
+  Finally
+    query.Free;
+  End;
+end;
+
 
 end.
