@@ -1,7 +1,7 @@
-object frmRelatorioImpresso: TfrmRelatorioImpresso
+object frmRelatorioNotas: TfrmRelatorioNotas
   Left = 0
   Top = 0
-  Caption = 'Relat'#243'rio por per'#237'odo'
+  Caption = 'Relat'#243'rio por per'#237'odo de notas'
   ClientHeight = 437
   ClientWidth = 780
   Color = clBtnFace

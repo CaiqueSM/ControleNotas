@@ -1,4 +1,4 @@
-unit UntRelatorioImpresso;
+unit UntRelatorioNotas;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   ZAbstractDataset, ZDataset;
 
 type
-  TfrmRelatorioImpresso = class(TForm)
+  TfrmRelatorioNotas = class(TForm)
     rlrNotas: TRLReport;
     btCabecalho: TRLBand;
     btTitulo: TRLBand;
@@ -47,13 +47,13 @@ type
   end;
 
 var
-  frmRelatorioImpresso: TfrmRelatorioImpresso;
+  frmRelatorioNotas: TfrmRelatorioNotas;
 
 implementation
 
 {$R *.dfm}
 
-procedure TfrmRelatorioImpresso.CheckDataSet(ADataSet: TZQuery);
+procedure TfrmRelatorioNotas.CheckDataSet(ADataSet: TZQuery);
 begin
   if ADataSet <> nil then
     dsQuery := ADataSet
@@ -61,7 +61,7 @@ begin
     Close();
 end;
 
-procedure TfrmRelatorioImpresso.FormClose(Sender: TObject;
+procedure TfrmRelatorioNotas.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   rlrNotas.ClosePreview;
@@ -94,14 +94,14 @@ begin
   Action := caFree;
 end;
 
-procedure TfrmRelatorioImpresso.FormCreate(Sender: TObject);
+procedure TfrmRelatorioNotas.FormCreate(Sender: TObject);
 begin
   dpsControleNotas := TDataSetProvider.Create(self);
   dsControleNotas := TDataSource.Create(self);
   dsQuery := TZQuery.Create(self);
 end;
 
-procedure TfrmRelatorioImpresso.FormShow(Sender: TObject);
+procedure TfrmRelatorioNotas.FormShow(Sender: TObject);
 begin
   dpsControleNotas.DataSet := dsQuery;
   dsControleNotas.DataSet := dsQuery;
@@ -129,7 +129,7 @@ begin
   rlrNotas.Preview();
 end;
 
-procedure TfrmRelatorioImpresso.rlrNotasBeforePrint(Sender: TObject;
+procedure TfrmRelatorioNotas.rlrNotasBeforePrint(Sender: TObject;
   var PrintIt: Boolean);
 begin
   dpsControleNotas.DataSet.Open;
