@@ -24,7 +24,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Width = 75
     Height = 25
     Caption = 'Cancelar'
-    TabOrder = 4
+    TabOrder = 5
     OnClick = btnCancelarClick
   end
   object btnGerar: TButton
@@ -33,7 +33,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Width = 75
     Height = 25
     Caption = 'Gerar'
-    TabOrder = 3
+    TabOrder = 4
     OnClick = btnGerarClick
   end
   object gbPeriodo: TGroupBox
@@ -120,7 +120,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 6
     TitleFont.Charset = ANSI_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -12
@@ -133,7 +133,7 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Width = 75
     Height = 25
     Caption = 'Imprimir'
-    TabOrder = 6
+    TabOrder = 3
     OnClick = btnImprimirClick
   end
 end
