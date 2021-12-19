@@ -109,24 +109,6 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
       'Valores')
     TabOrder = 1
   end
-  object DBResultado: TDBGrid
-    Left = 5
-    Top = 158
-    Width = 421
-    Height = 120
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Segoe UI'
-    Font.Style = [fsBold]
-    ParentFont = False
-    TabOrder = 6
-    TitleFont.Charset = ANSI_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -12
-    TitleFont.Name = 'Segoe UI'
-    TitleFont.Style = []
-  end
   object btnImprimir: TButton
     Left = 351
     Top = 284
@@ -135,5 +117,31 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
     Caption = 'Imprimir'
     TabOrder = 3
     OnClick = btnImprimirClick
+  end
+  object gbResultado: TGroupBox
+    Left = 5
+    Top = 152
+    Width = 421
+    Height = 128
+    Caption = ' Pr'#233'-visualiza'#231#227'o '
+    TabOrder = 6
+    object DBResultado: TDBGrid
+      Left = 5
+      Top = 16
+      Width = 410
+      Height = 103
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      TitleFont.Charset = ANSI_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -12
+      TitleFont.Name = 'Segoe UI'
+      TitleFont.Style = []
+    end
   end
 end
