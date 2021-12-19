@@ -36,7 +36,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure rlrNotasBeforePrint(Sender: TObject; var PrintIt: Boolean);
   private
     dpsControleNotas: TDataSetProvider;
     dsControleNotas: TDataSource;
@@ -127,12 +126,6 @@ begin
 
   dpsControleNotas.DataSet.Open;
   rlrNotas.Preview();
-end;
-
-procedure TfrmRelatorioNotas.rlrNotasBeforePrint(Sender: TObject;
-  var PrintIt: Boolean);
-begin
-  dpsControleNotas.DataSet.Open;
 end;
 
 end.
