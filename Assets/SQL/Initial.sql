@@ -77,4 +77,3 @@ FOREIGN KEY(idContato) REFERENCES contato(id) ON DELETE cascade
 );
 
 insert into usuario(nome, senha) values('root', 'root'); 
-insert into usuario(nome, senha) values('jeihcio', '123456'); 
