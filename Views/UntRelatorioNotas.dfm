@@ -26,7 +26,6 @@ object frmRelatorioNotas: TfrmRelatorioNotas
     Font.Height = -13
     Font.Name = 'Arial'
     Font.Style = []
-    BeforePrint = rlrNotasBeforePrint
     object btCabecalho: TRLBand
       Left = 38
       Top = 38
