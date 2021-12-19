@@ -37,6 +37,7 @@ type
     procedure itemClienteClick(Sender: TObject);
     procedure itemFornercedorClick(Sender: TObject);
     procedure itemSairClick(Sender: TObject);
+    procedure itemRelatorioPeriodoClick(Sender: TObject);
   private
     FController: TMenuController;
     procedure Logar();
@@ -51,7 +52,7 @@ implementation
 
 uses
   untConsultarNotas, UntUsuario, UntCliente,
-  untRelatorioPeriodo,
+  untRelatorioPeriodo, untRelatorioMensal,
   untFornecedor, untCadastrarNota;
 
 {$R *.dfm}
@@ -99,6 +100,11 @@ begin
 end;
 
 procedure TfrmMenu.itemRelatorioMensalClick(Sender: TObject);
+begin
+  FController.AbrirTelaFilha(Self, TfrmRelatorioMensal, frmRelatorioMensal);
+end;
+
+procedure TfrmMenu.itemRelatorioPeriodoClick(Sender: TObject);
 begin
   FController.AbrirTelaFilha(Self, TfrmRelatorioPeriodo, frmRelatorioPeriodo);
 end;

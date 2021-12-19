@@ -88,6 +88,7 @@ object frmMenu: TfrmMenu
       end
       object itemRelatorioPeriodo: TMenuItem
         Caption = 'Por per'#237'odo'
+        OnClick = itemRelatorioPeriodoClick
       end
     end
     object itemSair: TMenuItem
