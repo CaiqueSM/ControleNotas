@@ -3,8 +3,9 @@ unit UntClienteDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntClienteModel,
-  UntRelacionamentoContatoModel, ZDataset, UntRelatorioModel, Data.DB,
-  System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao;
+  UntRelacionamentoContatoModel, ZDataset, UntRelatorioPeriodoModel, Data.DB,
+  System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao,
+  UntRelatorioMensalModel;
 
 type
   TClienteDao = class(TBaseDao)
@@ -16,7 +17,10 @@ type
     destructor Destroy(); override;
 
     function ListarClientes(): TObjectList<TClienteModel>; overload;
-    function ListarClientes(ARelatorio: TRelatorioModel): TZQuery; overload;
+    function ListarClientes(ARelatorio: TRelatorioPeriodoModel)
+      : TZQuery; overload;
+    function ListarClientes(ARelatorio: TRelatorioMensalModel)
+      : TZQuery; overload;
     function Consultar(AId: integer): TClienteModel; overload;
     function Consultar(AnumeroPessoal: String): TClienteModel; overload;
     function ConsultarPorNome(ANome: String): TClienteModel;
@@ -236,7 +240,7 @@ var
 begin
   Result := True;
 
-  sql := 'delete from cliente ' + ' where id = :id';
+  sql := 'delete from cliente where id = :id';
 
   query := CreateQuery(sql);
   Try
@@ -269,7 +273,7 @@ var
 begin
   Result := TObjectList<TClienteModel>.Create();
 
-  sql := 'select * from cliente ' + ' order by id asc ';
+  sql := 'select * from cliente order by id asc ';
 
   query := CreateQuery(sql);
   Try
@@ -295,7 +299,8 @@ begin
   End;
 end;
 
-function TClienteDao.ListarClientes(ARelatorio: TRelatorioModel): TZQuery;
+function TClienteDao.ListarClientes(ARelatorio: TRelatorioPeriodoModel)
+  : TZQuery;
 var
   sql: string;
 begin
@@ -320,6 +325,30 @@ begin
       Showmessage('Não foi possível carregar a lista de clientes');
   end;
 
+end;
+
+function TClienteDao.ListarClientes(ARelatorio: TRelatorioMensalModel): TZQuery;
+var
+  sql: string;
+begin
+
+  sql := 'select case when c.cpf = "0" then ' +
+    'c.cnpj else c.cpf end as "CPF/CNPJ", Nome, CEP, Rua, Bairro,' +
+    ' Cidade, Numero as "Número", Complemento, Email as "E-Mail", Telefone' +
+    ' from cliente as c, notas as n, contato as ct, email as e, telefone as t,'
+    + ' relacionamentocontato as r where c.id = ct.id and c.id = r.idrelacionado '
+    + ' and c.id = n.idCliente and e.idContato = ct.id and t.idcontato = ct.id and'
+    + ' n.idUsuario = :id and Month(emissao) = :Mes :ordem';
+
+  Result := CreateQuery(sql);
+  try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('Mes').AsString := (intTOstr(ARelatorio.Mes));
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
+      Showmessage('Não foi possível carregar a lista de clientes');
+  end;
 end;
 
 end.
