@@ -5,9 +5,9 @@ interface
 uses
 
   untBaseDao, UntUsuarioController, UntClienteController,
-  UntFornecedorController, ZDataset, UntRelatorioModel,
-  System.Generics.Collections, UntNotasModel, System.Classes,
-  UntConexao, Data.DB;
+  UntFornecedorController, ZDataset, UntRelatorioPeriodoModel,
+  UntRelatorioMensalModel, System.Generics.Collections, UntNotasModel,
+  System.Classes, UntConexao, Data.DB;
 
 type
 
@@ -26,7 +26,8 @@ type
     function Excluir(AIdNotas: integer): Boolean; overload;
     function Excluir(AChaveAcesso: string): Boolean; overload;
     function ListarNotas(): TObjectList<TNotasModel>; overload;
-    function ListarNotas(ARelatorio: TRelatorioModel): TZQuery; overload;
+    function ListarNotas(ARelatorio: TRelatorioPeriodoModel): TZQuery; overload;
+    function ListarNotas(ARelatorio: TRelatorioMensalModel): TZQuery; overload;
   end;
 
 implementation
@@ -124,14 +125,33 @@ var
   sql: String;
 begin
   Result := nil;
-  sql := 'select id from Notas where chaveacesso = :chave ';
+  sql := 'select * from Notas where chaveacesso = :chaveacesso ';
   query := CreateQuery(sql);
   Try
-    query.ParamByName('chave').AsString := AChaveAcesso;
+    query.ParamByName('chaveacesso').AsString := AChaveAcesso;
+    query.Open();
+    if query.IsEmpty then
+    begin
+      query.Free;
+      exit();
+    end;
     Try
-      query.Open();
-      if not(query.IsEmpty) then
-        Result := Consultar(query.FieldByName('id').AsInteger);
+      Result := TNotasModel.Create;
+      with Result do
+      begin
+        Id := query.FieldByName('id').AsInteger;
+        Chave := query.FieldByName('chaveacesso').AsString;
+        Controle := query.FieldByName('controle').AsInteger;
+        Descricao := query.FieldByName('descricao').AsString;
+        valor := query.FieldByName('valor').AsInteger;
+        emissao := query.FieldByName('emissao').AsDateTime;
+        Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
+          .AsInteger);
+        Fornecedor := FFornecedorDao.Consultar(query.FieldByName('idfornecedor')
+          .AsInteger);
+        Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
+          .AsInteger);
+      end;
     Except
       on E: Exception do
         Showmessage('Não foi possível obter as Notas.');
@@ -193,7 +213,7 @@ begin
   FFornecedorDao.Free;
 end;
 
-function TNotasDao.ListarNotas(ARelatorio: TRelatorioModel): TZQuery;
+function TNotasDao.ListarNotas(ARelatorio: TRelatorioPeriodoModel): TZQuery;
 var
   sql: string;
 begin
@@ -214,6 +234,34 @@ begin
     Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
     Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
     Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
+      Showmessage('Não foi possível carregar a lista de notas');
+  end;
+
+end;
+
+function TNotasDao.ListarNotas(ARelatorio: TRelatorioMensalModel): TZQuery;
+var
+  sql: string;
+begin
+
+  sql := 'select case when c.cpf = "0" then ' +
+		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
+    'case when f.cnpj = "0" then f.cpf else f.cnpj end' +
+    ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
+    'controle as "Controle", descricao as "Descrição", emissao as "Emissão",' +
+    'valor as "Valor(R$)" ' +
+    'from notas as n, fornecedor as f, cliente as c ' +
+    'where n.idUsuario = :id and n.idCliente = c.id and n.idFornecedor = f.id ' +
+    'and month(emissao) = :Mes :ordem';
+
+  Result := CreateQuery(sql);
+
+  try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('Mes').AsString := (intTOstr(ARelatorio.Mes));
     Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
   except
     on E: Exception do
