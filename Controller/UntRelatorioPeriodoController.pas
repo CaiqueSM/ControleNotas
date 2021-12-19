@@ -4,7 +4,7 @@ interface
 
 uses
 
-  Classes, SysUtils, UntBaseController, UntRelatorioDao, UntRelatorioModel,
+  Classes, SysUtils, UntBaseController, UntRelatorioDao, UntRelatorioPeriodoModel,
   UntNotasModel, UntClienteModel, UntFornecedorModel, UntValidarData,
   ZDataset;
 
@@ -15,9 +15,9 @@ type
     FRelatorioDao: TRelatorioDao;
     FValidarData: TValidarData;
   public
-    function CriarRelatorioNotas(ARelatorio: TRelatorioModel): TZQuery;
-    function CriarRelatorioCliente(ARelatorio: TRelatorioModel): TZQuery;
-    function CriarRelatorioFornecedor(ARelatorio: TRelatorioModel): TZQuery;
+    function CriarRelatorioNotas(ARelatorio: TRelatorioPeriodoModel): TZQuery;
+    function CriarRelatorioCliente(ARelatorio: TRelatorioPeriodoModel): TZQuery;
+    function CriarRelatorioFornecedor(ARelatorio: TRelatorioPeriodoModel): TZQuery;
     function ValidarData(AData: string): boolean;
     constructor Create();
     destructor Destroy(); override;
@@ -35,7 +35,7 @@ begin
 end;
 
 function TRelatorioPeriodoController.CriarRelatorioCliente
-  (ARelatorio: TRelatorioModel): TZQuery;
+  (ARelatorio: TRelatorioPeriodoModel): TZQuery;
 begin
 
   if ARelatorio.ordem = 'Alfabética' then
@@ -49,7 +49,7 @@ begin
 end;
 
 function TRelatorioPeriodoController.CriarRelatorioFornecedor
-  (ARelatorio: TRelatorioModel): TZQuery;
+  (ARelatorio: TRelatorioPeriodoModel): TZQuery;
 begin
 
   if ARelatorio.ordem = 'Alfabética' then
@@ -63,7 +63,7 @@ begin
 end;
 
 function TRelatorioPeriodoController.CriarRelatorioNotas
-  (ARelatorio: TRelatorioModel): TZQuery;
+  (ARelatorio: TRelatorioPeriodoModel): TZQuery;
 begin
   if ARelatorio.ordem = 'Alfabética' then
     ARelatorio.ordem := 'order by id asc'
