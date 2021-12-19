@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, ZDataset, UntRelatorioNotas,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
-  UntRelatorioModel, UntRelatorioPeriodoController, UntEnvironment, Data.DB,
+  UntRelatorioPeriodoModel, UntRelatorioPeriodoController, UntEnvironment, Data.DB,
   Vcl.Grids, Vcl.DBGrids, UntRelatorioPessoas;
 
 type
@@ -20,8 +20,9 @@ type
     rgOrdenar: TRadioGroup;
     mskInicio: TMaskEdit;
     mskTermino: TMaskEdit;
-    DBResultado: TDBGrid;
     btnImprimir: TButton;
+    gbResultado: TGroupBox;
+    DBResultado: TDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
     procedure mskInicioExit(Sender: TObject);
@@ -32,9 +33,9 @@ type
     procedure btnImprimirClick(Sender: TObject);
   private
     Fcontroller: TRelatorioPeriodoController;
-    function serializarRelatorio: TRelatorioModel;
+    function serializarRelatorio: TRelatorioPeriodoModel;
     function validarCampos(ACampo: TObject): boolean;
-    function gerarRelatorio(ARelatorio: TRelatorioModel): TZQuery;
+    function gerarRelatorio(ARelatorio: TRelatorioPeriodoModel): TZQuery;
     procedure limparCampos();
   end;
 
@@ -52,7 +53,7 @@ end;
 
 procedure TfrmRelatorioPeriodo.btnGerarClick(Sender: TObject);
 var
-  Relatorio: TRelatorioModel;
+  Relatorio: TRelatorioPeriodoModel;
   Query: TZQuery;
 begin
   if validarCampos(todosCampos) then
@@ -70,7 +71,7 @@ end;
 
 procedure TfrmRelatorioPeriodo.btnImprimirClick(Sender: TObject);
 var
-  Relatorio: TRelatorioModel;
+  Relatorio: TRelatorioPeriodoModel;
   Query: TZQuery;
 begin
   if validarCampos(todosCampos) then
@@ -138,7 +139,7 @@ begin
 end;
 
 function TfrmRelatorioPeriodo.gerarRelatorio(ARelatorio
-  : TRelatorioModel): TZQuery;
+  : TRelatorioPeriodoModel): TZQuery;
 begin
   if ARelatorio.Tipo = 'Clientes' then
     Result := Fcontroller.CriarRelatorioCliente(ARelatorio)
@@ -176,9 +177,9 @@ begin
     validarCampos(Sender);
 end;
 
-function TfrmRelatorioPeriodo.serializarRelatorio: TRelatorioModel;
+function TfrmRelatorioPeriodo.serializarRelatorio: TRelatorioPeriodoModel;
 begin
-  Result := TRelatorioModel.Create;
+  Result := TRelatorioPeriodoModel.Create;
   Result.IdUsuario := Global.IdUsuario;
   Result.Tipo := rgRelatorio.Items[rgRelatorio.ItemIndex];
   Result.Ordem := rgOrdenar.Items[rgOrdenar.ItemIndex];

@@ -23,6 +23,7 @@ begin
     formulario.ShowModal();
     Result := formulario.Resultado;
   Finally
+    formulario.Close;
     formulario.Free;
   End;
 end;

@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics, UntEnvironment,
   Vcl.Controls, Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask,
   UntClienteController, UntClienteModel, UntContatoModel, UntConsultarCliente,
-  UntEnumContatoDao, Vcl.ComCtrls, Vcl.ToolWin, UntCrudEnum,
+  Vcl.ComCtrls, Vcl.ToolWin, UntCrudEnum,
   UntFormHelper;
 
 type
@@ -80,7 +80,7 @@ end;
 
 procedure TfrmCliente.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  FController.Free;
+  FreeAndNil(FController);
   CloseAction := caFree;
 end;
 

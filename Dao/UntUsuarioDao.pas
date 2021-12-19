@@ -29,7 +29,7 @@ var
 begin
   Result := TUsuarioModel.Create();
 
-  sql := 'select * from usuario ' + ' where upper(trim(nome)) = upper(:nome) ';
+  sql := 'select * from usuario where upper(trim(nome)) = upper(:nome) ';
 
   query := CreateQuery(sql);
   Try
@@ -57,7 +57,7 @@ var
 begin
   Result := TObjectList<TUsuarioModel>.Create();
 
-  sql := 'select * from usuario ' + ' order by id asc ';
+  sql := 'select * from usuario order by id asc ';
 
   query := CreateQuery(sql);
   Try
@@ -88,7 +88,7 @@ var
 begin
   Result := TUsuarioModel.Create();
 
-  sql := 'select * from usuario ' + ' where id = :id ';
+  sql := 'select * from usuario where id = :id ';
 
   query := CreateQuery(sql);
   Try

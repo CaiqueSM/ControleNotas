@@ -9,6 +9,7 @@ type
 
   TTelefoneDao = class(TBaseDao)
   public
+    Destructor Destroy; override;
     function Consultar(AIdcontato: integer): TObjectList<TTelefoneModel>;
     function Criar(ATelefone: TTelefoneModel): Boolean;
     function Alterar(ATelefone: TTelefoneModel): Boolean;
@@ -112,6 +113,11 @@ begin
   Finally
     query.Free;
   End;
+end;
+
+destructor TTelefoneDao.Destroy;
+begin
+  inherited;
 end;
 
 function TTelefoneDao.Excluir(ACodigo: integer): Boolean;

@@ -4,8 +4,9 @@ interface
 
 uses
   untBaseDao, System.Generics.Collections, System.Classes, UntConexao,
-  UntClienteDao, UntFornecedorDao, UntNotasDao, UntRelatorioModel,
-  UntClienteModel, UntFornecedorModel, UntNotasModel, ZDataset;
+  UntClienteDao, UntFornecedorDao, UntNotasDao, UntRelatorioPeriodoModel,
+  UntRelatorioMensalModel, UntClienteModel, UntFornecedorModel,
+  UntNotasModel, ZDataset;
 
 type
 
@@ -16,27 +17,57 @@ type
     FNotas: TNotasDao;
   public
     constructor Create(AConexao: TConexao);
-    destructor Destroy();override;
-    function ConsultarCliente(ARelatorio: TRelatorioModel): TZQuery;
-    function ConsultarFornecedor(ARelatorio: TRelatorioModel): TZQuery;
-    function ConsultarNotas(ARelatorio: TRelatorioModel): TZQuery;
+    destructor Destroy(); override;
+    function ConsultarCliente(ARelatorio: TRelatorioPeriodoModel)
+      : TZQuery; overload;
+    function ConsultarCliente(ARelatorio: TRelatorioMensalModel)
+      : TZQuery; overload;
+    function ConsultarFornecedor(ARelatorio: TRelatorioPeriodoModel)
+      : TZQuery; overload;
+    function ConsultarFornecedor(ARelatorio: TRelatorioMensalModel)
+      : TZQuery; overload;
+    function ConsultarNotas(ARelatorio: TRelatorioPeriodoModel)
+      : TZQuery; overload;
+    function ConsultarNotas(ARelatorio: TRelatorioMensalModel)
+      : TZQuery; overload;
   end;
 
 implementation
 
 { TRelatorioDao }
 
-function TRelatorioDao.ConsultarCliente(ARelatorio: TRelatorioModel): TZQuery;
+function TRelatorioDao.ConsultarCliente(ARelatorio
+  : TRelatorioPeriodoModel): TZQuery;
 begin
   Result := FCliente.ListarClientes(ARelatorio);
 end;
 
-function TRelatorioDao.ConsultarFornecedor(ARelatorio: TRelatorioModel): TZQuery;
+function TRelatorioDao.ConsultarFornecedor(ARelatorio
+  : TRelatorioPeriodoModel): TZQuery;
 begin
   Result := FFornecedor.ListarFornecedores(ARelatorio);
 end;
 
-function TRelatorioDao.ConsultarNotas(ARelatorio: TRelatorioModel): TZQuery;
+function TRelatorioDao.ConsultarNotas(ARelatorio
+  : TRelatorioPeriodoModel): TZQuery;
+begin
+  Result := FNotas.ListarNotas(ARelatorio);
+end;
+
+function TRelatorioDao.ConsultarCliente(ARelatorio
+  : TRelatorioMensalModel): TZQuery;
+begin
+  Result := FCliente.ListarClientes(ARelatorio);
+end;
+
+function TRelatorioDao.ConsultarFornecedor(ARelatorio
+  : TRelatorioMensalModel): TZQuery;
+begin
+  Result := FFornecedor.ListarFornecedores(ARelatorio);
+end;
+
+function TRelatorioDao.ConsultarNotas(ARelatorio
+  : TRelatorioMensalModel): TZQuery;
 begin
   Result := FNotas.ListarNotas(ARelatorio);
 end;

@@ -3,8 +3,9 @@ unit UntFornecedorDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntFornecedorModel,
-  UntRelacionamentoContatoModel, UntRelatorioModel, ZDataset, Data.DB,
-  System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao;
+  UntRelacionamentoContatoModel, UntRelatorioPeriodoModel, ZDataset, Data.DB,
+  System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao,
+  UntRelatorioMensalModel;
 
 type
   TFornecedorDao = class(TBaseDao)
@@ -16,7 +17,10 @@ type
     destructor Destroy(); override;
 
     function ListarFornecedores(): TObjectList<TFornecedorModel>; overload;
-    function ListarFornecedores(ARelatorio: TRelatorioModel): TZQuery; overload;
+    function ListarFornecedores(ARelatorio: TRelatorioPeriodoModel)
+      : TZQuery; overload;
+    function ListarFornecedores(ARelatorio: TRelatorioMensalModel)
+      : TZQuery; overload;
     function Consultar(AId: integer): TFornecedorModel; overload;
     function Consultar(ANumeroPessoal: String): TFornecedorModel; overload;
     function ConsultarPorNome(ANome: String): TFornecedorModel;
@@ -296,7 +300,7 @@ begin
   End;
 end;
 
-function TFornecedorDao.ListarFornecedores(ARelatorio: TRelatorioModel)
+function TFornecedorDao.ListarFornecedores(ARelatorio: TRelatorioPeriodoModel)
   : TZQuery;
 var
   sql: string;
@@ -323,5 +327,32 @@ begin
   end;
 
 end;
+
+function TFornecedorDao.ListarFornecedores(ARelatorio: TRelatorioMensalModel)
+  : TZQuery;
+var
+  sql: string;
+begin
+
+  sql := 'select case when f.cpf = "0" then ' +
+    'f.cnpj else f.cpf end as "CPF/CNPJ", Nome, CEP, Rua, Bairro,' +
+    ' Cidade, Numero as "Número", Complemento, Email as "E-Mail", Telefone' +
+    ' from fornecedor as f, notas as n, contato as ct, email as e, telefone as t,'
+    + ' relacionamentocontato as r where f.id = ct.id and f.id = r.idrelacionado '
+    + ' and f.id = n.idFornecedor and e.idContato = ct.id and t.idcontato = ct.id and'
+    + ' n.idUsuario = :id and month(emissao) = :Mes :ordem';
+
+  Result := CreateQuery(sql);
+  try
+    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('Mes').AsString := (intTOstr(ARelatorio.Mes));
+    Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
+  except
+    on E: Exception do
+      Showmessage('Não foi possível carregar a lista de fornecedores');
+  end;
+
+end;
+
 
 end.

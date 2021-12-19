@@ -9,6 +9,7 @@ type
 
   TRelacionamentoContatoDao = class(TBaseDao)
   public
+    destructor Destroy; override;
     function Criar(ARelacionamento: TRelacionamentoContatoModel): boolean;
   end;
 
@@ -52,6 +53,11 @@ begin
       query.Free;
   end;
 
+end;
+
+destructor TRelacionamentoContatoDao.Destroy;
+begin
+  inherited;
 end;
 
 end.
