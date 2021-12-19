@@ -9,6 +9,7 @@ type
 
   TEmailDao = class(TBaseDao)
   public
+    destructor Destroy; override;
     function Consultar(AIdContato: integer): TObjectList<TEmailModel>;
     function Criar(AEmail: TEmailModel): Boolean;
     function Alterar(AEmail: TEmailModel): Boolean;
@@ -109,6 +110,11 @@ begin
   Finally
     query.Free;
   End;
+end;
+
+destructor TEmailDao.Destroy;
+begin
+  inherited;
 end;
 
 function TEmailDao.Excluir(AIdContato: integer): Boolean;
