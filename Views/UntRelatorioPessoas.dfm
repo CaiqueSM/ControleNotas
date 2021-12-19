@@ -2,7 +2,7 @@ object frmRelatorioPessoas: TfrmRelatorioPessoas
   Left = 0
   Top = 0
   Caption = 'Relat'#243'rio por per'#237'odo'
-  ClientHeight = 477
+  ClientHeight = 478
   ClientWidth = 778
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -87,7 +87,7 @@ object frmRelatorioPessoas: TfrmRelatorioPessoas
       Left = 38
       Top = 129
       Width = 718
-      Height = 24
+      Height = 20
       BandType = btColumnHeader
       Borders.Sides = sdCustom
       Borders.DrawLeft = False
@@ -109,74 +109,46 @@ object frmRelatorioPessoas: TfrmRelatorioPessoas
         Holder = clNome
       end
       object lbCEP: TRLLabel
-        Left = 139
-        Top = 3
+        Left = 270
+        Top = 1
         Width = 28
         Height = 15
         Caption = 'CEP'
       end
       object lbCidade: TRLLabel
-        Left = 181
+        Left = 440
         Top = 3
         Width = 43
         Height = 15
         Caption = 'Cidade'
       end
       object lbBairro: TRLLabel
-        Left = 238
+        Left = 559
         Top = 3
         Width = 36
         Height = 15
         Caption = 'Bairro'
       end
-      object lbRua: TRLLabel
-        Left = 287
-        Top = 3
-        Width = 26
-        Height = 15
-        Caption = 'Rua'
-      end
       object lbCPFCNPJ: TRLLabel
-        Left = 61
+        Left = 151
         Top = 3
         Width = 62
         Height = 15
         Caption = 'CPF/CNPJ'
       end
       object lbNumero: TRLLabel
-        Left = 325
+        Left = 339
         Top = 3
         Width = 48
         Height = 15
         Caption = 'N'#250'mero'
       end
-      object lbComplemento: TRLLabel
-        Left = 495
-        Top = 3
-        Width = 82
-        Height = 15
-        Caption = 'Complemento'
-      end
-      object lbEmail: TRLLabel
-        Left = 384
-        Top = 3
-        Width = 37
-        Height = 15
-        Caption = 'E-Mail'
-      end
-      object lbTelefone: TRLLabel
-        Left = 432
-        Top = 3
-        Width = 51
-        Height = 15
-        Caption = 'Telefone'
-      end
     end
     object btConteudo: TRLBand
       Left = 38
-      Top = 153
+      Top = 169
       Width = 718
-      Height = 24
+      Height = 26
       Borders.Sides = sdCustom
       Borders.DrawLeft = False
       Borders.DrawTop = False
@@ -187,60 +159,27 @@ object frmRelatorioPessoas: TfrmRelatorioPessoas
         Top = 2
         Width = 48
         Height = 16
-        Holder = clNome
-        Text = ''
-      end
-      object clTelefone: TRLDBText
-        Left = 427
-        Top = 2
-        Width = 62
-        Height = 16
-        Alignment = taCenter
-        Holder = lbTelefone
+        Holder = lbNome
         Text = ''
       end
       object clBairro: TRLDBText
-        Left = 232
-        Top = 2
+        Left = 559
+        Top = 3
         Width = 48
         Height = 16
-        Alignment = taCenter
         Holder = lbBairro
         Text = ''
       end
-      object clRua: TRLDBText
-        Left = 287
-        Top = 2
-        Width = 37
-        Height = 16
-        Borders.Sides = sdCustom
-        Borders.DrawLeft = False
-        Borders.DrawTop = False
-        Borders.DrawRight = False
-        Borders.DrawBottom = False
-        Holder = lbRua
-        Text = ''
-      end
-      object clEmail: TRLDBText
-        Left = 381
-        Top = 2
-        Width = 48
-        Height = 16
-        Alignment = taCenter
-        Holder = clEmail
-        Text = ''
-      end
       object clNumero: TRLDBText
-        Left = 319
+        Left = 339
         Top = 2
-        Width = 60
+        Width = 59
         Height = 16
-        Alignment = taCenter
         Holder = lbNumero
         Text = ''
       end
       object clCPFCNPJ: TRLDBText
-        Left = 61
+        Left = 151
         Top = 2
         Width = 73
         Height = 16
@@ -248,7 +187,7 @@ object frmRelatorioPessoas: TfrmRelatorioPessoas
         Text = ''
       end
       object clCEP: TRLDBText
-        Left = 139
+        Left = 270
         Top = 2
         Width = 41
         Height = 16
@@ -256,27 +195,20 @@ object frmRelatorioPessoas: TfrmRelatorioPessoas
         Text = ''
       end
       object clCidade: TRLDBText
-        Left = 181
-        Top = 2
+        Left = 440
+        Top = 3
         Width = 54
         Height = 16
         Holder = lbCidade
         Text = ''
       end
-      object clComplemento: TRLDBText
-        Left = 495
-        Top = 2
-        Width = 94
-        Height = 16
-        Holder = lbComplemento
-        Text = ''
-      end
     end
     object btRodape: TRLBand
       Left = 38
-      Top = 177
+      Top = 221
       Width = 718
-      Height = 16
+      Height = 21
+      AlignToBottom = True
       BandType = btFooter
     end
     object btTitulo: TRLBand
@@ -318,6 +250,94 @@ object frmRelatorioPessoas: TfrmRelatorioPessoas
         Font.Name = 'Segoe UI'
         Font.Style = []
         ParentFont = False
+      end
+    end
+    object RLBand1: TRLBand
+      Left = 38
+      Top = 149
+      Width = 718
+      Height = 20
+      BandType = btColumnHeader
+      Borders.Sides = sdCustom
+      Borders.DrawLeft = False
+      Borders.DrawTop = False
+      Borders.DrawRight = False
+      Borders.DrawBottom = True
+      object lbTelefone: TRLLabel
+        Left = 151
+        Top = 2
+        Width = 51
+        Height = 15
+        Caption = 'Telefone'
+      end
+      object lbComplemento: TRLLabel
+        Left = 440
+        Top = 2
+        Width = 82
+        Height = 15
+        Caption = 'Complemento'
+      end
+      object lbEmail: TRLLabel
+        Left = 270
+        Top = 2
+        Width = 37
+        Height = 15
+        Caption = 'E-Mail'
+      end
+      object lbRua: TRLLabel
+        Left = 3
+        Top = 2
+        Width = 26
+        Height = 15
+        Caption = 'Rua'
+      end
+    end
+    object RLBand2: TRLBand
+      Left = 38
+      Top = 195
+      Width = 718
+      Height = 26
+      Borders.Sides = sdCustom
+      Borders.DrawLeft = False
+      Borders.DrawTop = False
+      Borders.DrawRight = False
+      Borders.DrawBottom = True
+      object clRua: TRLDBText
+        Left = 3
+        Top = 1
+        Width = 37
+        Height = 16
+        Borders.Sides = sdCustom
+        Borders.DrawLeft = False
+        Borders.DrawTop = False
+        Borders.DrawRight = False
+        Borders.DrawBottom = False
+        Holder = lbRua
+        Text = ''
+      end
+      object clTelefone: TRLDBText
+        Left = 151
+        Top = 1
+        Width = 62
+        Height = 16
+        Holder = lbTelefone
+        Text = ''
+      end
+      object clEmail: TRLDBText
+        Left = 270
+        Top = 1
+        Width = 47
+        Height = 16
+        Holder = lbEmail
+        Text = ''
+      end
+      object clComplemento: TRLDBText
+        Left = 440
+        Top = 1
+        Width = 94
+        Height = 16
+        Holder = lbComplemento
+        Text = ''
       end
     end
   end
