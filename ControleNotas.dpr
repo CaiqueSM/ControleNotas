@@ -63,7 +63,11 @@ uses
   UntRelatorioPeriodoController in 'Controller\UntRelatorioPeriodoController.pas',
   UntValidarData in 'Controller\Validacao\UntValidarData.pas',
   UntRelatorioNotas in 'Views\UntRelatorioNotas.pas' {frmRelatorioNotas},
-  UntRelatorioPessoas in 'Views\UntRelatorioPessoas.pas' {frmRelatorioPessoas};
+  UntRelatorioPessoas in 'Views\UntRelatorioPessoas.pas' {frmRelatorioPessoas},
+  UntRelatorioMensal in 'Views\UntRelatorioMensal.pas' {frmRelatorioMensal},
+  UntRelatorioPeriodoModel in 'Model\UntRelatorioPeriodoModel.pas',
+  UntRelatorioMensalModel in 'Model\UntRelatorioMensalModel.pas',
+  UntRelatorioMensalController in 'Controller\UntRelatorioMensalController.pas';
 
 {$R *.res}
 
