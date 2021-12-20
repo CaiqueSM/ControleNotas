@@ -280,11 +280,16 @@ begin
   Result := TObjectList<TNotasModel>.Create;
 
   sql := 'select * from notas where idUsuario = :idUsuario order by id asc';
-  query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
   query := CreateQuery(sql);
+  query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
   Try
     Try
       query.Open();
+      if Query.IsEmpty then
+      begin
+        Result := nil;
+        exit();
+      end;
       while not query.Eof do
       begin
         with Nota do

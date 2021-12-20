@@ -1,6 +1,7 @@
 unit UntConsultaNotasController;
 
 interface
+
 uses UntBaseController, System.Generics.Collections, UntNotasModel,
   UntNotasDao, System.Classes, SysUtils;
 
@@ -38,6 +39,11 @@ var
 begin
   Result := TStringList.Create();
   Notas := FDao.ListarNotas();
+  if Notas = nil then
+  begin
+    Result := nil;
+    exit();
+  end;
   Try
     For Nota In Notas Do
       Result.Add(Nota.Chave);
