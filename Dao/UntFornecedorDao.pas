@@ -241,7 +241,7 @@ var
 begin
   Result := True;
 
-  sql := 'delete from Fornecedor ' + ' where id = :id';
+  sql := 'delete from Fornecedor where id = :id';
 
   query := CreateQuery(sql);
   Try
