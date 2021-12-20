@@ -71,6 +71,11 @@ var
 begin
   coluna := 0;
   nomesFornecedorView := FController.ListarNomesFornecedores();
+  if nomesFornecedorView = nil then
+  begin
+    ShowMessage('Não há fornecedores cadastradas.');
+    exit();
+  end;
   Try
     linha := 0;
     for nome in nomesFornecedorView do

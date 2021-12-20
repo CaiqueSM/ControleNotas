@@ -40,6 +40,5 @@ object frmConsultaFornecedorView: TfrmConsultaFornecedorView
     TabOrder = 0
     OnDblClick = gridFornecedorViewDblClick
     OnKeyPress = gridFornecedorViewKeyPress
-    ExplicitTop = -20
   end
 end
