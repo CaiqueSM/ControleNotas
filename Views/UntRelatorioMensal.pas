@@ -33,6 +33,7 @@ type
     function validarCampos(ACampo: TObject): boolean;
     function gerarRelatorio(ARelatorio: TRelatorioMensalModel): TZQuery;
     procedure limparCampos();
+    procedure DimensionarGrid(dbg: TDBGrid);
   end;
 
 var
@@ -56,6 +57,11 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
+     if Query.IsEmpty then
+    begin
+      ShowMessage('Nenhum resultado encontrado.');
+      exit();
+    end;
     DBResultado.DataSource := TDataSource.Create(self);
     DBResultado.DataSource.DataSet := Query;
     DBResultado.DataSource.DataSet.Open;
@@ -74,6 +80,11 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
+     if Query.IsEmpty then
+    begin
+      ShowMessage('Nenhum resultado encontrado.');
+      exit();
+    end;
     if Relatorio.Tipo = 'Notas fiscais' then
     begin
       frmRelatorioNotas := TfrmRelatorioNotas.Create(self);
@@ -202,6 +213,18 @@ begin
   end;
 
   Result := True;
+end;
+
+procedure TfrmRelatorioMensal.DimensionarGrid(dbg: TDBGrid);
+var
+  i, j: integer;
+  s: string;
+begin
+  for j := 1 to dbg.Columns.Count - 1 do
+  begin
+    s := dbg.DataSource.DataSet.Fields[j].AsString;
+    dbg.Columns[j].width := dbg.Canvas.TextWidth(s)*2;
+  end;
 end;
 
 end.
