@@ -279,6 +279,11 @@ begin
   Try
     Try
       query.Open();
+      if query.IsEmpty then
+      begin
+        result := nil;
+        exit();
+      end;
       while Not query.Eof do
       Begin
         cliente := TClienteModel.Create();

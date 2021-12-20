@@ -39,6 +39,11 @@ var
 begin
   Result := TStringList.Create();
   Clientes := FDao.ListarClientes();
+  if Clientes = nil then
+  begin
+    Result:= nil;
+    exit();
+  end;
   Try
     For Cliente In Clientes Do
       Result.Add(Cliente.nome);
