@@ -321,7 +321,11 @@ begin
                 If (cliente.Contatos.First.Telefones.Count > nenhum) Then
                   mskTelefone.Text :=
                     cliente.Contatos.First.Telefones.First.telefone;
-              End;
+              End
+              else
+              begin
+                ShowMessage('Nenhum resultado encontrado para este usuário.');
+              end;
             end;
           Except
             Result := False;

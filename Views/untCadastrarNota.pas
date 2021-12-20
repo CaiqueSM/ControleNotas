@@ -112,7 +112,12 @@ begin
 
               if not Notas.Descricao.IsEmpty then
                 memoDescricao.Text := Notas.Descricao;
+            end
+            else
+            begin
+              ShowMessage('Nenhum resultado encontrado para este usuário.');
             end;
+
           Except
             Result := False;
           End;
@@ -243,7 +248,7 @@ begin
   txtChaveAcesso.Clear;
   txtControle.Clear;
   txtValor.Clear;
-  mskEmissao.text := 'dd/mm/aaaa';
+  mskEmissao.Text := 'dd/mm/aaaa';
   txtCNPJCPFCliente.Clear;
   txtCNPJCPFfornecedor.Clear;
   memoDescricao.Clear;
@@ -374,9 +379,9 @@ begin
 
   if (mskEmissao = ACampo) or (ACampo = todosCampos) then
   begin
-    if not(mskEmissao.Text = padraoData) then
+    if not(mskEmissao.Text = PadraoData) then
     begin
-      if not Fcontroller.ValidarData(mskEmissao.Text) then
+      if not FController.ValidarData(mskEmissao.Text) then
       begin
         ShowMessage('Data inicial invalida.');
         if mskEmissao.CanFocus then
@@ -384,9 +389,10 @@ begin
         Exit();
       end;
     end
-    else begin
+    else
+    begin
       ShowMessage('A data inicial não pode estar vazia.');
-      exit();
+      Exit();
     end;
   end;
 
