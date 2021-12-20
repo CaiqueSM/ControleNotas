@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, ZDataset, UntRelatorioNotas,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Mask,
-  UntRelatorioPeriodoModel, UntRelatorioPeriodoController, UntEnvironment, Data.DB,
+  UntRelatorioPeriodoModel, UntRelatorioPeriodoController, UntEnvironment,
+  Data.DB,
   Vcl.Grids, Vcl.DBGrids, UntRelatorioPessoas;
 
 type
@@ -37,6 +38,7 @@ type
     function validarCampos(ACampo: TObject): boolean;
     function gerarRelatorio(ARelatorio: TRelatorioPeriodoModel): TZQuery;
     procedure limparCampos();
+    procedure DimensionarGrid(dbg: TDBGrid);
   end;
 
 var
@@ -60,9 +62,15 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
+    if Query.IsEmpty then
+    begin
+      ShowMessage('Nenhum resultado encontrado.');
+     exit();
+    end;
     DBResultado.DataSource := TDataSource.Create(self);
     DBResultado.DataSource.DataSet := Query;
-    Query.Open;
+    DBResultado.DataSource.DataSet.Open;
+    DimensionarGrid(DBResultado);
   end;
 
   if Assigned(Relatorio) then
@@ -78,6 +86,11 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
+     if Query.IsEmpty then
+    begin
+      ShowMessage('Nenhum resultado encontrado.');
+      exit();
+    end;
     if Relatorio.Tipo = 'Notas fiscais' then
     begin
       frmRelatorioNotas := TfrmRelatorioNotas.Create(self);
@@ -86,16 +99,17 @@ begin
         mskTermino.Text;
       frmRelatorioNotas.FormShow(self);
     end
-    else begin
+    else
+    begin
       frmRelatorioPessoas := TfrmRelatorioPessoas.Create(self);
-      frmRelatorioPessoas.Caption := 'Relatório de '+ Relatorio.Tipo +
-      ' por período.';
+      frmRelatorioPessoas.Caption := 'Relatório de ' + Relatorio.Tipo +
+        ' por período.';
       frmRelatorioPessoas.lbPeriodo.Caption := mskInicio.Text + ' até ' +
-      mskTermino.Text;
-      frmRelatorioPessoas.lbCabecalhoRelatorio.Caption:= 'Relatório ' +
-      Relatorio.Tipo;
-      frmRelatorioPessoas.lbTituloRelatorio.Caption := 'Relatório de '+
-      Relatorio.Tipo + ' por período.';
+        mskTermino.Text;
+      frmRelatorioPessoas.lbCabecalhoRelatorio.Caption := 'Relatório ' +
+        Relatorio.Tipo;
+      frmRelatorioPessoas.lbTituloRelatorio.Caption := 'Relatório de ' +
+        Relatorio.Tipo + ' por período.';
       frmRelatorioPessoas.Query := Query;
       frmRelatorioPessoas.FormShow(self);
     end;
@@ -103,6 +117,18 @@ begin
 
   if Assigned(Relatorio) then
     Relatorio.Free;
+end;
+
+procedure TfrmRelatorioPeriodo.DimensionarGrid(dbg: TDBGrid);
+var
+  i, j: integer;
+  s: string;
+begin
+  for j := 1 to dbg.Columns.Count - 1 do
+  begin
+    s := dbg.DataSource.DataSet.Fields[j].AsString;
+    dbg.Columns[j].width := dbg.Canvas.TextWidth(s)*2;
+  end;
 end;
 
 procedure TfrmRelatorioPeriodo.FormClose(Sender: TObject;

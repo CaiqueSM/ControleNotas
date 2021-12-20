@@ -7,7 +7,7 @@ uses
   untBaseDao, UntUsuarioController, UntClienteController,
   UntFornecedorController, ZDataset, UntRelatorioPeriodoModel,
   UntRelatorioMensalModel, System.Generics.Collections, UntNotasModel,
-  System.Classes, UntConexao, Data.DB;
+  System.Classes, UntConexao, UntEnvironment, Data.DB;
 
 type
 
@@ -83,10 +83,11 @@ var
   sql: String;
 begin
   Result := nil;
-  sql := 'select * from Notas where id = :id ';
+  sql := 'select * from Notas where id = :id and idUsuario = :idUsuario';
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AIdNotas;
+    query.ParamByName('idUsuario').AsInteger := Global.idUsuario;
     query.Open();
     if query.IsEmpty then
     begin
@@ -278,8 +279,8 @@ var
 begin
   Result := TObjectList<TNotasModel>.Create;
 
-  sql := 'select * from notas order by id asc';
-
+  sql := 'select * from notas where idUsuario = :idUsuario order by id asc';
+  query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
   query := CreateQuery(sql);
   Try
     Try
@@ -321,11 +322,12 @@ var
 begin
   Result := True;
 
-  sql := 'delete from Notas where id = :id';
+  sql := 'delete from Notas where id = :id and idUsuario = :idUsuario';
 
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AIdNotas;
+    query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
     Try
       query.ExecSQL();
       Conexao.Database.Commit;

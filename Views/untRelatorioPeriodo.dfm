@@ -130,11 +130,13 @@ object frmRelatorioPeriodo: TfrmRelatorioPeriodo
       Top = 16
       Width = 410
       Height = 103
+      Hint = 'Pr'#233'-visualiza'#231#227'o dos resultados.'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
       ParentFont = False
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET

@@ -30,7 +30,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 0
+    TabOrder = 2
     OnClick = btnCancelarClick
   end
   object btnGerar: TButton
@@ -45,7 +45,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 4
     OnClick = btnGerarClick
   end
   object btnImprimir: TButton
@@ -60,7 +60,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 5
     OnClick = btnImprimirClick
   end
   object rgOrdenar: TRadioGroup
@@ -79,7 +79,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
       'Frequ'#234'ncia'
       'Valores')
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 1
   end
   object rgRelatorio: TRadioGroup
     Left = 5
@@ -97,7 +97,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
       'Fornecedores'
       'Notas fiscais')
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 0
   end
   object gbResultado: TGroupBox
     Left = 5
@@ -111,7 +111,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 6
     object DBResultado: TDBGrid
       Left = 5
       Top = 16
@@ -122,6 +122,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
       Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentFont = False
       TabOrder = 0
       TitleFont.Charset = ANSI_CHARSET
@@ -143,7 +144,7 @@ object frmRelatorioMensal: TfrmRelatorioMensal
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 3
     object lbMes: TLabel
       Left = 7
       Top = 31
@@ -156,8 +157,9 @@ object frmRelatorioMensal: TfrmRelatorioMensal
       Top = 47
       Width = 145
       Height = 23
+      Hint = 'Meses'
+      Style = csDropDownList
       TabOrder = 0
-      Text = '...'
       Items.Strings = (
         'Janeiro'
         'Fevereiro'
