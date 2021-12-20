@@ -72,6 +72,11 @@ var
 begin
   coluna := 0;
   nomesClienteView := FController.ListarNomesClientes();
+  if nomesClienteView = nil then
+  begin
+    ShowMessage('Não há clientes cadastrados.');
+    exit();
+  end;
   Try
     linha := 0;
     for nome in nomesClienteView do
