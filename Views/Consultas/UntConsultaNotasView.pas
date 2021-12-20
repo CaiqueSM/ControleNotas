@@ -71,9 +71,14 @@ var
   coluna, linha: Integer;
   tamanhoCaracter: Integer;
 begin
-  tamanhoCaracter:= 8;
+  tamanhoCaracter := 8;
   coluna := 0;
   chavesNotasView := FController.ListarNotas();
+  if chavesNotasView = nil then
+  begin
+    ShowMessage('Não há notas cadastradas.');
+    exit();
+  end;
   gridNotasView.DefaultColWidth := length(chavesNotasView[0]) * tamanhoCaracter;
   Try
     linha := 0;
@@ -87,7 +92,5 @@ begin
     chavesNotasView.Free;
   End;
 end;
-
-
 
 end.
