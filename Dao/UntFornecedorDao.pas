@@ -280,6 +280,11 @@ begin
   Try
     Try
       query.Open();
+      if query.IsEmpty then
+      begin
+        Result := nil;
+        exit();
+      end;
       while Not query.Eof do
       Begin
         Fornecedor := TFornecedorModel.Create();
