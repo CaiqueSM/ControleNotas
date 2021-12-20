@@ -39,6 +39,11 @@ var
 begin
   Result := TStringList.Create();
   Fornecedores := FDao.ListarFornecedores();
+  if fornecedores = nil then
+  begin
+    result := nil;
+    exit();
+  end;
   Try
     For Fornecedor In Fornecedores Do
       Result.Add(Fornecedor.nome);
