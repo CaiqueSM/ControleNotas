@@ -57,15 +57,20 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
-     if Query.IsEmpty then
+    Query.Open;
+    if Query.IsEmpty then
     begin
       ShowMessage('Nenhum resultado encontrado.');
+      Query.Close;
       exit();
     end;
     DBResultado.DataSource := TDataSource.Create(self);
     DBResultado.DataSource.DataSet := Query;
     DBResultado.DataSource.DataSet.Open;
-  end;
+    DimensionarGrid(DBResultado);
+  end
+  else
+    exit();
 
   if Assigned(Relatorio) then
     Relatorio.Free;
@@ -80,17 +85,19 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
-     if Query.IsEmpty then
+    Query.Open;
+    if Query.IsEmpty then
     begin
       ShowMessage('Nenhum resultado encontrado.');
+      Query.Close;
       exit();
     end;
     if Relatorio.Tipo = 'Notas fiscais' then
     begin
       frmRelatorioNotas := TfrmRelatorioNotas.Create(self);
       frmRelatorioNotas.Query := Query;
-      frmRelatorioNotas.lbPeriodo.Caption := 'Mês de ' +
-      cbMeses.items[cbMeses.ItemIndex];
+      frmRelatorioNotas.lbPeriodo.Caption := 'Mês de ' + cbMeses.items
+        [cbMeses.ItemIndex];
       frmRelatorioNotas.FormShow(self);
     end
     else
@@ -98,8 +105,8 @@ begin
       frmRelatorioPessoas := TfrmRelatorioPessoas.Create(self);
       frmRelatorioPessoas.Caption := 'Relatório de ' + Relatorio.Tipo +
         ' por mês.';
-      frmRelatorioPessoas.lbPeriodo.Caption := 'Mês de ' +
-      cbMeses.items[cbMeses.ItemIndex];
+      frmRelatorioPessoas.lbPeriodo.Caption := 'Mês de ' + cbMeses.items
+        [cbMeses.ItemIndex];
       frmRelatorioPessoas.lbCabecalhoRelatorio.Caption := 'Relatório ' +
         Relatorio.Tipo;
       frmRelatorioPessoas.lbTituloRelatorio.Caption := 'Relatório de ' +
@@ -107,7 +114,9 @@ begin
       frmRelatorioPessoas.Query := Query;
       frmRelatorioPessoas.FormShow(self);
     end;
-  end;
+  end
+  else
+    exit();
 
   if Assigned(Relatorio) then
     Relatorio.Free;
@@ -170,25 +179,14 @@ function TfrmRelatorioMensal.serializarRelatorio: TRelatorioMensalModel;
 begin
   Result := TRelatorioMensalModel.Create;
   Result.IdUsuario := Global.IdUsuario;
-  Result.Tipo := rgRelatorio.Items[rgRelatorio.ItemIndex];
-  Result.Ordem := rgOrdenar.Items[rgOrdenar.ItemIndex];
-  Result.Mes := cbMeses.itemIndex + 1;
+  Result.Tipo := rgRelatorio.items[rgRelatorio.ItemIndex];
+  Result.Ordem := rgOrdenar.items[rgOrdenar.ItemIndex];
+  Result.Mes := cbMeses.ItemIndex + 1;
 end;
 
 function TfrmRelatorioMensal.validarCampos(ACampo: TObject): boolean;
 begin
   Result := False;
-
-  if (cbMeses = ACampo) or (ACampo = todosCampos) then
-  begin
-    if cbMeses.ItemIndex = -1 then
-    begin
-      ShowMessage('Selecione um mês.');
-      if cbMeses.CanFocus then
-        cbMeses.SetFocus;
-      Exit();
-    end;
-  end;
 
   if (rgRelatorio = ACampo) or (ACampo = todosCampos) then
   begin
@@ -197,7 +195,7 @@ begin
       ShowMessage('Selecione um relatório.');
       if rgRelatorio.CanFocus then
         rgRelatorio.SetFocus;
-      Exit();
+      exit();
     end;
   end;
 
@@ -205,10 +203,21 @@ begin
   begin
     if rgOrdenar.ItemIndex = -1 then
     begin
-      ShowMessage('Defina a oredem de ordenação dos dados.');
+      ShowMessage('Defina a ordenação dos dados.');
       if rgOrdenar.CanFocus then
         rgOrdenar.SetFocus;
-      Exit();
+      exit();
+    end;
+  end;
+
+  if (cbMeses = ACampo) or (ACampo = todosCampos) then
+  begin
+    if cbMeses.ItemIndex = -1 then
+    begin
+      ShowMessage('Selecione um mês.');
+      if cbMeses.CanFocus then
+        cbMeses.SetFocus;
+      exit();
     end;
   end;
 
@@ -217,13 +226,13 @@ end;
 
 procedure TfrmRelatorioMensal.DimensionarGrid(dbg: TDBGrid);
 var
-  i, j: integer;
+  j: integer;
   s: string;
 begin
   for j := 1 to dbg.Columns.Count - 1 do
   begin
     s := dbg.DataSource.DataSet.Fields[j].AsString;
-    dbg.Columns[j].width := dbg.Canvas.TextWidth(s)*2;
+    dbg.Columns[j].width := dbg.Canvas.TextWidth(s) * 2;
   end;
 end;
 

@@ -62,16 +62,20 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
+    Query.Open;
     if Query.IsEmpty then
     begin
       ShowMessage('Nenhum resultado encontrado.');
-     exit();
+      Query.Close;
+      exit();
     end;
     DBResultado.DataSource := TDataSource.Create(self);
     DBResultado.DataSource.DataSet := Query;
     DBResultado.DataSource.DataSet.Open;
     DimensionarGrid(DBResultado);
-  end;
+  end
+  else
+    exit();
 
   if Assigned(Relatorio) then
     Relatorio.Free;
@@ -86,9 +90,11 @@ begin
   begin
     Relatorio := serializarRelatorio();
     Query := gerarRelatorio(Relatorio);
-     if Query.IsEmpty then
+    Query.Open;
+    if Query.IsEmpty then
     begin
       ShowMessage('Nenhum resultado encontrado.');
+      Query.Close;
       exit();
     end;
     if Relatorio.Tipo = 'Notas fiscais' then
@@ -113,7 +119,9 @@ begin
       frmRelatorioPessoas.Query := Query;
       frmRelatorioPessoas.FormShow(self);
     end;
-  end;
+  end
+  else
+    exit();
 
   if Assigned(Relatorio) then
     Relatorio.Free;
@@ -121,13 +129,13 @@ end;
 
 procedure TfrmRelatorioPeriodo.DimensionarGrid(dbg: TDBGrid);
 var
-  i, j: integer;
+  j: integer;
   s: string;
 begin
   for j := 1 to dbg.Columns.Count - 1 do
   begin
     s := dbg.DataSource.DataSet.Fields[j].AsString;
-    dbg.Columns[j].width := dbg.Canvas.TextWidth(s)*2;
+    dbg.Columns[j].width := dbg.Canvas.TextWidth(s) * 2;
   end;
 end;
 
@@ -229,13 +237,13 @@ begin
         ShowMessage('Data inicial invalida.');
         if mskInicio.CanFocus then
           mskInicio.SetFocus;
-        Exit();
+        exit();
       end;
     end
     else
     begin
       ShowMessage('A data inicial não pode estar vazia.');
-      Exit();
+      exit();
     end;
   end;
 
@@ -248,13 +256,13 @@ begin
         ShowMessage('Data final invalida.');
         if mskTermino.CanFocus then
           mskTermino.SetFocus;
-        Exit();
+        exit();
       end;
     end
     else
     begin
       ShowMessage('A data final não pode estar vazia.');
-      Exit();
+      exit();
     end;
   end;
 
@@ -269,7 +277,7 @@ begin
       ShowMessage('Selecione um relatório.');
       if rgRelatorio.CanFocus then
         rgRelatorio.SetFocus;
-      Exit();
+      exit();
     end;
   end;
 
@@ -277,10 +285,10 @@ begin
   begin
     if rgOrdenar.ItemIndex = -1 then
     begin
-      ShowMessage('Defina a oredem de ordenação dos dados.');
+      ShowMessage('Defina a ordenação dos dados.');
       if rgOrdenar.CanFocus then
         rgOrdenar.SetFocus;
-      Exit();
+      exit();
     end;
   end;
 
