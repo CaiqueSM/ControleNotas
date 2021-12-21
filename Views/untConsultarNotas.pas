@@ -79,7 +79,7 @@ begin
 
   if (Trim(txtChaveAcesso.Text) = EmptyStr) then
   begin
-    ShowMessage('Favor preencher o campo de chave de acesso!');
+    ShowMessage('Por favor preencher o campo de chave de acesso!');
     if txtChaveAcesso.CanFocus then
       txtChaveAcesso.SetFocus;
     Exit();
