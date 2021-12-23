@@ -7,10 +7,12 @@ type
   TRelacionamentoContatoModel = class
   private
     FidContato: integer;
-    FidRelacionado: integer;
+    FidCliente: integer;
+    FidFornecedor: integer;
   public
     property idContato: integer read FidContato write FidContato;
-    property idRelacionado: integer read FidRelacionado write FidRelacionado;
+    property idCliente: integer read FidCliente write FidCliente;
+    property idFornecedor: integer read FidFornecedor write FidFornecedor;
   end;
 
 implementation
