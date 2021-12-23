@@ -134,7 +134,6 @@ begin
   end;
 
   contato := TContatoModel.Create();
-  contato.Id := Result.Id;
   contato.CEP := mskCEP.Text;
   contato.Cidade := txtCidade.Text;
   contato.Bairro := txtBairro.Text;
@@ -143,11 +142,9 @@ begin
   contato.Complemento := txtComplemento.Text;
 
   email := TEmailModel.Create();
-  email.IdContato := contato.Id;
   email.email := txtEmail.Text;
 
   telefone := TTelefoneModel.Create();
-  telefone.IdContato := contato.Id;
   telefone.telefone := mskTelefone.Text;
 
   contato.Emails.Add(email);
@@ -321,11 +318,7 @@ begin
                 If (cliente.Contatos.First.Telefones.Count > nenhum) Then
                   mskTelefone.Text :=
                     cliente.Contatos.First.Telefones.First.telefone;
-              End
-              else
-              begin
-                ShowMessage('Nenhum resultado encontrado para este usuário.');
-              end;
+              End;
             end;
           Except
             Result := False;

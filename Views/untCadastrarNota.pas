@@ -112,12 +112,7 @@ begin
 
               if not Notas.Descricao.IsEmpty then
                 memoDescricao.Text := Notas.Descricao;
-            end
-            else
-            begin
-              ShowMessage('Nenhum resultado encontrado para este usuário.');
             end;
-
           Except
             Result := False;
           End;
