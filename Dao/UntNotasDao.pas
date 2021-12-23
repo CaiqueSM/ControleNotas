@@ -48,12 +48,13 @@ begin
     ' Set idCliente = :idCliente, idFornecedor = :idFornecedor,' +
     ' chaveacesso = :chaveacesso, controle = :controle,' +
     ' descricao = :descricao, valor = :valor, emissao = :emissao' +
-    ' where id = :id';
+    ' where id = :id and idUsuario = :idUsuario';
   query := CreateQuery(sql);
 
   Try
     query.ParamByName('id').AsInteger := ANotas.Id;
     query.ParamByName('idCliente').AsInteger := ANotas.Cliente.Id;
+    query.ParamByName('idUsuario').AsInteger := Global.idUsuario;
     query.ParamByName('idFornecedor').AsInteger := ANotas.Fornecedor.Id;
     query.ParamByName('chaveacesso').AsString := ANotas.Chave;
     query.ParamByName('controle').AsInteger := ANotas.Controle;
@@ -126,10 +127,11 @@ var
   sql: String;
 begin
   Result := nil;
-  sql := 'select * from Notas where chaveacesso = :chaveacesso ';
+  sql := 'select * from Notas where chaveacesso = :chaveacesso and idUsuario = :idUsuario';
   query := CreateQuery(sql);
   Try
     query.ParamByName('chaveacesso').AsString := AChaveAcesso;
+    query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
     query.Open();
     if query.IsEmpty then
     begin
@@ -288,6 +290,8 @@ begin
       if Query.IsEmpty then
       begin
         Result := nil;
+        query.Close;
+        query.Free;
         exit();
       end;
       while not query.Eof do
@@ -356,11 +360,12 @@ var
 begin
   Result := True;
 
-  sql := 'delete from Notas where chaveacesso = :chave';
+  sql := 'delete from Notas where chaveacesso = :chave and idUsuario = :idUsuario';
 
   query := CreateQuery(sql);
   Try
     query.ParamByName('chave').AsString := AChaveAcesso;
+    query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
     Try
       query.ExecSQL();
       Conexao.Database.Commit;
