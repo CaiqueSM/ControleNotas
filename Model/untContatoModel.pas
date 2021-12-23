@@ -11,8 +11,6 @@ type
   TContatoModel = class
   private
     FId: integer;
-    FidCliente: integer;
-    FidFornecedor: integer;
     FCEP: string;
     FRua: string;
     FBairro: string;
@@ -35,8 +33,6 @@ type
     destructor Destroy(); override;
 
     property Id: integer read FId write FId;
-    property IdCliente: integer read FidCliente write FidCliente;
-    property IdFornecedor: integer read FidFornecedor write FidFornecedor;
     property CEP: string read FCEP write SetCEP;
     property Rua: string read FRua write SetRua;
     property Cidade: string read FCidade write SetCidade;
@@ -63,7 +59,7 @@ begin
   If Assigned(FTelefones) Then
     FreeAndNil(FTelefones);
   If Assigned(FEmails) Then
-    FEmails.Free;
+    FreeAndNil(FEmails);
   inherited;
 end;
 
