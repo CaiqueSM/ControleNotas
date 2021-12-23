@@ -42,7 +42,7 @@ FOREIGN KEY(idFornecedor) REFERENCES fornecedor(id) ON DELETE cascade
 );
 
 create table if not EXISTS contato(
-id integer,
+id integer NOT NULL AUTO_INCREMENT,
 CEP VARCHAR(9) NOT NULL,
 rua VARCHAR(80) NOT NULL,
 bairro VARCHAR(32),
@@ -55,13 +55,14 @@ PRIMARY KEY(id)
 create table if not EXISTS relacionamentocontato(
 id integer NOT NULL AUTO_INCREMENT,
 idContato integer,
-idRelacionado integer NOT NULL,
+idCliente integer,
+idFornecedor integer,
 PRIMARY KEY(id),
 FOREIGN KEY(idContato) REFERENCES contato(id) ON DELETE cascade
 );
 
 create table if not EXISTS email(
-id INTEGER AUTO_INCREMENT,
+id INTEGER NOT NULL AUTO_INCREMENT,
 idContato integer,
 email VARCHAR(64) NOT NULL,
 PRIMARY KEY(id),
@@ -69,7 +70,7 @@ FOREIGN KEY(idContato) REFERENCES contato(id) ON DELETE cascade
 );
 
 create table if not EXISTS telefone(
-id INTEGER AUTO_INCREMENT,
+id INTEGER NOT NULL AUTO_INCREMENT,
 idContato integer,
 telefone VARCHAR(14) NOT NULL,
 PRIMARY KEY(id),
