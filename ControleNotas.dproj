@@ -142,7 +142,7 @@
             <Form>frmConsultarNotas</Form>
         </DCCReference>
         <DCCReference Include="Model\UntClienteModel.pas"/>
-        <DCCReference Include="Model\UntContatoModel.pas"/>
+        <DCCReference Include="Model\untContatoModel.pas"/>
         <DCCReference Include="Model\UntEmailModel.pas"/>
         <DCCReference Include="Model\UntFornecedorModel.pas"/>
         <DCCReference Include="Model\untNotasModel.pas"/>

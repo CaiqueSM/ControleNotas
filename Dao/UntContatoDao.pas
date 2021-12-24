@@ -4,7 +4,8 @@ interface
 
 uses
   untBaseDao, System.Generics.Collections, UntContatoModel, System.Classes,
-  UntEnumContatoDao, UntEmailDao, UntTelefoneDao, UntConexao;
+  UntEnumContatoDao, UntEmailDao, UntTelefoneDao, UntRelacionamentoContatoDao,
+  UntRelacionamentoContatoModel, UntConexao;
 
 type
 
@@ -12,6 +13,7 @@ type
   private
     FEmailDao: TEmailDao;
     FTelefoneDao: TTelefoneDao;
+    FRelacionamentoDao: TRelacionamentoContatoDao;
   public
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
@@ -39,10 +41,12 @@ begin
   inherited Create(AConexao);
   FEmailDao := TEmailDao.Create(AConexao);
   FTelefoneDao := TTelefoneDao.Create(AConexao);
+  FRelacionamentoDao := TRelacionamentoContatoDao.Create(AConexao);
 end;
 
 destructor TContatoDao.Destroy;
 begin
+  FRelacionamentoDao.Free;
   FEmailDao.Free;
   FTelefoneDao.Free;
   inherited;
@@ -61,13 +65,13 @@ begin
 
   query := CreateQuery(sql);
   Try
-      query.ParamByName('id').AsInteger := AContato.Id;
-      query.ParamByName('bairro').AsString := AContato.Bairro;
-      query.ParamByName('CEP').AsString := AContato.CEP;
-      query.ParamByName('cidade').AsString := AContato.Cidade;
-      query.ParamByName('complemento').AsString := AContato.Complemento;
-      query.ParamByName('numero').AsString := AContato.Numero;
-      query.ParamByName('rua').AsString := AContato.Rua;
+    query.ParamByName('id').AsInteger := AContato.Id;
+    query.ParamByName('bairro').AsString := AContato.Bairro;
+    query.ParamByName('CEP').AsString := AContato.CEP;
+    query.ParamByName('cidade').AsString := AContato.Cidade;
+    query.ParamByName('complemento').AsString := AContato.Complemento;
+    query.ParamByName('numero').AsString := AContato.Numero;
+    query.ParamByName('rua').AsString := AContato.Rua;
     Try
       query.ExecSQL();
       Conexao.Database.Commit;
@@ -93,9 +97,9 @@ var
 begin
   Result := TObjectList<TContatoModel>.Create();
 
-  sql := 'select c.id, cep, rua, bairro, cidade, numero, complemento, cl.id as IdCliente'
-    + ' from contato as c, relacionamentocontato as r, cliente as cl' +
-    ' where (c.id = :idcontato) and (r.idrelacionado = :id)';
+  sql := 'select c.id, cep, rua, bairro, cidade, numero, complemento' +
+    ' from contato as c, relacionamentocontato as r' +
+    ' where r.idContato = :idcontato and r.idCliente = :id and r.idContato = c.id';
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AIdCliente;
@@ -106,7 +110,6 @@ begin
       Begin
         contato := TContatoModel.Create();
         contato.Id := query.FieldByName('id').AsInteger;
-        contato.IdCliente := query.FieldByName('IdCliente').AsInteger;
         contato.CEP := Trim(query.FieldByName('CEP').AsString);
         contato.Rua := Trim(query.FieldByName('rua').AsString);
         contato.Cidade := Trim(query.FieldByName('cidade').AsString);
@@ -138,9 +141,9 @@ var
 begin
   Result := TObjectList<TContatoModel>.Create();
 
-  sql := 'select c.id, cep, rua, bairro, cidade, numero, complemento, f.id as IdFornecedor'
-    + ' from contato as c, relacionamentocontato as r, fornecedor as f' +
-    ' where (c.id = :idcontato) and (r.idrelacionado = :id)';
+  sql := 'select c.id, cep, rua, bairro, cidade, numero, complemento' +
+    ' from contato as c, relacionamentocontato as r' +
+    ' where r.idFornecedor = :id and r.idContato = :idContato and r.idContato = c.id';
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AIdFornecedor;
@@ -151,7 +154,6 @@ begin
       Begin
         contato := TContatoModel.Create();
         contato.Id := query.FieldByName('id').AsInteger;
-        contato.IdCliente := query.FieldByName('IdFornecedor').AsInteger;
         contato.CEP := Trim(query.FieldByName('CEP').AsString);
         contato.Rua := Trim(query.FieldByName('rua').AsString);
         contato.Cidade := Trim(query.FieldByName('cidade').AsString);
@@ -176,34 +178,41 @@ end;
 
 function TContatoDao.Criar(AContato: TContatoModel): Boolean;
 var
-  query: TZQuery;
-  sql: String;
+  queryInsert, querySelect: TZQuery;
+  sqlInsert, sqlSelect: String;
   nenhum: Integer;
   email: TEmailModel;
   telefone: TTelefoneModel;
+  relacionamento: TRelacionamentoContatoModel;
 begin
   Result := True;
   nenhum := 0;
 
-  sql := 'Insert Into Contato (id, bairro, CEP, cidade, complemento, numero, rua)'
-    + 'Values (:id, :bairro, :CEP, :cidade, :complemento, :numero, :rua)';
+  sqlInsert :=
+    'Insert Into Contato (bairro, CEP, cidade, complemento, numero, rua)' +
+    'Values (:bairro, :CEP, :cidade, :complemento, :numero, :rua)';
 
-  query := CreateQuery(sql);
+  sqlSelect := 'select last_insert_id() as idContato';
+
+  queryInsert := CreateQuery(sqlInsert);
+  querySelect := CreateQuery(sqlSelect);
+
   Try
-    query.ParamByName('id').AsInteger := AContato.Id;
-    query.ParamByName('bairro').AsString := AContato.Bairro;
-    query.ParamByName('CEP').AsString := AContato.CEP;
-    query.ParamByName('cidade').AsString := AContato.Cidade;
-    query.ParamByName('complemento').AsString := AContato.Complemento;
-    query.ParamByName('numero').AsString := AContato.Numero;
-    query.ParamByName('rua').AsString := AContato.Rua;
+    queryInsert.ParamByName('bairro').AsString := AContato.Bairro;
+    queryInsert.ParamByName('CEP').AsString := AContato.CEP;
+    queryInsert.ParamByName('cidade').AsString := AContato.Cidade;
+    queryInsert.ParamByName('complemento').AsString := AContato.Complemento;
+    queryInsert.ParamByName('numero').AsString := AContato.Numero;
+    queryInsert.ParamByName('rua').AsString := AContato.Rua;
     Try
-      query.ExecSQL();
+      queryInsert.ExecSQL();
+      querySelect.Open();
 
       If (AContato.Emails.Count > nenhum) Then
       Begin
         For email In AContato.Emails Do
         Begin
+          email.IdContato := querySelect.FieldByName('idContato').AsInteger;
           If Not FEmailDao.Criar(email) Then
             raise Exception.Create('Erro ao gravar os emails');
         End;
@@ -213,19 +222,30 @@ begin
       Begin
         For telefone In AContato.Telefones Do
         Begin
+          telefone.IdContato := querySelect.FieldByName('idContato').AsInteger;
           If Not FTelefoneDao.Criar(telefone) Then
             raise Exception.Create('Erro ao gravar os telefones');
         End;
       End;
+
+      relacionamento := TRelacionamentoContatoModel.Create;
+      relacionamento.idContato := querySelect.FieldByName('idContato').AsInteger;
+      relacionamento.idCliente := AContato.idCliente;
+      relacionamento.idFornecedor := AContato.IdFornecedor;
+      FRelacionamentoDao.Criar(relacionamento);
+      relacionamento.Free;
+
     Except
       on E: Exception do
       Begin
         Result := False;
+        Conexao.Database.Rollback;
         Showmessage('Não foi possível gravar os dados de contato.');
       End;
     End;
   Finally
-    query.Free;
+    queryInsert.Free;
+    querySelect.Free;
   End;
 end;
 
