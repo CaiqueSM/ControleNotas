@@ -192,15 +192,15 @@ object frmCliente: TfrmCliente
     object mskTelefone: TMaskEdit
       Left = 310
       Top = 132
-      Width = 272
+      Width = 268
       Height = 23
       Hint = 'Telefone'
-      EditMask = '!\(99\)00000-0000;1;_'
-      MaxLength = 14
+      EditMask = '\(00\)000000009;0;'
+      MaxLength = 13
       ParentShowHint = False
       ShowHint = True
       TabOrder = 7
-      Text = '(  )     -    '
+      Text = ''
       OnKeyPress = txtCNPJCPFKeyPress
     end
     object mskCEP: TMaskEdit
