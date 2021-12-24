@@ -264,7 +264,7 @@ begin
   Begin
     If Not FController.ValidarTelefone(mskTelefone.Text) Then
     begin
-      ShowMessage('Número de telefone válido!');
+      ShowMessage('Número de telefone inválido!');
       if mskTelefone.CanFocus Then
         mskTelefone.SetFocus;
       Exit();
