@@ -48,7 +48,7 @@ var
   regex: TRegEx;
   padraoRegExTelefone: string;
 begin
-  padraoRegExTelefone := '^\([0-9]{2}\)9[0-9]{4}-[0-9]{4}$';
+  padraoRegExTelefone := '^\([0-9]{2}\)([0-9]{5}[0-9]{4})|([0-9]{4}[0-9]{4})$';
   regex := TRegEx.Create(padraoRegExTelefone);
   Result := regex.IsMatch(ATelefone);
 end;
