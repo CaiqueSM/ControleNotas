@@ -99,10 +99,11 @@ begin
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('idcontato').AsInteger := ATelefone.IdContato;
     query.ParamByName('telefone').AsString := ATelefone.Telefone;
+    query.ParamByName('idcontato').AsInteger := ATelefone.Idcontato;
     Try
       query.ExecSQL();
+
     Except
       on E: Exception do
       Begin

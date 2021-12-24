@@ -92,14 +92,15 @@ var
 begin
   Result := True;
 
-  sql := 'Insert Into email (idcontato, email)' + 'Values (:idcontato, :email)';
+  sql := 'Insert Into email (idcontato, email) Values (:idContato, :email)';
 
   query := CreateQuery(sql);
   Try
-    query.ParamByName('idcontato').AsInteger := AEmail.IdContato;
     query.ParamByName('email').AsString := AEmail.Email;
+    query.ParamByName('idContato').AsInteger := AEmail.idContato;
     Try
       query.ExecSQL();
+
     Except
       on E: Exception do
       Begin
