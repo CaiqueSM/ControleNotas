@@ -28,18 +28,19 @@ begin
 
   try
     Result := True;
-    sql := 'Insert Into relacionamentocontato(idContato, idRelacionado)' +
-      ' Values(:idContato, :idRelacionado)';
+    sql := 'Insert Into relacionamentocontato(idContato, idCliente, idFornecedor)' +
+      ' Values(:idContato, :idCliente, :idFornecedor)';
     query := CreateQuery(sql);
 
     with query do
     begin
       ParamByName('idContato').AsInteger := ARelacionamento.idContato;
-      ParamByName('idRelacionado').AsInteger := ARelacionamento.idRelacionado;
+      ParamByName('idCliente').AsInteger := ARelacionamento.idCliente;
+      ParamByName('idFornecedor').AsInteger := ARelacionamento.idFornecedor;
     end;
     try
       query.ExecSQL();
-      Conexao.Database.Commit;
+
     Except
       on E: Exception do
       Begin
