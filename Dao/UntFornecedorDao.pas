@@ -3,15 +3,14 @@ unit UntFornecedorDao;
 interface
 
 uses untbasedao, System.Generics.Collections, UntFornecedorModel,
-  UntRelacionamentoContatoModel, UntRelatorioPeriodoModel, ZDataset, Data.DB,
-  System.Classes, UntContatoDao, UntRelacionamentoContatoDao, UntConexao,
+  UntRelatorioPeriodoModel, ZDataset, Data.DB,
+  System.Classes, UntContatoDao, UntConexao,
   UntRelatorioMensalModel;
 
 type
   TFornecedorDao = class(TBaseDao)
   private
     FContatoDao: TContatoDao;
-    FRelacionamentoDao: TRelacionamentoContatoDao;
   public
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
@@ -41,12 +40,10 @@ constructor TFornecedorDao.Create(AConexao: TConexao);
 begin
   inherited Create(AConexao);
   FContatoDao := TContatoDao.Create(AConexao);
-  FRelacionamentoDao := TRelacionamentoContatoDao.Create(AConexao);
 end;
 
 destructor TFornecedorDao.Destroy;
 begin
-  FRelacionamentoDao.Free;
   FContatoDao.Free;
   inherited;
 end;
@@ -107,7 +104,7 @@ begin
 
   sql := 'select f.id, nome, CPF, CNPJ, r.idcontato as idcontato' +
     ' from Fornecedor as f, relacionamentocontato as r' +
-    ' where f.id = :id and r.idrelacionado = :id';
+    ' where f.id = :id and r.idFornecedor = :id';
 
   query := CreateQuery(sql);
   Try
@@ -118,6 +115,7 @@ begin
       if query.IsEmpty then
       begin
         Result := nil;
+        query.Close;
         query.Free;
         exit();
       end;
@@ -190,7 +188,6 @@ var
   query: TZQuery;
   sql: String;
   contato: TContatoModel;
-  relacionamento: TRelacionamentoContatoModel;
   nenhum: integer;
 begin
   Result := True;
@@ -211,13 +208,10 @@ begin
       Begin
         For contato In AFornecedor.Contatos Do
         Begin
+          contato.IdFornecedor := AFornecedor.Id;
+          contato.IdCliente := 0;
           If Not FContatoDao.Criar(contato) Then
             raise Exception.Create('Erro ao gravar os contatos');
-          relacionamento := TRelacionamentoContatoModel.Create;
-          relacionamento.idContato := contato.Id;
-          relacionamento.idRelacionado := AFornecedor.Id;
-          FRelacionamentoDao.Criar(relacionamento);
-          relacionamento.Free;
         End;
       End;
       Conexao.Database.Commit;
@@ -248,10 +242,6 @@ begin
     query.ParamByName('id').AsInteger := AIdFornecedor;
     Try
       query.ExecSQL();
-
-      If Not FContatoDao.ExcluirPorFornecedor(AIdFornecedor) Then
-        raise Exception.Create('Erro ao excluir os contatos');
-
       Conexao.Database.Commit;
     Except
       on E: Exception do
@@ -315,7 +305,7 @@ begin
     'f.cnpj else f.cpf end as "CPF/CNPJ", Nome, CEP, Rua, Bairro,' +
     ' Cidade, Numero as "Número", Complemento, Email as "E-Mail", Telefone' +
     ' from fornecedor as f, notas as n, contato as ct, email as e, telefone as t,'
-    + ' relacionamentocontato as r where f.id = ct.id and f.id = r.idrelacionado '
+    + ' relacionamentocontato as r where ct.id = r.idContato and f.id = r.idFornecedor '
     + ' and f.id = n.idFornecedor and e.idContato = ct.id and t.idcontato = ct.id and'
     + ' n.idUsuario = :id ' +
     ' and emissao between :DataInicio and :DataTermino :ordem';
@@ -343,7 +333,7 @@ begin
     'f.cnpj else f.cpf end as "CPF/CNPJ", Nome, CEP, Rua, Bairro,' +
     ' Cidade, Numero as "Número", Complemento, Email as "E-Mail", Telefone' +
     ' from fornecedor as f, notas as n, contato as ct, email as e, telefone as t,'
-    + ' relacionamentocontato as r where f.id = ct.id and f.id = r.idrelacionado '
+    + ' relacionamentocontato as r where ct.id = r.idContato and f.id = r.idFornecedor '
     + ' and f.id = n.idFornecedor and e.idContato = ct.id and t.idcontato = ct.id and'
     + ' n.idUsuario = :id and month(emissao) = :Mes :ordem';
 
