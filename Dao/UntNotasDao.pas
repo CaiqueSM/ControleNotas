@@ -131,7 +131,7 @@ begin
   query := CreateQuery(sql);
   Try
     query.ParamByName('chaveacesso').AsString := AChaveAcesso;
-    query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
+    query.ParamByName('idUsuario').AsInteger := Global.idUsuario;
     query.Open();
     if query.IsEmpty then
     begin
@@ -222,19 +222,18 @@ var
 begin
 
   sql := 'select case when c.cpf = "0" then ' +
-		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
+    'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
     'case when f.cnpj = "0" then f.cpf else f.cnpj end' +
-    ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
+    ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",' +
     'controle as "Controle", descricao as "Descrição", emissao as "Emissão",' +
-    'valor as "Valor(R$)" ' +
-    'from notas as n, fornecedor as f, cliente as c ' +
-    'where n.idUsuario = :id and n.idCliente = c.id and n.idFornecedor = f.id ' +
-    'and emissao between :DataInicio and :DataTermino :ordem';
+    'valor as "Valor(R$)" ' + 'from notas as n, fornecedor as f, cliente as c '
+    + 'where n.idUsuario = :id and n.idCliente = c.id and n.idFornecedor = f.id '
+    + 'and emissao between :DataInicio and :DataTermino :ordem';
 
   Result := CreateQuery(sql);
 
   try
-    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('id').AsInteger := (ARelatorio.idUsuario);
     Result.ParamByName('DataInicio').AsDate := (ARelatorio.DataInicio);
     Result.ParamByName('DataTermino').AsDate := (ARelatorio.DataTermino);
     Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
@@ -251,19 +250,18 @@ var
 begin
 
   sql := 'select case when c.cpf = "0" then ' +
-		'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
+    'c.cnpj else c.cpf end as "CPF/CNPJ Cliente",' +
     'case when f.cnpj = "0" then f.cpf else f.cnpj end' +
-    ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",'+
+    ' as "CPF/CNPJ Fornecedor", chaveacesso as "Chave acesso",' +
     'controle as "Controle", descricao as "Descrição", emissao as "Emissão",' +
-    'valor as "Valor(R$)" ' +
-    'from notas as n, fornecedor as f, cliente as c ' +
-    'where n.idUsuario = :id and n.idCliente = c.id and n.idFornecedor = f.id ' +
-    'and month(emissao) = :Mes :ordem';
+    'valor as "Valor(R$)" ' + 'from notas as n, fornecedor as f, cliente as c '
+    + 'where n.idUsuario = :id and n.idCliente = c.id and n.idFornecedor = f.id '
+    + 'and Year(emissao) = year(now()) and month(emissao) = :Mes :ordem';
 
   Result := CreateQuery(sql);
 
   try
-    Result.ParamByName('id').AsInteger := (ARelatorio.IdUsuario);
+    Result.ParamByName('id').AsInteger := (ARelatorio.idUsuario);
     Result.ParamByName('Mes').AsString := (intTOstr(ARelatorio.Mes));
     Result.ParamByName('ordem').AsString := (ARelatorio.Ordem);
   except
@@ -283,11 +281,11 @@ begin
 
   sql := 'select * from notas where idUsuario = :idUsuario order by id asc';
   query := CreateQuery(sql);
-  query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
+  query.ParamByName('idUsuario').AsInteger := Global.idUsuario;
   Try
     Try
       query.Open();
-      if Query.IsEmpty then
+      if query.IsEmpty then
       begin
         Result := nil;
         query.Close;
@@ -296,22 +294,19 @@ begin
       end;
       while not query.Eof do
       begin
-        with Nota do
-        begin
-          Nota := TNotasModel.Create;
-          Id := query.FieldByName('id').AsInteger;
-          Chave := query.FieldByName('chaveacesso').AsString;
-          Controle := query.FieldByName('controle').AsInteger;
-          Descricao := query.FieldByName('descricao').AsString;
-          valor := query.FieldByName('valor').AsInteger;
-          emissao := query.FieldByName('emissao').AsDateTime;
-          Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
-            .AsInteger);
-          Fornecedor := FFornecedorDao.Consultar
-            (query.FieldByName('idfornecedor').AsInteger);
-          Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
-            .AsInteger);
-        end;
+        Nota := TNotasModel.Create;
+        Nota.Id := query.FieldByName('id').AsInteger;
+        Nota.Chave := query.FieldByName('chaveacesso').AsString;
+        Nota.Controle := query.FieldByName('controle').AsInteger;
+        Nota.Descricao := query.FieldByName('descricao').AsString;
+        Nota.valor := query.FieldByName('valor').AsInteger;
+        Nota.emissao := query.FieldByName('emissao').AsDateTime;
+        Nota.Cliente := FClienteDao.Consultar(query.FieldByName('idcliente')
+          .AsInteger);
+        Nota.Fornecedor := FFornecedorDao.Consultar
+          (query.FieldByName('idfornecedor').AsInteger);
+        Nota.Usuario := FUsuarioDao.Consultar(query.FieldByName('idusuario')
+          .AsInteger);
         Result.Add(Nota);
         query.Next;
       end;
@@ -336,7 +331,7 @@ begin
   query := CreateQuery(sql);
   Try
     query.ParamByName('id').AsInteger := AIdNotas;
-    query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
+    query.ParamByName('idUsuario').AsInteger := Global.idUsuario;
     Try
       query.ExecSQL();
       Conexao.Database.Commit;
@@ -365,7 +360,7 @@ begin
   query := CreateQuery(sql);
   Try
     query.ParamByName('chave').AsString := AChaveAcesso;
-    query.ParamByName('idUsuario').AsInteger := Global.IdUsuario;
+    query.ParamByName('idUsuario').AsInteger := Global.idUsuario;
     Try
       query.ExecSQL();
       Conexao.Database.Commit;
@@ -381,6 +376,5 @@ begin
     query.Free;
   End;
 end;
-
 
 end.
