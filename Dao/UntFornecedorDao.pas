@@ -335,7 +335,8 @@ begin
     ' from fornecedor as f, notas as n, contato as ct, email as e, telefone as t,'
     + ' relacionamentocontato as r where ct.id = r.idContato and f.id = r.idFornecedor '
     + ' and f.id = n.idFornecedor and e.idContato = ct.id and t.idcontato = ct.id and'
-    + ' n.idUsuario = :id and month(emissao) = :Mes :ordem';
+    + ' n.idUsuario = :id and Year(emissao) = year(now()) and month(emissao) = :Mes '
+    + ' :ordem';
 
   Result := CreateQuery(sql);
   try
