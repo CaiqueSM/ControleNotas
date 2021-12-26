@@ -29,12 +29,12 @@ var
   sql: String;
 begin
   Result := True;
-  sql := 'Update telefone Set telefone = :telefone' + ' where idcontato = :id';
+  sql := 'Update telefone Set telefone = :telefone where idcontato = :id';
 
   query := CreateQuery(sql);
 
   Try
-    query.ParamByName('id').AsInteger := ATelefone.Id;
+    query.ParamByName('id').AsInteger := ATelefone.IdContato;
     query.ParamByName('telefone').AsString := ATelefone.Telefone;
     Try
       query.ExecSQL();

@@ -34,7 +34,7 @@ begin
   query := CreateQuery(sql);
 
   Try
-    query.ParamByName('id').AsInteger := AEmail.Id;
+    query.ParamByName('id').AsInteger := AEmail.IdContato;
     query.ParamByName('email').AsString := AEmail.Email;
     Try
       query.ExecSQL();
