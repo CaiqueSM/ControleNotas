@@ -77,7 +77,7 @@ var
 begin
   Result := false;
 
-  if (Trim(txtChaveAcesso.Text) = EmptyStr) then
+  if (txtChaveAcesso.Text = EmptyStr) then
   begin
     ShowMessage('Por favor preencher o campo de chave de acesso!');
     if txtChaveAcesso.CanFocus then
@@ -86,7 +86,7 @@ begin
   end;
 
   tamanhoChaveAcesso := txtChaveAcesso.MaxLength;
-  if (Length(Trim(txtChaveAcesso.Text)) <> tamanhoChaveAcesso) then
+  if (Length(txtChaveAcesso.Text) <> tamanhoChaveAcesso) then
   begin
     ShowMessage('Chave de acesso inválida!');
     if txtChaveAcesso.CanFocus then
