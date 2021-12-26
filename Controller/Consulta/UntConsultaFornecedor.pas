@@ -6,14 +6,14 @@ uses UntConsultaFornecedorView;
 type
   TConsultaFornecedor = class
   public
-    class function ConsultarFornecedores(): String;
+    class function ConsultarFornecedores(): TResultado;
   end;
 
 implementation
 
 { TConsultaFornecedorView }
 
-class function TConsultaFornecedor.ConsultarFornecedores: String;
+class function TConsultaFornecedor.ConsultarFornecedores: TResultado;
 var
   formulario: TFrmConsultaFornecedorView;
 begin
