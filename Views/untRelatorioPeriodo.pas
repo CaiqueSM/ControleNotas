@@ -67,6 +67,7 @@ begin
     begin
       ShowMessage('Nenhum resultado encontrado.');
       Query.Close;
+      Query.Free;
       exit();
     end;
     DBResultado.DataSource := TDataSource.Create(self);
@@ -95,6 +96,7 @@ begin
     begin
       ShowMessage('Nenhum resultado encontrado.');
       Query.Close;
+      Query.Free;
       exit();
     end;
     if Relatorio.Tipo = 'Notas fiscais' then
