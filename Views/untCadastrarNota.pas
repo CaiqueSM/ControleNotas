@@ -8,8 +8,7 @@ uses
   UntEnvironment, UntClienteController, UntFornecedorController,
   UntUsuarioController, UntMensagemUtil, UntConsultaNotas,
   UntCrudEnum, UntFormHelper, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls,
-  Vcl.ComCtrls, Vcl.ToolWin, Vcl.Mask;
+  Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.Mask, System.MaskUtils;
 
 type
   TfrmCadastrarNota = class(TForm)
@@ -49,6 +48,7 @@ type
     procedure tbuPesquisarClick(Sender: TObject);
     procedure tbuExcluirClick(Sender: TObject);
     procedure mskEmissaoExit(Sender: TObject);
+    procedure txtValorKeyPress(Sender: TObject; var Key: Char);
   private
     FNotasExistente: Boolean;
     FController: TNotasController;
@@ -190,18 +190,8 @@ begin
 end;
 
 function TfrmCadastrarNota.formatarValor(AValor: string): string;
-var
-  parteInteira, parteFracionaria: string;
-  i, j: integer;
 begin
-  Trim(AValor);
-  for i := 1 to length(AValor) - 2 do
-    if CharInSet(AValor[i], ['0' .. '9']) then
-      parteInteira := parteInteira + AValor[i];
-  for j := length(AValor) - 1 to length(AValor) do
-    if CharInSet(AValor[j], ['0' .. '9']) then
-      parteFracionaria := parteFracionaria + AValor[j];
-  Result := parteInteira + ',' + parteFracionaria;
+  Result := formatFloat('R$ ,0.00', strTOfloat(AValor));
 end;
 
 procedure TfrmCadastrarNota.FormClose(Sender: TObject;
@@ -274,7 +264,7 @@ begin
   Result.Id := StrToInt(txtCodigo.Text);
   Result.Chave := txtChaveAcesso.Text;
   Result.Controle := StrToInt(txtControle.Text);
-  Result.Valor := strTOFloat(txtValor.Text);
+  Result.Valor := strTOfloat(txtValor.Text);
   Result.Emissao := strTOdate(mskEmissao.Text);
   Result.Descricao := memoDescricao.Text;
   Result.Usuario := Usuario.Consultar(Global.Usuario);
@@ -288,6 +278,15 @@ begin
   begin
     validarCampos(Sender);
     txtValor.Text := formatarValor(txtValor.Text);
+  end;
+end;
+
+procedure TfrmCadastrarNota.txtValorKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not CharInSet(Key, ['0' .. '9', ',', '.', #8]) then
+  begin
+    ShowMessage('Digite somente números e separadores decimais.');
+    txtValor.Clear;
   end;
 end;
 
