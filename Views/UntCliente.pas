@@ -162,13 +162,13 @@ end;
 
 procedure TfrmCliente.tbuPesquisarClick(Sender: TObject);
 var
-  cliente: String;
+  Codigo: integer;
 begin
-  cliente := TConsultaCliente.ConsultarClientes();
-  If (Not cliente.IsEmpty) Then
+  Codigo := TConsultaCliente.ConsultarClientes().Index;
+  If Not (Codigo = 0) Then
   Begin
-    txtNomeCliente.Text := trim(cliente);
-    selecionarCliente(txtNomeCliente);
+    txtcodigo.Text := intTOstr(Codigo);
+    selecionarCliente(txtcodigo);
     txtcodigo.Enabled := False;
   End
   Else If txtNomeCliente.CanFocus Then
@@ -286,10 +286,7 @@ begin
       actConsultar:
         Begin
           Try
-            if txtcodigo.Text = EmptyStr then
-              cliente := FController.ConsultarPorNome(txtNomeCliente.Text)
-            else
-              cliente := FController.Consultar(StrToInt(txtcodigo.Text));
+            cliente := FController.Consultar(StrToInt(txtcodigo.Text));
             if cliente <> nil then
             begin
               FClienteExistente := Not cliente.Nome.IsEmpty;
