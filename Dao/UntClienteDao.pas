@@ -14,7 +14,6 @@ type
   public
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
-
     function ListarClientes(): TObjectList<TClienteModel>; overload;
     function ListarClientes(ARelatorio: TRelatorioPeriodoModel)
       : TZQuery; overload;
@@ -40,12 +39,10 @@ constructor TClienteDao.Create(AConexao: TConexao);
 begin
   inherited Create(AConexao);
   FContatoDao := TContatoDao.Create(AConexao);
-
 end;
 
 destructor TClienteDao.Destroy;
 begin
-
   FContatoDao.Free;
   inherited;
 end;
@@ -76,6 +73,7 @@ begin
       Begin
         For contato In ACliente.Contatos Do
         Begin
+          contato.Id := FcontatoDao.ObterIDContatoCliente(ACliente.Id);
           If Not FContatoDao.Alterar(contato) Then
             raise Exception.Create('Erro ao gravar os contatos');
         End;

@@ -75,6 +75,7 @@ begin
       Begin
         For contato In AFornecedor.Contatos Do
         Begin
+          contato.Id := FcontatoDao.ObterIDContatoFornecedor(AFornecedor.Id);
           If Not FContatoDao.Alterar(contato) Then
             raise Exception.Create('Erro ao gravar os contatos');
         End;
@@ -180,7 +181,6 @@ begin
   Finally
     query.Free;
   End;
-
 end;
 
 function TFornecedorDao.Criar(AFornecedor: TFornecedorModel): Boolean;
@@ -264,7 +264,7 @@ var
 begin
   Result := TObjectList<TFornecedorModel>.Create();
 
-  sql := 'select * from Fornecedor order by id asc ';
+  sql := 'select * from Fornecedor';
 
   query := CreateQuery(sql);
   Try
@@ -348,6 +348,5 @@ begin
   end;
 
 end;
-
 
 end.
