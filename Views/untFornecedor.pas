@@ -163,13 +163,13 @@ end;
 
 procedure TfrmFornecedor.tbuPesquisarClick(Sender: TObject);
 var
-  Fornecedor: String;
+  Codigo: integer;
 begin
-  Fornecedor := TConsultaFornecedor.ConsultarFornecedores();
-  If (Not Fornecedor.IsEmpty) Then
+  Codigo := TConsultaFornecedor.ConsultarFornecedores().Index;
+  If not(Codigo = 0) Then
   Begin
-    txtNomeFornecedor.Text := trim(Fornecedor);
-    selecionarFornecedor(txtNomeFornecedor);
+    txtcodigo.Text := intTOstr(Codigo);
+    selecionarFornecedor(txtcodigo);
     txtcodigo.Enabled := False;
   End
   Else If txtNomeFornecedor.CanFocus Then
@@ -287,10 +287,7 @@ begin
       actConsultar:
         Begin
           Try
-            if txtcodigo.Text = EmptyStr then
-              Fornecedor := FController.ConsultarPorNome(txtNomeFornecedor.Text)
-            else
-              Fornecedor := FController.Consultar(StrToInt(txtcodigo.Text));
+            Fornecedor := FController.Consultar(StrToInt(txtcodigo.Text));
             if Fornecedor <> nil then
             begin
               FFornecedorExistente := Not Fornecedor.Nome.IsEmpty;
