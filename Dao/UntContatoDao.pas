@@ -17,8 +17,9 @@ type
   public
     constructor Create(AConexao: TConexao); reintroduce;
     destructor Destroy(); override;
-
     function Criar(AContato: TContatoModel): Boolean;
+    function ObterIDContatoFornecedor(AidFornecedor: integer): integer;
+    function ObterIDContatoCliente(AidCliente: integer): integer;
     function ConsultarPorCliente(AIdCliente, AIdContato: Integer)
       : TObjectList<TContatoModel>;
     function ConsultarPorFornecedor(AIdFornecedor, AIdContato: Integer)
@@ -56,9 +57,12 @@ function TContatoDao.Alterar(AContato: TContatoModel): Boolean;
 var
   query: TZQuery;
   sql: String;
+  nenhum: integer;
+  email: TEmailModel;
+  telefone: TTelefoneModel;
 begin
   Result := True;
-
+  nenhum := 0;
   sql := 'Update contato Set bairro = :bairro, CEP = :CEP, cidade = :cidade,' +
     'complemento = :complemento, numero = :numero, rua = :rua' +
     ' Where id = :id';
@@ -74,13 +78,87 @@ begin
     query.ParamByName('rua').AsString := AContato.Rua;
     Try
       query.ExecSQL();
-      Conexao.Database.Commit;
+
+      If (AContato.Emails.Count > nenhum) Then
+      Begin
+        For email In AContato.Emails Do
+        Begin
+          email.IdContato := AContato.Id;
+          If Not FEmailDao.Alterar(email) Then
+            raise Exception.Create('Erro ao gravar os emails');
+        End;
+      End;
+
+      If (AContato.Telefones.Count > nenhum) Then
+      Begin
+        For telefone In AContato.Telefones Do
+        Begin
+          telefone.IdContato := AContato.Id;
+          If Not FTelefoneDao.Alterar(telefone) Then
+            raise Exception.Create('Erro ao gravar os telefones');
+        End;
+      End;
+
+    Conexao.Database.Commit;
+
     Except
       on E: Exception do
       Begin
         Result := False;
         Conexao.Database.Rollback;
         Showmessage('Não foi possível atualizar os dados de contato.');
+      End;
+    End;
+  Finally
+    query.Free;
+  End;
+end;
+
+function TContatoDao.ObterIDContatoCliente(AidCliente: integer): integer;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := 0;
+  sql := 'select r.idContato from relacionamentocontato as r where idCliente = :id';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('id').AsInteger := AIdCliente;
+    Try
+      query.Open();
+      if not query.IsEmpty then
+        result := query.FieldByName('idContato').AsInteger;
+    Except
+      on E: Exception do
+      Begin
+        Showmessage('Não foi possível obter o contato.');
+      End;
+    End;
+  Finally
+    query.Free;
+  End;
+
+
+end;
+
+function TContatoDao.ObterIDContatoFornecedor(AidFornecedor: integer): integer;
+var
+  query: TZQuery;
+  sql: String;
+begin
+  Result := 0;
+  sql := 'select r.idContato from relacionamentocontato as r where idFornecedor = :id';
+  query := CreateQuery(sql);
+  Try
+    query.ParamByName('id').AsInteger := AIdFornecedor;
+    Try
+      query.Open();
+      if not query.IsEmpty then
+        result := query.FieldByName('idContato').AsInteger;
+    Except
+      on E: Exception do
+      Begin
+        Showmessage('Não foi possível obter o contato.');
       End;
     End;
   Finally
