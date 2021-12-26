@@ -5,7 +5,7 @@ interface
 uses
   untBaseDao, System.Generics.Collections, UntContatoModel, System.Classes,
   UntEnumContatoDao, UntEmailDao, UntTelefoneDao, UntRelacionamentoContatoDao,
-  UntRelacionamentoContatoModel, UntConexao;
+  UntRelacionamentoContatoModel, UntConexao, Data.DB;
 
 type
 
