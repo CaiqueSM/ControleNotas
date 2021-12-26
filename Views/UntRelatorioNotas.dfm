@@ -247,8 +247,8 @@ object frmRelatorioNotas: TfrmRelatorioNotas
         Text = ''
       end
       object colunaValor: TRLDBText
-        Left = 377
-        Top = 2
+        Left = 390
+        Top = 3
         Width = 34
         Height = 16
         Alignment = taCenter
