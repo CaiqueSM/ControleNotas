@@ -73,7 +73,7 @@ begin
       Begin
         For contato In ACliente.Contatos Do
         Begin
-          contato.Id := FcontatoDao.ObterIDContatoCliente(ACliente.Id);
+          contato.Id := FContatoDao.ObterIDContatoCliente(ACliente.Id);
           If Not FContatoDao.Alterar(contato) Then
             raise Exception.Create('Erro ao gravar os contatos');
         End;
@@ -335,7 +335,8 @@ begin
     ' from cliente as c, notas as n, contato as ct, email as e, telefone as t,'
     + ' relacionamentocontato as r where ct.id = r.idContato and c.id = r.idCliente '
     + ' and c.id = n.idCliente and e.idContato = ct.id and t.idcontato = ct.id and'
-    + ' n.idUsuario = :id and Month(emissao) = :Mes :ordem';
+    + ' n.idUsuario = :id and Year(emissao) = Year(now()) and Month(emissao) = :Mes '
+    + ':ordem';
 
   Result := CreateQuery(sql);
   try
