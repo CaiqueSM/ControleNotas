@@ -138,9 +138,9 @@ object frmCadastrarNota: TfrmCadastrarNota
       Height = 23
       Hint = 'R$'
       MaxLength = 12
-      NumbersOnly = True
       TabOrder = 2
       OnExit = txtValorExit
+      OnKeyPress = txtValorKeyPress
     end
   end
   object gbDescricao: TGroupBox
