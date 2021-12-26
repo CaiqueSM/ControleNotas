@@ -9,6 +9,12 @@ uses
   UntConsultarClienteController;
 
 type
+
+  TResultado = record
+    Text: string;
+    Index: integer;
+  end;
+
   TFrmConsultaClienteView = class(TForm)
     gridClienteView: TStringGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -17,11 +23,11 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    FResultado: String;
+    FResultado: TResultado;
     FController: TConsultaClienteController;
     procedure carregarDados();
   public
-    property Resultado: String Read FResultado;
+    property Resultado: TResultado Read FResultado;
   end;
 
 var
@@ -50,10 +56,11 @@ end;
 
 procedure TFrmConsultaClienteView.gridClienteViewDblClick(Sender: TObject);
 var
-  linha: Integer;
+  linha: integer;
 begin
   linha := gridClienteView.Row;
-  FResultado := gridClienteView.Rows[linha].Text;
+  FResultado.Text := gridClienteView.Rows[linha].Text;
+  FResultado.Index := FController.ListaID[linha];
   Close();
 end;
 
@@ -68,7 +75,7 @@ procedure TFrmConsultaClienteView.carregarDados;
 var
   nomesClienteView: TStringList;
   nome: String;
-  coluna, linha: Integer;
+  coluna, linha: integer;
 begin
   coluna := 0;
   nomesClienteView := FController.ListarNomesClientes();
