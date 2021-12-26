@@ -9,6 +9,12 @@ uses
   UntConsultaFornecedorController;
 
 type
+
+  TResultado = record
+    Text: string;
+    Index: integer;
+  end;
+
   TfrmConsultaFornecedorView = class(TForm)
     gridFornecedorView: TStringGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -17,11 +23,11 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    FResultado: String;
+    FResultado: TResultado;
     FController: TConsultaFornecedorController;
     procedure carregarDados();
   public
-    property Resultado: String Read FResultado;
+    property Resultado: TResultado Read FResultado;
   end;
 
 var
@@ -52,7 +58,8 @@ var
   linha: Integer;
 begin
   linha := gridFornecedorView.Row;
-  FResultado := gridFornecedorView.Rows[linha].Text;
+  FResultado.Text := gridFornecedorView.Rows[linha].Text;
+  FResultado.Index := FController.ListaID[linha];
   Close();
 end;
 
@@ -88,6 +95,5 @@ begin
     nomesFornecedorView.Free;
   End;
 end;
-
 
 end.
