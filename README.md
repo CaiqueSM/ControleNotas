@@ -6,6 +6,7 @@ Sistema de gerenciamento de notas fiscais
 
 ### Componentes
 - Zeos
+- Fortes Report
 
 ### Fontes
 - Segoe Ui
