@@ -100,6 +100,9 @@
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <BT_BuildType>Debug</BT_BuildType>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
+        <Icon_MainIcon>ControleNotas_Icon.ico</Icon_MainIcon>
+        <UWP_DelphiLogo44>Assets\Imagens\PNG\Infográfico_v_2.png</UWP_DelphiLogo44>
+        <UWP_DelphiLogo150>Assets\Imagens\PNG\Infográfico_v_2.png</UWP_DelphiLogo150>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -142,7 +145,7 @@
             <Form>frmConsultarNotas</Form>
         </DCCReference>
         <DCCReference Include="Model\UntClienteModel.pas"/>
-        <DCCReference Include="Model\untContatoModel.pas"/>
+        <DCCReference Include="Model\UntContatoModel.pas"/>
         <DCCReference Include="Model\UntEmailModel.pas"/>
         <DCCReference Include="Model\UntFornecedorModel.pas"/>
         <DCCReference Include="Model\untNotasModel.pas"/>
@@ -251,6 +254,13 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
+                <DeployFile LocalName="Assets\Imagens\PNG\Infográfico_v_2.png" Configuration="Debug" Class="UWP_DelphiLogo44">
+                    <Platform Name="Win32">
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="bin\ControleNotas.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>ControleNotas.exe</RemoteName>
